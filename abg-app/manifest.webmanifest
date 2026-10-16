@@ -1,0 +1,15 @@
+{
+  "name": "Anxious Black Girls®",
+  "short_name": "ABG",
+  "description": "Daily affirmations and mental health education for anxious Black women and girls.",
+  "start_url": "./#today",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#BB831D",
+  "theme_color": "#BB831D",
+  "icons": [
+    { "src": "assets/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "assets/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
