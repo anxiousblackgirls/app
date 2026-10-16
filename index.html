@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Anxious Black Girls®</title>
+<meta name="description" content="Daily affirmations and mental health education for anxious Black women and girls.">
+<meta name="theme-color" content="#BB831D">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="ABG">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="assets/icon-192.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<!-- APP-BODY-START -->
+<div id="splash" class="splash" role="button" tabindex="0" aria-label="Open app">
+  <img src="assets/logo-stacked-url.png" alt="Anxious Black Girls®, www.anxiousblackgirls.com">
+</div>
+
+<div class="shell">
+  <header class="topbar">
+    <a class="logo-link" href="#today"><img class="logo" src="assets/logo-header.png" alt="Anxious Black Girls® home"></a>
+    <a class="pill" href="#help">Help now</a>
+  </header>
+  <main id="view" tabindex="-1">
+    <p class="empty">Loading…</p>
+  </main>
+</div>
+
+<nav class="tabbar" aria-label="Main">
+  <div class="inner">
+    <a class="tab" href="#today" data-tab="today">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>Today</a>
+    <a class="tab" href="#learn" data-tab="learn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2z"/><path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/></svg>Learn</a>
+    <a class="tab" href="#journal" data-tab="journal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>Journal</a>
+    <a class="tab" href="#saved" data-tab="saved">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>Saved</a>
+    <a class="tab" href="#help" data-tab="help">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><path d="M4.9 4.9l4.3 4.3M14.8 14.8l4.3 4.3M14.8 9.2l4.3-4.3M4.9 19.1l4.3-4.3"/></svg>Help</a>
+  </div>
+</nav>
+
+<div id="welcome" class="welcome" role="dialog" aria-modal="true" aria-labelledby="welcome-title" hidden>
+  <div class="welcome-card">
+    <h2 id="welcome-title">Welcome to the Anxious Black Girls® App</h2>
+    <p>This app is here to help you learn, reflect, and feel less alone. It offers education and encouragement, not therapy or medical advice.</p>
+    <p>Your journal and saved items stay on this phone, and no one else can read them.</p>
+    <p><strong>If you're in crisis, call or text 988 anytime.</strong></p>
+    <p>By continuing, you agree to our Terms of Use and Privacy Policy.</p>
+    <div class="legal-links">
+      <a href="https://www.anxiousblackgirls.com/terms-of-use" target="_blank" rel="noopener">Terms of Use</a>
+      <a href="https://www.anxiousblackgirls.com/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a>
+      <a href="https://www.anxiousblackgirls.com/medical-disclaimer" target="_blank" rel="noopener">Medical Disclaimer</a>
+    </div>
+    <button id="welcome-ok" class="btn dark">I understand</button>
+  </div>
+</div>
+
+<div id="toast" class="toast" role="status" hidden></div>
+<script src="app.js"></script>
+<!-- APP-BODY-END -->
+</body>
+</html>
