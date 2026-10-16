@@ -199,7 +199,7 @@
     var bodyEl = document.getElementById('article-body');
     function fill(md) { bodyEl.innerHTML = renderMarkdown(md); }
     if (articleCache[id]) { fill(articleCache[id]); return; }
-    fetch('content/articles/' + encodeURIComponent(id) + '.md')
+    fetch(encodeURIComponent(id) + '.md')
       .then(function (r) { if (!r.ok) throw new Error(); return r.text(); })
       .then(function (md) { articleCache[id] = md; if (location.hash === '#article-' + id) fill(md); })
       .catch(function () { bodyEl.innerHTML = '<p>This article didn\'t load. Check your connection and try again.</p>'; });
@@ -387,9 +387,9 @@
 
   // ---------- start ----------
   Promise.all([
-    fetch('content/affirmations.json').then(function (r) { return r.json(); }),
-    fetch('content/articles.json').then(function (r) { return r.json(); }),
-    fetch('content/journal-prompts.json').then(function (r) { return r.json(); }).catch(function () { return []; })
+    fetch('affirmations.json').then(function (r) { return r.json(); }),
+    fetch('articles.json').then(function (r) { return r.json(); }),
+    fetch('journal-prompts.json').then(function (r) { return r.json(); }).catch(function () { return []; })
   ]).then(function (res) {
     AFFIRMATIONS = res[0]; DATA = res[1]; PROMPTS = res[2];
     window.addEventListener('hashchange', route);

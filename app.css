@@ -1,10 +1,10 @@
 /* Fonts ship with the app (SIL Open Font License), so no outside font service is contacted. */
-@font-face { font-family: 'DM Sans'; font-weight: 400; font-display: swap; src: url('assets/fonts/dm-sans-latin-400-normal.woff2') format('woff2'); }
-@font-face { font-family: 'DM Sans'; font-weight: 500; font-display: swap; src: url('assets/fonts/dm-sans-latin-500-normal.woff2') format('woff2'); }
-@font-face { font-family: 'DM Sans'; font-weight: 700; font-display: swap; src: url('assets/fonts/dm-sans-latin-700-normal.woff2') format('woff2'); }
-@font-face { font-family: 'Montserrat'; font-weight: 600; font-display: swap; src: url('assets/fonts/montserrat-latin-600-normal.woff2') format('woff2'); }
-@font-face { font-family: 'Montserrat'; font-weight: 700; font-display: swap; src: url('assets/fonts/montserrat-latin-700-normal.woff2') format('woff2'); }
-@font-face { font-family: 'Montserrat'; font-weight: 800; font-display: swap; src: url('assets/fonts/montserrat-latin-800-normal.woff2') format('woff2'); }
+@font-face { font-family: 'DM Sans'; font-weight: 400; font-display: swap; src: url('dm-sans-latin-400-normal.woff2') format('woff2'); }
+@font-face { font-family: 'DM Sans'; font-weight: 500; font-display: swap; src: url('dm-sans-latin-500-normal.woff2') format('woff2'); }
+@font-face { font-family: 'DM Sans'; font-weight: 700; font-display: swap; src: url('dm-sans-latin-700-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Montserrat'; font-weight: 600; font-display: swap; src: url('montserrat-latin-600-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Montserrat'; font-weight: 700; font-display: swap; src: url('montserrat-latin-700-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Montserrat'; font-weight: 800; font-display: swap; src: url('montserrat-latin-800-normal.woff2') format('woff2'); }
 
 /* Layout: one phone-width column, sticky logo bar on top, tab bar fixed to the bottom. Single warm light theme by choice (brand). */
 :root {

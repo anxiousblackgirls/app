@@ -1,10 +1,10 @@
 // Lets the app open without internet. Always tries the network first so new content shows up right away.
-var CACHE = 'abg-v4';
+var CACHE = 'abg-v5';
 var CORE = [
   './', 'index.html', 'app.css', 'app.js', 'manifest.webmanifest',
-  'content/affirmations.json', 'content/articles.json', 'content/journal-prompts.json',
-  'assets/logo-header.png', 'assets/logo-stacked-url.png', 'assets/icon-192.png',
-  'assets/fonts/dm-sans-latin-400-normal.woff2', 'assets/fonts/dm-sans-latin-700-normal.woff2', 'assets/fonts/montserrat-latin-800-normal.woff2'
+  affirmations.json', articles.json', journal-prompts.json',
+  'logo-header.png', 'logo-stacked-url.png', 'icon-192.png',
+  'dm-sans-latin-400-normal.woff2', 'dm-sans-latin-700-normal.woff2', 'montserrat-latin-800-normal.woff2'
 ];
 
 self.addEventListener('install', function (e) {
