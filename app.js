@@ -247,6 +247,40 @@
 
   function journalEntries() { return store.get('abg.journal', []); }
 
+  // Full-screen pause shown once per journal visit when crisis words appear. Runs only on this phone.
+  var pauseShownThisVisit = false;
+  function showPause(onContinue) {
+    if (document.getElementById('crisis-pause')) return;
+    pauseShownThisVisit = true;
+    var el = document.createElement('div');
+    el.id = 'crisis-pause';
+    el.className = 'pause';
+    el.setAttribute('role', 'alertdialog');
+    el.setAttribute('aria-modal', 'true');
+    el.setAttribute('aria-labelledby', 'pause-title');
+    el.innerHTML =
+      '<div class="pause-card">' +
+        '<h2 id="pause-title" tabindex="-1">You don\'t have to carry this alone.</h2>' +
+        '<p>It sounds like you may be going through something really heavy right now. Please reach out for support.</p>' +
+        '<div class="pause-actions">' +
+          '<a class="crisis primary" href="tel:911"><span class="circle">' + ICON.phone + '</span><span><span class="big" style="display:block">Call 911</span><span class="small">If you are in danger right now</span></span></a>' +
+          '<a class="crisis primary" href="tel:988"><span class="circle">' + ICON.phone + '</span><span><span class="big" style="display:block">Call or text 988</span><span class="small">Suicide &amp; Crisis Lifeline, 24/7</span></span></a>' +
+          '<a class="crisis secondary" href="sms:741741"><span class="circle">' + ICON.chat + '</span><span><span class="big" style="display:block">Text HOME to 741741</span><span class="small">Crisis Text Line, 24/7</span></span></a>' +
+        '</div>' +
+        '<div class="pause-notice">' +
+          '<strong>This app is not monitored.</strong> No one at Anxious Black Girls® can see what you write, respond to it, or send help. If you are in danger or thinking about ending your life, contact one of the resources above now.' +
+        '</div>' +
+        '<p class="pause-legal">Anxious Black Girls® provides education and self-reflection tools only. This app is not a crisis service and does not provide medical advice, diagnosis, or treatment. It does not replace care from a licensed professional. Use of this app is subject to our Terms of Use, Privacy Policy, and Medical Disclaimer.</p>' +
+        '<button id="pause-continue" class="btn">I\'m safe right now. Keep writing.</button>' +
+      '</div>';
+    document.body.appendChild(el);
+    document.getElementById('pause-title').focus();
+    document.getElementById('pause-continue').addEventListener('click', function () {
+      el.parentNode.removeChild(el);
+      if (onContinue) onContinue();
+    });
+  }
+
   function crisisBanner() {
     return '<section class="crisis-banner" role="alert">' +
       '<strong>You don\'t have to go through this alone.</strong>' +
@@ -289,8 +323,15 @@
     var usePrompt = true;
     var ta = document.getElementById('journal-text');
     var alertBox = document.getElementById('journal-alert');
-    function check() { alertBox.innerHTML = CRISIS_WORDS.test(ta.value) ? crisisBanner() : ''; }
-    ta.addEventListener('input', function () { store.set('abg.journalDraft', ta.value); check(); });
+    function check(fromTyping) {
+      var hit = CRISIS_WORDS.test(ta.value);
+      alertBox.innerHTML = hit ? crisisBanner() : '';
+      if (hit && fromTyping && !pauseShownThisVisit) {
+        ta.blur();
+        showPause(function () { ta.focus(); });
+      }
+    }
+    ta.addEventListener('input', function () { store.set('abg.journalDraft', ta.value); check(true); });
     check();
     document.getElementById('journal-free').addEventListener('click', function () {
       usePrompt = !usePrompt;
@@ -307,7 +348,10 @@
       store.set('abg.journalDraft', '');
       var flagged = CRISIS_WORDS.test(text);
       viewJournal();
-      if (flagged) document.getElementById('journal-alert').innerHTML = crisisBanner();
+      if (flagged) {
+        document.getElementById('journal-alert').innerHTML = crisisBanner();
+        if (!pauseShownThisVisit) showPause();
+      }
       toast('Entry saved on this phone');
     });
     var copyBtn = document.getElementById('journal-copy');
@@ -440,7 +484,7 @@
     if (h === 'learn') { tab = 'learn'; viewLearn(); }
     else if (h.indexOf('topic-') === 0) { tab = 'learn'; viewTopic(h.slice(6)); }
     else if (h.indexOf('article-') === 0) { tab = 'learn'; viewArticle(h.slice(8)); }
-    else if (h === 'journal') { tab = 'journal'; viewJournal(); }
+    else if (h === 'journal') { tab = 'journal'; pauseShownThisVisit = false; viewJournal(); }
     else if (h === 'saved') { tab = 'saved'; viewSaved(); }
     else if (h === 'help') { tab = 'help'; viewHelp(); }
     else if (h === 'about') { tab = 'about'; viewAbout(); }
