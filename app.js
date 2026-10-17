@@ -52,6 +52,7 @@
     out: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg>',
     phone: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>',
     pen: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>',
+    close: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>',
     chat: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>'
   };
 
@@ -90,8 +91,137 @@
   }
 
   // ---------- share ----------
+  // ---------- branded share image ----------
+  var SHARE_SIZES = { post: [1080, 1080], story: [1080, 1920] };
+  var logoImg = null;
+  function loadLogo() {
+    if (logoImg) return Promise.resolve(logoImg);
+    return new Promise(function (resolve, reject) {
+      var im = new Image();
+      im.onload = function () { logoImg = im; resolve(im); };
+      im.onerror = reject;
+      im.src = 'logo-stacked.png';
+    });
+  }
+  function wrapLines(ctx, text, maxW) {
+    var words = text.split(/\s+/), lines = [], line = '';
+    words.forEach(function (w) {
+      var test = line ? line + ' ' + w : w;
+      if (ctx.measureText(test).width > maxW && line) { lines.push(line); line = w; } else { line = test; }
+    });
+    if (line) lines.push(line);
+    return lines;
+  }
+  function makeShareImage(text, format) {
+    var size = SHARE_SIZES[format] || SHARE_SIZES.post, W = size[0], H = size[1];
+    var fontsReady = (document.fonts && document.fonts.load)
+      ? Promise.all([document.fonts.load('800 80px Montserrat'), document.fonts.load('700 36px "DM Sans"')]).catch(function () {})
+      : Promise.resolve();
+    return Promise.all([loadLogo(), fontsReady]).then(function (res) {
+      var logo = res[0];
+      var c = document.createElement('canvas'); c.width = W; c.height = H;
+      var ctx = c.getContext('2d');
+      var ink = '#2B2118', pad = 96;
+      ctx.fillStyle = '#BB831D'; ctx.fillRect(0, 0, W, H);
+      // inner border
+      ctx.strokeStyle = 'rgba(43,33,24,0.35)'; ctx.lineWidth = 4;
+      ctx.strokeRect(40, 40, W - 80, H - 80);
+      // logo
+      var lw = format === 'story' ? 560 : 420, lh = lw * logo.height / logo.width;
+      var logoY = format === 'story' ? 220 : 110;
+      ctx.drawImage(logo, (W - lw) / 2, logoY, lw, lh);
+      // label
+      ctx.fillStyle = ink; ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+      ctx.font = '700 34px "DM Sans", Arial, sans-serif';
+      var labelY = logoY + lh + (format === 'story' ? 150 : 80);
+      if ('letterSpacing' in ctx) ctx.letterSpacing = '4px';
+      ctx.fillText('TO MY ANXIOUS BLACK GIRL,', W / 2, labelY);
+      if ('letterSpacing' in ctx) ctx.letterSpacing = '0px';
+      // affirmation, shrink to fit
+      var footerTop = H - (format === 'story' ? 260 : 170);
+      var areaTop = labelY + 50, areaH = footerTop - areaTop - 40;
+      var fs = format === 'story' ? 92 : 80, lines, lineH;
+      do {
+        ctx.font = '800 ' + fs + 'px Montserrat, Arial, sans-serif';
+        lines = wrapLines(ctx, text, W - pad * 2);
+        lineH = fs * 1.22;
+        if (lines.length * lineH <= areaH) break;
+        fs -= 4;
+      } while (fs > 36);
+      var startY = areaTop + (areaH - lines.length * lineH) / 2 + fs;
+      lines.forEach(function (l, i) { ctx.fillText(l, W / 2, startY + i * lineH); });
+      // footer
+      ctx.font = '700 34px "DM Sans", Arial, sans-serif';
+      ctx.fillText('Your daily affirmation, free at', W / 2, footerTop + 30);
+      ctx.font = '800 40px Montserrat, Arial, sans-serif';
+      ctx.fillText('app.anxiousblackgirls.com', W / 2, footerTop + 86);
+      return new Promise(function (resolve) { c.toBlob(resolve, 'image/png'); });
+    });
+  }
+
+  function openShareSheet(aff) {
+    var format = 'post', blob = null, url = null;
+    var caption = '"' + aff.text + '" Today\'s affirmation from Anxious Black Girls®. Get yours free at app.anxiousblackgirls.com';
+    var el = document.createElement('div');
+    el.className = 'share-sheet';
+    el.setAttribute('role', 'dialog'); el.setAttribute('aria-modal', 'true'); el.setAttribute('aria-labelledby', 'share-title');
+    el.innerHTML =
+      '<div class="share-card">' +
+        '<div class="share-head"><h2 id="share-title">Share today\'s affirmation</h2>' +
+        '<button class="icon-btn" id="share-close" aria-label="Close">' + ICON.close + '</button></div>' +
+        '<div class="share-toggle" role="group" aria-label="Image size">' +
+          '<button class="btn small" data-format="post" aria-pressed="true">Post</button>' +
+          '<button class="btn small" data-format="story" aria-pressed="false">Story</button>' +
+        '</div>' +
+        '<div class="share-preview"><img id="share-img" alt="Branded image of today\'s affirmation"></div>' +
+        '<button id="share-go" class="btn dark">' + ICON.share + 'Share image</button>' +
+        '<a id="share-save" class="btn" download="anxious-black-girls-affirmation.png" hidden>Save image</a>' +
+        '<button id="share-text" class="btn">Share as text</button>' +
+        '<p class="mind-note">Post it to Instagram, Facebook, TikTok, WhatsApp, or send it to a friend.</p>' +
+      '</div>';
+    document.body.appendChild(el);
+    var img = el.querySelector('#share-img');
+    function close() { if (url) URL.revokeObjectURL(url); el.parentNode && el.parentNode.removeChild(el); }
+    function render() {
+      img.removeAttribute('src');
+      makeShareImage(aff.text, format).then(function (b) {
+        blob = b;
+        if (url) URL.revokeObjectURL(url);
+        url = URL.createObjectURL(b);
+        img.src = url;
+        el.querySelector('#share-save').href = url;
+      }).catch(function () { toast('Couldn\'t make the image. Try Share as text.'); });
+    }
+    function canShareFile() {
+      if (!blob || !navigator.canShare) return false;
+      try { return navigator.canShare({ files: [new File([blob], 'affirmation.png', { type: 'image/png' })] }); } catch (e) { return false; }
+    }
+    el.querySelector('#share-close').addEventListener('click', close);
+    el.addEventListener('click', function (e) { if (e.target === el) close(); });
+    Array.prototype.forEach.call(el.querySelectorAll('[data-format]'), function (b) {
+      b.addEventListener('click', function () {
+        format = b.getAttribute('data-format');
+        Array.prototype.forEach.call(el.querySelectorAll('[data-format]'), function (x) { x.setAttribute('aria-pressed', x === b); });
+        render();
+      });
+    });
+    el.querySelector('#share-go').addEventListener('click', function () {
+      if (!blob) return;
+      if (canShareFile()) {
+        var file = new File([blob], 'anxious-black-girls-affirmation.png', { type: 'image/png' });
+        navigator.share({ files: [file], text: caption }).catch(function () {});
+      } else {
+        el.querySelector('#share-save').hidden = false;
+        toast('Tap "Save image," then post it from your photos.');
+      }
+    });
+    el.querySelector('#share-text').addEventListener('click', function () { shareAffirmation(aff.text); });
+    render();
+    el.querySelector('#share-close').focus();
+  }
+
   function shareAffirmation(text) {
-    var msg = '"' + text + '" Today\'s affirmation from Anxious Black Girls® anxiousblackgirls.com';
+    var msg = '"' + text + '" Today\'s affirmation from Anxious Black Girls®. Get yours free at app.anxiousblackgirls.com';
     if (navigator.share) {
       navigator.share({ text: msg }).catch(function () { copy(msg); });
     } else { copy(msg); }
@@ -161,7 +291,7 @@
       this.querySelector('span').textContent = on ? 'Saved' : 'Save';
       toast(on ? 'Saved to your favorites' : 'Removed from favorites');
     });
-    document.getElementById('share-aff').addEventListener('click', function () { shareAffirmation(aff.text); });
+    document.getElementById('share-aff').addEventListener('click', function () { openShareSheet(aff); });
     document.getElementById('topic-pick').addEventListener('change', function () {
       if (this.value) location.hash = '#topic-' + this.value;
     });
