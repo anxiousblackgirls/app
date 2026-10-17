@@ -34,6 +34,10 @@ The `id` must match the file name without `.md`. The `topic` must be one of: anx
 
 Open `about.json`. You can edit the tagline, intro, founder, the list of offerings (each has a name, a short blurb, and a link), social links, and contact info. Keep the quote marks and commas in the same places.
 
+## Change the FAQ
+
+Open `faq.json`. Each question has a `q` (the question) and an `a` (the answer). Keep the quote marks and commas in the same places.
+
 ## Add a new topic
 
 Add a line to the `topics` list in `articles.json` with an `id`, `name`, `blurb`, and a brand `color`.
