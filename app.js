@@ -133,7 +133,7 @@
         '<h2 id="mind-title" class="section-title">What\'s on your mind today?</h2>' +
         (PROMPTS.length ? '<p class="mind-prompt">' + esc(PROMPTS[n % PROMPTS.length]) + '</p>' : '') +
         '<a class="btn dark" href="#journal">' + ICON.pen + 'Write about it in your journal</a>' +
-        '<p class="mind-note">Private and saved only on this phone.</p>' +
+        '<p class="mind-note">Only you can read what you write. No one else can see it, not even us.</p>' +
       '</section>' +
       '<h2 class="section-title">Today\'s read</h2>' + articleRow(art) +
       '<a class="row-link" href="#learn"><span class="text"><span class="title">Browse all topics</span><span class="lede" style="margin:0">' + DATA.topics.length + ' topics, from anxiety and perimenopause to boundaries and grief</span></span>' + ICON.chev + '</a>' +
