@@ -31,7 +31,7 @@ Breathe in for four counts and out for six. Longer exhales tell your body it is 
 
 Pick one skill from this article and practice it once a day for a week, even when you're calm. Skills work best in a crisis when they're already familiar.
 
-If urges to harm yourself feel strong, call or text 988 now. You don't have to wait until it gets worse.
+If urges to harm yourself feel strong, call 911 or call/text 988 now. You don't have to wait until it gets worse.
 
 ### Sources
 

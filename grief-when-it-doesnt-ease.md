@@ -25,7 +25,7 @@ Answer these honestly:
 
 If you answered yes to several, reach out to a therapist and say, "I lost someone and I'm not able to function the way I used to." Ask if they have experience with grief.
 
-If you are having thoughts of ending your life to be with the person you lost, call or text 988 right now.
+If you are having thoughts of ending your life to be with the person you lost, call 911 or call/text 988 right now.
 
 ### Sources
 

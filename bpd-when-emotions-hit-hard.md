@@ -26,7 +26,7 @@ BPD was once seen as hard to treat. That has changed. In a study that followed p
 - **Write a coping card.** List three things that help you calm down and two people you can call. Keep it in your phone notes.
 - **Search for DBT near you** or online, and write down one program to contact this week.
 
-If you are thinking about hurting yourself, call or text 988 right now, or go to the Help tab.
+If you are thinking about hurting yourself, call 911 or call/text 988 right now, or go to the Help tab.
 
 ### Sources
 

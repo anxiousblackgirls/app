@@ -25,7 +25,7 @@ Postpartum depression is not a sign you are a bad mother. It is a medical condit
 - **Tell your OB or your baby's pediatrician.** Pediatricians screen mothers too, and they can connect you with care.
 - **Look for Black maternal support groups** through your doula, hospital, or community organizations.
 
-If you have thoughts of harming yourself or your baby, call or text 988 or go to the nearest emergency room now.
+If you have thoughts of harming yourself or your baby, call 911 or call/text 988 or go to the nearest emergency room now.
 
 ### Sources
 

@@ -215,7 +215,7 @@
   function crisisBanner() {
     return '<section class="crisis-banner" role="alert">' +
       '<strong>You don\'t have to go through this alone.</strong>' +
-      '<p>If you\'re thinking about hurting yourself or ending your life, reach out right now. Call or text <strong>988</strong>, or text <strong>HOME</strong> to <strong>741741</strong>. If you\'re in danger, call <strong>911</strong>.</p>' +
+      '<p>If you\'re thinking about hurting yourself or ending your life, reach out right now. Call <strong>911</strong> or call/text <strong>988</strong>. You can also text <strong>HOME</strong> to <strong>741741</strong>.</p>' +
       '<a class="btn solid" href="#help">See all help options</a></section>';
   }
 
@@ -234,7 +234,7 @@
         '<button id="journal-free" class="btn">Write without the prompt</button></div>' +
       '</section>' +
       '<div id="journal-alert"></div>' +
-      '<p class="disclaimer">This journal is private and not monitored. If you\'re in crisis, call or text 988. Deleting the app or clearing your browser data erases your entries, so use "Copy all entries" to keep a backup.</p>' +
+      '<p class="disclaimer">This journal is private and not monitored. If you\'re in crisis, call 911 or call/text 988. Deleting the app or clearing your browser data erases your entries, so use "Copy all entries" to keep a backup.</p>' +
       '<div class="row-between"><h2 class="section-title">Past entries</h2>' +
         (entries.length ? '<button id="journal-copy" class="btn small">Copy all entries</button>' : '') + '</div>' +
       (entries.length ? '<div class="stack">' + entries.map(function (e) {
@@ -332,7 +332,7 @@
         '<a class="row-link" href="' + esc(a.contact.url) + '" target="_blank" rel="noopener"><span class="text"><span class="title">Contact us</span><span class="lede" style="margin:0">' + esc(a.contact.email) + '</span></span>' + ICON.out + '</a>' +
         '<a class="row-link" href="' + esc(a.website) + '" target="_blank" rel="noopener"><span class="text"><span class="title">Visit anxiousblackgirls.com</span></span>' + ICON.out + '</a>' +
       '</div>' +
-      '<p class="disclaimer">This app offers education and encouragement. It is not therapy. If you\'re in crisis, call or text 988.</p>' +
+      '<p class="disclaimer">This app offers education and encouragement. It is not therapy. If you\'re in crisis, call 911 or call/text 988.</p>' +
       '<div class="legal-links">' +
         '<a href="https://www.anxiousblackgirls.com/medical-disclaimer" target="_blank" rel="noopener">Medical Disclaimer</a>' +
         '<a href="https://www.anxiousblackgirls.com/terms-of-use" target="_blank" rel="noopener">Terms of Use</a>' +
@@ -435,7 +435,7 @@
     window.addEventListener('hashchange', route);
     route();
   }).catch(function () {
-    view.innerHTML = '<p class="empty">Something didn\'t load. Check your connection and refresh. If you need help right now, call or text 988.</p>';
+    view.innerHTML = '<p class="empty">Something didn\'t load. Check your connection and refresh. If you need help right now, call 911 or call/text 988.</p>';
   });
 
   if ('serviceWorker' in navigator) {

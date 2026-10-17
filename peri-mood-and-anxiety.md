@@ -27,7 +27,7 @@ Therapy helps, and so can medication. For some women, hormone therapy eases mood
 - **Ask directly:** "Could my mood changes be related to perimenopause? What are my options, including hormone therapy?"
 - **Tell one person what's going on.** "I'm in a hormonal season and I'm not myself some days" helps the people close to you respond with patience instead of hurt.
 
-If you're having thoughts of suicide, call or text 988 right now.
+If you're having thoughts of suicide, call 911 or call/text 988 right now.
 
 ### Sources
 

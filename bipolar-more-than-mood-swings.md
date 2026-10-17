@@ -27,7 +27,7 @@ Treatment for bipolar disorder is different from treatment for depression alone.
 - **Bring it to your provider** and ask, "Could this be bipolar disorder rather than depression alone?"
 - **Ask for a second opinion** if you were given a diagnosis like schizophrenia and it doesn't match your experience.
 
-If you are having thoughts of suicide, call or text 988 right now.
+If you are having thoughts of suicide, call 911 or call/text 988 right now.
 
 ### Sources
 

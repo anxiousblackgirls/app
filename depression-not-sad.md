@@ -31,7 +31,7 @@ Depression responds to treatment. Therapy, medication, or both help most people 
 - **Do one small thing.** Depression shrinks your world. Pick one tiny action today: a shower, a five-minute walk outside, or a text to a friend.
 - **Say it out loud to one person.** "I think I might be depressed" is a strong first sentence.
 
-If you are having thoughts of suicide, call or text 988 right now. You can also go to the Help tab.
+If you are having thoughts of suicide, call 911 or call/text 988 right now. You can also go to the Help tab.
 
 ### Sources
 
