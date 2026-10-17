@@ -6,6 +6,7 @@
   var toastEl = document.getElementById('toast');
   var AFFIRMATIONS = [];
   var PROMPTS = [];
+  var ABOUT = null;
   var DATA = { topics: [], articles: [] };
   var articleCache = {};
 
@@ -128,7 +129,8 @@
         '</div>' +
       '</section>' +
       '<h2 class="section-title">Today\'s read</h2>' + articleRow(art) +
-      '<a class="row-link" href="#learn"><span class="text"><span class="title">Browse all topics</span><span class="lede" style="margin:0">Anxiety, depression, bipolar, BPD, ADHD, autism and more</span></span>' + ICON.chev + '</a>';
+      '<a class="row-link" href="#learn"><span class="text"><span class="title">Browse all topics</span><span class="lede" style="margin:0">' + DATA.topics.length + ' topics, from anxiety and perimenopause to boundaries and grief</span></span>' + ICON.chev + '</a>' +
+      '<a class="row-link about-card" href="#about"><span class="text"><span class="title">About Anxious Black Girls®</span><span class="lede" style="margin:0">Therapy, our social club, the podcast and more</span></span>' + ICON.chev + '</a>';
 
     document.getElementById('save-aff').addEventListener('click', function () {
       var on = toggle('abg.savedAffirmations', aff.text);
@@ -302,6 +304,42 @@
     });
   }
 
+  // ---------- about / resources (content lives in about.json) ----------
+  function viewAbout() {
+    var a = ABOUT;
+    if (!a) {
+      view.innerHTML = '<div><h1 class="page-title">About Anxious Black Girls®</h1></div>' +
+        '<a class="row-link" href="https://www.anxiousblackgirls.com" target="_blank" rel="noopener"><span class="text"><span class="title">Visit anxiousblackgirls.com</span></span>' + ICON.out + '</a>';
+      return;
+    }
+    function outRow(o) {
+      return '<a class="row-link" href="' + esc(o.url) + '" target="_blank" rel="noopener"><span class="text"><span class="title">' + esc(o.name) + '</span>' +
+        (o.blurb ? '<span class="lede" style="margin:0">' + esc(o.blurb) + '</span>' : '') + '</span>' + ICON.out + '</a>';
+    }
+    view.innerHTML =
+      '<div><h1 class="page-title">' + esc(a.title) + '</h1>' +
+        '<p class="about-tagline">' + esc(a.tagline) + '</p></div>' +
+      '<p class="about-intro">' + esc(a.intro) + '</p>' +
+      (a.founder ? '<a class="row-link founder" href="' + esc(a.founder.url) + '" target="_blank" rel="noopener"><span class="badge" style="background:var(--gold-soft)">DW</span><span class="text"><span class="meta">Meet the founder</span><span class="title">' + esc(a.founder.name) + '</span><span class="lede" style="margin:0">' + esc(a.founder.blurb) + '</span></span>' + ICON.out + '</a>' : '') +
+      '<h2 class="section-title">What we offer</h2>' +
+      '<div class="stack">' + (a.offerings || []).map(outRow).join('') + '</div>' +
+      '<h2 class="section-title">Follow us</h2>' +
+      '<div class="social-row">' + (a.social || []).map(function (s) {
+        return '<a class="btn" href="' + esc(s.url) + '" target="_blank" rel="noopener">' + esc(s.name) + '</a>';
+      }).join('') + '</div>' +
+      '<h2 class="section-title">Get in touch</h2>' +
+      '<div class="stack">' +
+        '<a class="row-link" href="' + esc(a.contact.url) + '" target="_blank" rel="noopener"><span class="text"><span class="title">Contact us</span><span class="lede" style="margin:0">' + esc(a.contact.email) + '</span></span>' + ICON.out + '</a>' +
+        '<a class="row-link" href="' + esc(a.website) + '" target="_blank" rel="noopener"><span class="text"><span class="title">Visit anxiousblackgirls.com</span></span>' + ICON.out + '</a>' +
+      '</div>' +
+      '<p class="disclaimer">This app offers education and encouragement. It is not therapy. If you\'re in crisis, call or text 988.</p>' +
+      '<div class="legal-links">' +
+        '<a href="https://www.anxiousblackgirls.com/medical-disclaimer" target="_blank" rel="noopener">Medical Disclaimer</a>' +
+        '<a href="https://www.anxiousblackgirls.com/terms-of-use" target="_blank" rel="noopener">Terms of Use</a>' +
+        '<a href="https://www.anxiousblackgirls.com/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a>' +
+      '</div>';
+  }
+
   function viewSaved() {
     var affs = savedAffs();
     var arts = savedArts().map(articleById).filter(Boolean);
@@ -331,7 +369,7 @@
       '<div class="stack">' +
         '<a class="row-link" href="https://therapyforblackgirls.com" target="_blank" rel="noopener"><span class="text"><span class="title">Therapy for Black Girls</span><span class="lede" style="margin:0">Directory of therapists by state</span></span>' + ICON.out + '</a>' +
         '<a class="row-link" href="https://beam.community" target="_blank" rel="noopener"><span class="text"><span class="title">BEAM</span><span class="lede" style="margin:0">Black Emotional and Mental Health Collective</span></span>' + ICON.out + '</a>' +
-        '<a class="row-link" href="https://www.anxiousblackgirls.com" target="_blank" rel="noopener"><span class="text"><span class="title">Anxious Black Girls® services</span><span class="lede" style="margin:0">Workshops, community and support</span></span>' + ICON.out + '</a>' +
+        '<a class="row-link" href="#about"><span class="text"><span class="title">Therapy with Anxious Black Girls®</span><span class="lede" style="margin:0">Our services, community and resources</span></span>' + ICON.chev + '</a>' +
       '</div>' +
       '<p class="disclaimer">This app offers education and encouragement. It is not therapy and does not replace care from a licensed professional.</p>' +
       '<div class="legal-links">' +
@@ -351,6 +389,7 @@
     else if (h === 'journal') { tab = 'journal'; viewJournal(); }
     else if (h === 'saved') { tab = 'saved'; viewSaved(); }
     else if (h === 'help') { tab = 'help'; viewHelp(); }
+    else if (h === 'about') { tab = 'about'; viewAbout(); }
     else { viewToday(); }
     Array.prototype.forEach.call(document.querySelectorAll('.tab'), function (a) {
       if (a.getAttribute('data-tab') === tab) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
@@ -389,9 +428,10 @@
   Promise.all([
     fetch('affirmations.json').then(function (r) { return r.json(); }),
     fetch('articles.json').then(function (r) { return r.json(); }),
-    fetch('journal-prompts.json').then(function (r) { return r.json(); }).catch(function () { return []; })
+    fetch('journal-prompts.json').then(function (r) { return r.json(); }).catch(function () { return []; }),
+    fetch('about.json').then(function (r) { return r.json(); }).catch(function () { return null; })
   ]).then(function (res) {
-    AFFIRMATIONS = res[0]; DATA = res[1]; PROMPTS = res[2];
+    AFFIRMATIONS = res[0]; DATA = res[1]; PROMPTS = res[2]; ABOUT = res[3];
     window.addEventListener('hashchange', route);
     route();
   }).catch(function () {

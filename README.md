@@ -28,7 +28,11 @@ Keep the quote marks and the comma at the end. The last affirmation in the list 
 { "id": "anxiety-sleep", "topic": "anxiety", "title": "Why anxiety keeps you up at night", "minutes": 3 },
 ```
 
-The `id` must match the file name without `.md`. The `topic` must be one of: anxiety, depression, bipolar, bpd, adhd, autism, audhd, relationships.
+The `id` must match the file name without `.md`. The `topic` must be one of: anxiety, depression, burnout, grief, racial-trauma, perimenopause, bipolar, bpd, adhd, autism, audhd, achieving, lgbtq, transitions, relationships, boundaries.
+
+## Change the About page
+
+Open `about.json`. You can edit the tagline, intro, founder, the list of offerings (each has a name, a short blurb, and a link), social links, and contact info. Keep the quote marks and commas in the same places.
 
 ## Add a new topic
 
