@@ -140,7 +140,7 @@
       ctx.fillStyle = ink;
       if ('letterSpacing' in ctx) ctx.letterSpacing = '0px';
       // affirmation, shrink to fit
-      var footerTop = H - (format === 'story' ? 260 : 170);
+      var footerTop = H - (format === 'story' ? 340 : 252);
       var areaTop = labelY + 50, areaH = footerTop - areaTop - 40;
       var fs = format === 'story' ? 92 : 80, lines, lineH;
       do {
@@ -157,10 +157,17 @@
       ctx.fillText('Your daily affirmation, free at', W / 2, footerTop + 30);
       ctx.font = '800 40px Montserrat, Arial, sans-serif';
       ctx.fillText('app.anxiousblackgirls.com', W / 2, footerTop + 86);
+      ctx.strokeStyle = '#BB831D'; ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.moveTo(W / 2 - 60, footerTop + 116); ctx.lineTo(W / 2 + 60, footerTop + 116); ctx.stroke();
+      ctx.fillStyle = '#8A5F12';
+      ctx.font = '700 32px "DM Sans", Arial, sans-serif';
+      ctx.fillText('@anxiousblackgirls  \u00B7  www.anxiousblackgirls.com', W / 2, footerTop + 162);
+      ctx.fillStyle = ink;
       return new Promise(function (resolve) { c.toBlob(resolve, 'image/png'); });
     });
   }
 
+  var APP_URL = 'https://app.anxiousblackgirls.com';
   function openShareSheet(aff) {
     var format = 'post', blob = null, url = null;
     var caption = '"' + aff.text + '" Today\'s affirmation from Anxious Black Girls®. Get yours free at app.anxiousblackgirls.com';
@@ -178,8 +185,16 @@
         '<div class="share-preview"><img id="share-img" alt="Branded image of today\'s affirmation"></div>' +
         '<button id="share-go" class="btn dark">' + ICON.share + 'Share image</button>' +
         '<a id="share-save" class="btn" download="anxious-black-girls-affirmation.png" hidden>Save image</a>' +
-        '<button id="share-text" class="btn">Share as text</button>' +
-        '<p class="mind-note">Post it to Instagram, Facebook, TikTok, WhatsApp, or send it to a friend.</p>' +
+        '<p class="mind-note">Tap the button above, then choose Instagram, TikTok, Messages, or Save Image.</p>' +
+        '<h3 class="share-sub">Or post a link to the app</h3>' +
+        '<div class="social-share">' +
+          '<a class="btn small" target="_blank" rel="noopener" href="https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(APP_URL) + '">Facebook</a>' +
+          '<a class="btn small" target="_blank" rel="noopener" href="https://x.com/intent/post?text=' + encodeURIComponent(caption) + '">X</a>' +
+          '<a class="btn small" target="_blank" rel="noopener" href="https://www.threads.net/intent/post?text=' + encodeURIComponent(caption) + '">Threads</a>' +
+          '<a class="btn small" target="_blank" rel="noopener" href="https://wa.me/?text=' + encodeURIComponent(caption) + '">WhatsApp</a>' +
+          '<a class="btn small" target="_blank" rel="noopener" href="https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(APP_URL) + '">LinkedIn</a>' +
+        '</div>' +
+        '<button id="share-text" class="btn">Copy or send as text</button>' +
       '</div>';
     document.body.appendChild(el);
     var img = el.querySelector('#share-img');
