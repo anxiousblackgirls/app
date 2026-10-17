@@ -112,6 +112,14 @@
       '<span class="title">' + esc(a.title) + '</span></span>' + ICON.chev + '</a>';
   }
 
+  // ---------- page navigation ----------
+  function navBar(href, label, right) {
+    return '<div class="page-nav"><a class="back-link" href="' + href + '">' + ICON.back + '<span>' + esc(label) + '</span></a>' + (right || '') + '</div>';
+  }
+  function saveArticleBtn(idAttr, on) {
+    return '<button id="' + idAttr + '" class="btn save-btn" aria-pressed="' + on + '">' + ICON.heart + '<span>' + (on ? 'Saved' : 'Save article') + '</span></button>';
+  }
+
   function viewToday() {
     var n = dayNumber();
     var aff = AFFIRMATIONS[n % AFFIRMATIONS.length];
@@ -161,6 +169,7 @@
 
   function viewLearn() {
     view.innerHTML =
+      navBar('#today', 'Home') +
       '<div><h1 class="page-title">Learn</h1><p class="lede">What it is, how it shows up in us, and why it so often gets missed.</p></div>' +
       '<label class="search" for="search-input">' +
         '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>' +
@@ -194,7 +203,7 @@
     if (!t) { location.hash = '#learn'; return; }
     var list = DATA.articles.filter(function (a) { return a.topic === id; });
     view.innerHTML =
-      '<div class="article-top"><a class="icon-btn" href="#learn" aria-label="Back to Learn">' + ICON.back + '</a></div>' +
+      navBar('#learn', 'Back to Learn') +
       '<div><h1 class="page-title">' + esc(t.name) + '</h1><p class="lede">' + esc(t.blurb) + '</p></div>' +
       '<div class="stack">' + list.map(articleRow).join('') + '</div>';
   }
@@ -205,16 +214,24 @@
     var t = topicById(a.topic) || { name: '', color: '#F0DFB8', id: '' };
     var isSaved = savedArts().indexOf(id) !== -1;
     view.innerHTML =
-      '<div class="article-top"><a class="icon-btn" href="#topic-' + esc(t.id) + '" aria-label="Back to ' + esc(t.name) + '">' + ICON.back + '</a>' +
-      '<button id="save-art" class="icon-btn" aria-pressed="' + isSaved + '" aria-label="Save this article">' + ICON.heart.replace('class="icon"', '') + '</button></div>' +
+      navBar('#topic-' + esc(t.id), 'Back to ' + t.name, saveArticleBtn('save-art-top', isSaved)) +
       '<article class="prose"><div class="tags"><span class="tag" style="background:' + esc(t.color) + '">' + esc(t.name) + '</span><span class="tag" style="background:var(--bg)">' + a.minutes + ' min read</span></div>' +
       '<h1>' + esc(a.title) + '</h1><div id="article-body" class="stack" style="gap:14px"><p>Loading…</p></div></article>' +
+      '<div class="article-end">' + saveArticleBtn('save-art-bottom', isSaved) +
+        '<a class="btn" href="#topic-' + esc(t.id) + '">More on ' + esc(t.name) + '</a>' +
+        '<a class="btn" href="#today">Home</a></div>' +
       '<a class="crisis primary" href="#help"><span class="text"><span class="big" style="display:block">Find support</span><span class="small">Crisis lines and Black therapist directories</span></span></a>' +
       '<p class="disclaimer">This is education, not a diagnosis or medical advice. Talk with a licensed professional about your own health.</p>';
-    document.getElementById('save-art').addEventListener('click', function () {
-      var on = toggle('abg.savedArticles', id);
-      this.setAttribute('aria-pressed', on);
-      toast(on ? 'Article saved' : 'Removed from saved');
+    var saveBtns = [document.getElementById('save-art-top'), document.getElementById('save-art-bottom')];
+    saveBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var on = toggle('abg.savedArticles', id);
+        saveBtns.forEach(function (b) {
+          b.setAttribute('aria-pressed', on);
+          b.querySelector('span').textContent = on ? 'Saved' : 'Save article';
+        });
+        toast(on ? 'Saved. Find it anytime in the Saved tab.' : 'Removed from Saved');
+      });
     });
     var bodyEl = document.getElementById('article-body');
     function fill(md) { bodyEl.innerHTML = renderMarkdown(md); }
@@ -242,6 +259,7 @@
     var entries = journalEntries();
     var draft = store.get('abg.journalDraft', '');
     view.innerHTML =
+      navBar('#today', 'Home') +
       '<div><h1 class="page-title">Journal</h1><p class="lede">Your entries stay on this phone. No one else can read them, including Anxious Black Girls®.</p></div>' +
       '<section class="journal-card">' +
         '<span class="eyebrow">Today\'s prompt</span>' +
@@ -325,7 +343,7 @@
   // ---------- FAQ (content lives in faq.json) ----------
   function viewFaq() {
     view.innerHTML =
-      '<div class="article-top"><a class="icon-btn" href="#help" aria-label="Back to Help">' + ICON.back + '</a></div>' +
+      navBar('#help', 'Back to Help') +
       '<div><h1 class="page-title">Frequently asked questions</h1><p class="lede">Tap a question to see the answer.</p></div>' +
       '<div class="stack">' + FAQ.map(function (f) {
         var a = esc(f.a).replace('info@anxiousblackgirls.com', '<a href="mailto:info@anxiousblackgirls.com">info@anxiousblackgirls.com</a>');
@@ -339,7 +357,7 @@
   function viewAbout() {
     var a = ABOUT;
     if (!a) {
-      view.innerHTML = '<div><h1 class="page-title">About Anxious Black Girls®</h1></div>' +
+      view.innerHTML = navBar('#today', 'Home') + '<div><h1 class="page-title">About Anxious Black Girls®</h1></div>' +
         '<a class="row-link" href="https://www.anxiousblackgirls.com" target="_blank" rel="noopener"><span class="text"><span class="title">Visit anxiousblackgirls.com</span></span>' + ICON.out + '</a>';
       return;
     }
@@ -348,6 +366,7 @@
         (o.blurb ? '<span class="lede" style="margin:0">' + esc(o.blurb) + '</span>' : '') + '</span>' + ICON.out + '</a>';
     }
     view.innerHTML =
+      navBar('#today', 'Home') +
       '<div><h1 class="page-title">' + esc(a.title) + '</h1>' +
         '<p class="about-tagline">' + esc(a.tagline) + '</p></div>' +
       '<p class="about-intro">' + esc(a.intro) + '</p>' +
@@ -375,13 +394,14 @@
     var affs = savedAffs();
     var arts = savedArts().map(articleById).filter(Boolean);
     view.innerHTML =
+      navBar('#today', 'Home') +
       '<div><h1 class="page-title">Saved</h1><p class="lede">Your favorites stay on this phone. Only you can see them.</p></div>' +
       '<h2 class="section-title">Affirmations</h2>' +
       (affs.length ? '<div class="stack">' + affs.map(function (text, i) {
         return '<div class="saved-aff"><p>' + esc(text) + '</p><button class="icon-btn" data-unsave="' + i + '" aria-label="Remove this affirmation" aria-pressed="true">' + ICON.heart.replace('class="icon"', '') + '</button></div>';
       }).join('') + '</div>' : '<p class="empty">Tap Save on today\'s affirmation to keep it here.</p>') +
       '<h2 class="section-title">Articles</h2>' +
-      (arts.length ? '<div class="stack">' + arts.map(articleRow).join('') + '</div>' : '<p class="empty">Tap the heart on any article to keep it here.</p>');
+      (arts.length ? '<div class="stack">' + arts.map(articleRow).join('') + '</div>' : '<p class="empty">Tap "Save article" on any article to keep it here.</p>');
     Array.prototype.forEach.call(view.querySelectorAll('[data-unsave]'), function (b) {
       b.addEventListener('click', function () {
         toggle('abg.savedAffirmations', affs[+b.getAttribute('data-unsave')]);
@@ -392,6 +412,7 @@
 
   function viewHelp() {
     view.innerHTML =
+      navBar('#today', 'Home') +
       '<div><h1 class="page-title">You don\'t have to carry this alone.</h1><p class="lede">Free, 24/7, and you can stay anonymous.</p></div>' +
       '<a class="crisis primary" href="tel:988"><span class="circle">' + ICON.phone + '</span><span><span class="big" style="display:block">Call or text 988</span><span class="small">Suicide &amp; Crisis Lifeline</span></span></a>' +
       '<a class="crisis secondary" href="sms:741741"><span class="circle">' + ICON.chat + '</span><span><span class="big" style="display:block">Text HOME to 741741</span><span class="small">Crisis Text Line</span></span></a>' +

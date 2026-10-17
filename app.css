@@ -244,6 +244,21 @@ main { display: flex; flex-direction: column; gap: 20px; padding-top: 8px; outli
 .select-wrap select:focus-visible { outline: 3px solid var(--gold-deep); outline-offset: 2px; }
 .select-wrap .chev { position: absolute; right: 16px; top: 50%; transform: translateY(-50%) rotate(90deg); pointer-events: none; color: var(--ink); }
 
+/* Page navigation */
+.page-nav { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.back-link {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 16px 0 10px; box-sizing: border-box;
+  border-radius: 22px; background: var(--surface); border: 1.5px solid var(--tan);
+  color: var(--ink); font-weight: 700; font-size: 15px; text-decoration: none; max-width: 100%;
+}
+.back-link:hover { color: var(--ink); border-color: var(--gold); }
+.back-link svg { width: 20px; height: 20px; flex-shrink: 0; }
+.back-link span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.save-btn { background: var(--surface); border-color: var(--tan); }
+.save-btn[aria-pressed="true"] { background: var(--gold-soft); border-color: var(--gold); color: var(--ink); }
+.save-btn[aria-pressed="true"] svg { fill: currentColor; }
+.article-end { display: flex; flex-wrap: wrap; gap: 10px; }
+
 /* FAQ */
 .faq { background: var(--surface); border-radius: 18px; padding: 0 18px; }
 .faq summary { list-style: none; cursor: pointer; min-height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 12px; font-weight: 700; font-size: 16px; padding: 12px 0; }
