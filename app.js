@@ -92,7 +92,7 @@
 
   // ---------- share ----------
   // ---------- branded share image ----------
-  var SHARE_SIZES = { post: [1080, 1080], story: [1080, 1920] };
+  var SHARE_SIZES = { post: [1080, 1350], story: [1080, 1920] };
   var logoImg = null;
   function loadLogo() {
     if (logoImg) return Promise.resolve(logoImg);
@@ -127,20 +127,20 @@
       ctx.strokeStyle = '#BB831D'; ctx.lineWidth = 6;
       ctx.strokeRect(40, 40, W - 80, H - 80);
       // logo
-      var lw = format === 'story' ? 760 : 560, lh = lw * logo.height / logo.width;
-      var logoY = format === 'story' ? 200 : 100;
+      var lw = format === 'story' ? 760 : 620, lh = lw * logo.height / logo.width;
+      var logoY = format === 'story' ? 200 : 120;
       ctx.drawImage(logo, (W - lw) / 2, logoY, lw, lh);
       // label
       ctx.fillStyle = ink; ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
       ctx.font = '700 34px "DM Sans", Arial, sans-serif';
-      var labelY = logoY + lh + (format === 'story' ? 150 : 80);
+      var labelY = logoY + lh + (format === 'story' ? 150 : 100);
       if ('letterSpacing' in ctx) ctx.letterSpacing = '4px';
       ctx.fillStyle = '#8A5F12';
       ctx.fillText('TO MY ANXIOUS BLACK GIRL,', W / 2, labelY);
       ctx.fillStyle = ink;
       if ('letterSpacing' in ctx) ctx.letterSpacing = '0px';
       // affirmation, shrink to fit
-      var footerTop = H - (format === 'story' ? 340 : 252);
+      var footerTop = H - (format === 'story' ? 340 : 290);
       var areaTop = labelY + 50, areaH = footerTop - areaTop - 40;
       var fs = format === 'story' ? 92 : 80, lines, lineH;
       do {
@@ -179,8 +179,8 @@
         '<div class="share-head"><h2 id="share-title">Share today\'s affirmation</h2>' +
         '<button class="icon-btn" id="share-close" aria-label="Close">' + ICON.close + '</button></div>' +
         '<div class="share-toggle" role="group" aria-label="Image size">' +
-          '<button class="btn small" data-format="post" aria-pressed="true">Post</button>' +
-          '<button class="btn small" data-format="story" aria-pressed="false">Story</button>' +
+          '<button class="btn small" data-format="post" aria-pressed="true">Feed post</button>' +
+          '<button class="btn small" data-format="story" aria-pressed="false">Story &amp; TikTok</button>' +
         '</div>' +
         '<div class="share-preview"><img id="share-img" alt="Branded image of today\'s affirmation"></div>' +
         '<button id="share-go" class="btn dark">' + ICON.share + 'Share image</button>' +
