@@ -135,7 +135,14 @@
         '<a class="btn dark" href="#journal">' + ICON.pen + 'Write about it in your journal</a>' +
         '<p class="mind-note">Only you can read what you write. No one else can see it, not even us.</p>' +
       '</section>' +
-      '<h2 class="section-title">Today\'s read</h2>' + articleRow(art) +
+      '<section class="learn-card" aria-labelledby="learn-pick-title">' +
+        '<h2 id="learn-pick-title" class="section-title">What would you like to learn about today?</h2>' +
+        '<label class="sr" for="topic-pick">Choose a topic</label>' +
+        '<div class="select-wrap"><select id="topic-pick">' +
+          '<option value="" selected>Choose a topic</option>' +
+          DATA.topics.map(function (t) { return '<option value="' + esc(t.id) + '">' + esc(t.name) + '</option>'; }).join('') +
+        '</select>' + ICON.chev + '</div>' +
+      '</section>' +
       '<a class="row-link" href="#learn"><span class="text"><span class="title">Browse all topics</span><span class="lede" style="margin:0">' + DATA.topics.length + ' topics, from anxiety and perimenopause to boundaries and grief</span></span>' + ICON.chev + '</a>' +
       '<a class="row-link about-card" href="#about"><span class="text"><span class="title">About Anxious Black Girls®</span><span class="lede" style="margin:0">Therapy, our social club, the podcast and more</span></span>' + ICON.chev + '</a>';
 
@@ -146,6 +153,9 @@
       toast(on ? 'Saved to your favorites' : 'Removed from favorites');
     });
     document.getElementById('share-aff').addEventListener('click', function () { shareAffirmation(aff.text); });
+    document.getElementById('topic-pick').addEventListener('change', function () {
+      if (this.value) location.hash = '#topic-' + this.value;
+    });
   }
 
   function viewLearn() {
