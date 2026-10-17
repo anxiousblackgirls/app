@@ -1,9 +1,9 @@
 // Lets the app open without internet. Always tries the network first so new content shows up right away.
-var CACHE = 'abg-v9';
+var CACHE = 'abg-v10';
 var CORE = [
   './', 'index.html', 'app.css', 'app.js', 'manifest.webmanifest',
   'affirmations.json', 'articles.json', 'journal-prompts.json', 'about.json', 'faq.json',
-  'logo-header.png', 'logo-stacked-url.png', 'icon-192.png',
+  'logo-header.png', 'logo-circle.png', 'logo-stacked.png', 'logo-stacked-url.png', 'icon-192.png',
   'dm-sans-latin-400-normal.woff2', 'dm-sans-latin-700-normal.woff2', 'montserrat-latin-800-normal.woff2'
 ];
 
