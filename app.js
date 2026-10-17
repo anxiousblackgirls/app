@@ -100,7 +100,7 @@
       var im = new Image();
       im.onload = function () { logoImg = im; resolve(im); };
       im.onerror = reject;
-      im.src = 'logo-stacked.png';
+      im.src = 'logo-circle.png';
     });
   }
   function wrapLines(ctx, text, maxW) {
@@ -122,20 +122,22 @@
       var c = document.createElement('canvas'); c.width = W; c.height = H;
       var ctx = c.getContext('2d');
       var ink = '#2B2118', pad = 96;
-      ctx.fillStyle = '#BB831D'; ctx.fillRect(0, 0, W, H);
+      ctx.fillStyle = '#FFFFFF'; ctx.fillRect(0, 0, W, H);
       // inner border
-      ctx.strokeStyle = 'rgba(43,33,24,0.35)'; ctx.lineWidth = 4;
+      ctx.strokeStyle = '#BB831D'; ctx.lineWidth = 6;
       ctx.strokeRect(40, 40, W - 80, H - 80);
       // logo
-      var lw = format === 'story' ? 560 : 420, lh = lw * logo.height / logo.width;
-      var logoY = format === 'story' ? 220 : 110;
+      var lw = format === 'story' ? 760 : 560, lh = lw * logo.height / logo.width;
+      var logoY = format === 'story' ? 200 : 100;
       ctx.drawImage(logo, (W - lw) / 2, logoY, lw, lh);
       // label
       ctx.fillStyle = ink; ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
       ctx.font = '700 34px "DM Sans", Arial, sans-serif';
       var labelY = logoY + lh + (format === 'story' ? 150 : 80);
       if ('letterSpacing' in ctx) ctx.letterSpacing = '4px';
+      ctx.fillStyle = '#8A5F12';
       ctx.fillText('TO MY ANXIOUS BLACK GIRL,', W / 2, labelY);
+      ctx.fillStyle = ink;
       if ('letterSpacing' in ctx) ctx.letterSpacing = '0px';
       // affirmation, shrink to fit
       var footerTop = H - (format === 'story' ? 260 : 170);
