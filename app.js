@@ -7,6 +7,7 @@
   var AFFIRMATIONS = [];
   var PROMPTS = [];
   var ABOUT = null;
+  var FAQ = [];
   var DATA = { topics: [], articles: [] };
   var articleCache = {};
 
@@ -321,6 +322,19 @@
     });
   }
 
+  // ---------- FAQ (content lives in faq.json) ----------
+  function viewFaq() {
+    view.innerHTML =
+      '<div class="article-top"><a class="icon-btn" href="#help" aria-label="Back to Help">' + ICON.back + '</a></div>' +
+      '<div><h1 class="page-title">Frequently asked questions</h1><p class="lede">Tap a question to see the answer.</p></div>' +
+      '<div class="stack">' + FAQ.map(function (f) {
+        var a = esc(f.a).replace('info@anxiousblackgirls.com', '<a href="mailto:info@anxiousblackgirls.com">info@anxiousblackgirls.com</a>');
+        return '<details class="faq"><summary>' + esc(f.q) + ICON.chev + '</summary><p>' + a + '</p></details>';
+      }).join('') + '</div>' +
+      '<section class="mind-card"><h2 class="section-title">Still have a question?</h2>' +
+        '<p class="mind-note" style="font-size:15px">Email us at <a href="mailto:info@anxiousblackgirls.com">info@anxiousblackgirls.com</a>. This inbox isn\'t monitored for emergencies. If you\'re in crisis, call 911 or call/text 988.</p></section>';
+  }
+
   // ---------- about / resources (content lives in about.json) ----------
   function viewAbout() {
     var a = ABOUT;
@@ -384,10 +398,12 @@
       '<a class="outline-link" href="tel:911">In danger right now? Call 911</a>' +
       '<h2 class="section-title">Find a Black therapist</h2>' +
       '<div class="stack">' +
+        '<a class="row-link" href="https://www.anxiousblackgirls.com/florida-online-counseling-service" target="_blank" rel="noopener"><span class="text"><span class="title">Anxious Black Girls® Therapy</span><span class="lede" style="margin:0">Virtual therapy with licensed clinicians who understand our culture</span></span>' + ICON.out + '</a>' +
         '<a class="row-link" href="https://therapyforblackgirls.com" target="_blank" rel="noopener"><span class="text"><span class="title">Therapy for Black Girls</span><span class="lede" style="margin:0">Directory of therapists by state</span></span>' + ICON.out + '</a>' +
         '<a class="row-link" href="https://beam.community" target="_blank" rel="noopener"><span class="text"><span class="title">BEAM</span><span class="lede" style="margin:0">Black Emotional and Mental Health Collective</span></span>' + ICON.out + '</a>' +
-        '<a class="row-link" href="#about"><span class="text"><span class="title">Therapy with Anxious Black Girls®</span><span class="lede" style="margin:0">Our services, community and resources</span></span>' + ICON.chev + '</a>' +
       '</div>' +
+      '<h2 class="section-title">Questions about the app</h2>' +
+      '<a class="row-link faq-tile" href="#faq"><span class="badge" style="background:var(--gold-soft)">?</span><span class="text"><span class="title">Frequently asked questions</span><span class="lede" style="margin:0">Privacy, your journal, installing the app and more</span></span>' + ICON.chev + '</a>' +
       '<p class="disclaimer">This app offers education and encouragement. It is not therapy and does not replace care from a licensed professional.</p>' +
       '<div class="legal-links">' +
         '<a href="https://www.anxiousblackgirls.com/medical-disclaimer" target="_blank" rel="noopener">Medical Disclaimer</a>' +
@@ -407,6 +423,7 @@
     else if (h === 'saved') { tab = 'saved'; viewSaved(); }
     else if (h === 'help') { tab = 'help'; viewHelp(); }
     else if (h === 'about') { tab = 'about'; viewAbout(); }
+    else if (h === 'faq') { tab = 'help'; viewFaq(); }
     else { viewToday(); }
     Array.prototype.forEach.call(document.querySelectorAll('.tab'), function (a) {
       if (a.getAttribute('data-tab') === tab) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
@@ -446,9 +463,10 @@
     fetch('affirmations.json').then(function (r) { return r.json(); }),
     fetch('articles.json').then(function (r) { return r.json(); }),
     fetch('journal-prompts.json').then(function (r) { return r.json(); }).catch(function () { return []; }),
-    fetch('about.json').then(function (r) { return r.json(); }).catch(function () { return null; })
+    fetch('about.json').then(function (r) { return r.json(); }).catch(function () { return null; }),
+    fetch('faq.json').then(function (r) { return r.json(); }).catch(function () { return []; })
   ]).then(function (res) {
-    AFFIRMATIONS = res[0]; DATA = res[1]; PROMPTS = res[2]; ABOUT = res[3];
+    AFFIRMATIONS = res[0]; DATA = res[1]; PROMPTS = res[2]; ABOUT = res[3]; FAQ = res[4];
     window.addEventListener('hashchange', route);
     route();
   }).catch(function () {

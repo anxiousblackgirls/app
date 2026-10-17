@@ -1,0 +1,14 @@
+[
+  { "q": "Is the app free?", "a": "Yes. The Anxious Black Girls® app is free to use." },
+  { "q": "Do I need to create an account?", "a": "No. There's nothing to sign up for. Open the app and start." },
+  { "q": "Who can see my journal?", "a": "Only you. Your entries are saved on your phone and never sent to us or anyone else. We can't read them, even if you ask us to." },
+  { "q": "What happens to my journal if I delete the app or get a new phone?", "a": "Your entries are erased, because they only live on your phone. To keep a copy, open the Journal and tap \"Copy all entries,\" then paste them into your Notes app or an email to yourself." },
+  { "q": "Why did my saved affirmations disappear?", "a": "Saved items are stored in your phone's browser. Clearing your browser history or site data, or using a private browsing window, removes them." },
+  { "q": "How do I put the app on my home screen?", "a": "On iPhone, open app.anxiousblackgirls.com in Safari, tap Share, then Add to Home Screen. On Android, open it in Chrome, tap the menu (⋮), then Install app." },
+  { "q": "Does the app work without internet?", "a": "Yes, once you've opened it at least once with a connection. New articles and affirmations load the next time you're online." },
+  { "q": "Is this app therapy?", "a": "No. The app offers education and encouragement. It doesn't diagnose or treat any condition and doesn't replace care from a licensed professional. If you're looking for a therapist, see the therapist options on this Help page or visit our About page." },
+  { "q": "Does anyone monitor what I write or read?", "a": "No. Nobody watches the app in real time. If you're in crisis, call 911 or call/text 988." },
+  { "q": "Where do the articles come from?", "a": "Every article is written for Black women and backed by published research, listed under Sources at the end. They're for learning, not for diagnosing yourself." },
+  { "q": "How often is new content added?", "a": "A new affirmation and journal prompt appear every day. We add new articles and topics over time." },
+  { "q": "I found a problem or have an idea. Who do I contact?", "a": "Email us at info@anxiousblackgirls.com. We'll get back to you as soon as we can. This inbox isn't monitored for emergencies. If you're in crisis, call 911 or call/text 988." }
+]
