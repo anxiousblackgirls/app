@@ -567,7 +567,8 @@
       (a.founder ? '<a class="row-link founder" href="' + esc(a.founder.url) + '" target="_blank" rel="noopener">' + (a.founder.photo ? '<img class="founder-photo" src="' + esc(a.founder.photo) + '" alt="' + esc(a.founder.name) + '" width="88" height="88">' : '<span class="badge" style="background:var(--gold-soft)">DW</span>') + '<span class="text"><span class="meta">Meet the founder</span><span class="title">' + esc(a.founder.name) + '</span><span class="lede" style="margin:0">' + esc(a.founder.blurb) + '</span></span>' + ICON.out + '</a>' : '') +
       '<h2 class="section-title">What we offer</h2>' +
       '<div class="stack">' + (a.offerings || []).map(outRow).join('') + '</div>' +
-      (a.playlist ? '<h2 class="section-title">Listen with us</h2>' +
+      (a.playlist ? '<h2 class="section-title">' + esc(a.playlist.heading || 'Listen with us') + '</h2>' +
+        (a.playlist.note ? '<p class="section-note">' + esc(a.playlist.note) + '</p>' : '') +
         '<a class="row-link playlist-card" href="' + esc(a.playlist.url) + '" target="_blank" rel="noopener">' +
           '<span class="playlist-icon" aria-hidden="true">' + ICON.music + '</span>' +
           '<span class="text"><span class="meta">Playlist on Spotify</span><span class="title">' + esc(a.playlist.name) + '</span>' +

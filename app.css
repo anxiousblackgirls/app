@@ -232,6 +232,7 @@ main { display: flex; flex-direction: column; gap: 20px; padding-top: 8px; outli
 .mind-card { background: var(--surface); border-radius: 24px; padding: 22px 20px; display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
 .mind-prompt { margin: 0; font-size: 17px; line-height: 1.5; color: var(--muted); font-style: italic; }
 .mind-note { margin: 0; font-size: 13px; color: var(--muted); }
+.section-note { margin: -14px 0 -6px; font-size: 13px; color: var(--muted); }
 
 /* What would you like to learn card (Today) */
 .learn-card { background: var(--surface); border-radius: 24px; padding: 22px 20px; display: flex; flex-direction: column; gap: 14px; }
