@@ -16,6 +16,8 @@ Mental health care is also uneven. A study of more than 29,000 new mothers on Me
 - Not sleeping even when the baby sleeps.
 - Physical warning signs like a severe headache, chest pain, trouble breathing, or swelling. These need emergency care.
 
+For more, read [Postpartum depression in Black mothers](#article-depression-postpartum) and [Becoming a mother](#article-transitions-becoming-a-mother).
+
 ## Try this
 
 - **Say it plainly.** "I just had a baby and I'm not okay. I need to be checked for postpartum depression."

@@ -10,6 +10,8 @@ In 2025, Black women were hit hard by layoffs. The Institute for Women's Policy 
 
 In a study of Black single mothers, not having enough money was the most common reason given for feeling depressed. Financial strain can disrupt sleep, raise anxiety, and make you short-tempered with the people you love most.
 
+For more on starting over at work, read [Layoffs, career changes and starting over](#article-transitions-career-and-layoffs).
+
 ## Try this
 
 - **Take care of the basics first.** Apply for unemployment right away, look into health coverage options, and call creditors early to ask about hardship plans.
