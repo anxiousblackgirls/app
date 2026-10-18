@@ -52,6 +52,7 @@
     out: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg>',
     phone: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>',
     pen: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>',
+    music: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>',
     close: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>',
     chat: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>'
   };
@@ -566,6 +567,11 @@
       (a.founder ? '<a class="row-link founder" href="' + esc(a.founder.url) + '" target="_blank" rel="noopener">' + (a.founder.photo ? '<img class="founder-photo" src="' + esc(a.founder.photo) + '" alt="' + esc(a.founder.name) + '" width="88" height="88">' : '<span class="badge" style="background:var(--gold-soft)">DW</span>') + '<span class="text"><span class="meta">Meet the founder</span><span class="title">' + esc(a.founder.name) + '</span><span class="lede" style="margin:0">' + esc(a.founder.blurb) + '</span></span>' + ICON.out + '</a>' : '') +
       '<h2 class="section-title">What we offer</h2>' +
       '<div class="stack">' + (a.offerings || []).map(outRow).join('') + '</div>' +
+      (a.playlist ? '<h2 class="section-title">Listen with us</h2>' +
+        '<a class="row-link playlist-card" href="' + esc(a.playlist.url) + '" target="_blank" rel="noopener">' +
+          '<span class="playlist-icon" aria-hidden="true">' + ICON.music + '</span>' +
+          '<span class="text"><span class="meta">Playlist on Spotify</span><span class="title">' + esc(a.playlist.name) + '</span>' +
+          '<span class="lede" style="margin:0">' + esc(a.playlist.blurb) + '</span></span>' + ICON.out + '</a>' : '') +
       '<h2 class="section-title">Follow us</h2>' +
       '<div class="social-row">' + (a.social || []).map(function (s) {
         return '<a class="btn" href="' + esc(s.url) + '" target="_blank" rel="noopener">' + esc(s.name) + '</a>';
