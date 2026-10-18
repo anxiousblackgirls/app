@@ -37,6 +37,18 @@
       "color": "#EBD3A6"
     },
     {
+      "id": "pcos",
+      "name": "PCOS",
+      "blurb": "Hormones, hair, mood and being heard",
+      "color": "#EAD9C0"
+    },
+    {
+      "id": "infertility",
+      "name": "Infertility",
+      "blurb": "Trying, waiting and grieving in silence",
+      "color": "#D3B094"
+    },
+    {
       "id": "bipolar",
       "name": "Bipolar",
       "blurb": "Highs and lows that change how you live",
@@ -89,6 +101,18 @@
       "name": "Relationships",
       "blurb": "Mothers, partners, family and what we inherit",
       "color": "#F0DFB8"
+    },
+    {
+      "id": "motherhood",
+      "name": "Motherhood",
+      "blurb": "Mothering on our own terms",
+      "color": "#F0DFB8"
+    },
+    {
+      "id": "childfree",
+      "name": "Child-free",
+      "blurb": "Choosing a life without kids",
+      "color": "#DEDDC2"
     },
     {
       "id": "boundaries",
@@ -588,6 +612,132 @@
       "id": "boundaries-digital",
       "topic": "boundaries",
       "title": "Digital boundaries: phones, group chats and news",
+      "minutes": 3
+    },
+    {
+      "id": "pcos-what-it-is",
+      "topic": "pcos",
+      "title": "PCOS: more than irregular periods",
+      "minutes": 3
+    },
+    {
+      "id": "pcos-anxiety-depression",
+      "topic": "pcos",
+      "title": "PCOS, anxiety and depression",
+      "minutes": 3
+    },
+    {
+      "id": "pcos-being-believed",
+      "topic": "pcos",
+      "title": "When your doctor doesn't listen",
+      "minutes": 3
+    },
+    {
+      "id": "pcos-hair-skin-and-self",
+      "topic": "pcos",
+      "title": "PCOS, hair, skin and how you see yourself",
+      "minutes": 3
+    },
+    {
+      "id": "pcos-food-and-body",
+      "topic": "pcos",
+      "title": "PCOS, food and weight talk",
+      "minutes": 3
+    },
+    {
+      "id": "infertility-in-silence",
+      "topic": "infertility",
+      "title": "Infertility and the silence around it",
+      "minutes": 3
+    },
+    {
+      "id": "infertility-emotional-weight",
+      "topic": "infertility",
+      "title": "The emotional weight of trying",
+      "minutes": 3
+    },
+    {
+      "id": "infertility-finding-care",
+      "topic": "infertility",
+      "title": "Finding fertility care that sees you",
+      "minutes": 4
+    },
+    {
+      "id": "infertility-pregnancy-loss",
+      "topic": "infertility",
+      "title": "Miscarriage and the grief no one talks about",
+      "minutes": 3
+    },
+    {
+      "id": "infertility-partner-and-family",
+      "topic": "infertility",
+      "title": "Infertility, your partner and everyone else",
+      "minutes": 3
+    },
+    {
+      "id": "mother-redefining",
+      "topic": "motherhood",
+      "title": "How Black women are redefining motherhood",
+      "minutes": 3
+    },
+    {
+      "id": "mother-breaking-cycles",
+      "topic": "motherhood",
+      "title": "Breaking generational curses with your own kids",
+      "minutes": 3
+    },
+    {
+      "id": "mother-postpartum",
+      "topic": "motherhood",
+      "title": "After the baby: postpartum and being heard",
+      "minutes": 3
+    },
+    {
+      "id": "mother-single",
+      "topic": "motherhood",
+      "title": "Single motherhood without the stereotypes",
+      "minutes": 3
+    },
+    {
+      "id": "mother-no-village",
+      "topic": "motherhood",
+      "title": "Mothering without a village",
+      "minutes": 3
+    },
+    {
+      "id": "mother-layoffs",
+      "topic": "motherhood",
+      "title": "Losing your job while raising kids",
+      "minutes": 3
+    },
+    {
+      "id": "childfree-choosing",
+      "topic": "childfree",
+      "title": "Choosing not to have children",
+      "minutes": 3
+    },
+    {
+      "id": "childfree-family-and-faith",
+      "topic": "childfree",
+      "title": "When family and church keep asking",
+      "minutes": 3
+    },
+    {
+      "id": "childfree-legacy-and-aging",
+      "topic": "childfree",
+      "title": "Legacy, aging and \"who will take care of you?\"",
+      "minutes": 3
+    },
+    {
+      "id": "childfree-fear-and-reasons",
+      "topic": "childfree",
+      "title": "When fear is part of the decision",
+      "minutes": 3
+    },
+    {
+      "id": "childfree-unsure",
+      "topic": "childfree",
+      "title": "Not sure if you want kids",
       "minutes": 3
     }
   ]
