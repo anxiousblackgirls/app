@@ -561,6 +561,7 @@
       navBar('#today', 'Home') +
       '<div><h1 class="page-title">' + esc(a.title) + '</h1>' +
         '<p class="about-tagline">' + esc(a.tagline) + '</p></div>' +
+      (a.founder && a.founder.hero ? '<img class="about-hero-photo" src="' + esc(a.founder.hero) + '" alt="' + esc(a.founder.name) + ', founder of Anxious Black Girls®">' : '') +
       '<p class="about-intro">' + esc(a.intro) + '</p>' +
       (a.founder ? '<a class="row-link founder" href="' + esc(a.founder.url) + '" target="_blank" rel="noopener">' + (a.founder.photo ? '<img class="founder-photo" src="' + esc(a.founder.photo) + '" alt="' + esc(a.founder.name) + '" width="88" height="88">' : '<span class="badge" style="background:var(--gold-soft)">DW</span>') + '<span class="text"><span class="meta">Meet the founder</span><span class="title">' + esc(a.founder.name) + '</span><span class="lede" style="margin:0">' + esc(a.founder.blurb) + '</span></span>' + ICON.out + '</a>' : '') +
       '<h2 class="section-title">What we offer</h2>' +
