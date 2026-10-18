@@ -538,11 +538,11 @@
       navBar('#help', 'Back to Help') +
       '<div><h1 class="page-title">Frequently asked questions</h1><p class="lede">Tap a question to see the answer.</p></div>' +
       '<div class="stack">' + FAQ.map(function (f) {
-        var a = esc(f.a).replace('info@anxiousblackgirls.com', '<a href="mailto:info@anxiousblackgirls.com">info@anxiousblackgirls.com</a>');
+        var a = esc(f.a).replace('support@anxiousblackgirls.com', '<a href="mailto:support@anxiousblackgirls.com">support@anxiousblackgirls.com</a>');
         return '<details class="faq"><summary>' + esc(f.q) + ICON.chev + '</summary><p>' + a + '</p></details>';
       }).join('') + '</div>' +
       '<section class="mind-card"><h2 class="section-title">Still have a question?</h2>' +
-        '<p class="mind-note" style="font-size:15px">Email us at <a href="mailto:info@anxiousblackgirls.com">info@anxiousblackgirls.com</a>. This inbox isn\'t monitored for emergencies. If you\'re in crisis, call 911 or call/text 988.</p></section>';
+        '<p class="mind-note" style="font-size:15px">Email us at <a href="mailto:support@anxiousblackgirls.com">support@anxiousblackgirls.com</a>. This inbox isn\'t monitored for emergencies. If you\'re in crisis, call 911 or call/text 988.</p></section>';
   }
 
   // ---------- about / resources (content lives in about.json) ----------
