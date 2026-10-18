@@ -368,7 +368,8 @@
         '<a class="btn" href="#topic-' + esc(t.id) + '">More on ' + esc(t.name) + '</a>' +
         '<a class="btn" href="#today">Home</a></div>' +
       '<a class="crisis primary" href="#help"><span class="text"><span class="big" style="display:block">Find support</span><span class="small">Crisis lines and Black therapist directories</span></span></a>' +
-      '<p class="disclaimer">This is education, not a diagnosis or medical advice. Talk with a licensed professional about your own health.</p>';
+      '<p class="disclaimer">This is education, not a diagnosis or medical advice. Talk with a licensed professional about your own health.</p>' +
+      '<p class="copyright">© 2026 Anxious Black Girls, LLC. All rights reserved.</p>';
     var saveBtns = [document.getElementById('save-art-top'), document.getElementById('save-art-bottom')];
     saveBtns.forEach(function (btn) {
       btn.addEventListener('click', function () {
@@ -578,7 +579,8 @@
         '<a href="https://www.anxiousblackgirls.com/medical-disclaimer" target="_blank" rel="noopener">Medical Disclaimer</a>' +
         '<a href="https://www.anxiousblackgirls.com/terms-of-use" target="_blank" rel="noopener">Terms of Use</a>' +
         '<a href="https://www.anxiousblackgirls.com/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a>' +
-      '</div>';
+      '</div>' +
+      '<p class="copyright">© 2026 Anxious Black Girls, LLC. All rights reserved.</p>';
   }
 
   function viewSaved() {
@@ -621,7 +623,8 @@
         '<a href="https://www.anxiousblackgirls.com/medical-disclaimer" target="_blank" rel="noopener">Medical Disclaimer</a>' +
         '<a href="https://www.anxiousblackgirls.com/terms-of-use" target="_blank" rel="noopener">Terms of Use</a>' +
         '<a href="https://www.anxiousblackgirls.com/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a>' +
-      '</div>';
+      '</div>' +
+      '<p class="copyright">© 2026 Anxious Black Girls, LLC. All rights reserved.</p>';
   }
 
   // ---------- router ----------
