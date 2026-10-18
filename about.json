@@ -5,21 +5,58 @@
   "founder": {
     "name": "Deseray Wilson, LMHC",
     "blurb": "Founder of Anxious Black Girls® and a licensed mental health counselor.",
-    "url": "https://www.anxiousblackgirls.com/deseray-wilson-lmhc"
+    "url": "https://www.anxiousblackgirls.com/deseray-wilson-lmhc",
+    "photo": "founder-deseray.jpg"
   },
   "offerings": [
-    { "name": "Therapy with Anxious Black Girls®", "blurb": "Virtual individual and group therapy with licensed clinicians who understand our culture.", "url": "https://www.anxiousblackgirls.com/florida-online-counseling-service" },
-    { "name": "The Anxious Black Girls Social Club", "blurb": "Small, low-key gatherings for professional Black women in South Florida.", "url": "https://www.anxiousblackgirls.com/anxious-black-girls-social-club" },
-    { "name": "My Thoughts Belong to Me", "blurb": "Our guided journal for reflection and healing.", "url": "https://www.anxiousblackgirls.com/services" },
-    { "name": "The Anxious Black Girls Podcast", "blurb": "Conversations on masking, anxiety, love and family.", "url": "https://www.youtube.com/@anxiousblackgirls" },
-    { "name": "Training & Partnerships", "blurb": "Keynotes, workshops and clinician trainings for organizations, universities and health systems.", "url": "https://www.anxiousblackgirls.com/partnerships" },
-    { "name": "Clinical Supervision", "blurb": "Supervision for pre-licensed counselors in Florida.", "url": "https://www.supervisionsupport.com/" }
+    {
+      "name": "Therapy with Anxious Black Girls®",
+      "blurb": "Virtual individual and group therapy with licensed clinicians who understand our culture.",
+      "url": "https://www.anxiousblackgirls.com/florida-online-counseling-service"
+    },
+    {
+      "name": "The Anxious Black Girls Social Club",
+      "blurb": "Small, low-key gatherings for professional Black women in South Florida.",
+      "url": "https://www.anxiousblackgirls.com/anxious-black-girls-social-club"
+    },
+    {
+      "name": "My Thoughts Belong to Me",
+      "blurb": "Our guided journal for reflection and healing.",
+      "url": "https://www.anxiousblackgirls.com/services"
+    },
+    {
+      "name": "The Anxious Black Girls Podcast",
+      "blurb": "Conversations on masking, anxiety, love and family.",
+      "url": "https://www.youtube.com/@anxiousblackgirls"
+    },
+    {
+      "name": "Training & Partnerships",
+      "blurb": "Keynotes, workshops and clinician trainings for organizations, universities and health systems.",
+      "url": "https://www.anxiousblackgirls.com/partnerships"
+    },
+    {
+      "name": "Clinical Supervision",
+      "blurb": "Supervision for pre-licensed counselors in Florida.",
+      "url": "https://www.supervisionsupport.com/"
+    }
   ],
   "social": [
-    { "name": "Instagram", "url": "https://instagram.com/anxiousblackgirls" },
-    { "name": "YouTube", "url": "https://www.youtube.com/@anxiousblackgirls" },
-    { "name": "Facebook", "url": "https://www.facebook.com/anxiousblackgirls" },
-    { "name": "LinkedIn", "url": "https://www.linkedin.com/in/deseray-wilson-lmhc/" }
+    {
+      "name": "Instagram",
+      "url": "https://instagram.com/anxiousblackgirls"
+    },
+    {
+      "name": "YouTube",
+      "url": "https://www.youtube.com/@anxiousblackgirls"
+    },
+    {
+      "name": "Facebook",
+      "url": "https://www.facebook.com/anxiousblackgirls"
+    },
+    {
+      "name": "LinkedIn",
+      "url": "https://www.linkedin.com/in/deseray-wilson-lmhc/"
+    }
   ],
   "contact": {
     "email": "info@anxiousblackgirls.com",

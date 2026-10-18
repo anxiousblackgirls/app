@@ -275,6 +275,7 @@ main { display: flex; flex-direction: column; gap: 20px; padding-top: 8px; outli
 .about-intro { margin: 0; color: var(--muted); }
 .social-row { display: flex; flex-wrap: wrap; gap: 10px; }
 .row-link.founder .badge { font-size: 15px; }
+.founder-photo { width: 88px; height: 88px; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 3px solid var(--gold); }
 
 /* First-open welcome notice */
 .welcome {
