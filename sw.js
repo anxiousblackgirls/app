@@ -21,6 +21,7 @@ self.addEventListener('activate', function (e) {
 
 self.addEventListener('fetch', function (e) {
   if (e.request.method !== 'GET' || new URL(e.request.url).origin !== location.origin) return;
+  if (/\.mp3$/.test(new URL(e.request.url).pathname)) return; // let audio stream directly
   e.respondWith(
     fetch(e.request).then(function (res) {
       var copy = res.clone();

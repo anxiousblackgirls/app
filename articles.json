@@ -126,7 +126,8 @@
       "id": "anxiety-on-guard",
       "topic": "anxiety",
       "title": "When your body is always on guard",
-      "minutes": 3
+      "minutes": 3,
+      "audio": "audio-anxiety-on-guard.mp3"
     },
     {
       "id": "anxiety-pray-about-it",

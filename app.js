@@ -48,6 +48,8 @@
   }
 
   var ICON = {
+    play: '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg>',
+    pause: '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" fill="currentColor"/></svg>',
     heart: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>',
     share: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v13"/></svg>',
     back: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>',
@@ -359,6 +361,27 @@
       '<div class="stack">' + list.map(articleRow).join('') + '</div>';
   }
 
+  function setupListen() {
+    var au = document.getElementById('listen-audio'), btn = document.getElementById('listen-btn'),
+      bar = document.getElementById('listen-bar'), time = document.getElementById('listen-time');
+    function fmt(x) { x = Math.max(0, Math.floor(x || 0)); return Math.floor(x / 60) + ':' + ('0' + (x % 60)).slice(-2); }
+    function show() {
+      var d = au.duration || 0;
+      time.textContent = fmt(au.currentTime) + (d ? ' / ' + fmt(d) : '');
+      if (d && !bar.dragging) bar.value = (au.currentTime / d) * 100;
+    }
+    function setBtn(playing) { btn.innerHTML = playing ? ICON.pause : ICON.play; btn.setAttribute('aria-label', playing ? 'Pause' : 'Play this article'); }
+    btn.addEventListener('click', function () { if (au.paused) au.play(); else au.pause(); });
+    au.addEventListener('play', function () { setBtn(true); });
+    au.addEventListener('pause', function () { setBtn(false); });
+    au.addEventListener('ended', function () { setBtn(false); });
+    au.addEventListener('timeupdate', show);
+    au.addEventListener('loadedmetadata', show);
+    bar.addEventListener('input', function () { bar.dragging = true; if (au.duration) time.textContent = fmt(bar.value / 100 * au.duration) + ' / ' + fmt(au.duration); });
+    bar.addEventListener('change', function () { bar.dragging = false; if (au.duration) au.currentTime = bar.value / 100 * au.duration; });
+    window.addEventListener('hashchange', function stop() { au.pause(); window.removeEventListener('hashchange', stop); });
+  }
+
   function viewArticle(id) {
     var a = articleById(id);
     if (!a) { location.hash = '#learn'; return; }
@@ -367,7 +390,13 @@
     view.innerHTML =
       navBar('#topic-' + esc(t.id), 'Back to ' + t.name, saveArticleBtn('save-art-top', isSaved)) +
       '<article class="prose"><div class="tags"><span class="tag" style="background:' + esc(t.color) + '">' + esc(t.name) + '</span><span class="tag" style="background:var(--bg)">' + a.minutes + ' min read</span></div>' +
-      '<h1>' + esc(a.title) + '</h1><div id="article-body" class="stack" style="gap:14px"><p>Loading…</p></div></article>' +
+      '<h1>' + esc(a.title) + '</h1>' +
+      (a.audio ? '<div class="listen" id="listen"><button class="listen-btn" id="listen-btn" type="button" aria-label="Play this article">' + ICON.play + '</button>' +
+        '<div class="listen-info"><span class="listen-title">Listen to this article</span>' +
+        '<input class="listen-bar" id="listen-bar" type="range" min="0" max="100" value="0" step="0.1" aria-label="Playback position">' +
+        '<span class="listen-time" id="listen-time">0:00</span></div>' +
+        '<audio id="listen-audio" preload="metadata" src="' + esc(a.audio) + '"></audio></div>' : '') +
+      '<div id="article-body" class="stack" style="gap:14px"><p>Loading…</p></div></article>' +
       '<div class="article-end">' + saveArticleBtn('save-art-bottom', isSaved) +
         '<a class="btn" href="#topic-' + esc(t.id) + '">More on ' + esc(t.name) + '</a>' +
         '<a class="btn" href="#today">Home</a></div>' +
@@ -385,6 +414,7 @@
         toast(on ? 'Saved. Find it anytime in the Saved tab.' : 'Removed from Saved');
       });
     });
+    if (a.audio) setupListen();
     var bodyEl = document.getElementById('article-body');
     function fill(md) { bodyEl.innerHTML = renderMarkdown(md); }
     if (articleCache[id]) { fill(articleCache[id]); return; }

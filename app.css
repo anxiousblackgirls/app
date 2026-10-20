@@ -350,3 +350,11 @@ main { display: flex; flex-direction: column; gap: 20px; padding-top: 8px; outli
 .playlist-icon svg { width: 26px; height: 26px; }
 
 .inline-link { color: var(--gold-deep); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+
+.listen { display: flex; align-items: center; gap: 14px; background: var(--gold-soft); border-radius: 18px; padding: 14px 16px; margin: 4px 0 18px; }
+.listen-btn { flex: none; width: 52px; height: 52px; border-radius: 50%; border: 0; background: var(--gold-deep); color: #fff; display: grid; place-items: center; cursor: pointer; }
+.listen-btn:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+.listen-info { flex: 1; min-width: 0; display: grid; gap: 4px; }
+.listen-title { font-weight: 700; font-size: 15px; color: var(--ink); }
+.listen-bar { width: 100%; accent-color: var(--gold-deep); margin: 0; }
+.listen-time { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
