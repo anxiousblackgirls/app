@@ -125,7 +125,7 @@ main { display: flex; flex-direction: column; gap: 20px; padding-top: 8px; outli
 }
 .topic:hover { color: var(--ink); filter: brightness(0.97); }
 .topic .count { font-size: 12px; font-weight: 700; }
-.topic .name { font-family: var(--font-display); font-weight: 800; font-size: 20px; line-height: 1.1; }
+.topic .name { font-family: var(--font-display); font-weight: 800; font-size: clamp(15px, 4.1vw, 20px); letter-spacing: -0.01em; line-height: 1.1; overflow-wrap: break-word; hyphens: auto; }
 .topic .blurb { font-size: 13px; line-height: 1.35; margin-top: 6px; }
 
 .search {
