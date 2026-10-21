@@ -1,0 +1,90 @@
+# Copyright (c) 2026 Anxious Black Girls, LLC. All rights reserved. See LICENSE.
+# Builds the iPhone app on a GitHub Mac and uploads it to TestFlight.
+# Runs on every push to the native-app branch, or by hand from the Actions tab.
+# Needs three repository secrets from App Store Connect: ASC_KEY_ID, ASC_ISSUER_ID, ASC_PRIVATE_KEY.
+name: iPhone build to TestFlight
+
+on:
+  push:
+    branches: [native-app]
+  workflow_dispatch:
+
+concurrency:
+  group: ios-testflight
+  cancel-in-progress: true
+
+env:
+  APPLE_TEAM_ID: "SET_TEAM_ID"
+
+jobs:
+  ios:
+    runs-on: macos-26
+    timeout-minutes: 45
+    steps:
+      - name: Check setup
+        id: ready
+        env:
+          KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ISSUER: ${{ secrets.ASC_ISSUER_ID }}
+          KEY: ${{ secrets.ASC_PRIVATE_KEY }}
+        run: |
+          if [ -z "$KEY_ID" ] || [ -z "$ISSUER" ] || [ -z "$KEY" ] || [ "$APPLE_TEAM_ID" = "SET_TEAM_ID" ]; then
+            echo "::notice::Skipping upload: App Store Connect secrets or Team ID not set yet."
+            echo "go=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "go=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v4
+        if: steps.ready.outputs.go == 'true'
+
+      - uses: actions/setup-node@v4
+        if: steps.ready.outputs.go == 'true'
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Build app files
+        if: steps.ready.outputs.go == 'true'
+        run: |
+          npm ci
+          npm run build
+          npx cap sync ios
+
+      - name: Save upload key
+        if: steps.ready.outputs.go == 'true'
+        env:
+          KEY: ${{ secrets.ASC_PRIVATE_KEY }}
+        run: |
+          printf '%s\n' "$KEY" > "$RUNNER_TEMP/AuthKey.p8"
+          cat > "$RUNNER_TEMP/ExportOptions.plist" <<PLIST
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0"><dict>
+            <key>method</key><string>app-store-connect</string>
+            <key>destination</key><string>upload</string>
+            <key>teamID</key><string>$APPLE_TEAM_ID</string>
+            <key>signingStyle</key><string>automatic</string>
+            <key>uploadSymbols</key><true/>
+          </dict></plist>
+          PLIST
+
+      - name: Build, sign, and upload to TestFlight
+        if: steps.ready.outputs.go == 'true'
+        env:
+          KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ISSUER: ${{ secrets.ASC_ISSUER_ID }}
+        run: |
+          AUTH="-allowProvisioningUpdates -authenticationKeyPath $RUNNER_TEMP/AuthKey.p8 -authenticationKeyID $KEY_ID -authenticationKeyIssuerID $ISSUER"
+          xcodebuild -project ios/App/App.xcodeproj -scheme App -configuration Release \
+            -destination 'generic/platform=iOS' -archivePath "$RUNNER_TEMP/App.xcarchive" \
+            DEVELOPMENT_TEAM="$APPLE_TEAM_ID" CURRENT_PROJECT_VERSION="${{ github.run_number }}" \
+            $AUTH archive
+          xcodebuild -exportArchive -archivePath "$RUNNER_TEMP/App.xcarchive" \
+            -exportOptionsPlist "$RUNNER_TEMP/ExportOptions.plist" -exportPath "$RUNNER_TEMP/export" \
+            $AUTH
+          echo "::notice::Build ${{ github.run_number }} uploaded. It appears in TestFlight after Apple finishes processing (usually 10 to 30 minutes)."
+
+      - name: Remove upload key
+        if: always()
+        run: rm -f "$RUNNER_TEMP/AuthKey.p8"

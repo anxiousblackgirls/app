@@ -11,11 +11,17 @@
   var FAQ = [];
   var DATA = { topics: [], articles: [] };
   var articleCache = {};
+  // Set only inside the iPhone and Android apps (see native.js). The website leaves it null.
+  var NATIVE = (window.ABGNative && window.ABGNative.native) ? window.ABGNative : null;
 
   // ---------- storage (saved items stay on this phone only) ----------
   var store = {
     get: function (k, d) { try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
-    set: function (k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+    set: function (k, v) {
+      var json = JSON.stringify(v);
+      try { localStorage.setItem(k, json); } catch (e) {}
+      if (NATIVE) NATIVE.save(k, json);
+    }
   };
   function savedAffs() { return store.get('abg.savedAffirmations', []); }
   function savedArts() { return store.get('abg.savedArticles', []); }
@@ -231,6 +237,7 @@
     });
     el.querySelector('#share-go').addEventListener('click', function () {
       if (!blob) return;
+      if (NATIVE) { NATIVE.shareImage(blob, caption); return; }
       if (canShareFile()) {
         var file = new File([blob], 'anxious-black-girls-affirmation.png', { type: 'image/png' });
         navigator.share({ files: [file], text: caption }).catch(function () {});
@@ -246,6 +253,7 @@
 
   function shareAffirmation(text) {
     var msg = '"' + text + '" Today\'s affirmation from Anxious Black Girls®. Get yours free at app.anxiousblackgirls.com';
+    if (NATIVE) { NATIVE.shareText(msg); return; }
     if (navigator.share) {
       navigator.share({ text: msg }).catch(function () { copy(msg); });
     } else { copy(msg); }
@@ -292,6 +300,7 @@
           '<button id="share-aff" class="btn">' + ICON.share + 'Share</button>' +
         '</div>' +
       '</section>' +
+      (NATIVE ? reminderCard() : '') +
       '<section class="mind-card" aria-labelledby="mind-title">' +
         '<h2 id="mind-title" class="section-title">What\'s on your mind today?</h2>' +
         (PROMPTS.length ? '<p class="mind-prompt">' + esc(PROMPTS[n % PROMPTS.length]) + '</p>' : '') +
@@ -316,6 +325,7 @@
       toast(on ? 'Saved to your favorites' : 'Removed from favorites');
     });
     document.getElementById('share-aff').addEventListener('click', function () { openShareSheet(aff); });
+    if (NATIVE) wireReminder();
     document.getElementById('topic-pick').addEventListener('change', function () {
       if (this.value) location.hash = '#topic-' + this.value;
     });
@@ -669,6 +679,45 @@
       '<p class="copyright">© 2026 Anxious Black Girls, LLC. All rights reserved.</p>';
   }
 
+  // ---------- daily reminder (app only) ----------
+  function fmtTime(t) {
+    var hm = t.split(':'), h = +hm[0], m = hm[1];
+    return (h % 12 || 12) + ':' + m + (h < 12 ? ' AM' : ' PM');
+  }
+  function reminderCard() {
+    var r = NATIVE.reminder.get();
+    return '<section class="reminder-card" aria-labelledby="rem-title">' +
+      '<div class="reminder-text"><h2 id="rem-title" class="reminder-title">Daily affirmation reminder</h2>' +
+      '<p id="rem-status" class="reminder-status">' + (r.on ? 'On at ' + esc(fmtTime(r.time)) : 'Off') + '</p></div>' +
+      '<div class="reminder-controls">' +
+        '<label class="sr" for="rem-time">Reminder time</label>' +
+        '<input id="rem-time" class="reminder-time" type="time" value="' + esc(r.time) + '"' + (r.on ? '' : ' hidden') + '>' +
+        '<button id="rem-toggle" class="btn small' + (r.on ? '' : ' dark') + '" data-on="' + r.on + '">' + (r.on ? 'Turn off' : 'Turn on') + '</button>' +
+      '</div></section>';
+  }
+  function wireReminder() {
+    var btn = document.getElementById('rem-toggle'), time = document.getElementById('rem-time'), status = document.getElementById('rem-status');
+    function show(r) {
+      status.textContent = r.on ? 'On at ' + fmtTime(r.time) : 'Off';
+      btn.textContent = r.on ? 'Turn off' : 'Turn on';
+      btn.setAttribute('data-on', r.on);
+      btn.classList.toggle('dark', !r.on);
+      time.hidden = !r.on;
+    }
+    btn.addEventListener('click', function () {
+      var on = btn.getAttribute('data-on') === 'true';
+      (on ? NATIVE.reminder.turnOff(AFFIRMATIONS) : NATIVE.reminder.turnOn(time.value || '08:00', AFFIRMATIONS)).then(function (r) {
+        show(r);
+        if (r.denied) toast('Notifications are off for this app. Turn them on in your phone\'s Settings.');
+        else toast(r.on ? 'You\'ll get a new affirmation every day at ' + fmtTime(r.time) : 'Daily reminder turned off');
+      });
+    });
+    time.addEventListener('change', function () {
+      if (!time.value) return;
+      NATIVE.reminder.changeTime(time.value, AFFIRMATIONS).then(function (r) { show(r); toast('Reminder moved to ' + fmtTime(r.time)); });
+    });
+  }
+
   // ---------- router ----------
   function route() {
     var h = (location.hash || '#today').slice(1);
@@ -726,11 +775,12 @@
     AFFIRMATIONS = res[0]; DATA = res[1]; PROMPTS = res[2]; ABOUT = res[3]; FAQ = res[4];
     window.addEventListener('hashchange', route);
     route();
+    if (NATIVE) NATIVE.reminder.schedule(AFFIRMATIONS);
   }).catch(function () {
     view.innerHTML = '<p class="empty">Something didn\'t load. Check your connection and refresh. If you need help right now, call 911 or call/text 988.</p>';
   });
 
-  if ('serviceWorker' in navigator) {
+  if (!NATIVE && 'serviceWorker' in navigator) {
     try { navigator.serviceWorker.register('sw.js').catch(function () {}); } catch (e) {}
   }
 })();

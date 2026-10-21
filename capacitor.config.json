@@ -1,0 +1,15 @@
+{
+  "appId": "com.anxiousblackgirls.app",
+  "appName": "Anxious Black Girls",
+  "webDir": "www",
+  "backgroundColor": "#BB831D",
+  "ios": {
+    "contentInset": "never",
+    "scrollEnabled": true
+  },
+  "plugins": {
+    "LocalNotifications": {
+      "iconColor": "#BB831D"
+    }
+  }
+}
