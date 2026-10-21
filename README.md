@@ -2,6 +2,8 @@
 
 Owned by Anxious Black Girls®. All files sit together in one list. The ones you'll edit are `affirmations.json`, `articles.json`, `journal-prompts.json`, and the article files ending in `.md`. You never need to touch the other files.
 
+© 2026 Anxious Black Girls, LLC. All rights reserved. This repository is public only so the app can be hosted. No one may copy or reuse it without written permission. See `LICENSE`.
+
 ## Change or add an affirmation
 
 Open `affirmations.json`. Each affirmation looks like this:

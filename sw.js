@@ -1,5 +1,6 @@
+// Copyright (c) 2026 Anxious Black Girls, LLC. All rights reserved. Unauthorized copying or reuse is prohibited. See LICENSE.
 // Lets the app open without internet. Always tries the network first so new content shows up right away.
-var CACHE = 'abg-v17';
+var CACHE = 'abg-v18';
 var CORE = [
   './', 'index.html', 'app.css', 'app.js', 'manifest.webmanifest',
   'affirmations.json', 'articles.json', 'journal-prompts.json', 'about.json', 'faq.json',

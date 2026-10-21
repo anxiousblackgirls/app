@@ -1,3 +1,4 @@
+/* Copyright (c) 2026 Anxious Black Girls, LLC. All rights reserved. Unauthorized copying or reuse is prohibited. See LICENSE. */
 /* Anxious Black Girls app. Content lives in /content: edit those files, not this one. */
 (function () {
   'use strict';
