@@ -14,7 +14,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  APPLE_TEAM_ID: "SET_TEAM_ID"
+  APPLE_TEAM_ID: "XULH5PTUYW"
 
 jobs:
   ios:
