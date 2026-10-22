@@ -731,15 +731,18 @@
         '<p class="about-tagline">' + esc(a.tagline) + '</p></div>' +
       (a.founder && a.founder.hero ? '<img class="about-hero-photo" src="' + esc(a.founder.hero) + '" alt="' + esc(a.founder.name) + ', founder of Anxious Black Girls®">' : '') +
       '<p class="about-intro">' + esc(a.intro) + '</p>' +
-      (a.founder ? '<a class="row-link founder" href="' + esc(a.founder.url) + '" target="_blank" rel="noopener">' + (a.founder.photo ? '<img class="founder-photo" src="' + esc(a.founder.photo) + '" alt="' + esc(a.founder.name) + '" width="88" height="88">' : '<span class="badge" style="background:var(--gold-soft)">DW</span>') + '<span class="text"><span class="meta">Meet the founder</span><span class="title">' + esc(a.founder.name) + '</span><span class="lede" style="margin:0">' + esc(a.founder.blurb) + '</span></span>' + ICON.out + '</a>' : '') +
+      (a.founder ? '<section class="founder-card">' +
+        '<div class="founder-head">' + (a.founder.photo ? '<img class="founder-photo" src="' + esc(a.founder.photo) + '" alt="' + esc(a.founder.name) + '" width="88" height="88">' : '') +
+          '<div><span class="meta">Meet the founder</span><h2 class="founder-name">' + esc(a.founder.name) + '</h2></div></div>' +
+        '<p class="founder-bio">' + esc(a.founder.bio || a.founder.blurb) + '</p>' +
+        '<a class="text-link" href="' + esc(a.founder.url) + '" target="_blank" rel="noopener">More about Deseray</a>' +
+        (a.playlist ? '<a class="playlist-inline" href="' + esc(a.playlist.url) + '" target="_blank" rel="noopener">' +
+          '<span class="playlist-icon" aria-hidden="true">' + ICON.music + '</span>' +
+          '<span class="text"><span class="title">' + esc(a.playlist.heading || 'Listen to the playlist') + '</span>' +
+          '<span class="lede" style="margin:0">' + esc(a.playlist.note || a.playlist.blurb) + '</span></span>' + ICON.out + '</a>' : '') +
+      '</section>' : '') +
       '<h2 class="section-title">What we offer</h2>' +
       '<div class="stack">' + (a.offerings || []).map(outRow).join('') + '</div>' +
-      (a.playlist ? '<h2 class="section-title">' + esc(a.playlist.heading || 'Listen with us') + '</h2>' +
-        (a.playlist.note ? '<p class="section-note">' + esc(a.playlist.note) + '</p>' : '') +
-        '<a class="row-link playlist-card" href="' + esc(a.playlist.url) + '" target="_blank" rel="noopener">' +
-          '<span class="playlist-icon" aria-hidden="true">' + ICON.music + '</span>' +
-          '<span class="text"><span class="meta">Playlist on Spotify</span><span class="title">' + esc(a.playlist.name) + '</span>' +
-          '<span class="lede" style="margin:0">' + esc(a.playlist.blurb) + '</span></span>' + ICON.out + '</a>' : '') +
       '<h2 class="section-title">Follow us</h2>' +
       '<div class="social-row">' + (a.social || []).map(function (s) {
         return '<a class="btn" href="' + esc(s.url) + '" target="_blank" rel="noopener">' + esc(s.name) + '</a>';

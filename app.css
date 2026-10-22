@@ -364,3 +364,14 @@ main { display: flex; flex-direction: column; gap: 20px; padding-top: 8px; outli
 .btn.icon-only { background: var(--surface); border-color: var(--tan); width: 48px; height: 48px; padding: 0; justify-content: center; border-radius: 50%; }
 
 .text-link { align-self: flex-start; color: var(--gold-deep); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+
+.founder-card { background: var(--surface); border-radius: 24px; padding: 22px 20px; display: flex; flex-direction: column; gap: 12px; }
+.founder-head { display: flex; align-items: center; gap: 16px; }
+.founder-name { margin: 2px 0 0; font-size: 20px; font-weight: 800; }
+.founder-bio { margin: 0; line-height: 1.55; }
+.playlist-inline { display: flex; align-items: center; gap: 14px; background: var(--gold-soft); border-radius: 18px; padding: 14px 16px; color: var(--ink); text-decoration: none; margin-top: 4px; }
+.playlist-inline .text { flex: 1; min-width: 0; display: grid; gap: 2px; }
+.playlist-inline .title { font-weight: 700; }
+.playlist-inline .lede { font-size: 14px; color: var(--muted); }
+.playlist-inline .playlist-icon { background: var(--surface); }
+.founder-card .meta { font-size: 12px; font-weight: 700; color: var(--gold-deep); text-transform: uppercase; letter-spacing: 0.08em; }
