@@ -126,7 +126,7 @@ main { display: flex; flex-direction: column; gap: 20px; padding-top: 8px; outli
 }
 .topic:hover { color: var(--ink); filter: brightness(0.97); }
 .topic .count { font-size: 12px; font-weight: 700; }
-.topic .name { font-family: var(--font-display); font-weight: 800; font-size: 20px; line-height: 1.1; }
+.topic .name { font-family: var(--font-display); font-weight: 800; font-size: clamp(15px, 4.1vw, 20px); letter-spacing: -0.01em; line-height: 1.1; overflow-wrap: break-word; hyphens: auto; }
 .topic .blurb { font-size: 13px; line-height: 1.35; margin-top: 6px; }
 
 .search {
@@ -359,3 +359,8 @@ main { display: flex; flex-direction: column; gap: 20px; padding-top: 8px; outli
 .listen-title { font-weight: 700; font-size: 15px; color: var(--ink); }
 .listen-bar { width: 100%; accent-color: var(--gold-deep); margin: 0; }
 .listen-time { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+.nav-actions { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+.btn.icon-only { background: var(--surface); border-color: var(--tan); width: 48px; height: 48px; padding: 0; justify-content: center; border-radius: 50%; }
+
+.text-link { align-self: flex-start; color: var(--gold-deep); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
