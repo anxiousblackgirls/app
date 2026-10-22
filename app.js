@@ -187,7 +187,7 @@
       var im = new Image();
       im.onload = function () { headerLogo = im; resolve(im); };
       im.onerror = reject;
-      im.src = 'logo-circle.png';
+      im.src = 'logo-header.png';
     });
   }
   function articleExcerpt(md) {
@@ -258,7 +258,7 @@
       ctx.fillStyle = '#FFFFFF'; ctx.fillRect(cx + 4, btnY - 30, cw - 8, 30);
       // button
       roundRect(ctx, cx + pad, btnY, maxW, btnH, btnH / 2); ctx.fillStyle = card.accent || '#8A5F12'; ctx.fill();
-      ctx.fillStyle = '#FFFFFF'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillStyle = card.accentText || '#FFFFFF'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
       ctx.font = '700 38px "DM Sans", Arial, sans-serif';
       ctx.fillText(card.cta, W / 2, btnY + btnH / 2 + 2);
       // footer
@@ -328,7 +328,8 @@
       '</div>';
     document.body.appendChild(el);
     var img = el.querySelector('#share-img');
-    function close() { if (url) URL.revokeObjectURL(url); el.parentNode && el.parentNode.removeChild(el); }
+    function close() { window.removeEventListener('hashchange', close); if (url) URL.revokeObjectURL(url); el.parentNode && el.parentNode.removeChild(el); }
+    window.addEventListener('hashchange', close);
     function render() {
       img.removeAttribute('src');
       (o.makeImage ? o.makeImage(format) : makeShareImage(aff.text, format, o.imageOpts)).then(function (b) {
@@ -904,7 +905,7 @@
     openSharePanel({
       heading: 'Share this skill', imageText: k.name,
       makeImage: function (format) {
-        return makeCardImage({ tag: 'From the Pocketbook', color: '#E4E3CC', accent: '#6B6935', meta: '1-minute skill', title: k.name,
+        return makeCardImage({ tag: 'From the Pocketbook', color: '#E4E3CC', accent: '#D3B094', accentText: '#2B2118', meta: '1-minute skill', title: k.name,
           excerpt: k.what + ' ' + k.steps.map(function (st, i) { return (i + 1) + '. ' + st; }).join(' '), cta: 'Get it free in the Pocketbook' }, format);
       },
       alt: 'Branded image with the skill name', file: 'anxious-black-girls-skill.png',
@@ -929,9 +930,9 @@
       '<article class="prose skill-page">' +
       '<div class="stack" style="gap:14px">' +
       '<h2>When to use it</h2><p>' + esc(k.when) + '</p>' +
-      '<section class="skill"><span class="eyebrow">Try this</span><p class="skill-intro">Pull this out of your pocketbook whenever you need it.</p><ol class="steps">' + k.steps.map(function (st) { return '<li>' + esc(st) + '</li>'; }).join('') + '</ol></section>' +
+      '<section class="skill"><span class="eyebrow">Try this</span><ol class="steps">' + k.steps.map(function (st) { return '<li>' + esc(st) + '</li>'; }).join('') + '</ol></section>' +
       '<section class="keep-it"><span class="keep-icon" aria-hidden="true">' + ICON.bag + '</span><div><strong>Keep this one close.</strong>' +
-        '<p>Tuck it in your pocketbook so it\'s ready next time, or pass it to a friend who could use it.</p>' +
+        '<p>Put it in your pocketbook so it\'s ready next time, or pass it to a friend who could use it.</p>' +
         '</div><div class="keep-actions">' + saveBtn('save-skill-keep') + '<button id="share-skill-keep" class="btn save-btn">' + ICON.share + 'Share with a friend</button></div></section>' +
       (k.lens ? '<aside class="lens"><span class="eyebrow">Through our lens</span><p>' + esc(k.lens) + '</p></aside>' : '') +
       (related.length ? '<h2>Read more</h2><div class="stack">' + related.map(function (t) {

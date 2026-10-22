@@ -435,7 +435,7 @@ main { display: flex; flex-direction: column; gap: 20px; padding-top: 8px; outli
 .keep-it > div:not(.keep-actions) { flex: 1; min-width: 0; }
 .keep-actions { flex-basis: 100%; display: grid; gap: 8px; }
 .keep-actions .btn { width: 100%; justify-content: center; white-space: nowrap; }
-.pocket-btn[aria-pressed="true"] { background: var(--sage); border-color: var(--sage-ink); }
+.pocket-btn[aria-pressed="true"] { background: var(--sage); border-color: var(--tan); }
 .save-btn.pocket-btn[aria-pressed="true"] svg { fill: none; }
 .save-btn.pocket-btn[aria-pressed="true"] svg .bag-body { fill: currentColor; fill-opacity: 0.25; }
 .toolkit-icon svg, .keep-icon svg { width: 24px; height: 24px; }
