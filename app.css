@@ -419,3 +419,9 @@ main { display: flex; flex-direction: column; gap: 20px; padding-top: 8px; outli
 .filter-card { background: var(--surface); border-radius: 20px; padding: 16px; display: grid; gap: 8px; }
 .filter-label { font-weight: 700; font-size: 14px; }
 .filter-card .select-wrap + .filter-label { margin-top: 6px; }
+
+.report-issue { display: flex; gap: 12px; align-items: flex-start; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 14px 16px; }
+.report-issue strong { display: block; font-size: 15px; }
+.report-issue p { margin: 4px 0 0; font-size: 14px; color: var(--muted); line-height: 1.5; }
+.report-issue a { color: var(--gold-deep); font-weight: 700; word-break: break-word; }
+.report-icon { flex: none; width: 28px; height: 28px; border-radius: 50%; background: var(--gold-soft); color: var(--gold-deep); display: grid; place-items: center; font-weight: 800; font-size: 15px; }

@@ -515,6 +515,16 @@
     window.addEventListener('hashchange', function stop() { au.pause(); window.removeEventListener('hashchange', stop); });
   }
 
+  function reportIssue(kind, title, hash) {
+    var subject = 'App issue: ' + title;
+    var body = 'Page: ' + APP_URL + '/' + hash + '\n\nWhat happened:\n';
+    return '<section class="report-issue"><span class="report-icon" aria-hidden="true">!</span><div>' +
+      '<strong>Need to report an issue with the app?</strong>' +
+      '<p>If something on this ' + kind + ' isn\'t working or looks wrong, email us at ' +
+      '<a href="mailto:support@anxiousblackgirls.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body) + '">support@anxiousblackgirls.com</a>. ' +
+      'This inbox isn\'t for emergencies. If you\'re in crisis, call 911 or call/text 988.</p></div></section>';
+  }
+
   function viewArticle(id) {
     var a = articleById(id);
     if (!a) { location.hash = '#learn'; return; }
@@ -538,6 +548,7 @@
         '<a class="btn" href="#today">Home</a></div>' +
       '<a class="crisis primary" href="#help"><span class="text"><span class="big" style="display:block">Find support</span><span class="small">Crisis lines and Black therapist directories</span></span></a>' +
       '<p class="disclaimer">This is education, not a diagnosis or medical advice. Talk with a licensed professional about your own health.</p>' +
+      reportIssue('article', a.title, '#article-' + a.id) +
       '<p class="copyright">© 2026 Anxious Black Girls, LLC. All rights reserved.</p>';
     ['share-art-top', 'share-art-bottom'].forEach(function (sid) {
       document.getElementById(sid).addEventListener('click', function () { shareArticle(a); });
@@ -589,7 +600,7 @@
           '<a class="crisis secondary" href="sms:741741"><span class="circle">' + ICON.chat + '</span><span><span class="big" style="display:block">Text HOME to 741741</span><span class="small">Crisis Text Line, 24/7</span></span></a>' +
         '</div>' +
         '<div class="pause-notice">' +
-          '<strong>This app is not monitored.</strong> No one at Anxious Black Girls® can see what you write, respond to it, or send help. If you are in danger or thinking about ending your life, contact one of the resources above now.' +
+          '<strong>Disclaimer: This app is not monitored.</strong> No one at Anxious Black Girls® can see what you write, respond to it, or send help. If you are in danger or thinking about ending your life, contact one of the resources above now.' +
         '</div>' +
         '<p class="pause-legal">Anxious Black Girls® provides education and self-reflection tools only. This app is not a crisis service and does not provide medical advice, diagnosis, or treatment. It does not replace care from a licensed professional. Use of this app is subject to our Terms of Use, Privacy Policy, and Medical Disclaimer.</p>' +
         '<button id="pause-continue" class="btn">I\'m safe right now. Keep writing.</button>' +
@@ -630,7 +641,7 @@
         '<div class="actions"><button id="journal-save" class="btn dark">Save entry</button></div>' +
       '</section>' +
       '<div id="journal-alert"></div>' +
-      '<p class="disclaimer">This journal is private and not monitored. If you\'re in crisis, call 911 or call/text 988. Deleting the app or clearing your browser data erases your entries, so use "Copy all entries" to keep a backup.</p>' +
+      '<p class="disclaimer"><strong>Disclaimer:</strong> This journal is private and not monitored. If you\'re in crisis, call 911 or call/text 988. Deleting the app or clearing your browser data erases your entries, so use "Copy all entries" to keep a backup.</p>' +
       '<div class="row-between"><h2 class="section-title">Past entries</h2>' +
         (entries.length ? '<button id="journal-copy" class="btn small">Copy all entries</button>' : '') + '</div>' +
       (entries.length ? '<div class="stack">' + entries.map(function (e) {
@@ -925,6 +936,7 @@
       '<div class="article-end">' + saveBtn('save-skill-bottom') + '<button id="share-skill-bottom" class="btn save-btn">' + ICON.share + 'Share</button>' +
         '<a class="btn" href="#toolkit">More skills</a></div>' +
       '<p class="disclaimer">This is education, not therapy or medical advice. If you\'re in crisis, call 911 or call/text 988.</p>' +
+      reportIssue('skill', k.name, '#skill-' + k.id) +
       '<p class="copyright">© 2026 Anxious Black Girls, LLC. All rights reserved.</p>';
     ['share-skill-top', 'share-skill-bottom'].forEach(function (sid) { document.getElementById(sid).addEventListener('click', function () { shareSkill(k); }); });
     var btns = [document.getElementById('save-skill-top'), document.getElementById('save-skill-bottom')];
