@@ -51,6 +51,7 @@
   }
 
   var ICON = {
+    bag: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 9V7.5a3.5 3.5 0 0 1 7 0V9"/><path class="bag-body" d="M4.6 9h14.8l-1.1 10.1a2 2 0 0 1-2 1.9H7.7a2 2 0 0 1-2-1.9z"/><path d="M10.5 13h3"/></svg>',
     spark: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6.3 6.3l2.5 2.5M15.2 15.2l2.5 2.5M6.3 17.7l2.5-2.5M15.2 8.8l2.5-2.5"/></svg>',
     play: '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg>',
     pause: '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" fill="currentColor"/></svg>',
@@ -430,7 +431,7 @@
         '</select>' + ICON.chev + '</div>' +
       '</section>' +
       (SKILLS.skills.length ? (function () { var k = SKILLS.skills[(n * 7) % SKILLS.skills.length];
-        return '<a class="toolkit-card" href="#skill-' + esc(k.id) + '"><span class="toolkit-icon" aria-hidden="true">' + ICON.spark + '</span><span class="text"><span class="meta">Skill of the day</span><span class="title">' + esc(k.name) + '</span><span class="lede" style="margin:0">' + esc(k.when) + '</span></span>' + ICON.chev + '</a>'; })() : '') +
+        return '<a class="toolkit-card" href="#skill-' + esc(k.id) + '"><span class="toolkit-icon" aria-hidden="true">' + ICON.bag + '</span><span class="text"><span class="meta">From the Pocketbook · Skill of the day</span><span class="title">' + esc(k.name) + '</span><span class="lede" style="margin:0">' + esc(k.when) + '</span></span>' + ICON.chev + '</a>'; })() : '') +
       '<a class="row-link" href="#learn"><span class="text"><span class="title">Browse all topics</span><span class="lede" style="margin:0">' + DATA.topics.length + ' topics, from anxiety and perimenopause to boundaries and grief</span></span>' + ICON.chev + '</a>' +
       '<a class="row-link about-card" href="#about"><span class="text"><span class="title">About Anxious Black Girls®</span><span class="lede" style="margin:0">Therapy, our social club, the podcast and more</span></span>' + ICON.chev + '</a>';
 
@@ -451,10 +452,10 @@
   function viewLearn() {
     view.innerHTML =
       navBar('#today', 'Home') +
-      '<div><h1 class="page-title">Learn</h1><p class="lede">Two ways to care for your mind here: read articles to understand what you\'re going through, and use the Toolkit to practice skills that help in the moment.</p></div>' +
-      (SKILLS.skills.length ? '<section class="learn-section"><span class="section-kicker">Practice</span><h2 class="section-title">The Toolkit</h2>' +
-        '<p class="section-desc">Short, step-by-step coping skills drawn from CBT, DBT and other proven approaches. Each one tells you what the skill is, when to use it and exactly how to do it, in about a minute. Use them when anxiety spikes, emotions run high, your thoughts spiral or you can\'t get started.</p>' +
-        '<a class="toolkit-card" href="#toolkit"><span class="toolkit-icon" aria-hidden="true">' + ICON.spark + '</span><span class="text"><span class="title">Open the Toolkit</span><span class="lede" style="margin:0">' + SKILLS.skills.length + ' skills for anxiety, big emotions, ADHD, autism, boundaries and rest</span></span>' + ICON.chev + '</a></section>' : '') +
+      '<div><h1 class="page-title">Learn</h1><p class="lede">Two ways to care for your mind here: read articles to understand what you\'re going through, and use the Pocketbook to practice skills that help in the moment.</p></div>' +
+      (SKILLS.skills.length ? '<section class="learn-section"><span class="section-kicker">Practice</span><h2 class="section-title">The Pocketbook</h2>' +
+        '<p class="section-desc">Our grandmothers\' pocketbooks always seemed to hold exactly what you needed: a peppermint, a tissue, a little something to get you through. The Pocketbook does the same for your mind. It\'s full of short, step-by-step coping skills from CBT, DBT and other proven approaches, each one about a minute long. Save the ones you love to your own pocketbook so they\'re there when you need them.</p>' +
+        '<a class="toolkit-card" href="#pocketbook"><span class="toolkit-icon" aria-hidden="true">' + ICON.bag + '</span><span class="text"><span class="title">Open the Pocketbook</span><span class="lede" style="margin:0">' + SKILLS.skills.length + ' skills for anxiety, big emotions, ADHD, autism, boundaries and rest</span></span>' + ICON.chev + '</a></section>' : '') +
       '<section class="learn-section"><span class="section-kicker">Read</span><h2 class="section-title">Articles</h2>' +
         '<p class="section-desc">Research-backed reads on mental health through the lens of Black women. Each article explains what a condition or experience is, how it shows up in our lives, why it often gets missed, and what you can do about it. Pick a topic or search below.</p></section>' +
       '<label class="search" for="search-input">' +
@@ -541,7 +542,7 @@
         '<audio id="listen-audio" preload="metadata" src="' + esc(a.audio) + '"></audio></div>' : '') +
       '<div id="article-body" class="stack" style="gap:14px"><p>Loading…</p></div></article>' +
       (function () { var ks = skillsForTopic(a.topic, 3, DATA.articles.indexOf(a));
-        return ks.length ? '<section class="practice-panel"><span class="skill-hero-label">' + ICON.spark + 'From the Toolkit</span><h2 class="section-title">Now practice it</h2><p class="section-note" style="margin:0">Short skills you can try today.</p><div class="stack">' + ks.map(skillRow).join('') + '</div><a class="text-link" href="#toolkit">See all skills</a></section>' : ''; })() +
+        return ks.length ? '<section class="practice-panel"><span class="skill-hero-label">' + ICON.bag + 'From the Pocketbook</span><h2 class="section-title">Now practice it</h2><p class="section-note" style="margin:0">Short skills to try today, and to keep in your pocketbook for next time.</p><div class="stack">' + ks.map(skillRow).join('') + '</div><a class="text-link" href="#pocketbook">Open the Pocketbook</a></section>' : ''; })() +
       '<div class="article-end">' + saveArticleBtn('save-art-bottom', isSaved) +
         '<button id="share-art-bottom" class="btn save-btn">' + ICON.share + 'Share</button>' +
         '<a class="btn" href="#topic-' + esc(t.id) + '">More on ' + esc(t.name) + '</a>' +
@@ -803,9 +804,9 @@
       }).join('') + '</div>' : '<p class="empty">Tap Save on today\'s affirmation to keep it here.</p>') +
       '<h2 class="section-title">Articles</h2>' +
       (arts.length ? '<div class="stack">' + arts.map(articleRow).join('') + '</div>' : '<p class="empty">Tap "Save article" on any article to keep it here.</p>') +
-      '<h2 class="section-title">Skills</h2>' +
+      '<h2 class="section-title">My pocketbook</h2>' +
       (function () { var ks = savedSkills().map(skillById).filter(Boolean);
-        return ks.length ? '<div class="stack">' + ks.map(skillRow).join('') + '</div>' : '<p class="empty">Tap "Save skill" on any skill in the Toolkit to keep it here.</p>'; })();
+        return ks.length ? '<div class="stack">' + ks.map(skillRow).join('') + '</div>' : '<p class="empty">Tap "Add to my pocketbook" on any skill to keep it here, ready for when you need it.</p>'; })();
     Array.prototype.forEach.call(view.querySelectorAll('[data-unsave]'), function (b) {
       b.addEventListener('click', function () {
         toggle('abg.savedAffirmations', affs[+b.getAttribute('data-unsave')]);
@@ -844,7 +845,7 @@
   function savedSkills() { return store.get('abg.savedSkills', []); }
   function skillRow(k) {
     return '<a class="row-link" href="#skill-' + esc(k.id) + '">' +
-      '<span class="badge skill-badge">' + ICON.spark + '</span>' +
+      '<span class="badge skill-badge">' + ICON.bag + '</span>' +
       '<span class="text"><span class="meta skill-meta">Skill · ' + esc(groupName(k.group)) + '</span>' +
       '<span class="title">' + esc(k.name) + '</span></span>' + ICON.chev + '</a>';
   }
@@ -857,7 +858,7 @@
     var filter = store.get('abg.toolkitFilter', 'all');
     view.innerHTML =
       navBar('#learn', 'Learn') +
-      '<div><h1 class="page-title">The Toolkit</h1><p class="lede">Coping skills you can use in the moment. Each card tells you what the skill is, when to use it and how to do it, step by step. Choose a category or browse them all.</p></div>' +
+      '<div><h1 class="page-title">The Pocketbook</h1><p class="lede">Our grandmothers and aunties carried pocketbooks with exactly what you needed inside. This one holds coping skills you can pull out in the moment. Each card tells you what the skill is, when to use it and how to do it, step by step. Add your favorites to your pocketbook to find them fast.</p></div>' +
       '<section class="filter-card">' +
         '<label class="filter-label" for="skill-type">Type of skill</label>' +
         '<div class="select-wrap"><select id="skill-type">' +
@@ -899,12 +900,12 @@
   }
   function shareSkill(k) {
     var link = APP_URL + '/#skill-' + k.id;
-    var caption = 'A skill worth trying: ' + k.name + '. Find it free in the Anxious Black Girls® app.';
+    var caption = 'Something for your pocketbook: ' + k.name + '. Find it free in the Anxious Black Girls® app.';
     openSharePanel({
       heading: 'Share this skill', imageText: k.name,
       makeImage: function (format) {
-        return makeCardImage({ tag: 'Toolkit skill', color: '#E4E3CC', accent: '#6B6935', meta: '1-minute practice', title: k.name,
-          excerpt: k.what + ' ' + k.steps.map(function (st, i) { return (i + 1) + '. ' + st; }).join(' '), cta: 'Try this skill free in the app' }, format);
+        return makeCardImage({ tag: 'From the Pocketbook', color: '#E4E3CC', accent: '#6B6935', meta: '1-minute skill', title: k.name,
+          excerpt: k.what + ' ' + k.steps.map(function (st, i) { return (i + 1) + '. ' + st; }).join(' '), cta: 'Get it free in the Pocketbook' }, format);
       },
       alt: 'Branded image with the skill name', file: 'anxious-black-girls-skill.png',
       caption: caption + ' ' + link, link: link, linkHeading: 'Or post a link to this skill',
@@ -916,35 +917,38 @@
   }
   function viewSkill(id) {
     var k = skillById(id);
-    if (!k) { location.hash = '#toolkit'; return; }
+    if (!k) { location.hash = '#pocketbook'; return; }
     var isSaved = savedSkills().indexOf(id) !== -1;
-    function saveBtn(idAttr) { return '<button id="' + idAttr + '" class="btn save-btn" aria-pressed="' + isSaved + '">' + ICON.heart + '<span>' + (isSaved ? 'Saved' : 'Save skill') + '</span></button>'; }
+    function saveLabel(on) { return on ? 'In my pocketbook' : 'Add to my pocketbook'; }
+    function saveBtn(idAttr) { return '<button id="' + idAttr + '" class="btn save-btn pocket-btn" aria-pressed="' + isSaved + '">' + ICON.bag + '<span>' + saveLabel(isSaved) + '</span></button>'; }
     var related = k.topics.map(topicById).filter(Boolean);
     view.innerHTML =
-      navBar('#toolkit', 'Back to Toolkit', '<div class="nav-actions"><button id="share-skill-top" class="btn icon-only" aria-label="Share this skill">' + ICON.share + '</button>' + saveBtn('save-skill-top') + '</div>') +
-      '<section class="skill-hero"><span class="skill-hero-label">' + ICON.spark + 'The Toolkit · 1-minute practice</span>' +
+      navBar('#pocketbook', 'Back to the Pocketbook', '<div class="nav-actions"><button id="share-skill-top" class="btn icon-only" aria-label="Share this skill">' + ICON.share + '</button>' + saveBtn('save-skill-top') + '</div>') +
+      '<section class="skill-hero"><span class="skill-hero-label">' + ICON.bag + 'The Pocketbook · 1-minute skill</span>' +
         '<h1>' + esc(k.name) + '</h1><p>' + esc(k.what) + '</p><span class="skill-hero-group">' + esc(groupName(k.group)) + '</span></section>' +
       '<article class="prose skill-page">' +
       '<div class="stack" style="gap:14px">' +
       '<h2>When to use it</h2><p>' + esc(k.when) + '</p>' +
-      '<section class="skill"><span class="eyebrow">Try this</span><ol class="steps">' + k.steps.map(function (st) { return '<li>' + esc(st) + '</li>'; }).join('') + '</ol></section>' +
+      '<section class="skill"><span class="eyebrow">Try this</span><p class="skill-intro">Pull this out of your pocketbook whenever you need it.</p><ol class="steps">' + k.steps.map(function (st) { return '<li>' + esc(st) + '</li>'; }).join('') + '</ol></section>' +
+      '<section class="keep-it"><span class="keep-icon" aria-hidden="true">' + ICON.bag + '</span><div><strong>Keep this one close.</strong>' +
+        '<p>Tuck it in your pocketbook so it\'s ready next time, or pass it to a friend who could use it.</p>' +
+        '<div class="keep-actions">' + saveBtn('save-skill-keep') + '<button id="share-skill-keep" class="btn save-btn">' + ICON.share + 'Share with a friend</button></div></div></section>' +
       (k.lens ? '<aside class="lens"><span class="eyebrow">Through our lens</span><p>' + esc(k.lens) + '</p></aside>' : '') +
       (related.length ? '<h2>Read more</h2><div class="stack">' + related.map(function (t) {
         return '<a class="row-link" href="#topic-' + esc(t.id) + '"><span class="badge" style="background:' + esc(t.color) + '">' + esc(t.name.slice(0, 2).toUpperCase()) + '</span><span class="text"><span class="title">' + esc(t.name) + '</span></span>' + ICON.chev + '</a>';
       }).join('') + '</div>' : '') +
       '<h3>Source</h3><ul class="sources"><li>' + esc(k.source) + '</li></ul></div></article>' +
-      '<div class="article-end">' + saveBtn('save-skill-bottom') + '<button id="share-skill-bottom" class="btn save-btn">' + ICON.share + 'Share</button>' +
-        '<a class="btn" href="#toolkit">More skills</a></div>' +
+      '<div class="article-end"><a class="btn" href="#pocketbook">More from the Pocketbook</a></div>' +
       '<p class="disclaimer"><strong>Disclaimer:</strong> This is education, not therapy or medical advice. If you\'re in crisis, call 911 or call/text 988.</p>' +
       reportIssue('skill', k.name, '#skill-' + k.id) +
       '<p class="copyright">© 2026 Anxious Black Girls, LLC. All rights reserved.</p>';
-    ['share-skill-top', 'share-skill-bottom'].forEach(function (sid) { document.getElementById(sid).addEventListener('click', function () { shareSkill(k); }); });
-    var btns = [document.getElementById('save-skill-top'), document.getElementById('save-skill-bottom')];
+    ['share-skill-top', 'share-skill-keep'].forEach(function (sid) { document.getElementById(sid).addEventListener('click', function () { shareSkill(k); }); });
+    var btns = [document.getElementById('save-skill-top'), document.getElementById('save-skill-keep')];
     btns.forEach(function (btn) {
       btn.addEventListener('click', function () {
         var on = toggle('abg.savedSkills', id);
-        btns.forEach(function (b) { b.setAttribute('aria-pressed', on); b.querySelector('span').textContent = on ? 'Saved' : 'Save skill'; });
-        toast(on ? 'Saved. Find it anytime in the Saved tab.' : 'Removed from Saved');
+        btns.forEach(function (b) { b.setAttribute('aria-pressed', on); b.querySelector('span').textContent = saveLabel(on); });
+        toast(on ? 'Added to your pocketbook. Find it anytime in Saved.' : 'Taken out of your pocketbook');
       });
     });
   }
@@ -956,7 +960,7 @@
     if (h === 'learn') { tab = 'learn'; viewLearn(); }
     else if (h.indexOf('topic-') === 0) { tab = 'learn'; viewTopic(h.slice(6)); }
     else if (h.indexOf('article-') === 0) { tab = 'learn'; viewArticle(h.slice(8)); }
-    else if (h === 'toolkit') { tab = 'learn'; viewToolkit(); }
+    else if (h === 'toolkit' || h === 'pocketbook') { tab = 'learn'; viewToolkit(); }
     else if (h.indexOf('skill-') === 0) { tab = 'learn'; viewSkill(h.slice(6)); }
     else if (h === 'journal') { tab = 'journal'; pauseShownThisVisit = false; viewJournal(); }
     else if (h === 'saved') { tab = 'saved'; viewSaved(); }

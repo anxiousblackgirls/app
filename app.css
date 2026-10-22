@@ -425,3 +425,15 @@ main { display: flex; flex-direction: column; gap: 20px; padding-top: 8px; outli
 .report-issue p { margin: 4px 0 0; font-size: 14px; color: var(--muted); line-height: 1.5; }
 .report-issue a { color: var(--gold-deep); font-weight: 700; word-break: break-word; }
 .report-icon { flex: none; width: 28px; height: 28px; border-radius: 50%; background: var(--gold-soft); color: var(--gold-deep); display: grid; place-items: center; font-weight: 800; font-size: 15px; }
+
+.skill-intro { margin: 2px 0 0; font-size: 14px; color: var(--muted); }
+.keep-it { display: flex; gap: 14px; align-items: flex-start; background: var(--sage); border-radius: 20px; padding: 16px; }
+.keep-it strong { display: block; font-size: 16px; }
+.keep-it p { margin: 4px 0 12px; color: var(--ink); line-height: 1.5; }
+.keep-icon { flex: none; width: 44px; height: 44px; border-radius: 14px; background: var(--surface); display: grid; place-items: center; color: var(--sage-ink); }
+.keep-icon svg { stroke: var(--sage-ink); }
+.keep-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.pocket-btn[aria-pressed="true"] { background: var(--sage); border-color: var(--sage-ink); }
+.save-btn.pocket-btn[aria-pressed="true"] svg { fill: none; }
+.save-btn.pocket-btn[aria-pressed="true"] svg .bag-body { fill: currentColor; fill-opacity: 0.25; }
+.toolkit-icon svg, .keep-icon svg { width: 24px; height: 24px; }
