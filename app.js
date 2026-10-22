@@ -892,7 +892,7 @@
     openSharePanel({
       heading: 'Share this skill', imageText: k.name,
       makeImage: function (format) {
-        return makeCardImage({ tag: 'Toolkit skill', color: '#F0DFB8', meta: '1-minute practice', title: k.name,
+        return makeCardImage({ tag: 'Toolkit skill', color: '#E4E3CC', accent: '#6B6935', meta: '1-minute practice', title: k.name,
           excerpt: k.what + ' ' + k.steps.map(function (st, i) { return (i + 1) + '. ' + st; }).join(' '), cta: 'Try this skill free in the app' }, format);
       },
       alt: 'Branded image with the skill name', file: 'anxious-black-girls-skill.png',
