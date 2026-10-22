@@ -256,7 +256,7 @@
       ctx.fillStyle = g; ctx.fillRect(cx + 4, fadeTop, cw - 8, btnY - 30 - fadeTop + 2);
       ctx.fillStyle = '#FFFFFF'; ctx.fillRect(cx + 4, btnY - 30, cw - 8, 30);
       // button
-      roundRect(ctx, cx + pad, btnY, maxW, btnH, btnH / 2); ctx.fillStyle = '#8A5F12'; ctx.fill();
+      roundRect(ctx, cx + pad, btnY, maxW, btnH, btnH / 2); ctx.fillStyle = card.accent || '#8A5F12'; ctx.fill();
       ctx.fillStyle = '#FFFFFF'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
       ctx.font = '700 38px "DM Sans", Arial, sans-serif';
       ctx.fillText(card.cta, W / 2, btnY + btnH / 2 + 2);
@@ -384,7 +384,7 @@
     var t = topicById(a.topic) || { name: '', color: '#F0DFB8' };
     return '<a class="row-link" href="#article-' + esc(a.id) + '">' +
       '<span class="badge" style="background:' + esc(t.color) + '">' + esc(t.name.slice(0, 2).toUpperCase()) + '</span>' +
-      '<span class="text"><span class="meta">' + esc(t.name) + ' · ' + a.minutes + ' min</span>' +
+      '<span class="text"><span class="meta">Article · ' + esc(t.name) + ' · ' + a.minutes + ' min</span>' +
       '<span class="title">' + esc(a.title) + '</span></span>' + ICON.chev + '</a>';
   }
 
@@ -527,7 +527,7 @@
         '<audio id="listen-audio" preload="metadata" src="' + esc(a.audio) + '"></audio></div>' : '') +
       '<div id="article-body" class="stack" style="gap:14px"><p>Loading…</p></div></article>' +
       (function () { var ks = skillsForTopic(a.topic, 3, DATA.articles.indexOf(a));
-        return ks.length ? '<h2 class="section-title">Skills to try</h2><div class="stack">' + ks.map(skillRow).join('') + '</div>' : ''; })() +
+        return ks.length ? '<section class="practice-panel"><span class="skill-hero-label">' + ICON.spark + 'From the Toolkit</span><h2 class="section-title">Now practice it</h2><p class="section-note" style="margin:0">Short skills you can try today.</p><div class="stack">' + ks.map(skillRow).join('') + '</div><a class="text-link" href="#toolkit">See all skills</a></section>' : ''; })() +
       '<div class="article-end">' + saveArticleBtn('save-art-bottom', isSaved) +
         '<button id="share-art-bottom" class="btn save-btn">' + ICON.share + 'Share</button>' +
         '<a class="btn" href="#topic-' + esc(t.id) + '">More on ' + esc(t.name) + '</a>' +
@@ -829,8 +829,8 @@
   function savedSkills() { return store.get('abg.savedSkills', []); }
   function skillRow(k) {
     return '<a class="row-link" href="#skill-' + esc(k.id) + '">' +
-      '<span class="badge" style="background:' + esc(GROUP_COLORS[k.group] || '#F0DFB8') + '">' + ICON.spark + '</span>' +
-      '<span class="text"><span class="meta">' + esc(groupName(k.group)) + '</span>' +
+      '<span class="badge skill-badge">' + ICON.spark + '</span>' +
+      '<span class="text"><span class="meta skill-meta">Skill · ' + esc(groupName(k.group)) + '</span>' +
       '<span class="title">' + esc(k.name) + '</span></span>' + ICON.chev + '</a>';
   }
   function skillsForTopic(topicId, n, seed) {
@@ -869,7 +869,7 @@
     openSharePanel({
       heading: 'Share this skill', imageText: k.name,
       makeImage: function (format) {
-        return makeCardImage({ tag: groupName(k.group), color: GROUP_COLORS[k.group] || '#F0DFB8', meta: 'Skill', title: k.name,
+        return makeCardImage({ tag: 'Toolkit skill', color: '#DEDDC2', accent: '#5E5C2C', meta: '1-minute practice', title: k.name,
           excerpt: k.what + ' ' + k.steps.map(function (st, i) { return (i + 1) + '. ' + st; }).join(' '), cta: 'Try this skill free in the app' }, format);
       },
       alt: 'Branded image with the skill name', file: 'anxious-black-girls-skill.png',
@@ -888,9 +888,10 @@
     var related = k.topics.map(topicById).filter(Boolean);
     view.innerHTML =
       navBar('#toolkit', 'Back to Toolkit', '<div class="nav-actions"><button id="share-skill-top" class="btn icon-only" aria-label="Share this skill">' + ICON.share + '</button>' + saveBtn('save-skill-top') + '</div>') +
-      '<article class="prose"><div class="tags"><span class="tag" style="background:' + esc(GROUP_COLORS[k.group] || '#F0DFB8') + '">' + esc(groupName(k.group)) + '</span><span class="tag" style="background:var(--bg)">1 min</span></div>' +
-      '<h1>' + esc(k.name) + '</h1>' +
-      '<div class="stack" style="gap:14px"><p>' + esc(k.what) + '</p>' +
+      '<section class="skill-hero"><span class="skill-hero-label">' + ICON.spark + 'The Toolkit · 1-minute practice</span>' +
+        '<h1>' + esc(k.name) + '</h1><p>' + esc(k.what) + '</p><span class="skill-hero-group">' + esc(groupName(k.group)) + '</span></section>' +
+      '<article class="prose skill-page">' +
+      '<div class="stack" style="gap:14px">' +
       '<h2>When to use it</h2><p>' + esc(k.when) + '</p>' +
       '<section class="skill"><span class="eyebrow">Try this</span><ol class="steps">' + k.steps.map(function (st) { return '<li>' + esc(st) + '</li>'; }).join('') + '</ol></section>' +
       (k.lens ? '<aside class="lens"><span class="eyebrow">Through our lens</span><p>' + esc(k.lens) + '</p></aside>' : '') +
