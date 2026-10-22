@@ -182,7 +182,7 @@
       var im = new Image();
       im.onload = function () { headerLogo = im; resolve(im); };
       im.onerror = reject;
-      im.src = 'logo-header.png';
+      im.src = 'logo-circle.png';
     });
   }
   function articleExcerpt(md) {
