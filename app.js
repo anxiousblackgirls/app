@@ -320,7 +320,8 @@
       '<section class="mind-card" aria-labelledby="mind-title">' +
         '<h2 id="mind-title" class="section-title">What\'s on your mind today?</h2>' +
         (PROMPTS.length ? '<p class="mind-prompt">' + esc(PROMPTS[n % PROMPTS.length]) + '</p>' : '') +
-        '<a class="btn dark" href="#journal">' + ICON.pen + 'Write about it in your journal</a>' +
+        '<a class="btn dark" href="#journal" id="mind-prompt">' + ICON.pen + 'Write about it in your journal</a>' +
+        '<a class="text-link" href="#journal" id="mind-free">Or free write about anything</a>' +
         '<p class="mind-note">Only you can read what you write. No one else can see it, not even us.</p>' +
       '</section>' +
       '<section class="learn-card" aria-labelledby="learn-pick-title">' +
@@ -341,6 +342,8 @@
       toast(on ? 'Saved to your favorites' : 'Removed from favorites');
     });
     document.getElementById('share-aff').addEventListener('click', function () { openShareSheet(aff); });
+    document.getElementById('mind-prompt').addEventListener('click', function () { store.set('abg.journalMode', 'prompt'); });
+    document.getElementById('mind-free').addEventListener('click', function () { store.set('abg.journalMode', 'free'); });
     document.getElementById('topic-pick').addEventListener('change', function () {
       if (this.value) location.hash = '#topic-' + this.value;
     });
@@ -508,12 +511,17 @@
       navBar('#today', 'Home') +
       '<div><h1 class="page-title">Journal</h1><p class="lede">Your entries stay on this phone. No one else can read them, including Anxious Black Girls®.</p></div>' +
       '<section class="journal-card">' +
-        '<span class="eyebrow">Today\'s prompt</span>' +
-        '<p class="prompt">' + esc(prompt) + '</p>' +
+        '<div class="share-toggle mode-toggle" role="group" aria-label="How do you want to write?">' +
+          '<button class="btn small" data-mode="prompt" aria-pressed="true">Today\'s prompt</button>' +
+          '<button class="btn small" data-mode="free" aria-pressed="false">Free write</button>' +
+        '</div>' +
+        '<div id="mode-prompt"><span class="eyebrow">Today\'s prompt</span>' +
+        '<p class="prompt">' + esc(prompt) + '</p></div>' +
+        '<div id="mode-free" hidden><span class="eyebrow">Free write</span>' +
+        '<p class="prompt">No prompt needed. Write whatever is on your mind.</p></div>' +
         '<label class="sr" for="journal-text">Write your entry</label>' +
         '<textarea id="journal-text" rows="7" placeholder="Write as much or as little as you want…">' + esc(draft) + '</textarea>' +
-        '<div class="actions"><button id="journal-save" class="btn dark">Save entry</button>' +
-        '<button id="journal-free" class="btn">Write without the prompt</button></div>' +
+        '<div class="actions"><button id="journal-save" class="btn dark">Save entry</button></div>' +
       '</section>' +
       '<div id="journal-alert"></div>' +
       '<p class="disclaimer">This journal is private and not monitored. If you\'re in crisis, call 911 or call/text 988. Deleting the app or clearing your browser data erases your entries, so use "Copy all entries" to keep a backup.</p>' +
@@ -545,12 +553,21 @@
     }
     ta.addEventListener('input', function () { store.set('abg.journalDraft', ta.value); check(true); });
     check();
-    document.getElementById('journal-free').addEventListener('click', function () {
-      usePrompt = !usePrompt;
-      view.querySelector('.journal-card .prompt').hidden = !usePrompt;
-      this.textContent = usePrompt ? 'Write without the prompt' : 'Use today\'s prompt';
-      ta.focus();
+    function setMode(mode, focus) {
+      usePrompt = mode !== 'free';
+      store.set('abg.journalMode', usePrompt ? 'prompt' : 'free');
+      document.getElementById('mode-prompt').hidden = !usePrompt;
+      document.getElementById('mode-free').hidden = usePrompt;
+      ta.placeholder = usePrompt ? 'Write as much or as little as you want…' : 'Start anywhere. This space is yours.';
+      Array.prototype.forEach.call(view.querySelectorAll('[data-mode]'), function (b) {
+        b.setAttribute('aria-pressed', b.getAttribute('data-mode') === (usePrompt ? 'prompt' : 'free'));
+      });
+      if (focus) ta.focus();
+    }
+    Array.prototype.forEach.call(view.querySelectorAll('[data-mode]'), function (b) {
+      b.addEventListener('click', function () { setMode(b.getAttribute('data-mode'), true); });
     });
+    setMode(store.get('abg.journalMode', 'prompt'));
     document.getElementById('journal-save').addEventListener('click', function () {
       var text = ta.value.trim();
       if (!text) { toast('Write something first, then tap Save.'); ta.focus(); return; }
