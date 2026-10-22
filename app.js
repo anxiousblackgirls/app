@@ -174,6 +174,92 @@
     });
   }
 
+  // article share image: looks like a page from the app, with a preview of the article
+  var headerLogo = null;
+  function loadHeaderLogo() {
+    if (headerLogo) return Promise.resolve(headerLogo);
+    return new Promise(function (resolve, reject) {
+      var im = new Image();
+      im.onload = function () { headerLogo = im; resolve(im); };
+      im.onerror = reject;
+      im.src = 'logo-header.png';
+    });
+  }
+  function articleExcerpt(md) {
+    var lines = (md || '').split('### Sources')[0].split('\n').map(function (l) { return l.trim(); })
+      .filter(function (l) { return l && !/^(#|>)/.test(l); })
+      .map(function (l) { return l.replace(/^- /, ''); });
+    return lines.join(' ').replace(/\*\*/g, '').replace(/\[([^\]]+)\]\([^)]*\)/g, '$1').split(/\s+/).slice(0, 160).join(' ');
+  }
+  function roundRect(ctx, x, y, w, h, r) {
+    ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath();
+  }
+  function makeArticleImage(a, format) {
+    var size = SHARE_SIZES[format] || SHARE_SIZES.post, W = size[0], H = size[1], story = format === 'story';
+    var t = topicById(a.topic) || { name: '', color: '#F0DFB8' };
+    var mdP = articleCache[a.id] ? Promise.resolve(articleCache[a.id])
+      : fetch(encodeURIComponent(a.id) + '.md').then(function (r) { return r.text(); }).catch(function () { return ''; });
+    var fontsReady = (document.fonts && document.fonts.load)
+      ? Promise.all([document.fonts.load('800 80px Montserrat'), document.fonts.load('700 36px "DM Sans"'), document.fonts.load('400 36px "DM Sans"')]).catch(function () {})
+      : Promise.resolve();
+    return Promise.all([loadHeaderLogo(), mdP, fontsReady]).then(function (res) {
+      var logo = res[0], excerpt = articleExcerpt(res[1]);
+      var c = document.createElement('canvas'); c.width = W; c.height = H;
+      var ctx = c.getContext('2d'), ink = '#2B2118';
+      ctx.fillStyle = '#F7F1EB'; ctx.fillRect(0, 0, W, H);
+      // logo
+      var lw = story ? 520 : 440, lh = lw * logo.height / logo.width, ly = story ? 120 : 64;
+      ctx.drawImage(logo, (W - lw) / 2, ly, lw, lh);
+      // card
+      var cx = 64, cy = ly + lh + (story ? 70 : 44), cw = W - 128, ch = H - cy - (story ? 230 : 150), pad = 64;
+      ctx.save(); ctx.shadowColor = 'rgba(43,33,24,0.10)'; ctx.shadowBlur = 40; ctx.shadowOffsetY = 12;
+      roundRect(ctx, cx, cy, cw, ch, 48); ctx.fillStyle = '#FFFFFF'; ctx.fill(); ctx.restore();
+      // tags
+      var x = cx + pad, y = cy + pad;
+      ctx.textBaseline = 'middle'; ctx.textAlign = 'left';
+      function pill(txt, bg) {
+        ctx.font = '700 32px "DM Sans", Arial, sans-serif';
+        var w = ctx.measureText(txt).width + 52;
+        roundRect(ctx, x, y, w, 64, 32); ctx.fillStyle = bg; ctx.fill();
+        ctx.fillStyle = ink; ctx.fillText(txt, x + 26, y + 33); x += w + 16;
+      }
+      pill(t.name, t.color); pill(a.minutes + ' min read', '#F7F1EB');
+      // title
+      var maxW = cw - pad * 2, fs = story ? 84 : 76, lines;
+      ctx.textBaseline = 'alphabetic';
+      do { ctx.font = '800 ' + fs + 'px Montserrat, Arial, sans-serif'; lines = wrapLines(ctx, a.title, maxW); if (lines.length <= 3) break; fs -= 4; } while (fs > 44);
+      var ty = y + 64 + 40 + fs; ctx.fillStyle = ink;
+      lines.forEach(function (l, i) { ctx.fillText(l, cx + pad, ty + i * fs * 1.12); });
+      // excerpt with fade
+      var btnH = 104, btnY = cy + ch - pad - btnH;
+      var ey = ty + (lines.length - 1) * fs * 1.12 + (story ? 110 : 92);
+      var efs = story ? 42 : 38, elh = efs * 1.5;
+      ctx.font = '400 ' + efs + 'px "DM Sans", Arial, sans-serif'; ctx.fillStyle = '#4D4A45';
+      var elines = wrapLines(ctx, excerpt, maxW), room = Math.floor((btnY - 50 - ey) / elh) + 1;
+      elines = elines.slice(0, Math.max(0, room));
+      elines.forEach(function (l, i) { ctx.fillText(l, cx + pad, ey + i * elh); });
+      var fadeTop = Math.max(ey - efs, btnY - 50 - elh * 2.2);
+      var g = ctx.createLinearGradient(0, fadeTop, 0, btnY - 30);
+      g.addColorStop(0, 'rgba(255,255,255,0)'); g.addColorStop(1, 'rgba(255,255,255,1)');
+      ctx.fillStyle = g; ctx.fillRect(cx + 4, fadeTop, cw - 8, btnY - 30 - fadeTop + 2);
+      ctx.fillStyle = '#FFFFFF'; ctx.fillRect(cx + 4, btnY - 30, cw - 8, 30);
+      // button
+      roundRect(ctx, cx + pad, btnY, maxW, btnH, btnH / 2); ctx.fillStyle = '#8A5F12'; ctx.fill();
+      ctx.fillStyle = '#FFFFFF'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.font = '700 38px "DM Sans", Arial, sans-serif';
+      ctx.fillText('Read the full article free in the app', W / 2, btnY + btnH / 2 + 2);
+      // footer
+      ctx.textBaseline = 'alphabetic'; ctx.fillStyle = ink;
+      var fy = cy + ch + (story ? 100 : 72);
+      ctx.font = '800 38px Montserrat, Arial, sans-serif';
+      ctx.fillText('app.anxiousblackgirls.com', W / 2, fy);
+      ctx.fillStyle = '#8A5F12'; ctx.font = '700 30px "DM Sans", Arial, sans-serif';
+      ctx.fillText('@anxiousblackgirls', W / 2, fy + 48);
+      return new Promise(function (resolve) { c.toBlob(resolve, 'image/png'); });
+    });
+  }
+
   var APP_URL = 'https://app.anxiousblackgirls.com';
   function openShareSheet(aff) {
     var caption = '"' + aff.text + '" Today\'s affirmation from Anxious Black Girls®. Get yours free at app.anxiousblackgirls.com';
@@ -190,7 +276,7 @@
     var caption = 'This one hit home: ' + a.title + '. Read it free in the Anxious Black Girls® app.';
     openSharePanel({
       heading: 'Share this article', imageText: a.title,
-      imageOpts: { label: (t.name || 'A must-read').toUpperCase(), footer: 'Read it free in the Anxious Black Girls app' },
+      makeImage: function (format) { return makeArticleImage(a, format); },
       alt: 'Branded image with the article title', file: 'anxious-black-girls-article.png',
       caption: caption + ' ' + link, link: link, linkHeading: 'Or post a link to this article',
       sendText: function () {
@@ -233,7 +319,7 @@
     function close() { if (url) URL.revokeObjectURL(url); el.parentNode && el.parentNode.removeChild(el); }
     function render() {
       img.removeAttribute('src');
-      makeShareImage(aff.text, format, o.imageOpts).then(function (b) {
+      (o.makeImage ? o.makeImage(format) : makeShareImage(aff.text, format, o.imageOpts)).then(function (b) {
         blob = b;
         if (url) URL.revokeObjectURL(url);
         url = URL.createObjectURL(b);
