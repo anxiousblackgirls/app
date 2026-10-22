@@ -807,7 +807,7 @@
       (arts.length ? '<div class="stack">' + arts.map(articleRow).join('') + '</div>' : '<p class="empty">Tap "Save article" on any article to keep it here.</p>') +
       '<h2 class="section-title">My pocketbook</h2>' +
       (function () { var ks = savedSkills().map(skillById).filter(Boolean);
-        return ks.length ? '<div class="stack">' + ks.map(skillRow).join('') + '</div>' : '<p class="empty">Tap "Add to my pocketbook" on any skill to keep it here, ready for when you need it.</p>'; })();
+        return ks.length ? '<div class="stack">' + ks.map(skillRow).join('') + '</div>' : '<p class="empty">Tap "Save to my pocketbook" on any skill to keep it here, ready for when you need it.</p>'; })();
     Array.prototype.forEach.call(view.querySelectorAll('[data-unsave]'), function (b) {
       b.addEventListener('click', function () {
         toggle('abg.savedAffirmations', affs[+b.getAttribute('data-unsave')]);
@@ -901,12 +901,12 @@
   }
   function shareSkill(k) {
     var link = APP_URL + '/#skill-' + k.id;
-    var caption = 'Something for your pocketbook: ' + k.name + '. Find it free in the Anxious Black Girls® app.';
+    var caption = 'A coping skill worth trying: ' + k.name + '. Get more skills like this free in the Anxious Black Girls® app.';
     openSharePanel({
       heading: 'Share this skill', imageText: k.name,
       makeImage: function (format) {
-        return makeCardImage({ tag: 'From the Pocketbook', color: '#E4E3CC', accent: '#D3B094', accentText: '#2B2118', meta: '1-minute skill', title: k.name,
-          excerpt: k.what + ' ' + k.steps.map(function (st, i) { return (i + 1) + '. ' + st; }).join(' '), cta: 'Get it free in the Pocketbook' }, format);
+        return makeCardImage({ tag: 'Coping skill', color: '#E4E3CC', accent: '#D3B094', accentText: '#2B2118', meta: '1-minute practice', title: k.name,
+          excerpt: k.what + ' ' + k.steps.map(function (st, i) { return (i + 1) + '. ' + st; }).join(' '), cta: 'Get more skills like this in the app' }, format);
       },
       alt: 'Branded image with the skill name', file: 'anxious-black-girls-skill.png',
       caption: caption + ' ' + link, link: link, linkHeading: 'Or post a link to this skill',
@@ -920,7 +920,7 @@
     var k = skillById(id);
     if (!k) { location.hash = '#pocketbook'; return; }
     var isSaved = savedSkills().indexOf(id) !== -1;
-    function saveLabel(on) { return on ? 'In my pocketbook' : 'Add to my pocketbook'; }
+    function saveLabel(on) { return on ? 'In my pocketbook' : 'Save to my pocketbook'; }
     function saveBtn(idAttr) { return '<button id="' + idAttr + '" class="btn save-btn pocket-btn" aria-pressed="' + isSaved + '">' + ICON.bag + '<span>' + saveLabel(isSaved) + '</span></button>'; }
     var related = k.topics.map(topicById).filter(Boolean);
     view.innerHTML =
