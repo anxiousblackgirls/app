@@ -935,7 +935,7 @@
       '<h3>Source</h3><ul class="sources"><li>' + esc(k.source) + '</li></ul></div></article>' +
       '<div class="article-end">' + saveBtn('save-skill-bottom') + '<button id="share-skill-bottom" class="btn save-btn">' + ICON.share + 'Share</button>' +
         '<a class="btn" href="#toolkit">More skills</a></div>' +
-      '<p class="disclaimer">This is education, not therapy or medical advice. If you\'re in crisis, call 911 or call/text 988.</p>' +
+      '<p class="disclaimer"><strong>Disclaimer:</strong> This is education, not therapy or medical advice. If you\'re in crisis, call 911 or call/text 988.</p>' +
       reportIssue('skill', k.name, '#skill-' + k.id) +
       '<p class="copyright">© 2026 Anxious Black Girls, LLC. All rights reserved.</p>';
     ['share-skill-top', 'share-skill-bottom'].forEach(function (sid) { document.getElementById(sid).addEventListener('click', function () { shareSkill(k); }); });
