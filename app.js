@@ -118,7 +118,8 @@
     if (line) lines.push(line);
     return lines;
   }
-  function makeShareImage(text, format) {
+  function makeShareImage(text, format, opts) {
+    opts = opts || {};
     var size = SHARE_SIZES[format] || SHARE_SIZES.post, W = size[0], H = size[1];
     var fontsReady = (document.fonts && document.fonts.load)
       ? Promise.all([document.fonts.load('800 80px Montserrat'), document.fonts.load('700 36px "DM Sans"')]).catch(function () {})
@@ -142,7 +143,7 @@
       var labelY = logoY + lh + (format === 'story' ? 150 : 100);
       if ('letterSpacing' in ctx) ctx.letterSpacing = '4px';
       ctx.fillStyle = '#8A5F12';
-      ctx.fillText('TO MY ANXIOUS BLACK GIRL,', W / 2, labelY);
+      ctx.fillText(opts.label || 'TO MY ANXIOUS BLACK GIRL,', W / 2, labelY);
       ctx.fillStyle = ink;
       if ('letterSpacing' in ctx) ctx.letterSpacing = '0px';
       // affirmation, shrink to fit
@@ -160,7 +161,7 @@
       lines.forEach(function (l, i) { ctx.fillText(l, W / 2, startY + i * lineH); });
       // footer
       ctx.font = '700 34px "DM Sans", Arial, sans-serif';
-      ctx.fillText('Your daily affirmation, free at', W / 2, footerTop + 30);
+      ctx.fillText(opts.footer || 'Your daily affirmation, free at', W / 2, footerTop + 30);
       ctx.font = '800 40px Montserrat, Arial, sans-serif';
       ctx.fillText('app.anxiousblackgirls.com', W / 2, footerTop + 86);
       ctx.strokeStyle = '#BB831D'; ctx.lineWidth = 3;
@@ -175,30 +176,55 @@
 
   var APP_URL = 'https://app.anxiousblackgirls.com';
   function openShareSheet(aff) {
-    var format = 'post', blob = null, url = null;
     var caption = '"' + aff.text + '" Today\'s affirmation from Anxious Black Girls®. Get yours free at app.anxiousblackgirls.com';
+    openSharePanel({
+      heading: 'Share today\'s affirmation', imageText: aff.text, imageOpts: {},
+      alt: 'Branded image of today\'s affirmation', file: 'anxious-black-girls-affirmation.png',
+      caption: caption, link: APP_URL, linkHeading: 'Or post a link to the app',
+      sendText: function () { shareAffirmation(aff.text); }
+    });
+  }
+  function shareArticle(a) {
+    var t = topicById(a.topic) || { name: '' };
+    var link = APP_URL + '/#article-' + a.id;
+    var caption = 'This one hit home: ' + a.title + '. Read it free in the Anxious Black Girls® app.';
+    openSharePanel({
+      heading: 'Share this article', imageText: a.title,
+      imageOpts: { label: (t.name || 'A must-read').toUpperCase(), footer: 'Read it free in the Anxious Black Girls app' },
+      alt: 'Branded image with the article title', file: 'anxious-black-girls-article.png',
+      caption: caption + ' ' + link, link: link, linkHeading: 'Or post a link to this article',
+      sendText: function () {
+        if (navigator.share) navigator.share({ title: a.title, text: caption, url: link }).catch(function () { copy(caption + ' ' + link); });
+        else copy(caption + ' ' + link);
+      }
+    });
+  }
+  function openSharePanel(o) {
+    var aff = { text: o.imageText };
+    var format = 'post', blob = null, url = null;
+    var caption = o.caption, APP_LINK = o.link;
     var el = document.createElement('div');
     el.className = 'share-sheet';
     el.setAttribute('role', 'dialog'); el.setAttribute('aria-modal', 'true'); el.setAttribute('aria-labelledby', 'share-title');
     el.innerHTML =
       '<div class="share-card">' +
-        '<div class="share-head"><h2 id="share-title">Share today\'s affirmation</h2>' +
+        '<div class="share-head"><h2 id="share-title">' + esc(o.heading) + '</h2>' +
         '<button class="icon-btn" id="share-close" aria-label="Close">' + ICON.close + '</button></div>' +
         '<div class="share-toggle" role="group" aria-label="Image size">' +
           '<button class="btn small" data-format="post" aria-pressed="true">Feed post</button>' +
           '<button class="btn small" data-format="story" aria-pressed="false">Story &amp; TikTok</button>' +
         '</div>' +
-        '<div class="share-preview"><img id="share-img" alt="Branded image of today\'s affirmation"></div>' +
+        '<div class="share-preview"><img id="share-img" alt="' + esc(o.alt) + '"></div>' +
         '<button id="share-go" class="btn dark">' + ICON.share + 'Share image</button>' +
-        '<a id="share-save" class="btn" download="anxious-black-girls-affirmation.png" hidden>Save image</a>' +
+        '<a id="share-save" class="btn" download="' + esc(o.file) + '" hidden>Save image</a>' +
         '<p class="mind-note">Tap the button above, then choose Instagram, TikTok, Messages, or Save Image.</p>' +
-        '<h3 class="share-sub">Or post a link to the app</h3>' +
+        '<h3 class="share-sub">' + esc(o.linkHeading) + '</h3>' +
         '<div class="social-share">' +
-          '<a class="btn small" target="_blank" rel="noopener" href="https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(APP_URL) + '">Facebook</a>' +
+          '<a class="btn small" target="_blank" rel="noopener" href="https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(APP_LINK) + '">Facebook</a>' +
           '<a class="btn small" target="_blank" rel="noopener" href="https://x.com/intent/post?text=' + encodeURIComponent(caption) + '">X</a>' +
           '<a class="btn small" target="_blank" rel="noopener" href="https://www.threads.net/intent/post?text=' + encodeURIComponent(caption) + '">Threads</a>' +
           '<a class="btn small" target="_blank" rel="noopener" href="https://wa.me/?text=' + encodeURIComponent(caption) + '">WhatsApp</a>' +
-          '<a class="btn small" target="_blank" rel="noopener" href="https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(APP_URL) + '">LinkedIn</a>' +
+          '<a class="btn small" target="_blank" rel="noopener" href="https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(APP_LINK) + '">LinkedIn</a>' +
         '</div>' +
         '<button id="share-text" class="btn">Copy or send as text</button>' +
       '</div>';
@@ -207,7 +233,7 @@
     function close() { if (url) URL.revokeObjectURL(url); el.parentNode && el.parentNode.removeChild(el); }
     function render() {
       img.removeAttribute('src');
-      makeShareImage(aff.text, format).then(function (b) {
+      makeShareImage(aff.text, format, o.imageOpts).then(function (b) {
         blob = b;
         if (url) URL.revokeObjectURL(url);
         url = URL.createObjectURL(b);
@@ -231,14 +257,14 @@
     el.querySelector('#share-go').addEventListener('click', function () {
       if (!blob) return;
       if (canShareFile()) {
-        var file = new File([blob], 'anxious-black-girls-affirmation.png', { type: 'image/png' });
+        var file = new File([blob], o.file, { type: 'image/png' });
         navigator.share({ files: [file], text: caption }).catch(function () {});
       } else {
         el.querySelector('#share-save').hidden = false;
         toast('Tap "Save image," then post it from your photos.');
       }
     });
-    el.querySelector('#share-text').addEventListener('click', function () { shareAffirmation(aff.text); });
+    el.querySelector('#share-text').addEventListener('click', o.sendText);
     render();
     el.querySelector('#share-close').focus();
   }
@@ -388,7 +414,7 @@
     var t = topicById(a.topic) || { name: '', color: '#F0DFB8', id: '' };
     var isSaved = savedArts().indexOf(id) !== -1;
     view.innerHTML =
-      navBar('#topic-' + esc(t.id), 'Back to ' + t.name, saveArticleBtn('save-art-top', isSaved)) +
+      navBar('#topic-' + esc(t.id), 'Back to ' + t.name, '<div class="nav-actions"><button id="share-art-top" class="btn icon-only" aria-label="Share this article">' + ICON.share + '</button>' + saveArticleBtn('save-art-top', isSaved) + '</div>') +
       '<article class="prose"><div class="tags"><span class="tag" style="background:' + esc(t.color) + '">' + esc(t.name) + '</span><span class="tag" style="background:var(--bg)">' + a.minutes + ' min read</span></div>' +
       '<h1>' + esc(a.title) + '</h1>' +
       (a.audio ? '<div class="listen" id="listen"><button class="listen-btn" id="listen-btn" type="button" aria-label="Play this article">' + ICON.play + '</button>' +
@@ -398,11 +424,15 @@
         '<audio id="listen-audio" preload="metadata" src="' + esc(a.audio) + '"></audio></div>' : '') +
       '<div id="article-body" class="stack" style="gap:14px"><p>Loading…</p></div></article>' +
       '<div class="article-end">' + saveArticleBtn('save-art-bottom', isSaved) +
+        '<button id="share-art-bottom" class="btn save-btn">' + ICON.share + 'Share</button>' +
         '<a class="btn" href="#topic-' + esc(t.id) + '">More on ' + esc(t.name) + '</a>' +
         '<a class="btn" href="#today">Home</a></div>' +
       '<a class="crisis primary" href="#help"><span class="text"><span class="big" style="display:block">Find support</span><span class="small">Crisis lines and Black therapist directories</span></span></a>' +
       '<p class="disclaimer">This is education, not a diagnosis or medical advice. Talk with a licensed professional about your own health.</p>' +
       '<p class="copyright">© 2026 Anxious Black Girls, LLC. All rights reserved.</p>';
+    ['share-art-top', 'share-art-bottom'].forEach(function (sid) {
+      document.getElementById(sid).addEventListener('click', function () { shareArticle(a); });
+    });
     var saveBtns = [document.getElementById('save-art-top'), document.getElementById('save-art-bottom')];
     saveBtns.forEach(function (btn) {
       btn.addEventListener('click', function () {
