@@ -932,7 +932,7 @@
       '<section class="skill"><span class="eyebrow">Try this</span><p class="skill-intro">Pull this out of your pocketbook whenever you need it.</p><ol class="steps">' + k.steps.map(function (st) { return '<li>' + esc(st) + '</li>'; }).join('') + '</ol></section>' +
       '<section class="keep-it"><span class="keep-icon" aria-hidden="true">' + ICON.bag + '</span><div><strong>Keep this one close.</strong>' +
         '<p>Tuck it in your pocketbook so it\'s ready next time, or pass it to a friend who could use it.</p>' +
-        '<div class="keep-actions">' + saveBtn('save-skill-keep') + '<button id="share-skill-keep" class="btn save-btn">' + ICON.share + 'Share with a friend</button></div></div></section>' +
+        '</div><div class="keep-actions">' + saveBtn('save-skill-keep') + '<button id="share-skill-keep" class="btn save-btn">' + ICON.share + 'Share with a friend</button></div></section>' +
       (k.lens ? '<aside class="lens"><span class="eyebrow">Through our lens</span><p>' + esc(k.lens) + '</p></aside>' : '') +
       (related.length ? '<h2>Read more</h2><div class="stack">' + related.map(function (t) {
         return '<a class="row-link" href="#topic-' + esc(t.id) + '"><span class="badge" style="background:' + esc(t.color) + '">' + esc(t.name.slice(0, 2).toUpperCase()) + '</span><span class="text"><span class="title">' + esc(t.name) + '</span></span>' + ICON.chev + '</a>';
