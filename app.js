@@ -547,7 +547,7 @@
         '<a class="btn" href="#topic-' + esc(t.id) + '">More on ' + esc(t.name) + '</a>' +
         '<a class="btn" href="#today">Home</a></div>' +
       '<a class="crisis primary" href="#help"><span class="text"><span class="big" style="display:block">Find support</span><span class="small">Crisis lines and Black therapist directories</span></span></a>' +
-      '<p class="disclaimer">This is education, not a diagnosis or medical advice. Talk with a licensed professional about your own health.</p>' +
+      '<p class="disclaimer"><strong>Disclaimer:</strong> This is education, not a diagnosis or medical advice. Talk with a licensed professional about your own health.</p>' +
       reportIssue('article', a.title, '#article-' + a.id) +
       '<p class="copyright">© 2026 Anxious Black Girls, LLC. All rights reserved.</p>';
     ['share-art-top', 'share-art-bottom'].forEach(function (sid) {
@@ -876,7 +876,7 @@
       '</section>' +
       '<p id="skill-summary" class="section-desc" aria-live="polite"></p>' +
       '<div id="skill-list" class="stack"></div>' +
-      '<p class="disclaimer">These skills are for learning and practice. They don\'t replace care from a licensed professional. If you\'re in crisis, call 911 or call/text 988.</p>';
+      '<p class="disclaimer"><strong>Disclaimer:</strong> These skills are for learning and practice. They don\'t replace care from a licensed professional. If you\'re in crisis, call 911 or call/text 988.</p>';
     var topic = store.get('abg.toolkitTopic', 'all');
     var typeSel = document.getElementById('skill-type'), topicSel = document.getElementById('skill-topic');
     typeSel.value = SKILLS.groups.some(function (g) { return g.id === filter; }) ? filter : 'all';
