@@ -2,31 +2,38 @@
   "groups": [
     {
       "id": "thinking",
-      "name": "Thinking skills"
+      "name": "Thinking skills",
+      "desc": "Change unhelpful thoughts with CBT tools."
     },
     {
       "id": "traps",
-      "name": "Thinking traps"
+      "name": "Thinking traps",
+      "desc": "Spot common thinking traps and talk back to them."
     },
     {
       "id": "dbt",
-      "name": "DBT skills"
+      "name": "DBT skills",
+      "desc": "DBT skills for big emotions, hard moments and relationships."
     },
     {
       "id": "body",
-      "name": "Body & calm"
+      "name": "Body & calm",
+      "desc": "Calm your body with breathing, grounding and relaxation."
     },
     {
       "id": "neuro",
-      "name": "ADHD & autism"
+      "name": "ADHD & autism",
+      "desc": "Practical tools for ADHD, autism and AuDHD brains."
     },
     {
       "id": "relationships",
-      "name": "Relationships & worth"
+      "name": "Relationships & worth",
+      "desc": "Boundaries, repair and self-worth."
     },
     {
       "id": "rest",
-      "name": "Rest & recovery"
+      "name": "Rest & recovery",
+      "desc": "Recover from burnout and make room for grief."
     }
   ],
   "skills": [

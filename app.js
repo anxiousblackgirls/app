@@ -847,24 +847,43 @@
     view.innerHTML =
       navBar('#learn', 'Learn') +
       '<div><h1 class="page-title">The Toolkit</h1><p class="lede">Coping skills you can use in the moment. Each card tells you what the skill is, when to use it and how to do it, step by step. Choose a category or browse them all.</p></div>' +
-      '<div class="chip-row" role="group" aria-label="Filter skills">' +
-        [['all', 'All']].concat(SKILLS.groups.map(function (g) { return [g.id, g.name]; })).map(function (g) {
-          return '<button class="btn small" data-filter="' + esc(g[0]) + '" aria-pressed="' + (g[0] === filter) + '">' + esc(g[1]) + '</button>';
-        }).join('') +
-      '</div>' +
+      '<section class="filter-card">' +
+        '<label class="filter-label" for="skill-type">Type of skill</label>' +
+        '<div class="select-wrap"><select id="skill-type">' +
+          '<option value="all">All skills (' + SKILLS.skills.length + ')</option>' +
+          SKILLS.groups.map(function (g) {
+            var n = SKILLS.skills.filter(function (k) { return k.group === g.id; }).length;
+            return '<option value="' + esc(g.id) + '">' + esc(g.name) + ' (' + n + ')</option>';
+          }).join('') +
+        '</select>' + ICON.chev + '</div>' +
+        '<label class="filter-label" for="skill-topic">Helps with</label>' +
+        '<div class="select-wrap"><select id="skill-topic">' +
+          '<option value="all">Any topic</option>' +
+          DATA.topics.filter(function (t) { return SKILLS.skills.some(function (k) { return k.topics.indexOf(t.id) !== -1; }); })
+            .map(function (t) { return '<option value="' + esc(t.id) + '">' + esc(t.name) + '</option>'; }).join('') +
+        '</select>' + ICON.chev + '</div>' +
+      '</section>' +
+      '<p id="skill-summary" class="section-desc" aria-live="polite"></p>' +
       '<div id="skill-list" class="stack"></div>' +
       '<p class="disclaimer">These skills are for learning and practice. They don\'t replace care from a licensed professional. If you\'re in crisis, call 911 or call/text 988.</p>';
+    var topic = store.get('abg.toolkitTopic', 'all');
+    var typeSel = document.getElementById('skill-type'), topicSel = document.getElementById('skill-topic');
+    typeSel.value = SKILLS.groups.some(function (g) { return g.id === filter; }) ? filter : 'all';
+    topicSel.value = topicSel.querySelector('option[value="' + topic + '"]') ? topic : 'all';
     function show() {
-      var list = SKILLS.skills.filter(function (k) { return filter === 'all' || k.group === filter; });
-      document.getElementById('skill-list').innerHTML = list.map(skillRow).join('');
-    }
-    Array.prototype.forEach.call(view.querySelectorAll('[data-filter]'), function (b) {
-      b.addEventListener('click', function () {
-        filter = b.getAttribute('data-filter'); store.set('abg.toolkitFilter', filter);
-        Array.prototype.forEach.call(view.querySelectorAll('[data-filter]'), function (x) { x.setAttribute('aria-pressed', x === b); });
-        show();
+      filter = typeSel.value; topic = topicSel.value;
+      store.set('abg.toolkitFilter', filter); store.set('abg.toolkitTopic', topic);
+      var list = SKILLS.skills.filter(function (k) {
+        return (filter === 'all' || k.group === filter) && (topic === 'all' || k.topics.indexOf(topic) !== -1);
       });
-    });
+      var g = SKILLS.groups.filter(function (x) { return x.id === filter; })[0], t = topicById(topic);
+      document.getElementById('skill-summary').textContent =
+        'Showing ' + list.length + (list.length === 1 ? ' skill' : ' skills') + (t ? ' for ' + t.name : '') + '. ' + (g ? g.desc : '');
+      document.getElementById('skill-list').innerHTML = list.length ? list.map(skillRow).join('')
+        : '<p class="empty">No skills match both choices yet. Try "Any topic" or "All skills."</p>';
+    }
+    typeSel.addEventListener('change', show);
+    topicSel.addEventListener('change', show);
     show();
   }
   function shareSkill(k) {
@@ -873,7 +892,7 @@
     openSharePanel({
       heading: 'Share this skill', imageText: k.name,
       makeImage: function (format) {
-        return makeCardImage({ tag: 'Toolkit skill', color: '#DEDDC2', accent: '#5E5C2C', meta: '1-minute practice', title: k.name,
+        return makeCardImage({ tag: 'Toolkit skill', color: '#F0DFB8', meta: '1-minute practice', title: k.name,
           excerpt: k.what + ' ' + k.steps.map(function (st, i) { return (i + 1) + '. ' + st; }).join(' '), cta: 'Try this skill free in the app' }, format);
       },
       alt: 'Branded image with the skill name', file: 'anxious-black-girls-skill.png',
