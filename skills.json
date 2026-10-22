@@ -1,0 +1,1100 @@
+{
+  "groups": [
+    {
+      "id": "thinking",
+      "name": "Thinking skills"
+    },
+    {
+      "id": "traps",
+      "name": "Thinking traps"
+    },
+    {
+      "id": "dbt",
+      "name": "DBT skills"
+    },
+    {
+      "id": "body",
+      "name": "Body & calm"
+    },
+    {
+      "id": "neuro",
+      "name": "ADHD & autism"
+    },
+    {
+      "id": "relationships",
+      "name": "Relationships & worth"
+    },
+    {
+      "id": "rest",
+      "name": "Rest & recovery"
+    }
+  ],
+  "skills": [
+    {
+      "id": "automatic-thoughts",
+      "name": "Catch the automatic negative thought",
+      "group": "thinking",
+      "what": "Automatic thoughts are the quick, often harsh thoughts that pop up right before a feeling spikes. Catching them is the first step to changing how you feel.",
+      "when": "When your mood drops fast and you're not sure why.",
+      "steps": [
+        "Notice the feeling first: a tight chest, a sinking stomach, sudden irritation.",
+        "Ask, \"What just went through my mind?\"",
+        "Write the thought down word for word, even if it sounds harsh.",
+        "Label it as a thought, not a fact: \"I'm having the thought that...\""
+      ],
+      "topics": [
+        "anxiety",
+        "depression",
+        "achieving"
+      ],
+      "source": "Beck, J. S. (2020). Cognitive behavior therapy: Basics and beyond (3rd ed.). Guilford Press.",
+      "lens": "Many of us learned to hear criticism before anyone said it. Some automatic thoughts are old messages from school, work or family that you never chose."
+    },
+    {
+      "id": "thought-record",
+      "name": "Thought record",
+      "group": "thinking",
+      "what": "A thought record walks you from an upsetting moment to a more balanced view, one column at a time.",
+      "when": "After a moment that keeps replaying in your head.",
+      "steps": [
+        "Write the situation: who, what, when, where.",
+        "Write the thought and how strongly you believe it, from 0 to 100.",
+        "Name the feelings and rate each one.",
+        "Write a more balanced thought that includes the full picture.",
+        "Rerate your feelings. Even a small drop counts."
+      ],
+      "topics": [
+        "anxiety",
+        "depression",
+        "racial-trauma"
+      ],
+      "source": "Beck, J. S. (2020). Cognitive behavior therapy: Basics and beyond (3rd ed.). Guilford Press.",
+      "lens": "Some thoughts are reactions to real unfairness. A balanced thought doesn't pretend racism or bias didn't happen. It helps you decide what's yours to carry."
+    },
+    {
+      "id": "core-beliefs",
+      "name": "Find your core belief",
+      "group": "thinking",
+      "what": "Core beliefs are deep ideas about yourself, other people and the world, often formed in childhood. They drive many of your automatic thoughts.",
+      "when": "When the same painful theme keeps showing up in different parts of your life.",
+      "steps": [
+        "Start with an automatic thought, like \"I can't say no to her.\"",
+        "Ask, \"If that were true, what would it mean about me?\"",
+        "Keep asking until you reach a short, absolute belief, like \"I'm only worth something when I'm useful.\"",
+        "Write down where you first learned it.",
+        "Look for one piece of evidence this week that the belief isn't the whole truth."
+      ],
+      "topics": [
+        "achieving",
+        "relationships",
+        "bpd"
+      ],
+      "source": "Beck, J. S. (2020). Cognitive behavior therapy: Basics and beyond (3rd ed.). Guilford Press.",
+      "lens": "Beliefs like \"I have to be strong\" or \"I have to be twice as good\" often started as protection. You can honor where they came from and still decide they don't run your life now."
+    },
+    {
+      "id": "check-the-evidence",
+      "name": "Check the evidence",
+      "group": "thinking",
+      "what": "Treat a worried thought like a claim in court. Look at what supports it and what doesn't.",
+      "when": "When a thought feels 100 percent true but you're not sure it is.",
+      "steps": [
+        "Write the thought at the top of a page.",
+        "List the facts that support it. Facts only, no feelings.",
+        "List the facts that don't support it.",
+        "Write a conclusion a fair judge would reach."
+      ],
+      "topics": [
+        "anxiety",
+        "achieving"
+      ],
+      "source": "Beck, J. S. (2020). Cognitive behavior therapy: Basics and beyond (3rd ed.). Guilford Press."
+    },
+    {
+      "id": "friend-test",
+      "name": "The friend test",
+      "group": "thinking",
+      "what": "We're often far kinder to friends than to ourselves. The friend test borrows that kindness.",
+      "when": "When you're being hard on yourself.",
+      "steps": [
+        "Picture a friend you love telling you this exact thought about herself.",
+        "Write what you would say back to her.",
+        "Read it out loud to yourself.",
+        "Notice what changes in your body when you hear it."
+      ],
+      "topics": [
+        "depression",
+        "achieving",
+        "infertility"
+      ],
+      "source": "Beck, J. S. (2020). Cognitive behavior therapy: Basics and beyond (3rd ed.). Guilford Press."
+    },
+    {
+      "id": "small-steps",
+      "name": "Small steps out of the slump",
+      "group": "thinking",
+      "what": "Depression tells you to wait until you feel better to do things. Behavioral activation flips that: doing small things first helps your mood follow.",
+      "when": "When you've been stuck on the couch, in bed or on your phone for days.",
+      "steps": [
+        "List a few activities that used to bring you pleasure or a sense of accomplishment.",
+        "Pick one that takes 10 minutes or less.",
+        "Schedule it for a specific time today.",
+        "Do it, then rate your mood before and after from 0 to 10."
+      ],
+      "topics": [
+        "depression",
+        "burnout",
+        "grief"
+      ],
+      "source": "Martell, C. R., Dimidjian, S., & Herman-Dunn, R. (2010). Behavioral activation for depression: A clinician's guide. Guilford Press."
+    },
+    {
+      "id": "worry-time",
+      "name": "Scheduled worry time",
+      "group": "thinking",
+      "what": "Give your worries an appointment. Postponing them to a set time helps them take up less of your day.",
+      "when": "When worries follow you all day or keep you up at night.",
+      "steps": [
+        "Pick a 15-minute worry time, not close to bedtime.",
+        "When a worry shows up during the day, jot it down and tell yourself, \"Not now. Later.\"",
+        "At worry time, go through the list. Problem-solve what you can.",
+        "When time is up, close the notebook and do something else."
+      ],
+      "topics": [
+        "anxiety",
+        "perimenopause"
+      ],
+      "source": "Borkovec, T. D., Wilkinson, L., Folensbee, R., & Lerman, C. (1983). Stimulus control applications to the treatment of worry. Behaviour Research and Therapy, 21(3), 247–251."
+    },
+    {
+      "id": "test-the-prediction",
+      "name": "Test the prediction",
+      "group": "thinking",
+      "what": "Anxiety makes predictions. Testing them with small experiments shows you what really happens.",
+      "when": "When fear is stopping you from doing something you want or need to do.",
+      "steps": [
+        "Write your prediction: \"If I say no, she'll be furious.\"",
+        "Rate how sure you are, from 0 to 100.",
+        "Plan a small, safe test.",
+        "Do it, then write what actually happened.",
+        "Ask what this tells you for next time."
+      ],
+      "topics": [
+        "anxiety",
+        "boundaries",
+        "relationships"
+      ],
+      "source": "Beck, J. S. (2020). Cognitive behavior therapy: Basics and beyond (3rd ed.). Guilford Press."
+    },
+    {
+      "id": "all-or-nothing",
+      "name": "All-or-nothing thinking",
+      "group": "traps",
+      "what": "Seeing things in two boxes only: perfect or failure, all good or all bad.",
+      "when": "Sounds like: \"If it's not perfect, it's a failure.\"",
+      "steps": [
+        "Notice the trap. Name it: \"All-or-nothing thinking\".",
+        "Ask: \"Is there a middle ground I'm skipping?\"",
+        "Try instead: \"It wasn't perfect, and it still got done. That counts.\""
+      ],
+      "topics": [
+        "achieving",
+        "burnout"
+      ],
+      "source": "Burns, D. D. (1980). Feeling good: The new mood therapy. William Morrow."
+    },
+    {
+      "id": "catastrophizing",
+      "name": "Catastrophizing",
+      "group": "traps",
+      "what": "Jumping to the worst possible outcome and treating it as likely.",
+      "when": "Sounds like: \"If I mess this up, my whole career is over.\"",
+      "steps": [
+        "Notice the trap. Name it: \"Catastrophizing\".",
+        "Ask: \"What's the most likely outcome, not the worst one?\"",
+        "Try instead: \"This could be hard. I've handled hard before.\""
+      ],
+      "topics": [
+        "anxiety"
+      ],
+      "source": "Burns, D. D. (1980). Feeling good: The new mood therapy. William Morrow."
+    },
+    {
+      "id": "mind-reading",
+      "name": "Mind reading",
+      "group": "traps",
+      "what": "Assuming you know what someone else is thinking, usually something negative about you.",
+      "when": "Sounds like: \"She didn't text back. She's upset with me.\"",
+      "steps": [
+        "Notice the trap. Name it: \"Mind reading\".",
+        "Ask: \"What else could explain this?\"",
+        "Try instead: \"I don't know what she's thinking. I can ask, or wait.\""
+      ],
+      "topics": [
+        "relationships",
+        "anxiety"
+      ],
+      "source": "Burns, D. D. (1980). Feeling good: The new mood therapy. William Morrow."
+    },
+    {
+      "id": "fortune-telling",
+      "name": "Fortune telling",
+      "group": "traps",
+      "what": "Predicting the future as if it's already decided, usually badly.",
+      "when": "Sounds like: \"I already know it's going to go badly.\"",
+      "steps": [
+        "Notice the trap. Name it: \"Fortune telling\".",
+        "Ask: \"Have I been wrong about predictions like this before?\"",
+        "Try instead: \"I don't know how it will go. I'll deal with what actually happens.\""
+      ],
+      "topics": [
+        "anxiety",
+        "infertility",
+        "childfree"
+      ],
+      "source": "Burns, D. D. (1980). Feeling good: The new mood therapy. William Morrow."
+    },
+    {
+      "id": "should-statements",
+      "name": "Should statements",
+      "group": "traps",
+      "what": "Holding yourself to rigid rules about how you should feel or act.",
+      "when": "Sounds like: \"I should be able to handle all of this.\"",
+      "steps": [
+        "Notice the trap. Name it: \"Should statements\".",
+        "Ask: \"Whose rule is this, and is it fair?\"",
+        "Try instead: \"I'd like to handle more. I'm also allowed to need help.\""
+      ],
+      "topics": [
+        "motherhood",
+        "achieving"
+      ],
+      "source": "Burns, D. D. (1980). Feeling good: The new mood therapy. William Morrow."
+    },
+    {
+      "id": "personalizing",
+      "name": "Personalizing",
+      "group": "traps",
+      "what": "Taking responsibility for things that aren't about you or aren't in your control.",
+      "when": "Sounds like: \"Everyone's in a bad mood. It must be something I did.\"",
+      "steps": [
+        "Notice the trap. Name it: \"Personalizing\".",
+        "Ask: \"What part of this is actually mine?\"",
+        "Try instead: \"Other people have their own days. I can check in without taking the blame.\""
+      ],
+      "topics": [
+        "relationships"
+      ],
+      "source": "Burns, D. D. (1980). Feeling good: The new mood therapy. William Morrow."
+    },
+    {
+      "id": "overgeneralizing",
+      "name": "Overgeneralizing",
+      "group": "traps",
+      "what": "Taking one event and turning it into a rule about your whole life.",
+      "when": "Sounds like: \"This always happens to me.\"",
+      "steps": [
+        "Notice the trap. Name it: \"Overgeneralizing\".",
+        "Ask: \"Always? Can I think of one time it didn't?\"",
+        "Try instead: \"This happened this time. It doesn't define every time.\""
+      ],
+      "topics": [
+        "depression",
+        "relationships"
+      ],
+      "source": "Burns, D. D. (1980). Feeling good: The new mood therapy. William Morrow."
+    },
+    {
+      "id": "discounting-positive",
+      "name": "Discounting the positive",
+      "group": "traps",
+      "what": "Brushing off good things as luck, kindness or not counting.",
+      "when": "Sounds like: \"They only said that to be nice.\"",
+      "steps": [
+        "Notice the trap. Name it: \"Discounting the positive\".",
+        "Ask: \"What if the compliment was true?\"",
+        "Try instead: \"Thank you.\" Then let it land without explaining it away."
+      ],
+      "topics": [
+        "achieving",
+        "pcos"
+      ],
+      "source": "Burns, D. D. (1980). Feeling good: The new mood therapy. William Morrow."
+    },
+    {
+      "id": "emotional-reasoning",
+      "name": "Emotional reasoning",
+      "group": "traps",
+      "what": "Treating a feeling as proof that something is true.",
+      "when": "Sounds like: \"I feel like a burden, so I must be one.\"",
+      "steps": [
+        "Notice the trap. Name it: \"Emotional reasoning\".",
+        "Ask: \"Is this a fact, or a feeling dressed up as one?\"",
+        "Try instead: \"I feel like a burden right now. Feelings aren't facts.\""
+      ],
+      "topics": [
+        "depression",
+        "bpd"
+      ],
+      "source": "Burns, D. D. (1980). Feeling good: The new mood therapy. William Morrow."
+    },
+    {
+      "id": "labeling",
+      "name": "Labeling",
+      "group": "traps",
+      "what": "Putting a harsh label on yourself or others based on one moment.",
+      "when": "Sounds like: \"I'm so lazy.\"",
+      "steps": [
+        "Notice the trap. Name it: \"Labeling\".",
+        "Ask: \"Would I say this about someone I love?\"",
+        "Try instead: \"I'm worn out\" or \"My brain works differently.\""
+      ],
+      "topics": [
+        "adhd",
+        "burnout"
+      ],
+      "source": "Burns, D. D. (1980). Feeling good: The new mood therapy. William Morrow."
+    },
+    {
+      "id": "wise-mind",
+      "name": "Wise mind",
+      "group": "dbt",
+      "what": "Wise mind is the middle ground between emotion mind, where feelings drive, and reasonable mind, where only logic counts. Decisions made from wise mind tend to feel steady.",
+      "when": "Before a big decision, or when you feel pulled between your head and your heart.",
+      "steps": [
+        "Take a slow breath and drop your attention to your belly.",
+        "Ask, \"What does my emotion mind want? What does my reasonable mind say?\"",
+        "Breathe in and ask, \"What does wise mind know?\" Breathe out and listen.",
+        "Wait for the answer that feels calm, not urgent."
+      ],
+      "topics": [
+        "bpd",
+        "bipolar",
+        "relationships"
+      ],
+      "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press."
+    },
+    {
+      "id": "observe-describe",
+      "name": "Observe, describe, participate",
+      "group": "dbt",
+      "what": "DBT's core mindfulness skills: notice what's happening, put plain words to it, then take part fully, without judging yourself.",
+      "when": "When your mind is racing ahead or stuck in the past.",
+      "steps": [
+        "Observe: notice one thing, like your breath, a sound or a sensation.",
+        "Describe: put it into words with no judgment. \"My shoulders are tight.\"",
+        "Participate: throw yourself into one activity, like washing dishes or dancing.",
+        "When judgments show up, notice them and return to the facts."
+      ],
+      "topics": [
+        "anxiety",
+        "autism",
+        "grief"
+      ],
+      "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press."
+    },
+    {
+      "id": "stop-skill",
+      "name": "STOP",
+      "group": "dbt",
+      "what": "STOP is a quick pause for the moment right before you react.",
+      "when": "When you're about to snap, send the text or say the thing.",
+      "steps": [
+        "S: Stop. Freeze for a moment.",
+        "T: Take a step back. Breathe.",
+        "O: Observe what's happening inside you and around you.",
+        "P: Proceed mindfully. Ask what will help, not what feels good right now."
+      ],
+      "topics": [
+        "bpd",
+        "relationships"
+      ],
+      "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press."
+    },
+    {
+      "id": "tipp",
+      "name": "TIPP",
+      "group": "dbt",
+      "what": "TIPP changes your body chemistry to bring overwhelming emotions down fast.",
+      "when": "When an emotion is so strong you can't think straight.",
+      "steps": [
+        "T: Temperature. Splash cold water on your face or hold something cold to your cheeks for 30 seconds.",
+        "I: Intense exercise. Move hard for a few minutes, like jumping jacks or a fast walk.",
+        "P: Paced breathing. Breathe out longer than you breathe in.",
+        "P: Paired muscle relaxation. Tense a muscle group while breathing in, then release as you breathe out."
+      ],
+      "topics": [
+        "bpd",
+        "anxiety",
+        "autism"
+      ],
+      "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press. Check with your doctor before using cold water if you have a heart condition."
+    },
+    {
+      "id": "accepts",
+      "name": "ACCEPTS",
+      "group": "dbt",
+      "what": "ACCEPTS gives you ways to distract on purpose so you can get through a hard moment without making it worse.",
+      "when": "When you can't fix the problem right now and need to ride it out.",
+      "steps": [
+        "Activities: do something that takes focus.",
+        "Contributing: help someone else.",
+        "Comparisons: remember a time you got through something hard.",
+        "Emotions: watch or listen to something that brings a different feeling.",
+        "Pushing away, Thoughts, Sensations: set it aside for now, count or name things, hold ice or take a warm shower."
+      ],
+      "topics": [
+        "bpd",
+        "grief",
+        "depression"
+      ],
+      "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press."
+    },
+    {
+      "id": "self-soothe",
+      "name": "Self-soothe with the five senses",
+      "group": "dbt",
+      "what": "Self-soothing calms your body through what you see, hear, smell, taste and touch.",
+      "when": "When you feel raw, overwhelmed or alone.",
+      "steps": [
+        "See: look at something calming, like photos, plants or the sky.",
+        "Hear: play music that steadies you.",
+        "Smell: light a candle or use lotion you love.",
+        "Taste: sip tea or eat something slowly.",
+        "Touch: wrap in a soft blanket or take a warm shower."
+      ],
+      "topics": [
+        "anxiety",
+        "autism",
+        "motherhood"
+      ],
+      "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press.",
+      "lens": "Self-soothing isn't something you have to earn. Many of us were taught that taking care of ourselves is selfish. It's maintenance."
+    },
+    {
+      "id": "radical-acceptance",
+      "name": "Radical acceptance",
+      "group": "dbt",
+      "what": "Radical acceptance means fully accepting what you can't change, so you stop spending energy fighting reality. It doesn't mean you approve of it.",
+      "when": "When you keep thinking \"this shouldn't be happening\" about something you can't control.",
+      "steps": [
+        "Name what you're fighting: \"I can't accept that...\"",
+        "Remind yourself that this is what happened, and it has causes.",
+        "Notice where you hold the fight in your body and soften it.",
+        "Say, \"It is what it is,\" and ask what you can do next.",
+        "Expect to repeat this. Acceptance often takes many tries."
+      ],
+      "topics": [
+        "grief",
+        "infertility",
+        "racial-trauma"
+      ],
+      "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press.",
+      "lens": "Accepting that racism happened is not the same as accepting racism. Radical acceptance can free up energy for rest, healing or action."
+    },
+    {
+      "id": "check-the-facts",
+      "name": "Check the facts",
+      "group": "dbt",
+      "what": "Check whether your emotion, and how strong it is, fits the actual facts of the situation.",
+      "when": "When a feeling seems bigger than what happened.",
+      "steps": [
+        "Name the emotion and its intensity.",
+        "Describe the event using only facts.",
+        "Ask what you're assuming or adding.",
+        "Ask whether the emotion and its size fit the facts. If they do, problem-solve. If not, try opposite action."
+      ],
+      "topics": [
+        "anxiety",
+        "bpd"
+      ],
+      "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press."
+    },
+    {
+      "id": "opposite-action",
+      "name": "Opposite action",
+      "group": "dbt",
+      "what": "Every emotion comes with an urge. When the emotion doesn't fit the facts, acting opposite to the urge can change the feeling.",
+      "when": "When an emotion is pushing you to do something that won't help.",
+      "steps": [
+        "Name the emotion and its urge, like shame and the urge to hide.",
+        "Check the facts. Does the emotion fit?",
+        "If not, do the opposite of the urge, all the way: reach out, show up, speak up.",
+        "Keep going until the emotion shifts."
+      ],
+      "topics": [
+        "depression",
+        "anxiety"
+      ],
+      "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press."
+    },
+    {
+      "id": "please",
+      "name": "PLEASE",
+      "group": "dbt",
+      "what": "PLEASE lowers your emotional vulnerability by caring for your body, so you're less likely to be knocked over by hard days.",
+      "when": "When you're more reactive than usual and can't figure out why.",
+      "steps": [
+        "PL: Treat Physical iLlness. Take medications and get care when you're sick.",
+        "E: Eat regular, balanced meals.",
+        "A: Avoid mood-altering substances.",
+        "S: Sleep enough, on a steady schedule.",
+        "E: Exercise or move in some way most days."
+      ],
+      "topics": [
+        "bipolar",
+        "perimenopause",
+        "pcos"
+      ],
+      "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press."
+    },
+    {
+      "id": "cope-ahead",
+      "name": "Cope ahead",
+      "group": "dbt",
+      "what": "Cope ahead is a mental rehearsal for a situation you know will be hard.",
+      "when": "Before a family holiday, a hard conversation, a doctor's visit or a big meeting.",
+      "steps": [
+        "Describe the situation and the emotions you expect.",
+        "Choose the skills you'll use.",
+        "Picture the situation in detail, and picture yourself using the skills well.",
+        "Practice relaxing afterward."
+      ],
+      "topics": [
+        "anxiety",
+        "relationships",
+        "pcos"
+      ],
+      "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press."
+    },
+    {
+      "id": "dear-man",
+      "name": "DEAR MAN",
+      "group": "dbt",
+      "what": "DEAR MAN helps you ask for what you need or say no clearly.",
+      "when": "When you need to make a request or set a limit.",
+      "steps": [
+        "Describe the situation with facts. Express how you feel.",
+        "Assert what you want clearly. Reinforce: say why it helps them too.",
+        "Stay Mindful: keep returning to your point.",
+        "Appear confident, even if you don't feel it. Negotiate if it makes sense."
+      ],
+      "topics": [
+        "boundaries",
+        "relationships",
+        "achieving"
+      ],
+      "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press.",
+      "lens": "Many Black women worry that being direct will get them labeled angry or difficult. DEAR MAN gives you a calm structure, so your words carry the message."
+    },
+    {
+      "id": "give",
+      "name": "GIVE",
+      "group": "dbt",
+      "what": "GIVE helps you keep a relationship strong while you have a hard conversation.",
+      "when": "When the relationship matters as much as the request.",
+      "steps": [
+        "Be Gentle: no attacks, threats or judging.",
+        "Act Interested: listen and don't interrupt.",
+        "Validate: show you understand their side.",
+        "Use an Easy manner: a little warmth or humor."
+      ],
+      "topics": [
+        "relationships",
+        "motherhood"
+      ],
+      "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press."
+    },
+    {
+      "id": "fast",
+      "name": "FAST",
+      "group": "dbt",
+      "what": "FAST helps you keep your self-respect in a conversation.",
+      "when": "When you tend to give in, over-apologize or bend your values to keep the peace.",
+      "steps": [
+        "Be Fair to yourself and the other person.",
+        "No extra Apologies for having a need or an opinion.",
+        "Stick to your values.",
+        "Be Truthful. Don't exaggerate or make excuses."
+      ],
+      "topics": [
+        "boundaries",
+        "relationships"
+      ],
+      "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press."
+    },
+    {
+      "id": "box-breathing",
+      "name": "Box breathing",
+      "group": "body",
+      "what": "Box breathing slows your breath to an even rhythm, which tells your body it's safe.",
+      "when": "When you feel anxious, before a stressful moment, or when you can't sleep.",
+      "steps": [
+        "Breathe in for 4 counts.",
+        "Hold for 4 counts.",
+        "Breathe out for 4 counts.",
+        "Rest for 4 counts.",
+        "Repeat for 1 to 3 minutes."
+      ],
+      "topics": [
+        "anxiety",
+        "perimenopause"
+      ],
+      "source": "Zaccaro, A., et al. (2018). How breath-control can change your life: A systematic review on psycho-physiological correlates of slow breathing. Frontiers in Human Neuroscience, 12, 353."
+    },
+    {
+      "id": "physiological-sigh",
+      "name": "The physiological sigh",
+      "group": "body",
+      "what": "Two quick inhales followed by one long exhale. In one study, people who did this for 5 minutes a day saw bigger mood boosts than people who did mindfulness meditation.",
+      "when": "When you need to calm down in under a minute.",
+      "steps": [
+        "Breathe in through your nose.",
+        "Without breathing out, take a second short breath in to fill your lungs.",
+        "Breathe out slowly through your mouth until your lungs are empty.",
+        "Repeat 2 or 3 times."
+      ],
+      "topics": [
+        "anxiety",
+        "burnout"
+      ],
+      "source": "Balban, M. Y., et al. (2023). Brief structured respiration practices enhance mood and reduce physiological arousal. Cell Reports Medicine, 4(1), 100895."
+    },
+    {
+      "id": "grounding-54321",
+      "name": "5-4-3-2-1 grounding",
+      "group": "body",
+      "what": "Grounding uses your senses to pull your mind back to the present when anxiety, panic or memories take over.",
+      "when": "During a panic attack, a trigger or when you feel disconnected from your body.",
+      "steps": [
+        "Name 5 things you can see.",
+        "Name 4 things you can feel.",
+        "Name 3 things you can hear.",
+        "Name 2 things you can smell.",
+        "Name 1 thing you can taste."
+      ],
+      "topics": [
+        "anxiety",
+        "racial-trauma",
+        "grief"
+      ],
+      "source": "Najavits, L. M. (2002). Seeking safety: A treatment manual for PTSD and substance abuse. Guilford Press."
+    },
+    {
+      "id": "pmr",
+      "name": "Progressive muscle relaxation",
+      "group": "body",
+      "what": "Tensing and releasing your muscles one group at a time teaches your body the difference between tense and relaxed.",
+      "when": "When stress lives in your shoulders, jaw or stomach, or when you can't fall asleep.",
+      "steps": [
+        "Sit or lie down comfortably.",
+        "Tense your feet for 5 seconds, then release for 10.",
+        "Move up your body: legs, stomach, hands, arms, shoulders, face.",
+        "Notice the difference after each release."
+      ],
+      "topics": [
+        "anxiety",
+        "perimenopause",
+        "burnout"
+      ],
+      "source": "Jacobson, E. (1938). Progressive relaxation. University of Chicago Press."
+    },
+    {
+      "id": "urge-surfing",
+      "name": "Urge surfing",
+      "group": "body",
+      "what": "Urges rise, peak and fall like a wave. Urge surfing means riding the wave without acting on it.",
+      "when": "When you feel pulled to binge, scroll, text an ex, drink or seek reassurance.",
+      "steps": [
+        "Notice the urge and name it.",
+        "Find where you feel it in your body.",
+        "Breathe and watch it like a wave: rising, peaking, falling.",
+        "Set a timer for 10 minutes. Most urges ease by then.",
+        "Notice that you can feel an urge without obeying it."
+      ],
+      "topics": [
+        "bpd",
+        "pcos",
+        "adhd"
+      ],
+      "source": "Bowen, S., & Marlatt, A. (2009). Surfing the urge: Brief mindfulness-based intervention for college student smokers. Psychology of Addictive Behaviors, 23(4), 666–671."
+    },
+    {
+      "id": "name-it-to-tame-it",
+      "name": "Name it to tame it",
+      "group": "body",
+      "what": "Putting a feeling into words can turn down the brain's alarm response. Researchers call it affect labeling.",
+      "when": "When a feeling hits hard and fast.",
+      "steps": [
+        "Pause and ask, \"What am I feeling?\"",
+        "Name it in one or two words: \"anxious,\" \"embarrassed,\" \"left out.\"",
+        "Say it out loud or write it down.",
+        "Notice whether the intensity shifts, even slightly."
+      ],
+      "topics": [
+        "anxiety",
+        "adhd"
+      ],
+      "source": "Lieberman, M. D., et al. (2007). Putting feelings into words: Affect labeling disrupts amygdala activity in response to affective stimuli. Psychological Science, 18(5), 421–428."
+    },
+    {
+      "id": "leaves-on-a-stream",
+      "name": "Leaves on a stream",
+      "group": "body",
+      "what": "A mindfulness exercise from acceptance and commitment therapy that helps you watch thoughts without getting pulled in.",
+      "when": "When you're overthinking, ruminating or can't shut your mind off at night.",
+      "steps": [
+        "Close your eyes and picture a gentle stream with leaves floating by.",
+        "Each time a thought comes, place it on a leaf.",
+        "Watch it float away. Don't push it or hold it.",
+        "If you get pulled in, notice that, and gently start again."
+      ],
+      "topics": [
+        "anxiety",
+        "depression"
+      ],
+      "source": "Hayes, S. C., Strosahl, K. D., & Wilson, K. G. (2012). Acceptance and commitment therapy (2nd ed.). Guilford Press."
+    },
+    {
+      "id": "body-scan",
+      "name": "Body scan",
+      "group": "body",
+      "what": "A slow scan from head to toe that helps you notice stress your body is holding.",
+      "when": "When you feel disconnected from your body or worn down.",
+      "steps": [
+        "Lie down or sit comfortably.",
+        "Bring attention to the top of your head.",
+        "Move slowly down: face, neck, shoulders, arms, chest, belly, legs, feet.",
+        "Notice each area without trying to fix it. Breathe into tight spots."
+      ],
+      "topics": [
+        "burnout",
+        "racial-trauma",
+        "perimenopause"
+      ],
+      "source": "Kabat-Zinn, J. (1990). Full catastrophe living. Delacorte.",
+      "lens": "Many Black women carry stress in their bodies for years. A body scan is one way to notice what you've been holding."
+    },
+    {
+      "id": "body-doubling",
+      "name": "Body doubling",
+      "group": "neuro",
+      "what": "Working alongside another person, in the room or on video, can make it easier to start and stick with a task.",
+      "when": "When you keep putting off a task you can't seem to start alone.",
+      "steps": [
+        "Pick the task and how long you'll work.",
+        "Invite a friend, or join a virtual co-working session.",
+        "Say out loud what you'll work on.",
+        "Work side by side. You don't have to talk.",
+        "Share what you got done at the end."
+      ],
+      "topics": [
+        "adhd",
+        "audhd"
+      ],
+      "source": "A common ADHD coaching strategy. Research on it is still early."
+    },
+    {
+      "id": "tiny-first-step",
+      "name": "The tiny first step",
+      "group": "neuro",
+      "what": "Big tasks can freeze an ADHD or depressed brain. Shrinking the first step until it's almost too easy helps you start.",
+      "when": "When a task feels so big you can't begin.",
+      "steps": [
+        "Name the task.",
+        "Ask, \"What's the very first physical action?\" Like \"open the laptop.\"",
+        "Make it smaller if it still feels hard.",
+        "Do only that step. Keep going if you want to.",
+        "Plan when and where: \"At 7 p.m., at the kitchen table, I'll open the laptop.\""
+      ],
+      "topics": [
+        "adhd",
+        "depression",
+        "burnout"
+      ],
+      "source": "Gollwitzer, P. M. (1999). Implementation intentions: Strong effects of simple plans. American Psychologist, 54(7), 493–503."
+    },
+    {
+      "id": "make-time-visible",
+      "name": "Make time visible",
+      "group": "neuro",
+      "what": "Time blindness makes time hard to feel. Visual tools turn time into something you can see.",
+      "when": "When you're often late, lose hours or underestimate how long things take.",
+      "steps": [
+        "Use a visual timer that shows time shrinking.",
+        "Before a task, guess how long it will take. Time it, then compare.",
+        "Set alarms for when to leave, not just when to arrive.",
+        "Put clocks where you'll see them."
+      ],
+      "topics": [
+        "adhd",
+        "audhd"
+      ],
+      "source": "Barkley, R. A. (1997). Behavioral inhibition, sustained attention, and executive functions: Constructing a unifying theory of ADHD. Psychological Bulletin, 121(1), 65–94."
+    },
+    {
+      "id": "brain-dump",
+      "name": "Brain dump",
+      "group": "neuro",
+      "what": "Write down every task, worry and to-do in your head. Research shows that making a plan for unfinished tasks frees up your mind.",
+      "when": "When your mind feels crowded or you can't focus.",
+      "steps": [
+        "Set a timer for 10 minutes.",
+        "Write everything in your head, in any order.",
+        "Sort each item: now, later, or not mine.",
+        "Pick one \"now\" item and schedule it."
+      ],
+      "topics": [
+        "adhd",
+        "anxiety",
+        "motherhood"
+      ],
+      "source": "Masicampo, E. J., & Baumeister, R. F. (2011). Consider it done! Plan making can eliminate the cognitive effects of unfulfilled goals. Journal of Personality and Social Psychology, 101(4), 667–683."
+    },
+    {
+      "id": "sensory-toolkit",
+      "name": "Sensory toolkit",
+      "group": "neuro",
+      "what": "A sensory toolkit is a set of items that calms your senses when the world gets too loud, bright or busy.",
+      "when": "Before or during sensory overload, like church, cookouts, offices or stores.",
+      "steps": [
+        "Notice what overloads you: noise, light, crowds, textures or smells.",
+        "Pack tools that help: earplugs or headphones, sunglasses, a soft texture, a calming scent, a snack.",
+        "Plan an exit spot, like your car or a quiet room.",
+        "Use it early, before overload builds."
+      ],
+      "topics": [
+        "autism",
+        "audhd",
+        "perimenopause"
+      ],
+      "source": "Raymaker, D. M., et al. (2020). \"Having all of your internal resources exhausted beyond measure and being left with no clean-up crew\": Defining autistic burnout. Autism in Adulthood, 2(2), 132–143."
+    },
+    {
+      "id": "energy-budgeting",
+      "name": "Energy budgeting",
+      "group": "neuro",
+      "what": "Treat your energy like a budget. Some activities cost more, including masking. Planning around your energy helps prevent burnout.",
+      "when": "When you keep running out of energy before the week is over.",
+      "steps": [
+        "List this week's activities.",
+        "Rate the energy each one costs: low, medium or high. Count masking and travel too.",
+        "Add recharge activities that give energy back.",
+        "Move or drop something if the week is over budget."
+      ],
+      "topics": [
+        "autism",
+        "burnout",
+        "audhd"
+      ],
+      "source": "Raymaker, D. M., et al. (2020). \"Having all of your internal resources exhausted beyond measure and being left with no clean-up crew\": Defining autistic burnout. Autism in Adulthood, 2(2), 132–143."
+    },
+    {
+      "id": "meltdown-plan",
+      "name": "Meltdown and shutdown plan",
+      "group": "neuro",
+      "what": "A plan written when you're calm, for the moments overload takes over.",
+      "when": "Make it on a good day. Use it when you notice early signs.",
+      "steps": [
+        "Write your early signs, like irritability, going quiet or noise feeling painful.",
+        "List what helps: a dark room, pressure, quiet, being alone.",
+        "List what doesn't help, like questions or touch.",
+        "Share the plan with one or two trusted people."
+      ],
+      "topics": [
+        "autism",
+        "audhd"
+      ],
+      "source": "Raymaker, D. M., et al. (2020). \"Having all of your internal resources exhausted beyond measure and being left with no clean-up crew\": Defining autistic burnout. Autism in Adulthood, 2(2), 132–143."
+    },
+    {
+      "id": "unmasking-moments",
+      "name": "Unmasking moments",
+      "group": "neuro",
+      "what": "Masking and code-switching take energy. Choosing safe times to stop can lower stress and burnout.",
+      "when": "When you feel exhausted from performing all day.",
+      "steps": [
+        "Notice when you mask or code-switch most.",
+        "Name one or two people or places where you can be yourself.",
+        "Schedule time there each week.",
+        "Notice how your body feels after."
+      ],
+      "topics": [
+        "autism",
+        "achieving",
+        "racial-trauma"
+      ],
+      "source": "Hull, L., et al. (2017). \"Putting on my best normal\": Social camouflaging in adults with autism spectrum conditions. Journal of Autism and Developmental Disorders, 47(8), 2519–2534.",
+      "lens": "Black autistic women often mask twice: to fit in as neurotypical and to stay safe in white spaces. You deserve places where you don't have to do either."
+    },
+    {
+      "id": "boundary-script",
+      "name": "The boundary script",
+      "group": "relationships",
+      "what": "A simple 3-part script for setting a limit without a long explanation.",
+      "when": "When someone keeps crossing a line.",
+      "steps": [
+        "Name what happens: \"When you comment on my weight...\"",
+        "Name the impact: \"...I feel hurt...\"",
+        "Name what you'll do: \"...so I'm going to change the subject or leave.\"",
+        "Follow through, calmly."
+      ],
+      "topics": [
+        "boundaries",
+        "relationships"
+      ],
+      "source": "Speed, B. C., Goldstein, B. L., & Goldfried, M. R. (2018). Assertiveness training: A forgotten evidence-based treatment. Clinical Psychology: Science and Practice, 25(1), e12216."
+    },
+    {
+      "id": "broken-record",
+      "name": "The broken record",
+      "group": "relationships",
+      "what": "Repeat your no calmly, without adding new reasons each time someone pushes.",
+      "when": "When someone won't take no for an answer.",
+      "steps": [
+        "Pick one short sentence: \"I'm not able to do that.\"",
+        "When they push, repeat it, word for word.",
+        "Skip new explanations. They give the other person more to argue with.",
+        "End the conversation if you need to."
+      ],
+      "topics": [
+        "boundaries",
+        "anxiety"
+      ],
+      "source": "Speed, B. C., Goldstein, B. L., & Goldfried, M. R. (2018). Assertiveness training: A forgotten evidence-based treatment. Clinical Psychology: Science and Practice, 25(1), e12216."
+    },
+    {
+      "id": "repair",
+      "name": "Repair after conflict",
+      "group": "relationships",
+      "what": "Repair is how relationships recover after a fight. It matters more than never fighting at all.",
+      "when": "After an argument with a partner, child, friend or family member.",
+      "steps": [
+        "Wait until you're both calm.",
+        "Own your part: \"I raised my voice, and that wasn't okay.\"",
+        "Name the impact: \"I know that hurt.\"",
+        "Say what you'll do differently.",
+        "Listen to their side without defending."
+      ],
+      "topics": [
+        "relationships",
+        "motherhood"
+      ],
+      "source": "Gottman, J. M., & Silver, N. (1999). The seven principles for making marriage work. Crown."
+    },
+    {
+      "id": "self-compassion-break",
+      "name": "Self-compassion break",
+      "group": "relationships",
+      "what": "A short practice for treating yourself with the kindness you'd give a friend. Research links self-compassion with less anxiety and depression.",
+      "when": "When you're hurting, ashamed or criticizing yourself.",
+      "steps": [
+        "Name it: \"This is a moment of pain.\"",
+        "Remember you're not alone: \"Other women feel this too.\"",
+        "Place a hand on your heart.",
+        "Say, \"May I be kind to myself right now.\""
+      ],
+      "topics": [
+        "depression",
+        "infertility",
+        "achieving"
+      ],
+      "source": "Neff, K. D., & Germer, C. K. (2013). A pilot study and randomized controlled trial of the mindful self-compassion program. Journal of Clinical Psychology, 69(1), 28–44.",
+      "lens": "If kindness toward yourself feels unfamiliar or even uncomfortable, that makes sense. Many of us were raised to push through. You can practice this anyway."
+    },
+    {
+      "id": "values-check",
+      "name": "Values check",
+      "group": "relationships",
+      "what": "Values are what matter most to you. Checking choices against them makes decisions clearer.",
+      "when": "When you're facing a big choice or feel pulled by other people's expectations.",
+      "steps": [
+        "Write your top 5 values, like family, freedom, faith, rest or creativity.",
+        "Pick the 3 that matter most right now.",
+        "For a decision, ask, \"Which option moves me toward these?\"",
+        "Take one small step in that direction this week."
+      ],
+      "topics": [
+        "transitions",
+        "childfree",
+        "achieving"
+      ],
+      "source": "Hayes, S. C., Strosahl, K. D., & Wilson, K. G. (2012). Acceptance and commitment therapy (2nd ed.). Guilford Press."
+    },
+    {
+      "id": "evidence-file",
+      "name": "The evidence file",
+      "group": "relationships",
+      "what": "A running record of your wins, praise and growth, for when impostor feelings tell you otherwise.",
+      "when": "Before reviews, interviews, big meetings, or when self-doubt is loud.",
+      "steps": [
+        "Make a folder or note called \"Evidence.\"",
+        "Save praise emails, results, thank-you notes and goals you've met.",
+        "Add one entry each week.",
+        "Read it when you start doubting yourself."
+      ],
+      "topics": [
+        "achieving"
+      ],
+      "source": "Clance, P. R., & Imes, S. A. (1978). The impostor phenomenon in high achieving women. Psychotherapy: Theory, Research & Practice, 15(3), 241–247."
+    },
+    {
+      "id": "rest-menu",
+      "name": "Rest menu",
+      "group": "rest",
+      "what": "A short list of rest options by time, so rest is easy to choose even when you're exhausted.",
+      "when": "When you have time to rest but don't know how to use it.",
+      "steps": [
+        "Write 3 rest options that take 5 minutes, like stretching or stepping outside.",
+        "Write 3 that take 30 minutes, like a nap or a bath.",
+        "Write 3 for a whole day, like a day with no plans.",
+        "Keep the list on your phone. Pick one when you get the chance."
+      ],
+      "topics": [
+        "burnout",
+        "depression",
+        "motherhood"
+      ],
+      "source": "Hersey, T. (2022). Rest is resistance: A manifesto. Little, Brown Spark.",
+      "lens": "Writer and activist Tricia Hersey calls rest a form of resistance for Black people, who were long denied it. Rest isn't a reward for finishing. It's a need."
+    },
+    {
+      "id": "grief-letter",
+      "name": "Letter to someone you lost",
+      "group": "rest",
+      "what": "Writing about loss can help you process feelings that are hard to say out loud. Research on expressive writing links it to better health and mood.",
+      "when": "On anniversaries, hard days, or when grief feels stuck.",
+      "steps": [
+        "Set aside 15 to 20 minutes.",
+        "Write to the person, pregnancy or version of life you lost.",
+        "Say what you miss, what you wish, what you never got to say.",
+        "Keep it, burn it or read it to someone you trust."
+      ],
+      "topics": [
+        "grief",
+        "infertility",
+        "childfree"
+      ],
+      "source": "Pennebaker, J. W., & Beall, S. K. (1986). Confronting a traumatic event: Toward an understanding of inhibition and disease. Journal of Abnormal Psychology, 95(3), 274–281."
+    },
+    {
+      "id": "energy-audit",
+      "name": "Energy audit",
+      "group": "rest",
+      "what": "A quick look at what drains you and what refills you, so you can make one small trade.",
+      "when": "When you feel burned out but can't tell what's causing it.",
+      "steps": [
+        "Draw two columns: drains and refills.",
+        "List everything from this week in one column or the other.",
+        "Circle the biggest drain you have some control over.",
+        "Trade it for one refill this week, even partly."
+      ],
+      "topics": [
+        "burnout",
+        "achieving",
+        "motherhood"
+      ],
+      "source": "Maslach, C., & Leiter, M. P. (2016). Understanding the burnout experience: Recent research and its implications for psychiatry. World Psychiatry, 15(2), 103–111."
+    }
+  ]
+}

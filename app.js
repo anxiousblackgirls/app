@@ -10,6 +10,8 @@
   var ABOUT = null;
   var FAQ = [];
   var DATA = { topics: [], articles: [] };
+  var SKILLS = { groups: [], skills: [] };
+  var GROUP_COLORS = { thinking: '#EBD3A6', traps: '#DEDDC2', dbt: '#D3B094', body: '#F0DFB8', neuro: '#E9D7C8', relationships: '#EAD9C0', rest: '#D9CFA8' };
   var articleCache = {};
 
   // ---------- storage (saved items stay on this phone only) ----------
@@ -49,6 +51,7 @@
   }
 
   var ICON = {
+    spark: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6.3 6.3l2.5 2.5M15.2 15.2l2.5 2.5M6.3 17.7l2.5-2.5M15.2 8.8l2.5-2.5"/></svg>',
     play: '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg>',
     pause: '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" fill="currentColor"/></svg>',
     heart: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>',
@@ -197,15 +200,22 @@
     ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath();
   }
   function makeArticleImage(a, format) {
-    var size = SHARE_SIZES[format] || SHARE_SIZES.post, W = size[0], H = size[1], story = format === 'story';
     var t = topicById(a.topic) || { name: '', color: '#F0DFB8' };
     var mdP = articleCache[a.id] ? Promise.resolve(articleCache[a.id])
       : fetch(encodeURIComponent(a.id) + '.md').then(function (r) { return r.text(); }).catch(function () { return ''; });
+    return mdP.then(function (md) {
+      return makeCardImage({ tag: t.name, color: t.color, meta: a.minutes + ' min read', title: a.title, excerpt: articleExcerpt(md), cta: 'Read the full article free in the app' }, format);
+    });
+  }
+  function makeCardImage(card, format) {
+    var size = SHARE_SIZES[format] || SHARE_SIZES.post, W = size[0], H = size[1], story = format === 'story';
+    var a = { title: card.title, minutes: 0 }, t = { name: card.tag, color: card.color };
+    var mdP = Promise.resolve('');
     var fontsReady = (document.fonts && document.fonts.load)
       ? Promise.all([document.fonts.load('800 80px Montserrat'), document.fonts.load('700 36px "DM Sans"'), document.fonts.load('400 36px "DM Sans"')]).catch(function () {})
       : Promise.resolve();
     return Promise.all([loadHeaderLogo(), mdP, fontsReady]).then(function (res) {
-      var logo = res[0], excerpt = articleExcerpt(res[1]);
+      var logo = res[0], excerpt = card.excerpt;
       var c = document.createElement('canvas'); c.width = W; c.height = H;
       var ctx = c.getContext('2d'), ink = '#2B2118';
       ctx.fillStyle = '#F7F1EB'; ctx.fillRect(0, 0, W, H);
@@ -225,7 +235,7 @@
         roundRect(ctx, x, y, w, 64, 32); ctx.fillStyle = bg; ctx.fill();
         ctx.fillStyle = ink; ctx.fillText(txt, x + 26, y + 33); x += w + 16;
       }
-      pill(t.name, t.color); pill(a.minutes + ' min read', '#F7F1EB');
+      pill(t.name, t.color); pill(card.meta, '#F7F1EB');
       // title
       var maxW = cw - pad * 2, fs = story ? 84 : 76, lines;
       ctx.textBaseline = 'alphabetic';
@@ -249,7 +259,7 @@
       roundRect(ctx, cx + pad, btnY, maxW, btnH, btnH / 2); ctx.fillStyle = '#8A5F12'; ctx.fill();
       ctx.fillStyle = '#FFFFFF'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
       ctx.font = '700 38px "DM Sans", Arial, sans-serif';
-      ctx.fillText('Read the full article free in the app', W / 2, btnY + btnH / 2 + 2);
+      ctx.fillText(card.cta, W / 2, btnY + btnH / 2 + 2);
       // footer
       ctx.textBaseline = 'alphabetic'; ctx.fillStyle = ink;
       var fy = cy + ch + (story ? 100 : 72);
@@ -419,6 +429,8 @@
           DATA.topics.map(function (t) { return '<option value="' + esc(t.id) + '">' + esc(t.name) + '</option>'; }).join('') +
         '</select>' + ICON.chev + '</div>' +
       '</section>' +
+      (SKILLS.skills.length ? (function () { var k = SKILLS.skills[(n * 7) % SKILLS.skills.length];
+        return '<a class="toolkit-card" href="#skill-' + esc(k.id) + '"><span class="toolkit-icon" aria-hidden="true">' + ICON.spark + '</span><span class="text"><span class="meta">Skill of the day</span><span class="title">' + esc(k.name) + '</span><span class="lede" style="margin:0">' + esc(k.when) + '</span></span>' + ICON.chev + '</a>'; })() : '') +
       '<a class="row-link" href="#learn"><span class="text"><span class="title">Browse all topics</span><span class="lede" style="margin:0">' + DATA.topics.length + ' topics, from anxiety and perimenopause to boundaries and grief</span></span>' + ICON.chev + '</a>' +
       '<a class="row-link about-card" href="#about"><span class="text"><span class="title">About Anxious Black Girls®</span><span class="lede" style="margin:0">Therapy, our social club, the podcast and more</span></span>' + ICON.chev + '</a>';
 
@@ -440,6 +452,7 @@
     view.innerHTML =
       navBar('#today', 'Home') +
       '<div><h1 class="page-title">Learn</h1><p class="lede">What it is, how it shows up in us, and why it so often gets missed.</p></div>' +
+      (SKILLS.skills.length ? '<a class="toolkit-card" href="#toolkit"><span class="toolkit-icon" aria-hidden="true">' + ICON.spark + '</span><span class="text"><span class="title">The Toolkit</span><span class="lede" style="margin:0">' + SKILLS.skills.length + ' quick skills for anxiety, big emotions, ADHD and more</span></span>' + ICON.chev + '</a>' : '') +
       '<label class="search" for="search-input">' +
         '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>' +
         '<span class="sr">Search articles</span><input id="search-input" type="search" placeholder="Search articles" autocomplete="off"></label>' +
@@ -513,6 +526,8 @@
         '<span class="listen-time" id="listen-time">0:00</span></div>' +
         '<audio id="listen-audio" preload="metadata" src="' + esc(a.audio) + '"></audio></div>' : '') +
       '<div id="article-body" class="stack" style="gap:14px"><p>Loading…</p></div></article>' +
+      (function () { var ks = skillsForTopic(a.topic, 3, DATA.articles.indexOf(a));
+        return ks.length ? '<h2 class="section-title">Skills to try</h2><div class="stack">' + ks.map(skillRow).join('') + '</div>' : ''; })() +
       '<div class="article-end">' + saveArticleBtn('save-art-bottom', isSaved) +
         '<button id="share-art-bottom" class="btn save-btn">' + ICON.share + 'Share</button>' +
         '<a class="btn" href="#topic-' + esc(t.id) + '">More on ' + esc(t.name) + '</a>' +
@@ -772,7 +787,10 @@
         return '<div class="saved-aff"><p>' + esc(text) + '</p><button class="icon-btn" data-unsave="' + i + '" aria-label="Remove this affirmation" aria-pressed="true">' + ICON.heart.replace('class="icon"', '') + '</button></div>';
       }).join('') + '</div>' : '<p class="empty">Tap Save on today\'s affirmation to keep it here.</p>') +
       '<h2 class="section-title">Articles</h2>' +
-      (arts.length ? '<div class="stack">' + arts.map(articleRow).join('') + '</div>' : '<p class="empty">Tap "Save article" on any article to keep it here.</p>');
+      (arts.length ? '<div class="stack">' + arts.map(articleRow).join('') + '</div>' : '<p class="empty">Tap "Save article" on any article to keep it here.</p>') +
+      '<h2 class="section-title">Skills</h2>' +
+      (function () { var ks = savedSkills().map(skillById).filter(Boolean);
+        return ks.length ? '<div class="stack">' + ks.map(skillRow).join('') + '</div>' : '<p class="empty">Tap "Save skill" on any skill in the Toolkit to keep it here.</p>'; })();
     Array.prototype.forEach.call(view.querySelectorAll('[data-unsave]'), function (b) {
       b.addEventListener('click', function () {
         toggle('abg.savedAffirmations', affs[+b.getAttribute('data-unsave')]);
@@ -805,6 +823,96 @@
       '<p class="copyright">© 2026 Anxious Black Girls, LLC. All rights reserved.</p>';
   }
 
+  // ---------- the Toolkit (content lives in skills.json) ----------
+  function skillById(id) { return SKILLS.skills.filter(function (k) { return k.id === id; })[0]; }
+  function groupName(id) { var g = SKILLS.groups.filter(function (x) { return x.id === id; })[0]; return g ? g.name : ''; }
+  function savedSkills() { return store.get('abg.savedSkills', []); }
+  function skillRow(k) {
+    return '<a class="row-link" href="#skill-' + esc(k.id) + '">' +
+      '<span class="badge" style="background:' + esc(GROUP_COLORS[k.group] || '#F0DFB8') + '">' + ICON.spark + '</span>' +
+      '<span class="text"><span class="meta">' + esc(groupName(k.group)) + '</span>' +
+      '<span class="title">' + esc(k.name) + '</span></span>' + ICON.chev + '</a>';
+  }
+  function skillsForTopic(topicId, n, seed) {
+    var list = SKILLS.skills.filter(function (k) { return k.topics.indexOf(topicId) !== -1; });
+    var start = list.length ? (seed % list.length) : 0;
+    return list.slice(start).concat(list.slice(0, start)).slice(0, n);
+  }
+  function viewToolkit() {
+    var filter = store.get('abg.toolkitFilter', 'all');
+    view.innerHTML =
+      navBar('#learn', 'Learn') +
+      '<div><h1 class="page-title">The Toolkit</h1><p class="lede">Quick, research-backed skills for whatever you\'re carrying right now.</p></div>' +
+      '<div class="chip-row" role="group" aria-label="Filter skills">' +
+        [['all', 'All']].concat(SKILLS.groups.map(function (g) { return [g.id, g.name]; })).map(function (g) {
+          return '<button class="btn small" data-filter="' + esc(g[0]) + '" aria-pressed="' + (g[0] === filter) + '">' + esc(g[1]) + '</button>';
+        }).join('') +
+      '</div>' +
+      '<div id="skill-list" class="stack"></div>' +
+      '<p class="disclaimer">These skills are for learning and practice. They don\'t replace care from a licensed professional. If you\'re in crisis, call 911 or call/text 988.</p>';
+    function show() {
+      var list = SKILLS.skills.filter(function (k) { return filter === 'all' || k.group === filter; });
+      document.getElementById('skill-list').innerHTML = list.map(skillRow).join('');
+    }
+    Array.prototype.forEach.call(view.querySelectorAll('[data-filter]'), function (b) {
+      b.addEventListener('click', function () {
+        filter = b.getAttribute('data-filter'); store.set('abg.toolkitFilter', filter);
+        Array.prototype.forEach.call(view.querySelectorAll('[data-filter]'), function (x) { x.setAttribute('aria-pressed', x === b); });
+        show();
+      });
+    });
+    show();
+  }
+  function shareSkill(k) {
+    var link = APP_URL + '/#skill-' + k.id;
+    var caption = 'A skill worth trying: ' + k.name + '. Find it free in the Anxious Black Girls® app.';
+    openSharePanel({
+      heading: 'Share this skill', imageText: k.name,
+      makeImage: function (format) {
+        return makeCardImage({ tag: groupName(k.group), color: GROUP_COLORS[k.group] || '#F0DFB8', meta: 'Skill', title: k.name,
+          excerpt: k.what + ' ' + k.steps.map(function (st, i) { return (i + 1) + '. ' + st; }).join(' '), cta: 'Try this skill free in the app' }, format);
+      },
+      alt: 'Branded image with the skill name', file: 'anxious-black-girls-skill.png',
+      caption: caption + ' ' + link, link: link, linkHeading: 'Or post a link to this skill',
+      sendText: function () {
+        if (navigator.share) navigator.share({ title: k.name, text: caption, url: link }).catch(function () { copy(caption + ' ' + link); });
+        else copy(caption + ' ' + link);
+      }
+    });
+  }
+  function viewSkill(id) {
+    var k = skillById(id);
+    if (!k) { location.hash = '#toolkit'; return; }
+    var isSaved = savedSkills().indexOf(id) !== -1;
+    function saveBtn(idAttr) { return '<button id="' + idAttr + '" class="btn save-btn" aria-pressed="' + isSaved + '">' + ICON.heart + '<span>' + (isSaved ? 'Saved' : 'Save skill') + '</span></button>'; }
+    var related = k.topics.map(topicById).filter(Boolean);
+    view.innerHTML =
+      navBar('#toolkit', 'Back to Toolkit', '<div class="nav-actions"><button id="share-skill-top" class="btn icon-only" aria-label="Share this skill">' + ICON.share + '</button>' + saveBtn('save-skill-top') + '</div>') +
+      '<article class="prose"><div class="tags"><span class="tag" style="background:' + esc(GROUP_COLORS[k.group] || '#F0DFB8') + '">' + esc(groupName(k.group)) + '</span><span class="tag" style="background:var(--bg)">1 min</span></div>' +
+      '<h1>' + esc(k.name) + '</h1>' +
+      '<div class="stack" style="gap:14px"><p>' + esc(k.what) + '</p>' +
+      '<h2>When to use it</h2><p>' + esc(k.when) + '</p>' +
+      '<section class="skill"><span class="eyebrow">Try this</span><ol class="steps">' + k.steps.map(function (st) { return '<li>' + esc(st) + '</li>'; }).join('') + '</ol></section>' +
+      (k.lens ? '<aside class="lens"><span class="eyebrow">Through our lens</span><p>' + esc(k.lens) + '</p></aside>' : '') +
+      (related.length ? '<h2>Read more</h2><div class="stack">' + related.map(function (t) {
+        return '<a class="row-link" href="#topic-' + esc(t.id) + '"><span class="badge" style="background:' + esc(t.color) + '">' + esc(t.name.slice(0, 2).toUpperCase()) + '</span><span class="text"><span class="title">' + esc(t.name) + '</span></span>' + ICON.chev + '</a>';
+      }).join('') + '</div>' : '') +
+      '<h3>Source</h3><ul class="sources"><li>' + esc(k.source) + '</li></ul></div></article>' +
+      '<div class="article-end">' + saveBtn('save-skill-bottom') + '<button id="share-skill-bottom" class="btn save-btn">' + ICON.share + 'Share</button>' +
+        '<a class="btn" href="#toolkit">More skills</a></div>' +
+      '<p class="disclaimer">This is education, not therapy or medical advice. If you\'re in crisis, call 911 or call/text 988.</p>' +
+      '<p class="copyright">© 2026 Anxious Black Girls, LLC. All rights reserved.</p>';
+    ['share-skill-top', 'share-skill-bottom'].forEach(function (sid) { document.getElementById(sid).addEventListener('click', function () { shareSkill(k); }); });
+    var btns = [document.getElementById('save-skill-top'), document.getElementById('save-skill-bottom')];
+    btns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var on = toggle('abg.savedSkills', id);
+        btns.forEach(function (b) { b.setAttribute('aria-pressed', on); b.querySelector('span').textContent = on ? 'Saved' : 'Save skill'; });
+        toast(on ? 'Saved. Find it anytime in the Saved tab.' : 'Removed from Saved');
+      });
+    });
+  }
+
   // ---------- router ----------
   function route() {
     var h = (location.hash || '#today').slice(1);
@@ -812,6 +920,8 @@
     if (h === 'learn') { tab = 'learn'; viewLearn(); }
     else if (h.indexOf('topic-') === 0) { tab = 'learn'; viewTopic(h.slice(6)); }
     else if (h.indexOf('article-') === 0) { tab = 'learn'; viewArticle(h.slice(8)); }
+    else if (h === 'toolkit') { tab = 'learn'; viewToolkit(); }
+    else if (h.indexOf('skill-') === 0) { tab = 'learn'; viewSkill(h.slice(6)); }
     else if (h === 'journal') { tab = 'journal'; pauseShownThisVisit = false; viewJournal(); }
     else if (h === 'saved') { tab = 'saved'; viewSaved(); }
     else if (h === 'help') { tab = 'help'; viewHelp(); }
@@ -857,9 +967,10 @@
     fetch('articles.json').then(function (r) { return r.json(); }),
     fetch('journal-prompts.json').then(function (r) { return r.json(); }).catch(function () { return []; }),
     fetch('about.json').then(function (r) { return r.json(); }).catch(function () { return null; }),
-    fetch('faq.json').then(function (r) { return r.json(); }).catch(function () { return []; })
+    fetch('faq.json').then(function (r) { return r.json(); }).catch(function () { return []; }),
+    fetch('skills.json').then(function (r) { return r.json(); }).catch(function () { return { groups: [], skills: [] }; })
   ]).then(function (res) {
-    AFFIRMATIONS = res[0]; DATA = res[1]; PROMPTS = res[2]; ABOUT = res[3]; FAQ = res[4];
+    AFFIRMATIONS = res[0]; DATA = res[1]; PROMPTS = res[2]; ABOUT = res[3]; FAQ = res[4]; SKILLS = res[5];
     window.addEventListener('hashchange', route);
     route();
   }).catch(function () {

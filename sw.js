@@ -3,7 +3,7 @@
 var CACHE = 'abg-v19';
 var CORE = [
   './', 'index.html', 'app.css', 'app.js', 'manifest.webmanifest',
-  'affirmations.json', 'articles.json', 'journal-prompts.json', 'about.json', 'faq.json',
+  'affirmations.json', 'articles.json', 'journal-prompts.json', 'about.json', 'faq.json', 'skills.json',
   'logo-header.png', 'logo-circle.png', 'logo-stacked.png', 'logo-stacked-url.png', 'icon-192.png',
   'dm-sans-latin-400-normal.woff2', 'dm-sans-latin-700-normal.woff2', 'montserrat-latin-800-normal.woff2'
 ];

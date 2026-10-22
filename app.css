@@ -375,3 +375,15 @@ main { display: flex; flex-direction: column; gap: 20px; padding-top: 8px; outli
 .playlist-inline .lede { font-size: 14px; color: var(--muted); }
 .playlist-inline .playlist-icon { background: var(--surface); }
 .founder-card .meta { font-size: 12px; font-weight: 700; color: var(--gold-deep); text-transform: uppercase; letter-spacing: 0.08em; }
+
+.chip-row { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+.chip-row::-webkit-scrollbar { display: none; }
+.chip-row .btn { flex: none; }
+.chip-row .btn[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--surface); }
+.toolkit-card { display: flex; align-items: center; gap: 14px; background: var(--gold-soft); border-radius: 20px; padding: 16px 18px; color: var(--ink); text-decoration: none; }
+.toolkit-card .text { flex: 1; min-width: 0; display: grid; gap: 2px; }
+.toolkit-card .title { font-family: var(--font-display); font-weight: 800; font-size: 17px; }
+.toolkit-card .meta { font-size: 12px; font-weight: 700; color: var(--gold-deep); text-transform: uppercase; letter-spacing: 0.08em; }
+.toolkit-icon { flex: none; width: 48px; height: 48px; border-radius: 14px; background: var(--surface); display: grid; place-items: center; color: var(--gold-deep); }
+.skill .steps { margin: 6px 0 0; padding-left: 22px; display: grid; gap: 10px; }
+.skill .steps li { line-height: 1.5; }
