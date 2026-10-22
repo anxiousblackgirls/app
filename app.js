@@ -451,8 +451,12 @@
   function viewLearn() {
     view.innerHTML =
       navBar('#today', 'Home') +
-      '<div><h1 class="page-title">Learn</h1><p class="lede">What it is, how it shows up in us, and why it so often gets missed.</p></div>' +
-      (SKILLS.skills.length ? '<a class="toolkit-card" href="#toolkit"><span class="toolkit-icon" aria-hidden="true">' + ICON.spark + '</span><span class="text"><span class="title">The Toolkit</span><span class="lede" style="margin:0">' + SKILLS.skills.length + ' quick skills for anxiety, big emotions, ADHD and more</span></span>' + ICON.chev + '</a>' : '') +
+      '<div><h1 class="page-title">Learn</h1><p class="lede">Two ways to care for your mind here: read articles to understand what you\'re going through, and use the Toolkit to practice skills that help in the moment.</p></div>' +
+      (SKILLS.skills.length ? '<section class="learn-section"><span class="section-kicker">Practice</span><h2 class="section-title">The Toolkit</h2>' +
+        '<p class="section-desc">Short, step-by-step coping skills drawn from CBT, DBT and other proven approaches. Each one tells you what the skill is, when to use it and exactly how to do it, in about a minute. Use them when anxiety spikes, emotions run high, your thoughts spiral or you can\'t get started.</p>' +
+        '<a class="toolkit-card" href="#toolkit"><span class="toolkit-icon" aria-hidden="true">' + ICON.spark + '</span><span class="text"><span class="title">Open the Toolkit</span><span class="lede" style="margin:0">' + SKILLS.skills.length + ' skills for anxiety, big emotions, ADHD, autism, boundaries and rest</span></span>' + ICON.chev + '</a></section>' : '') +
+      '<section class="learn-section"><span class="section-kicker">Read</span><h2 class="section-title">Articles</h2>' +
+        '<p class="section-desc">Research-backed reads on mental health through the lens of Black women. Each article explains what a condition or experience is, how it shows up in our lives, why it often gets missed, and what you can do about it. Pick a topic or search below.</p></section>' +
       '<label class="search" for="search-input">' +
         '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>' +
         '<span class="sr">Search articles</span><input id="search-input" type="search" placeholder="Search articles" autocomplete="off"></label>' +
@@ -842,7 +846,7 @@
     var filter = store.get('abg.toolkitFilter', 'all');
     view.innerHTML =
       navBar('#learn', 'Learn') +
-      '<div><h1 class="page-title">The Toolkit</h1><p class="lede">Quick, research-backed skills for whatever you\'re carrying right now.</p></div>' +
+      '<div><h1 class="page-title">The Toolkit</h1><p class="lede">Coping skills you can use in the moment. Each card tells you what the skill is, when to use it and how to do it, step by step. Choose a category or browse them all.</p></div>' +
       '<div class="chip-row" role="group" aria-label="Filter skills">' +
         [['all', 'All']].concat(SKILLS.groups.map(function (g) { return [g.id, g.name]; })).map(function (g) {
           return '<button class="btn small" data-filter="' + esc(g[0]) + '" aria-pressed="' + (g[0] === filter) + '">' + esc(g[1]) + '</button>';

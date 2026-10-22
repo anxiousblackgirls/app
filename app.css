@@ -408,3 +408,7 @@ main { display: flex; flex-direction: column; gap: 20px; padding-top: 8px; outli
 .practice-panel .skill-hero-label { color: var(--olive-deep); }
 .skill-badge svg { color: #fff; stroke: #fff; }
 .practice-panel .text-link { color: var(--olive-deep); }
+
+.learn-section { display: grid; gap: 8px; }
+.section-kicker { font-size: 12px; font-weight: 700; color: var(--gold-deep); text-transform: uppercase; letter-spacing: 0.1em; }
+.section-desc { margin: 0 0 6px; color: var(--muted); line-height: 1.5; }
