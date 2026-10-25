@@ -1032,8 +1032,8 @@
       '<article class="prose skill-page">' +
       '<div class="stack" style="gap:14px">' +
       '<h2>When to use it</h2><p>' + esc(k.when) + '</p>' +
-      (k.video ? '<section class="skill-video"><span class="eyebrow">See it in action</span><video src="' + esc(k.video) + '" poster="' + esc(k.video.replace(/\.mp4$/, '.jpg')) + '" controls playsinline preload="none"></video></section>' : '') +
       '<section class="skill"><span class="eyebrow">Try this</span><ol class="steps">' + k.steps.map(function (st) { return '<li>' + esc(st) + '</li>'; }).join('') + '</ol></section>' +
+      (k.video ? '<section class="skill-video"><span class="eyebrow">See it in action</span><video src="' + esc(k.video) + '" poster="' + esc(k.video.replace(/\.mp4$/, '.jpg')) + '" controls playsinline preload="none"></video></section>' : '') +
       '<section class="keep-it"><span class="keep-icon" aria-hidden="true">' + ICON.bag + '</span><div><strong>Keep this one close.</strong>' +
         '<p>Put it in your pocketbook so it\'s ready next time, or pass it to a friend who could use it.</p>' +
         '</div><div class="keep-actions">' + saveBtn('save-skill-keep') + '<button id="share-skill-keep" class="btn save-btn">' + ICON.share + 'Share with a friend</button></div></section>' +
