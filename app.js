@@ -188,9 +188,9 @@
       lines.forEach(function (l, i) { ctx.fillText(l, W / 2, startY + i * lineH); });
       // footer
       ctx.font = '700 34px "DM Sans", Arial, sans-serif';
-      ctx.fillText(opts.footer || 'Your daily affirmation, free at', W / 2, footerTop + 30);
+      ctx.fillText(opts.footer || 'Download the Anxious Black Girls\u00AE app', W / 2, footerTop + 30);
       ctx.font = '800 40px Montserrat, Arial, sans-serif';
-      ctx.fillText('app.anxiousblackgirls.com', W / 2, footerTop + 86);
+      ctx.fillText(DOWNLOAD_TEXT, W / 2, footerTop + 86);
       ctx.strokeStyle = '#BB831D'; ctx.lineWidth = 3;
       ctx.beginPath(); ctx.moveTo(W / 2 - 60, footerTop + 116); ctx.lineTo(W / 2 + 60, footerTop + 116); ctx.stroke();
       ctx.fillStyle = '#8A5F12';
@@ -227,7 +227,7 @@
     var mdP = articleCache[a.id] ? Promise.resolve(articleCache[a.id])
       : fetch(encodeURIComponent(a.id) + '.md').then(function (r) { return r.text(); }).catch(function () { return ''; });
     return mdP.then(function (md) {
-      return makeCardImage({ tag: t.name, color: t.color, meta: a.minutes + ' min read', title: a.title, excerpt: articleExcerpt(md), cta: 'Read the full article free in the app' }, format);
+      return makeCardImage({ tag: t.name, color: t.color, meta: a.minutes + ' min read', title: a.title, excerpt: articleExcerpt(md), cta: 'Read the full article in the app' }, format);
     });
   }
   function makeCardImage(card, format) {
@@ -287,7 +287,7 @@
       ctx.textBaseline = 'alphabetic'; ctx.fillStyle = ink;
       var fy = cy + ch + (story ? 100 : 72);
       ctx.font = '800 38px Montserrat, Arial, sans-serif';
-      ctx.fillText('app.anxiousblackgirls.com', W / 2, fy);
+      ctx.fillText(DOWNLOAD_TEXT, W / 2, fy);
       ctx.fillStyle = '#8A5F12'; ctx.font = '700 30px "DM Sans", Arial, sans-serif';
       ctx.fillText('@anxiousblackgirls', W / 2, fy + 48);
       return new Promise(function (resolve) { c.toBlob(resolve, 'image/png'); });
@@ -295,24 +295,27 @@
   }
 
   var APP_URL = 'https://app.anxiousblackgirls.com';
+  // Shares from the phone app point people to the download page, which sends
+  // iPhones to the App Store and Android phones to Google Play.
+  var DOWNLOAD_URL = APP_URL + '/download', DOWNLOAD_TEXT = 'app.anxiousblackgirls.com/download';
   function openShareSheet(aff) {
-    var caption = '"' + aff.text + '" Today\'s affirmation from Anxious Black Girls®. Get yours free at app.anxiousblackgirls.com';
+    var caption = '"' + aff.text + '" Today\'s affirmation from Anxious Black Girls®. Download the app: ' + DOWNLOAD_TEXT;
     openSharePanel({
       heading: 'Share today\'s affirmation', imageText: aff.text, imageOpts: {},
       alt: 'Branded image of today\'s affirmation', file: 'anxious-black-girls-affirmation.png',
-      caption: caption, link: APP_URL, linkHeading: 'Or post a link to the app',
+      caption: caption, link: DOWNLOAD_URL, linkHeading: 'Or post a link to download the app',
       sendText: function () { shareAffirmation(aff.text); }
     });
   }
   function shareArticle(a) {
     var t = topicById(a.topic) || { name: '' };
-    var link = APP_URL + '/#article-' + a.id;
-    var caption = 'This one hit home: ' + a.title + '. Read it free in the Anxious Black Girls® app.';
+    var link = DOWNLOAD_URL;
+    var caption = 'This one hit home: ' + a.title + '. Read it in the Anxious Black Girls® app.';
     openSharePanel({
       heading: 'Share this article', imageText: a.title,
       makeImage: function (format) { return makeArticleImage(a, format); },
       alt: 'Branded image with the article title', file: 'anxious-black-girls-article.png',
-      caption: caption + ' ' + link, link: link, linkHeading: 'Or post a link to this article',
+      caption: caption + ' ' + link, link: link, linkHeading: 'Or post a link to download the app',
       sendText: function () {
         if (navigator.share) navigator.share({ title: a.title, text: caption, url: link }).catch(function () { copy(caption + ' ' + link); });
         else copy(caption + ' ' + link);
@@ -394,7 +397,7 @@
   }
 
   function shareAffirmation(text) {
-    var msg = '"' + text + '" Today\'s affirmation from Anxious Black Girls®. Get yours free at app.anxiousblackgirls.com';
+    var msg = '"' + text + '" Today\'s affirmation from Anxious Black Girls®. Download the app: ' + DOWNLOAD_TEXT;
     if (NATIVE) { NATIVE.shareText(msg); return; }
     if (navigator.share) {
       navigator.share({ text: msg }).catch(function () { copy(msg); });
@@ -967,8 +970,8 @@
     show();
   }
   function shareSkill(k) {
-    var link = APP_URL + '/#skill-' + k.id;
-    var caption = 'A coping skill worth trying: ' + k.name + '. Get more skills like this free in the Anxious Black Girls® app.';
+    var link = DOWNLOAD_URL;
+    var caption = 'A coping skill worth trying: ' + k.name + '. Get more skills like this in the Anxious Black Girls® app.';
     openSharePanel({
       heading: 'Share this skill', imageText: k.name,
       makeImage: function (format) {
@@ -976,7 +979,7 @@
           excerpt: k.what + ' ' + k.steps.map(function (st, i) { return (i + 1) + '. ' + st; }).join(' '), cta: 'Get more skills like this in the app' }, format);
       },
       alt: 'Branded image with the skill name', file: 'anxious-black-girls-skill.png',
-      caption: caption + ' ' + link, link: link, linkHeading: 'Or post a link to this skill',
+      caption: caption + ' ' + link, link: link, linkHeading: 'Or post a link to download the app',
       sendText: function () {
         if (navigator.share) navigator.share({ title: k.name, text: caption, url: link }).catch(function () { copy(caption + ' ' + link); });
         else copy(caption + ' ' + link);

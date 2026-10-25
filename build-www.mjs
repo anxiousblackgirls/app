@@ -8,7 +8,7 @@ import { join } from 'node:path';
 const SKIP = new Set([
   'www', 'node_modules', 'ios', 'android', 'resources', '.git', '.github', '.gitignore',
   'package.json', 'package-lock.json', 'capacitor.config.json', 'build-www.mjs',
-  'README.md', 'LICENSE', 'CNAME', 'sw.js', 'manifest.webmanifest', 'og-image.png'
+  'README.md', 'LICENSE', 'CNAME', 'download.html', 'sw.js', 'manifest.webmanifest', 'og-image.png'
 ]);
 
 rmSync('www', { recursive: true, force: true });
