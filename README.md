@@ -14,6 +14,14 @@ Open `affirmations.json`. Each affirmation looks like this:
 
 Keep the quote marks and the comma at the end. The last affirmation in the list has no comma after it. The app shows one per day and cycles through the list.
 
+If an affirmation is about work, add `"work": true` after the note, with a comma before it:
+
+```
+{ "text": "The affirmation itself.", "note": "The small line underneath.", "work": true },
+```
+
+On Saturdays and Sundays the app and the daily reminder skip those and pick from the rest.
+
 ## Add an article
 
 1. On GitHub, click **Add file**, then **Create new file**, and name it, for example `anxiety-sleep.md`.
