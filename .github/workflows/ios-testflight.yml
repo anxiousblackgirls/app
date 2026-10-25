@@ -75,14 +75,21 @@ jobs:
           KEY_ID: ${{ secrets.ASC_KEY_ID }}
           ISSUER: ${{ secrets.ASC_ISSUER_ID }}
         run: |
+          set -o pipefail
           AUTH="-allowProvisioningUpdates -authenticationKeyPath $RUNNER_TEMP/AuthKey.p8 -authenticationKeyID $KEY_ID -authenticationKeyIssuerID $ISSUER"
+          report() {
+            echo "::error::$1 failed. Errors from Xcode:"
+            grep -E "error:|error |Error Domain|No profiles|No signing|certificate|provisioning profile|requires a development team|ITMS-|Failed|exportArchive" "$2" | grep -v "^\s*$" | sort -u | head -20 | while IFS= read -r line; do echo "::error::${line:0:400}"; done
+            tail -15 "$2" | while IFS= read -r line; do echo "::warning::${line:0:400}"; done
+            exit 65
+          }
           xcodebuild -project ios/App/App.xcodeproj -scheme App -configuration Release \
             -destination 'generic/platform=iOS' -archivePath "$RUNNER_TEMP/App.xcarchive" \
             DEVELOPMENT_TEAM="$APPLE_TEAM_ID" CURRENT_PROJECT_VERSION="${{ github.run_number }}" \
-            $AUTH archive
+            $AUTH archive 2>&1 | tee "$RUNNER_TEMP/archive.log" > /dev/null || report "Archive" "$RUNNER_TEMP/archive.log"
           xcodebuild -exportArchive -archivePath "$RUNNER_TEMP/App.xcarchive" \
             -exportOptionsPlist "$RUNNER_TEMP/ExportOptions.plist" -exportPath "$RUNNER_TEMP/export" \
-            $AUTH
+            $AUTH 2>&1 | tee "$RUNNER_TEMP/export.log" > /dev/null || report "Upload" "$RUNNER_TEMP/export.log"
           echo "::notice::Build ${{ github.run_number }} uploaded. It appears in TestFlight after Apple finishes processing (usually 10 to 30 minutes)."
 
       - name: Remove upload key
