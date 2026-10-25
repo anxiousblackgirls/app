@@ -880,7 +880,7 @@
         '<a class="row-link" href="https://beam.community" target="_blank" rel="noopener"><span class="text"><span class="title">BEAM</span><span class="lede" style="margin:0">Black Emotional and Mental Health Collective</span></span>' + ICON.out + '</a>' +
       '</div>' +
       '<h2 class="section-title">Questions about the app</h2>' +
-      '<a class="row-link faq-tile" href="#faq"><span class="badge" style="background:var(--gold-soft)">?</span><span class="text"><span class="title">Frequently asked questions</span><span class="lede" style="margin:0">Privacy, your journal, installing the app and more</span></span>' + ICON.chev + '</a>' +
+      '<a class="row-link faq-tile" href="#faq"><span class="badge" style="background:var(--gold-soft)">?</span><span class="text"><span class="title">Frequently asked questions</span><span class="lede" style="margin:0">Plus, privacy, your journal and more</span></span>' + ICON.chev + '</a>' +
       '<h2 class="section-title">Privacy and settings</h2>' +
       '<p class="lede" style="margin-top:-4px">No account, no tracking. Everything you write and save stays on this phone.</p>' +
       '<div class="settings">' + (NATIVE ? lockSetting() : '') +
