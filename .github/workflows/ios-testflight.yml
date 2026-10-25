@@ -69,6 +69,34 @@ jobs:
           </dict></plist>
           PLIST
 
+      - name: Check the App Store Connect key with Apple
+        if: steps.ready.outputs.go == 'true'
+        env:
+          KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ISSUER: ${{ secrets.ASC_ISSUER_ID }}
+        run: |
+          pip3 install --quiet --break-system-packages pyjwt cryptography 2>/dev/null || pip3 install --quiet pyjwt cryptography
+          python3 - <<'PY'
+          import os, time, json, urllib.request, jwt
+          key = open(os.environ["RUNNER_TEMP"] + "/AuthKey.p8").read()
+          if "BEGIN PRIVATE KEY" not in key or "END PRIVATE KEY" not in key:
+              print("::error::ASC_PRIVATE_KEY does not look like the full .p8 file (BEGIN/END lines missing)."); raise SystemExit(1)
+          try:
+              tok = jwt.encode({"iss": os.environ["ISSUER"], "iat": int(time.time()), "exp": int(time.time()) + 600, "aud": "appstoreconnect-v1"}, key, algorithm="ES256", headers={"kid": os.environ["KEY_ID"]})
+          except Exception as e:
+              print("::error::The .p8 key could not be read: " + str(e)[:200]); raise SystemExit(1)
+          def get(path):
+              r = urllib.request.Request("https://api.appstoreconnect.apple.com" + path, headers={"Authorization": "Bearer " + tok})
+              try:
+                  return json.load(urllib.request.urlopen(r))
+              except urllib.error.HTTPError as e:
+                  print("::error::Apple rejected the key (HTTP %s): %s" % (e.code, e.read().decode()[:300])); raise SystemExit(1)
+          ids = get("/v1/bundleIds?filter[identifier]=com.anxiousblackgirls.app")["data"]
+          apps = get("/v1/apps?filter[bundleId]=com.anxiousblackgirls.app")["data"]
+          certs = get("/v1/certificates?limit=50")["data"]
+          print("::notice::Apple accepted the key. Bundle ID registered: %s. App record: %s. Certificates on the team: %d." % (bool(ids), bool(apps), len(certs)))
+          PY
+
       - name: Build, sign, and upload to TestFlight
         if: steps.ready.outputs.go == 'true'
         env:
@@ -86,7 +114,8 @@ jobs:
           xcodebuild -project ios/App/App.xcodeproj -scheme App -configuration Release \
             -destination 'generic/platform=iOS' -archivePath "$RUNNER_TEMP/App.xcarchive" \
             DEVELOPMENT_TEAM="$APPLE_TEAM_ID" CURRENT_PROJECT_VERSION="${{ github.run_number }}" \
-            $AUTH archive 2>&1 | tee "$RUNNER_TEMP/archive.log" > /dev/null || report "Archive" "$RUNNER_TEMP/archive.log"
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
+            archive 2>&1 | tee "$RUNNER_TEMP/archive.log" > /dev/null || report "Archive" "$RUNNER_TEMP/archive.log"
           xcodebuild -exportArchive -archivePath "$RUNNER_TEMP/App.xcarchive" \
             -exportOptionsPlist "$RUNNER_TEMP/ExportOptions.plist" -exportPath "$RUNNER_TEMP/export" \
             $AUTH 2>&1 | tee "$RUNNER_TEMP/export.log" > /dev/null || report "Upload" "$RUNNER_TEMP/export.log"
