@@ -26,4 +26,6 @@ if (!html.includes('<script src="app.js"></script>')) throw new Error('index.htm
 writeFileSync('www/index.html', html
   .replace('<script src="app.js"></script>', '<script src="native.js"></script>')
   .replace(/<link rel="manifest"[^>]*>\n?/, ''));
+// The home screen widget reads its own copy of the affirmations.
+if (statSync('ios/App/AffirmationWidget', { throwIfNoEntry: false })) copyFileSync('affirmations.json', 'ios/App/AffirmationWidget/affirmations.json');
 console.log(`www/ ready: ${n} files`);

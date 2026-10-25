@@ -4,7 +4,8 @@
 #    If the team is at Apple's certificate limit, it revokes the oldest one this
 #    process can replace (App Store and TestFlight builds already sent stay valid).
 # 2. Makes a fresh App Store provisioning profile for com.anxiousblackgirls.app.
-# 3. Writes signing.p12, the profile, and its UUID/name for the next build steps.
+# 3. Does the same for the home screen widget (com.anxiousblackgirls.app.widget), registering it if needed.
+# 4. Writes signing.p12, both profiles, and their UUIDs for the next build steps.
 # Needs: KEY_ID, ISSUER, RUNNER_TEMP, and $RUNNER_TEMP/AuthKey.p8.
 import base64, json, os, time, urllib.error, urllib.request
 import jwt
@@ -76,30 +77,45 @@ open(os.path.join(TMP, "signing.p12"), "wb").write(pkcs12.serialize_key_and_cert
     .key_cert_algorithm(pkcs12.PBES.PBESv1SHA1And3KeyTripleDESCBC).hmac_hash(hashes.SHA1())
     .build(P12_PASS.encode())))  # older format: macOS keychain can't read the newer default
 
-# 2. Provisioning profile
-st, ids = api("GET", "/v1/bundleIds?filter[identifier]=" + BUNDLE)
-match = [b for b in ids.get("data", []) if b["attributes"]["identifier"] == BUNDLE]
-if not match:
-    fail("Bundle ID %s is not registered in the Apple Developer account." % BUNDLE)
-bundle_id = match[0]["id"]
+# 2. Provisioning profiles: one for the app, one for the home screen widget.
+def bundle_id_for(identifier, name, create):
+    st, ids = api("GET", "/v1/bundleIds?filter[identifier]=" + identifier)
+    match = [b for b in ids.get("data", []) if b["attributes"]["identifier"] == identifier]
+    if match:
+        return match[0]["id"]
+    if not create:
+        fail("Bundle ID %s is not registered in the Apple Developer account." % identifier)
+    st, res = api("POST", "/v1/bundleIds", {"data": {"type": "bundleIds",
+        "attributes": {"identifier": identifier, "name": name, "platform": "IOS"}}})
+    if st not in (200, 201):
+        fail("Apple refused to register %s (HTTP %s): %s" % (identifier, st, json.dumps(res)[:400]))
+    print("::notice::Registered bundle ID %s." % identifier)
+    return res["data"]["id"]
 
-st, profs = api("GET", "/v1/profiles?filter[name]=" + urllib.request.quote(PROFILE_NAME) + "&limit=50")
-for p in profs.get("data", []):
-    api("DELETE", "/v1/profiles/" + p["id"])
 
-status, res = api("POST", "/v1/profiles", {"data": {
-    "type": "profiles",
-    "attributes": {"name": PROFILE_NAME, "profileType": "IOS_APP_STORE"},
-    "relationships": {
-        "bundleId": {"data": {"type": "bundleIds", "id": bundle_id}},
-        "certificates": {"data": [{"type": "certificates", "id": cert_id}]}}}})
-if status not in (200, 201):
-    fail("Apple refused the provisioning profile (HTTP %s): %s" % (status, json.dumps(res)[:400]))
-attrs = res["data"]["attributes"]
-uuid = attrs["uuid"]
-open(os.path.join(TMP, "profile.mobileprovision"), "wb").write(base64.b64decode(attrs["profileContent"]))
-open(os.path.join(TMP, "profile_uuid.txt"), "w").write(uuid)
+def make_profile(bundle_ref, name, filename):
+    st, profs = api("GET", "/v1/profiles?filter[name]=" + urllib.request.quote(name) + "&limit=50")
+    for p in profs.get("data", []):
+        api("DELETE", "/v1/profiles/" + p["id"])
+    st, res = api("POST", "/v1/profiles", {"data": {
+        "type": "profiles",
+        "attributes": {"name": name, "profileType": "IOS_APP_STORE"},
+        "relationships": {
+            "bundleId": {"data": {"type": "bundleIds", "id": bundle_ref}},
+            "certificates": {"data": [{"type": "certificates", "id": cert_id}]}}}})
+    if st not in (200, 201):
+        fail("Apple refused the provisioning profile %s (HTTP %s): %s" % (name, st, json.dumps(res)[:400]))
+    attrs = res["data"]["attributes"]
+    open(os.path.join(TMP, filename), "wb").write(base64.b64decode(attrs["profileContent"]))
+    return attrs["uuid"]
+
+
+app_uuid = make_profile(bundle_id_for(BUNDLE, "Anxious Black Girls", False), PROFILE_NAME, "profile.mobileprovision")
+widget_uuid = make_profile(bundle_id_for(BUNDLE + ".widget", "Anxious Black Girls Widget", True),
+                           "ABG Widget App Store (GitHub builds)", "widget.mobileprovision")
+open(os.path.join(TMP, "profile_uuid.txt"), "w").write(app_uuid)
+open(os.path.join(TMP, "widget_uuid.txt"), "w").write(widget_uuid)
 
 with open(os.environ["GITHUB_OUTPUT"], "a") as out:
-    out.write("profile_uuid=%s\nprofile_name=%s\n" % (uuid, PROFILE_NAME))
-print("::notice::Signing ready: Apple Distribution certificate %s, profile %s." % (cert_id, uuid))
+    out.write("profile_uuid=%s\nwidget_uuid=%s\n" % (app_uuid, widget_uuid))
+print("::notice::Signing ready: Apple Distribution certificate %s, app profile %s, widget profile %s." % (cert_id, app_uuid, widget_uuid))

@@ -114,10 +114,11 @@ jobs:
           security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k abg-ci "$KC" > /dev/null
           security list-keychains -d user -s "$KC" $(security list-keychains -d user | tr -d '"')
           UUID=$(cat "$RUNNER_TEMP/profile_uuid.txt")
+          WUUID=$(cat "$RUNNER_TEMP/widget_uuid.txt")
           security cms -D -i "$RUNNER_TEMP/profile.mobileprovision" > "$RUNNER_TEMP/profile.plist"
           echo "::notice::Profile installed: $(/usr/libexec/PlistBuddy -c 'Print :Name' "$RUNNER_TEMP/profile.plist") / $(/usr/libexec/PlistBuddy -c 'Print :UUID' "$RUNNER_TEMP/profile.plist") / team $(/usr/libexec/PlistBuddy -c 'Print :TeamIdentifier:0' "$RUNNER_TEMP/profile.plist")"
           for d in "$HOME/Library/MobileDevice/Provisioning Profiles" "$HOME/Library/Developer/Xcode/UserData/Provisioning Profiles"; do
-            mkdir -p "$d"; cp "$RUNNER_TEMP/profile.mobileprovision" "$d/$UUID.mobileprovision"
+            mkdir -p "$d"; cp "$RUNNER_TEMP/profile.mobileprovision" "$d/$UUID.mobileprovision"; cp "$RUNNER_TEMP/widget.mobileprovision" "$d/$WUUID.mobileprovision"
           done
           cat > "$RUNNER_TEMP/ExportOptions.plist" <<PLIST
           <?xml version="1.0" encoding="UTF-8"?>
@@ -128,7 +129,7 @@ jobs:
             <key>teamID</key><string>$APPLE_TEAM_ID</string>
             <key>signingStyle</key><string>manual</string>
             <key>signingCertificate</key><string>Apple Distribution</string>
-            <key>provisioningProfiles</key><dict><key>com.anxiousblackgirls.app</key><string>$UUID</string></dict>
+            <key>provisioningProfiles</key><dict><key>com.anxiousblackgirls.app</key><string>$UUID</string><key>com.anxiousblackgirls.app.widget</key><string>$WUUID</string></dict>
             <key>uploadSymbols</key><true/>
           </dict></plist>
           PLIST
@@ -146,12 +147,10 @@ jobs:
             tail -15 "$2" | while IFS= read -r line; do echo "::warning::${line:0:400}"; done
             exit 65
           }
-          PBX=ios/App/App.xcodeproj/project.pbxproj
-          sed -i '' -e 's/CODE_SIGN_STYLE = Automatic;/CODE_SIGN_STYLE = Manual; DEVELOPMENT_TEAM = '"$APPLE_TEAM_ID"'; PROVISIONING_PROFILE_SPECIFIER = "${{ steps.sign.outputs.profile_uuid }}";/' \
-            -e 's/CODE_SIGN_IDENTITY = "iPhone Developer";/CODE_SIGN_IDENTITY = "Apple Distribution";/' "$PBX"
           xcodebuild -project ios/App/App.xcodeproj -scheme App -configuration Release \
             -destination 'generic/platform=iOS' -archivePath "$RUNNER_TEMP/App.xcarchive" \
             CURRENT_PROJECT_VERSION="${{ github.run_number }}" \
+            ABG_APP_PROFILE="${{ steps.sign.outputs.profile_uuid }}" ABG_WIDGET_PROFILE="${{ steps.sign.outputs.widget_uuid }}" \
             OTHER_CODE_SIGN_FLAGS="--keychain $RUNNER_TEMP/abg.keychain-db" \
             archive 2>&1 | tee "$RUNNER_TEMP/archive.log" > /dev/null || report "Archive" "$RUNNER_TEMP/archive.log"
           xcodebuild -exportArchive -archivePath "$RUNNER_TEMP/App.xcarchive" \
