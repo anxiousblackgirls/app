@@ -32,6 +32,8 @@ Settings live in `paid.json`:
 - `name`, `tagline`, and `benefits` are the words on the Plus screen.
 - `products` must match the subscription IDs you create in App Store Connect.
 
+Custom reminders (Today → Your reminders) are a Plus feature: free while `enabled` is `false`, locked for non-subscribers once it is `true`.
+
 To make an article or skill part of Plus, add `"premium": true` to it in `articles.json` or `skills.json`. Nothing is locked unless `enabled` is `true`.
 
 ## Add an article

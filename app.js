@@ -87,6 +87,8 @@
     pen: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>',
     music: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>',
     close: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>',
+    bell: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/></svg>',
+    plus: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>',
     lock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>',
     chat: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>'
   };
@@ -448,7 +450,7 @@
           '<button id="share-aff" class="btn">' + ICON.share + 'Share</button>' +
         '</div>' +
       '</section>' +
-      (NATIVE ? reminderCard() : '') +
+      (NATIVE ? reminderCard() + remindersCard() : '') +
       '<section class="mind-card" aria-labelledby="mind-title">' +
         '<h2 id="mind-title" class="section-title">What\'s on your mind today?</h2>' +
         (PROMPTS.length ? '<p class="mind-prompt">' + esc(PROMPTS[n % PROMPTS.length]) + '</p>' : '') +
@@ -581,6 +583,7 @@
       '<div id="article-body" class="stack" style="gap:14px"><p>Loading…</p></div></article>' +
       (function () { var ks = skillsForTopic(a.topic, 3, DATA.articles.indexOf(a));
         return ks.length ? '<section class="practice-panel"><span class="skill-hero-label">' + ICON.bag + 'From the Pocketbook</span><h2 class="section-title">Now practice it</h2><p class="section-note" style="margin:0">Short skills to try today, and to keep in your pocketbook for next time.</p><div class="stack">' + ks.map(skillRow).join('') + '</div><a class="text-link" href="#pocketbook">Open the Pocketbook</a></section>' : ''; })() +
+      (NATIVE && ['adhd', 'audhd', 'autism'].indexOf(t.id) !== -1 ? '<a class="row-link reminders-link" href="#reminders"><span class="badge" style="background:var(--gold-soft)">' + ICON.bell + '</span><span class="text"><span class="title">Set a reminder for this</span><span class="lede" style="margin:0">Meds, meals, starting tasks: let your phone hold it for you</span></span>' + ICON.chev + '</a>' : '') +
       '<div class="article-end">' + saveArticleBtn('save-art-bottom', isSaved) +
         '<button id="share-art-bottom" class="btn save-btn">' + ICON.share + 'Share</button>' +
         '<a class="btn" href="#topic-' + esc(t.id) + '">More on ' + esc(t.name) + '</a>' +
@@ -1036,6 +1039,7 @@
       '<h3>Source</h3><ul class="sources"><li>' + esc(k.source) + '</li></ul></div></article>' +
       '<div class="article-end"><a class="btn" href="#pocketbook">More from the Pocketbook</a></div>' +
       '<p class="disclaimer"><strong>Disclaimer:</strong> This is education, not therapy or medical advice. If you\'re in crisis, call 911 or call/text 988.</p>' +
+      (NATIVE && k.group === 'neuro' ? '<a class="row-link reminders-link" href="#reminders-skill-' + esc(k.id) + '"><span class="badge" style="background:var(--gold-soft)">' + ICON.bell + '</span><span class="text"><span class="title">Set a reminder to practice this</span><span class="lede" style="margin:0">Your phone will nudge you at the time you pick</span></span>' + ICON.chev + '</a>' : '') +
       reportIssue('skill', k.name, '#skill-' + k.id) +
       '<p class="copyright">© 2026 Anxious Black Girls, LLC. All rights reserved.</p>';
     ['share-skill-top', 'share-skill-keep'].forEach(function (sid) { document.getElementById(sid).addEventListener('click', function () { shareSkill(k); }); });
@@ -1231,6 +1235,154 @@
     });
   }
 
+  // ---------- reminders she sets herself (Plus; phone app only) ----------
+  var STARTERS = [
+    { key: 'meds', title: 'Take my meds', note: 'Future you says thank you.', time: '09:00', repeat: 'daily' },
+    { key: 'water', title: 'Drink some water', note: 'Your brain runs better hydrated.', time: '11:00', repeat: 'daily' },
+    { key: 'eat', title: 'Eat something', note: 'Hunger can feel like anxiety. Feed yourself first.', time: '13:00', repeat: 'daily' },
+    { key: 'task', title: 'Start the thing I\'ve been avoiding', note: 'Just five minutes. Set a timer and begin.', time: '10:00', repeat: 'weekdays' },
+    { key: 'move', title: 'Move my body', note: 'A short walk counts.', time: '16:00', repeat: 'daily' },
+    { key: 'calendar', title: 'Check tomorrow\'s calendar', note: 'No surprises in the morning.', time: '20:00', repeat: 'weekdays' },
+    { key: 'wind', title: 'Wind down for bed', note: 'Screens down, lights low. Rest is part of the work.', time: '22:00', repeat: 'daily' }
+  ];
+  var DAY_NAMES = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  function plusFeatureLocked() { return !!(PAID && PAID.enabled && !hasPlus()); }
+  function reminderSummary(r) {
+    var t = fmtTime(r.time || '09:00');
+    if (r.repeat === 'once') {
+      var d = (r.date || '').split('-');
+      var when = d.length === 3 ? new Date(+d[0], +d[1] - 1, +d[2]).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }) : 'once';
+      return when + ' at ' + t;
+    }
+    if (r.repeat === 'daily') return 'Every day at ' + t;
+    if (r.repeat === 'weekdays') return 'Weekdays at ' + t;
+    return (r.days || []).slice().sort().map(function (d) { return DAY_NAMES[d - 1]; }).join(', ') + ' at ' + t;
+  }
+  function remindersCard() {
+    var list = NATIVE.custom.get(), on = list.filter(function (r) { return r.on; }).length;
+    return '<a class="row-link reminders-link" href="#reminders"><span class="badge" style="background:var(--gold-soft)">' + ICON.bell + '</span>' +
+      '<span class="text"><span class="title">Your reminders</span><span class="lede" style="margin:0">' +
+      (on ? on + ' on · tap to add or change' : 'Meds, water, that task you\'ve been avoiding. Set reminders for anything.') +
+      '</span></span>' + ICON.chev + '</a>';
+  }
+  function viewReminders() {
+    view.innerHTML = navBar('#today', 'Home') +
+      '<div><h1 class="page-title">Your reminders</h1><p class="lede">They pop up on your screen like any notification. Only this phone knows about them.</p></div>';
+    if (!NATIVE) { view.innerHTML += '<p class="empty">Reminders work in the iPhone app.</p>'; return; }
+    if (plusFeatureLocked()) { view.innerHTML += plusLockCard('reminder tool'); return; }
+    var list = NATIVE.custom.get();
+    view.innerHTML +=
+      (list.length ? '<div class="stack">' + list.map(function (r, i) {
+        return '<div class="setting-row reminder-row"><a class="text" href="#reminders-edit-' + esc(r.id) + '" style="color:inherit;text-decoration:none">' +
+          '<span class="title">' + esc(r.title) + '</span><span class="lede" style="margin:0">' + esc(reminderSummary(r)) + '</span></a>' +
+          '<button class="btn small' + (r.on ? '' : ' dark') + '" data-flip="' + i + '">' + (r.on ? 'Turn off' : 'Turn on') + '</button></div>';
+      }).join('') + '</div>' : '<p class="empty">No reminders yet. Start with one below, or make your own.</p>') +
+      '<a class="btn dark" href="#reminders-new">' + ICON.plus + 'Add a reminder</a>' +
+      '<h2 class="section-title">Start with one of these</h2>' +
+      '<div class="starter-grid">' + STARTERS.map(function (s) {
+        return '<a class="starter" href="#reminders-new-' + s.key + '"><span class="title">' + esc(s.title) + '</span><span class="lede" style="margin:0">' + esc(reminderSummary(s)) + '</span></a>';
+      }).join('') + '</div>' +
+      '<p class="disclaimer">Reminders are a helpful nudge, not a medical alarm. Keep using your pharmacy or doctor\'s system for anything that can\'t be missed.</p>';
+    Array.prototype.forEach.call(view.querySelectorAll('[data-flip]'), function (b) {
+      b.addEventListener('click', function () {
+        var all = NATIVE.custom.get(), r = all[+b.getAttribute('data-flip')];
+        r.on = !r.on;
+        if (r.on && NATIVE.custom.usedSlots(all) > NATIVE.custom.maxSlots) { toast('That\'s the most reminders this phone can hold. Turn one off first.', 3500); return; }
+        NATIVE.custom.save(all).then(function (res) {
+          if (res.denied) toast('Notifications are off for this app. Turn them on in your phone\'s Settings.', 3500);
+          viewReminders();
+        });
+      });
+    });
+  }
+  function viewReminderEdit(arg) {
+    if (!NATIVE) { location.hash = '#reminders'; return; }
+    if (plusFeatureLocked()) { location.hash = '#reminders'; return; }
+    var list = NATIVE.custom.get(), editing = null, r;
+    if (arg && arg.indexOf('edit-') === 0) {
+      var id = arg.slice(5);
+      editing = list.filter(function (x) { return x.id === id; })[0];
+      if (!editing) { location.hash = '#reminders'; return; }
+      r = editing;
+    } else if (arg && arg.indexOf('new-') === 0) {
+      var s = STARTERS.filter(function (x) { return x.key === arg.slice(4); })[0];
+      r = s ? { title: s.title, note: s.note, time: s.time, repeat: s.repeat } : null;
+    } else if (arg && arg.indexOf('skill-') === 0) {
+      var k = skillById(arg.slice(6));
+      r = k ? { title: 'Practice: ' + k.name, note: k.when, time: '09:00', repeat: 'daily' } : null;
+    }
+    r = r || { title: '', note: '', time: '09:00', repeat: 'daily' };
+    var d = new Date(); var today = d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
+    view.innerHTML = navBar('#reminders', 'Your reminders') +
+      '<h1 class="page-title">' + (editing ? 'Edit reminder' : 'New reminder') + '</h1>' +
+      '<form class="reminder-form" id="rem-form" novalidate>' +
+        '<label for="rf-title">What\'s it for?</label><input id="rf-title" type="text" maxlength="60" placeholder="Take my meds" value="' + esc(r.title) + '">' +
+        '<p class="field-error" id="rf-title-err" hidden>Give your reminder a name.</p>' +
+        '<label for="rf-note">A kind line underneath (optional)</label><input id="rf-note" type="text" maxlength="120" placeholder="Future you says thank you." value="' + esc(r.note || '') + '">' +
+        '<label for="rf-time">Time</label><input id="rf-time" type="time" value="' + esc(r.time || '09:00') + '">' +
+        '<label for="rf-repeat">Repeat</label><div class="select-wrap"><select id="rf-repeat">' +
+          [['daily', 'Every day'], ['weekdays', 'Weekdays'], ['days', 'Pick days'], ['once', 'Just once']].map(function (o) {
+            return '<option value="' + o[0] + '"' + (r.repeat === o[0] ? ' selected' : '') + '>' + o[1] + '</option>'; }).join('') +
+        '</select>' + ICON.chev + '</div>' +
+        '<div id="rf-days" class="day-picks" role="group" aria-label="Days"' + (r.repeat === 'days' ? '' : ' hidden') + '>' +
+          DAY_NAMES.map(function (n, i) { var on = (r.days || []).indexOf(i + 1) !== -1;
+            return '<button type="button" class="btn small" data-day="' + (i + 1) + '" aria-pressed="' + on + '">' + n + '</button>'; }).join('') + '</div>' +
+        '<p class="field-error" id="rf-days-err" hidden>Pick at least one day.</p>' +
+        '<div id="rf-date-wrap"' + (r.repeat === 'once' ? '' : ' hidden') + '><label for="rf-date">Date</label><input id="rf-date" type="date" min="' + today + '" value="' + esc(r.date || today) + '"></div>' +
+        '<p class="field-error" id="rf-date-err" hidden>Pick a date and time that hasn\'t passed yet.</p>' +
+        '<p class="field-error" id="rf-slots-err" hidden>That\'s the most reminders this phone can hold. Turn one off or delete one first.</p>' +
+        '<button type="submit" class="btn dark">' + (editing ? 'Save changes' : 'Save reminder') + '</button>' +
+        (editing ? '<button type="button" class="btn" id="rf-delete">Delete reminder</button>' : '') +
+      '</form>';
+    var rep = document.getElementById('rf-repeat');
+    rep.addEventListener('change', function () {
+      document.getElementById('rf-days').hidden = rep.value !== 'days';
+      document.getElementById('rf-date-wrap').hidden = rep.value !== 'once';
+    });
+    Array.prototype.forEach.call(view.querySelectorAll('[data-day]'), function (b) {
+      b.addEventListener('click', function () { b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') !== 'true'); document.getElementById('rf-days-err').hidden = true; });
+    });
+    ['rf-title', 'rf-date', 'rf-time'].forEach(function (id) {
+      document.getElementById(id).addEventListener('input', function () {
+        document.getElementById('rf-title-err').hidden = true; document.getElementById('rf-date-err').hidden = true;
+      });
+    });
+    document.getElementById('rem-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var item = {
+        id: editing ? editing.id : 'r' + Date.now().toString(36),
+        title: document.getElementById('rf-title').value.trim(),
+        note: document.getElementById('rf-note').value.trim(),
+        time: document.getElementById('rf-time').value || '09:00',
+        repeat: rep.value, on: true
+      };
+      if (!item.title) { document.getElementById('rf-title-err').hidden = false; return; }
+      if (item.repeat === 'days') {
+        item.days = Array.prototype.filter.call(view.querySelectorAll('[data-day]'), function (b) { return b.getAttribute('aria-pressed') === 'true'; })
+          .map(function (b) { return +b.getAttribute('data-day'); });
+        if (!item.days.length) { document.getElementById('rf-days-err').hidden = false; return; }
+      }
+      if (item.repeat === 'once') {
+        item.date = document.getElementById('rf-date').value;
+        var p = (item.date || '').split('-'), hm = item.time.split(':');
+        if (p.length !== 3 || new Date(+p[0], +p[1] - 1, +p[2], +hm[0], +hm[1]) <= new Date()) { document.getElementById('rf-date-err').hidden = false; return; }
+      }
+      var all = NATIVE.custom.get();
+      if (editing) all = all.map(function (x) { return x.id === editing.id ? item : x; }); else all.push(item);
+      if (NATIVE.custom.usedSlots(all) > NATIVE.custom.maxSlots) { document.getElementById('rf-slots-err').hidden = false; return; }
+      NATIVE.custom.save(all).then(function (res) {
+        toast(res.denied ? 'Saved, but notifications are off for this app. Turn them on in your phone\'s Settings.' : 'Reminder set: ' + reminderSummary(item), 3500);
+        location.hash = '#reminders';
+      });
+    });
+    var del = document.getElementById('rf-delete');
+    if (del) del.addEventListener('click', function () {
+      NATIVE.custom.save(NATIVE.custom.get().filter(function (x) { return x.id !== editing.id; })).then(function () {
+        toast('Reminder deleted'); location.hash = '#reminders';
+      });
+    });
+  }
+
   // ---------- router ----------
   function route() {
     var h = (location.hash || '#today').slice(1);
@@ -1243,6 +1395,8 @@
     else if (h === 'journal') { tab = 'journal'; if (lockOn() && !unlocked) viewLocked('journal'); else { pauseShownThisVisit = false; viewJournal(); } }
     else if (h === 'saved') { tab = 'saved'; if (lockOn() && !unlocked) viewLocked('saved items'); else viewSaved(); }
     else if (h === 'plus' && PAID) { viewPlus(); }
+    else if (h === 'reminders') { viewReminders(); }
+    else if (h.indexOf('reminders-') === 0) { viewReminderEdit(h.slice(10)); }
     else if (h === 'help') { tab = 'help'; viewHelp(); }
     else if (h === 'about') { tab = 'about'; viewAbout(); }
     else if (h === 'faq') { tab = 'help'; viewFaq(); }
@@ -1295,7 +1449,7 @@
     checkPlus();
     window.addEventListener('hashchange', route);
     route();
-    if (NATIVE) NATIVE.reminder.schedule(AFFIRMATIONS);
+    if (NATIVE) { NATIVE.reminder.schedule(AFFIRMATIONS); NATIVE.custom.schedule(); }
   }).catch(function () {
     view.innerHTML = '<p class="empty">Something didn\'t load. Check your connection and refresh. If you need help right now, call 911 or call/text 988.</p>';
   });
