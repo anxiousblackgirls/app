@@ -49,6 +49,22 @@
     var n = new Date();
     return Math.floor(Date.UTC(n.getFullYear(), n.getMonth(), n.getDate()) / 864e5);
   }
+  // Saturdays and Sundays skip affirmations marked "work": true in affirmations.json.
+  function affirmationFor(date, list) {
+    var n = Math.floor(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) / 864e5);
+    var day = date.getDay();
+    var pick = list[n % list.length];
+    if ((day === 0 || day === 6) && pick.work) {
+      var off = list.filter(function (a) { return !a.work; });
+      var near = [list[(n + list.length - 1) % list.length], list[(n + 1) % list.length]];
+      for (var i = 0; i < off.length; i++) {
+        var alt = off[(n + Math.floor(off.length / 2) + i) % off.length];
+        if (near.indexOf(alt) === -1) return alt;
+      }
+    }
+    return pick;
+  }
+  window.ABGAffirmationFor = affirmationFor;
   function topicById(id) { return DATA.topics.filter(function (t) { return t.id === id; })[0]; }
   function articleById(id) { return DATA.articles.filter(function (a) { return a.id === id; })[0]; }
   function toast(msg) {
@@ -410,7 +426,7 @@
 
   function viewToday() {
     var n = dayNumber();
-    var aff = AFFIRMATIONS[n % AFFIRMATIONS.length];
+    var aff = affirmationFor(new Date(), AFFIRMATIONS);
     var art = DATA.articles[n % DATA.articles.length];
     var hello = 'To My Anxious Black Girl,';
     var date = new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });

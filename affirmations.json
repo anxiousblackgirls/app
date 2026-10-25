@@ -13,7 +13,8 @@
   },
   {
     "text": "Done is a valid finish line.",
-    "note": "Send the email. Submit the draft. Polishing forever is just fear in a nice outfit."
+    "note": "Send the email. Submit the draft. Polishing forever is just fear in a nice outfit.",
+    "work": true
   },
   {
     "text": "My body is changing, and it still deserves my care.",
@@ -53,7 +54,8 @@
   },
   {
     "text": "There's no expiration date on starting over.",
-    "note": "People start new careers and new chapters at every age. Your age is a detail, not a deadline."
+    "note": "People start new careers and new chapters at every age. Your age is a detail, not a deadline.",
+    "work": true
   },
   {
     "text": "I release the version of me that had to be perfect to be safe.",
@@ -89,7 +91,8 @@
   },
   {
     "text": "I am capable, even on the days I don't feel it.",
-    "note": "Feelings aren't a performance review. Look at what you've already done this week and give yourself credit."
+    "note": "Feelings aren't a performance review. Look at what you've already done this week and give yourself credit.",
+    "work": true
   },
   {
     "text": "I'm allowed to stop being my own harshest critic.",
@@ -97,7 +100,8 @@
   },
   {
     "text": "I can say \"that's not my role\" and still be a team player.",
-    "note": "Hand back one task that was never yours. Kindly, clearly, once."
+    "note": "Hand back one task that was never yours. Kindly, clearly, once.",
+    "work": true
   },
   {
     "text": "I don't have to audition for love.",
@@ -117,7 +121,8 @@
   },
   {
     "text": "My worth is not measured by how much I do.",
-    "note": "Check your list. Something on it belongs to someone else."
+    "note": "Check your list. Something on it belongs to someone else.",
+    "work": true
   },
   {
     "text": "Not deciding is still a decision, and I'm ready to make a real one.",
@@ -125,7 +130,8 @@
   },
   {
     "text": "My job is what I do. It isn't who I am.",
-    "note": "Log off at a set time today and do one thing that has nothing to do with work."
+    "note": "Log off at a set time today and do one thing that has nothing to do with work.",
+    "work": true
   },
   {
     "text": "Grace covers me too, including on my messy days.",
@@ -161,7 +167,8 @@
   },
   {
     "text": "I can be the most prepared person in the room and still make mistakes. It's OK to be human.",
-    "note": "You've rehearsed enough. Walk in, trust the work you already did, and let a small mistake stay small."
+    "note": "You've rehearsed enough. Walk in, trust the work you already did, and let a small mistake stay small.",
+    "work": true
   },
   {
     "text": "I do not have to have it all figured out.",
@@ -209,11 +216,13 @@
   },
   {
     "text": "I don't have to be twice as good to deserve my seat.",
-    "note": "You were qualified when you walked in. Speak up in your next meeting like you know it."
+    "note": "You were qualified when you walked in. Speak up in your next meeting like you know it.",
+    "work": true
   },
   {
     "text": "I can do hard things, one small part at a time.",
-    "note": "Break today's big task into the smallest first step and start there. Momentum is easier to find once you're moving."
+    "note": "Break today's big task into the smallest first step and start there. Momentum is easier to find once you're moving.",
+    "work": true
   },
   {
     "text": "I can make a mistake without making it my identity.",
@@ -241,7 +250,8 @@
   },
   {
     "text": "I can feel angry and still choose my response.",
-    "note": "Give yourself ninety seconds before you reply. Hot takes make great posts and terrible emails."
+    "note": "Give yourself ninety seconds before you reply. Hot takes make great posts and terrible emails.",
+    "work": true
   },
   {
     "text": "I am becoming someone I am proud to be.",
@@ -301,7 +311,8 @@
   },
   {
     "text": "I can be excellent without being available around the clock.",
-    "note": "Turn off work notifications tonight. The email will still be there, and so will you."
+    "note": "Turn off work notifications tonight. The email will still be there, and so will you.",
+    "work": true
   },
   {
     "text": "My feelings are information. I can listen and still move on.",
@@ -329,7 +340,8 @@
   },
   {
     "text": "I am safe to take up space.",
-    "note": "Say what you need in the meeting, the group chat, or the kitchen."
+    "note": "Say what you need in the meeting, the group chat, or the kitchen.",
+    "work": true
   },
   {
     "text": "Uncertainty is uncomfortable, and it isn't dangerous.",
@@ -341,7 +353,8 @@
   },
   {
     "text": "Rest is part of the work. Full stop. No notes.",
-    "note": "Schedule rest the way you schedule everything else."
+    "note": "Schedule rest the way you schedule everything else.",
+    "work": true
   },
   {
     "text": "I'm allowed to outgrow friendships with grace.",

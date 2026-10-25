@@ -90,7 +90,7 @@
         for (var d = 0; list.length < DAYS && d < DAYS + 1; d++) {
           var at = new Date(now.getFullYear(), now.getMonth(), now.getDate() + d, +hm[0], +hm[1], 0, 0);
           if (at <= now) continue;
-          var aff = affirmations[dayNumberOf(at) % affirmations.length];
+          var aff = window.ABGAffirmationFor ? window.ABGAffirmationFor(at, affirmations) : affirmations[dayNumberOf(at) % affirmations.length];
           list.push({ id: FIRST_ID + list.length, title: 'Today\'s affirmation', body: aff.text, schedule: { at: at, allowWhileIdle: true }, extra: { route: 'today' } });
         }
         return P.LocalNotifications.schedule({ notifications: list });
