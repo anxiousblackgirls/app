@@ -114,11 +114,70 @@
     return schedule(affirmations).then(function () { return r; });
   }
 
+  // ---------- delete everything on this phone ----------
+  function clearAll() {
+    try {
+      var keys = [];
+      for (var i = 0; i < localStorage.length; i++) { var k = localStorage.key(i); if (k && k.indexOf('abg.') === 0) keys.push(k); }
+      keys.forEach(function (k) { localStorage.removeItem(k); });
+    } catch (e) {}
+    return Promise.all([
+      cancelAll(),
+      P.Preferences ? P.Preferences.clear().catch(function () {}) : null
+    ]);
+  }
+
+  // ---------- Face ID / passcode lock ----------
+  function lockAvailable() {
+    if (!P.NativeBiometric) return Promise.resolve(false);
+    return P.NativeBiometric.isAvailable({ useFallback: true })
+      .then(function (r) { return !!(r && r.isAvailable); })
+      .catch(function () { return false; });
+  }
+  function unlock(reason) {
+    if (!P.NativeBiometric) return Promise.resolve(false);
+    return P.NativeBiometric.verifyIdentity({ reason: reason, title: 'Unlock', useFallback: true })
+      .then(function () { return true; }, function () { return false; });
+  }
+
+  // ---------- App Store rating prompt (Apple decides whether to show it) ----------
+  function askForRating() {
+    if (P.InAppReview) P.InAppReview.requestReview().catch(function () {});
+  }
+
+  // ---------- purchases (StoreKit through the App Store; no server, no account) ----------
+  function getProducts(ids) {
+    if (!P.NativePurchases) return Promise.resolve([]);
+    return P.NativePurchases.getProducts({ productIdentifiers: ids, productType: 'subs' })
+      .then(function (r) { return (r && r.products) || []; }, function () { return []; });
+  }
+  function buy(id) {
+    return P.NativePurchases.purchaseProduct({ productIdentifier: id, productType: 'subs' });
+  }
+  function owned(ids) {
+    if (!P.NativePurchases) return Promise.resolve(false);
+    return P.NativePurchases.getPurchases({ productType: 'subs', onlyCurrentEntitlements: true }).then(function (r) {
+      return ((r && r.purchases) || []).some(function (t) {
+        return ids.indexOf(t.productIdentifier) !== -1 && t.isActive !== false;
+      });
+    }, function () { return false; });
+  }
+  function restorePurchases() {
+    return P.NativePurchases.restorePurchases();
+  }
+  function manageSubscription() {
+    if (P.NativePurchases) P.NativePurchases.manageSubscriptions().catch(function () {});
+  }
+
   window.ABGNative = {
     native: native,
     save: save,
     shareImage: shareImage,
     shareText: shareText,
+    clearAll: clearAll,
+    lock: { available: lockAvailable, unlock: unlock },
+    askForRating: askForRating,
+    purchases: { products: getProducts, buy: buy, owned: owned, restore: restorePurchases, manage: manageSubscription },
     reminder: { get: getReminder, schedule: schedule, turnOn: turnOn, turnOff: turnOff, changeTime: changeTime }
   };
 

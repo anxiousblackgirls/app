@@ -22,6 +22,18 @@ If an affirmation is about work, add `"work": true` after the note, with a comma
 
 On Saturdays and Sundays the app and the daily reminder skip those and pick from the rest.
 
+## Paid tier (Anxious Black Girls Plus)
+
+Settings live in `paid.json`:
+
+- `"enabled": false` keeps everything free. Change to `true` to turn the paid tier on.
+- `"preview": true` shows a "Preview of the paid screen" row on the Help page in test builds. Set it to `false` before sending the app to the App Store.
+- `"lockAudio": true` makes "Listen to this article" part of Plus.
+- `name`, `tagline`, and `benefits` are the words on the Plus screen.
+- `products` must match the subscription IDs you create in App Store Connect.
+
+To make an article or skill part of Plus, add `"premium": true` to it in `articles.json` or `skills.json`. Nothing is locked unless `enabled` is `true`.
+
 ## Add an article
 
 1. On GitHub, click **Add file**, then **Create new file**, and name it, for example `anxiety-sleep.md`.

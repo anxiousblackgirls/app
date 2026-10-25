@@ -1,0 +1,17 @@
+{
+  "enabled": false,
+  "preview": true,
+  "lockAudio": false,
+  "name": "Anxious Black Girls Plus",
+  "tagline": "More support, whenever you need it.",
+  "benefits": [
+    "Every article, with audio you can listen to",
+    "The full Pocketbook of coping skills",
+    "New articles and affirmations every month",
+    "Support a Black woman-owned mental health company"
+  ],
+  "products": [
+    { "id": "com.anxiousblackgirls.app.plus.yearly", "label": "Yearly", "note": "Best value" },
+    { "id": "com.anxiousblackgirls.app.plus.monthly", "label": "Monthly" }
+  ]
+}

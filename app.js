@@ -11,6 +11,7 @@
   var FAQ = [];
   var DATA = { topics: [], articles: [] };
   var SKILLS = { groups: [], skills: [] };
+  var PAID = null;
   var GROUP_COLORS = { thinking: '#EBD3A6', traps: '#DEDDC2', dbt: '#D3B094', body: '#F0DFB8', neuro: '#E9D7C8', relationships: '#EAD9C0', rest: '#D9CFA8' };
   var articleCache = {};
   // Set only inside the iPhone and Android apps (see native.js). The website leaves it null.
@@ -67,9 +68,9 @@
   window.ABGAffirmationFor = affirmationFor;
   function topicById(id) { return DATA.topics.filter(function (t) { return t.id === id; })[0]; }
   function articleById(id) { return DATA.articles.filter(function (a) { return a.id === id; })[0]; }
-  function toast(msg) {
+  function toast(msg, ms) {
     toastEl.textContent = msg; toastEl.hidden = false;
-    clearTimeout(toast.t); toast.t = setTimeout(function () { toastEl.hidden = true; }, 2200);
+    clearTimeout(toast.t); toast.t = setTimeout(function () { toastEl.hidden = true; }, ms || 2200);
   }
 
   var ICON = {
@@ -86,6 +87,7 @@
     pen: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>',
     music: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>',
     close: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>',
+    lock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>',
     chat: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>'
   };
 
@@ -435,7 +437,8 @@
     var date = new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
     var isSaved = savedAffs().indexOf(aff.text) !== -1;
     view.innerHTML =
-      '<div><div class="date">' + esc(date) + '</div><h1 class="greeting">' + hello + '</h1></div>' +
+      '<div><div class="date">' + esc(date) + '</div><h1 class="greeting">' + hello + '</h1>' +
+        (daysWithUs() >= 2 ? '<p class="days-with-us">' + ICON.spark + 'You\'ve shown up for yourself ' + daysWithUs() + ' days</p>' : '') + '</div>' +
       '<section class="affirmation" aria-label="Today\'s affirmation">' +
         '<span class="eyebrow">Today\'s affirmation</span>' +
         '<blockquote>' + esc(aff.text) + '</blockquote>' +
@@ -471,6 +474,7 @@
       this.setAttribute('aria-pressed', on);
       this.querySelector('span').textContent = on ? 'Saved' : 'Save';
       toast(on ? 'Saved to your favorites' : 'Removed from favorites');
+      if (on) setTimeout(maybeAskForRating, 2500);
     });
     document.getElementById('share-aff').addEventListener('click', function () { openShareSheet(aff); });
     if (NATIVE) wireReminder();
@@ -563,11 +567,13 @@
     if (!a) { location.hash = '#learn'; return; }
     var t = topicById(a.topic) || { name: '', color: '#F0DFB8', id: '' };
     var isSaved = savedArts().indexOf(id) !== -1;
+    var locked = isLocked(a), audioLocked = !!(a.audio && PAID && PAID.enabled && PAID.lockAudio && !hasPlus());
     view.innerHTML =
       navBar('#topic-' + esc(t.id), 'Back to ' + t.name, '<div class="nav-actions"><button id="share-art-top" class="btn icon-only" aria-label="Share this article">' + ICON.share + '</button>' + saveArticleBtn('save-art-top', isSaved) + '</div>') +
       '<article class="prose"><div class="tags"><span class="tag" style="background:' + esc(t.color) + '">' + esc(t.name) + '</span><span class="tag" style="background:var(--bg)">' + a.minutes + ' min read</span></div>' +
       '<h1>' + esc(a.title) + '</h1>' +
-      (a.audio ? '<div class="listen" id="listen"><button class="listen-btn" id="listen-btn" type="button" aria-label="Play this article">' + ICON.play + '</button>' +
+      (audioLocked ? '<a class="listen" href="#plus"><span class="listen-btn" aria-hidden="true">' + ICON.lock + '</span><span class="listen-info"><span class="listen-title">Listen with ' + esc(PAID.name) + '</span></span></a>' :
+       a.audio ? '<div class="listen" id="listen"><button class="listen-btn" id="listen-btn" type="button" aria-label="Play this article">' + ICON.play + '</button>' +
         '<div class="listen-info"><span class="listen-title">Listen to this article</span>' +
         '<input class="listen-bar" id="listen-bar" type="range" min="0" max="100" value="0" step="0.1" aria-label="Playback position">' +
         '<span class="listen-time" id="listen-time">0:00</span></div>' +
@@ -597,8 +603,9 @@
         toast(on ? 'Saved. Find it anytime in the Saved tab.' : 'Removed from Saved');
       });
     });
-    if (a.audio) setupListen();
+    if (a.audio && !audioLocked) setupListen();
     var bodyEl = document.getElementById('article-body');
+    if (locked) { bodyEl.innerHTML = plusLockCard('article'); return; }
     function fill(md) { bodyEl.innerHTML = renderMarkdown(md); }
     if (articleCache[id]) { fill(articleCache[id]); return; }
     fetch(encodeURIComponent(id) + '.md')
@@ -806,6 +813,7 @@
       '</section>' : '') +
       '<h2 class="section-title">What we offer</h2>' +
       '<div class="stack">' + (a.offerings || []).map(outRow).join('') + '</div>' +
+      friendCard('friend-about') +
       '<h2 class="section-title">Follow us</h2>' +
       '<div class="social-row">' + (a.social || []).map(function (s) {
         return '<a class="btn" href="' + esc(s.url) + '" target="_blank" rel="noopener">' + esc(s.name) + '</a>';
@@ -822,6 +830,7 @@
         '<a href="https://www.anxiousblackgirls.com/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a>' +
       '</div>' +
       '<p class="copyright">© 2026 Anxious Black Girls, LLC. All rights reserved.</p>';
+    wireFriend('friend-about');
   }
 
   function viewSaved() {
@@ -838,7 +847,9 @@
       (arts.length ? '<div class="stack">' + arts.map(articleRow).join('') + '</div>' : '<p class="empty">Tap "Save article" on any article to keep it here.</p>') +
       '<h2 class="section-title">My pocketbook</h2>' +
       (function () { var ks = savedSkills().map(skillById).filter(Boolean);
-        return ks.length ? '<div class="stack">' + ks.map(skillRow).join('') + '</div>' : '<p class="empty">Tap "Save to my pocketbook" on any skill to keep it here, ready for when you need it.</p>'; })();
+        return ks.length ? '<div class="stack">' + ks.map(skillRow).join('') + '</div>' : '<p class="empty">Tap "Save to my pocketbook" on any skill to keep it here, ready for when you need it.</p>'; })() +
+      friendCard('friend-saved');
+    wireFriend('friend-saved');
     Array.prototype.forEach.call(view.querySelectorAll('[data-unsave]'), function (b) {
       b.addEventListener('click', function () {
         toggle('abg.savedAffirmations', affs[+b.getAttribute('data-unsave')]);
@@ -854,6 +865,7 @@
       '<a class="crisis primary" href="tel:988"><span class="circle">' + ICON.phone + '</span><span><span class="big" style="display:block">Call or text 988</span><span class="small">Suicide &amp; Crisis Lifeline</span></span></a>' +
       '<a class="crisis secondary" href="sms:741741"><span class="circle">' + ICON.chat + '</span><span><span class="big" style="display:block">Text HOME to 741741</span><span class="small">Crisis Text Line</span></span></a>' +
       '<a class="outline-link" href="tel:911">In danger right now? Call 911</a>' +
+      '<a class="row-link" href="https://findahelpline.com" target="_blank" rel="noopener"><span class="text"><span class="title">Outside the US?</span><span class="lede" style="margin:0">Find a free crisis line in your country</span></span>' + ICON.out + '</a>' +
       '<h2 class="section-title">Find a Black therapist</h2>' +
       '<div class="stack">' +
         '<a class="row-link" href="https://www.anxiousblackgirls.com/florida-online-counseling-service" target="_blank" rel="noopener"><span class="text"><span class="title">Anxious Black Girls® Therapy</span><span class="lede" style="margin:0">Virtual therapy with licensed clinicians who understand our culture</span></span>' + ICON.out + '</a>' +
@@ -862,6 +874,11 @@
       '</div>' +
       '<h2 class="section-title">Questions about the app</h2>' +
       '<a class="row-link faq-tile" href="#faq"><span class="badge" style="background:var(--gold-soft)">?</span><span class="text"><span class="title">Frequently asked questions</span><span class="lede" style="margin:0">Privacy, your journal, installing the app and more</span></span>' + ICON.chev + '</a>' +
+      '<h2 class="section-title">Privacy and settings</h2>' +
+      '<p class="lede" style="margin-top:-4px">No account, no tracking. Everything you write and save stays on this phone.</p>' +
+      '<div class="settings">' + (NATIVE ? lockSetting() : '') +
+        (PAID && (PAID.enabled || PAID.preview) ? '<a class="setting-row" href="#plus"><div class="text"><span class="title">' + esc(PAID.name) + '</span><span class="lede" style="margin:0">' + (PAID.enabled ? 'See what\'s included' : 'Preview of the paid screen (test builds only)') + '</span></div>' + ICON.chev + '</a>' : '') +
+        deleteSetting() + '</div>' +
       '<p class="disclaimer">This app offers education and encouragement. It is not therapy and does not replace care from a licensed professional.</p>' +
       '<div class="legal-links">' +
         '<a href="https://www.anxiousblackgirls.com/medical-disclaimer" target="_blank" rel="noopener">Medical Disclaimer</a>' +
@@ -869,6 +886,8 @@
         '<a href="https://www.anxiousblackgirls.com/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a>' +
       '</div>' +
       '<p class="copyright">© 2026 Anxious Black Girls, LLC. All rights reserved.</p>';
+    if (NATIVE) wireLockSetting();
+    wireDeleteSetting();
   }
 
   // ---------- daily reminder (app only) ----------
@@ -989,6 +1008,12 @@
   function viewSkill(id) {
     var k = skillById(id);
     if (!k) { location.hash = '#pocketbook'; return; }
+    if (isLocked(k)) {
+      view.innerHTML = navBar('#pocketbook', 'Back to the Pocketbook') +
+        '<section class="skill-hero"><span class="skill-hero-label">' + ICON.bag + 'The Pocketbook · 1-minute skill</span><h1>' + esc(k.name) + '</h1><p>' + esc(k.what) + '</p></section>' +
+        plusLockCard('skill');
+      return;
+    }
     var isSaved = savedSkills().indexOf(id) !== -1;
     function saveLabel(on) { return on ? 'In my pocketbook' : 'Save to my pocketbook'; }
     function saveBtn(idAttr) { return '<button id="' + idAttr + '" class="btn save-btn pocket-btn" aria-pressed="' + isSaved + '">' + ICON.bag + '<span>' + saveLabel(isSaved) + '</span></button>'; }
@@ -1024,6 +1049,188 @@
     });
   }
 
+  // ---------- days with us and milestones (stored only on this phone) ----------
+  function todayKey() {
+    var d = new Date();
+    return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
+  }
+  function daysWithUs() { return store.get('abg.days', []).length; }
+  var MILESTONES = { 3: 'Three days of showing up for yourself. That counts.', 7: 'One week of making time for you. Proud of you.',
+    14: 'Two weeks of showing up for yourself.', 30: 'Thirty days with us. Look at you keeping this promise to yourself.',
+    60: 'Sixty days of choosing you.', 100: 'One hundred days. That\'s a whole habit of taking care of you.',
+    180: 'Six months of showing up for yourself.', 365: 'One whole year with us. Thank you for letting us walk with you.' };
+  function recordDay() {
+    var days = store.get('abg.days', []), key = todayKey();
+    if (days[days.length - 1] === key) return;
+    days.push(key);
+    if (days.length > 400) days = days.slice(-400);
+    store.set('abg.days', days);
+    var n = days.length, last = store.get('abg.milestone', 0);
+    if (MILESTONES[n] && n > last) {
+      store.set('abg.milestone', n);
+      setTimeout(function () { toast(MILESTONES[n], 4500); }, 1800);
+      if (n >= 7) setTimeout(function () { maybeAskForRating(); }, 7000);
+    }
+  }
+
+  // ---------- App Store rating: after a good moment, at most every 4 months, 3 times total ----------
+  function maybeAskForRating() {
+    if (!NATIVE || daysWithUs() < 5) return;
+    var r = store.get('abg.rating', { at: 0, count: 0 });
+    if (r.count >= 3 || Date.now() - r.at < 120 * 864e5) return;
+    store.set('abg.rating', { at: Date.now(), count: r.count + 1 });
+    NATIVE.askForRating();
+  }
+
+  // ---------- tell a friend ----------
+  function friendCard(id) {
+    return '<section class="friend-card" aria-labelledby="' + id + '-title">' +
+      '<h2 id="' + id + '-title" class="section-title">Know someone who needs this?</h2>' +
+      '<p>Send her the app. It might be the thing that helps her feel less alone today.</p>' +
+      '<button class="btn dark" id="' + id + '">' + ICON.share + 'Share the app</button></section>';
+  }
+  function wireFriend(id) {
+    var b = document.getElementById(id);
+    if (!b) return;
+    b.addEventListener('click', function () {
+      var msg = 'I\'ve been using the Anxious Black Girls® app for daily affirmations, articles, and coping skills. I think you\'d like it too: ' + DOWNLOAD_URL;
+      if (NATIVE) { NATIVE.shareText(msg); return; }
+      if (navigator.share) navigator.share({ text: msg }).catch(function () {});
+      else copy(msg);
+    });
+  }
+
+  // ---------- Face ID / passcode lock for the journal and saved items (phone app only) ----------
+  var unlocked = false, unlocking = 0;
+  function lockOn() { return !!(NATIVE && store.get('abg.lock', false)); }
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden && Date.now() - unlocking > 4000) unlocked = false;
+  });
+  function viewLocked(label) {
+    view.innerHTML =
+      navBar('#today', 'Home') +
+      '<section class="lock-card"><span class="lock-icon" aria-hidden="true">' + ICON.lock + '</span>' +
+        '<h1 class="page-title">Your ' + esc(label) + ' is locked</h1>' +
+        '<p class="lede">Use Face ID or your passcode to open it.</p>' +
+        '<button id="unlock" class="btn dark">Unlock</button></section>';
+    var btn = document.getElementById('unlock');
+    function go() {
+      unlocking = Date.now();
+      NATIVE.lock.unlock('Unlock your ' + label).then(function (ok) {
+        if (ok) { unlocked = true; route(); }
+      });
+    }
+    btn.addEventListener('click', go);
+    go();
+  }
+  function lockSetting() {
+    var on = store.get('abg.lock', false);
+    return '<div class="setting-row"><div class="text"><span class="title">Lock journal and saved items</span>' +
+      '<span class="lede" style="margin:0">Ask for Face ID or your passcode before opening them.</span></div>' +
+      '<button id="lock-toggle" class="btn small' + (on ? '' : ' dark') + '">' + (on ? 'Turn off' : 'Turn on') + '</button></div>';
+  }
+  function wireLockSetting() {
+    var b = document.getElementById('lock-toggle');
+    if (!b) return;
+    b.addEventListener('click', function () {
+      var on = store.get('abg.lock', false);
+      unlocking = Date.now();
+      NATIVE.lock.available().then(function (ok) {
+        if (!ok) { toast('Set up Face ID or a passcode in your iPhone Settings first.', 3500); return; }
+        NATIVE.lock.unlock(on ? 'Turn off the lock' : 'Turn on the lock').then(function (passed) {
+          if (!passed) return;
+          store.set('abg.lock', !on);
+          unlocked = true;
+          toast(on ? 'Lock turned off' : 'Your journal and saved items are locked');
+          viewHelp();
+        });
+      });
+    });
+  }
+
+  // ---------- delete everything on this phone ----------
+  function deleteSetting() {
+    return '<div class="setting-row danger-zone" id="delete-zone"><div class="text"><span class="title">Delete everything on this phone</span>' +
+      '<span class="lede" style="margin:0">Erases your journal, saved items, reminder and settings.</span></div>' +
+      '<button id="delete-start" class="btn small">Delete</button></div>';
+  }
+  function wireDeleteSetting() {
+    var b = document.getElementById('delete-start');
+    if (!b) return;
+    b.addEventListener('click', function () {
+      var zone = document.getElementById('delete-zone');
+      zone.innerHTML = '<div class="text"><span class="title">Delete everything?</span>' +
+        '<span class="lede" style="margin:0">Your journal entries, saved affirmations, articles and skills, and your reminder will be erased from this phone. This can\'t be undone. Use "Copy all entries" in your journal first if you want to keep them.</span></div>' +
+        '<div class="confirm-actions"><button id="delete-yes" class="btn small danger">Delete everything</button><button id="delete-no" class="btn small">Cancel</button></div>';
+      document.getElementById('delete-no').addEventListener('click', viewHelp);
+      document.getElementById('delete-yes').addEventListener('click', function () {
+        var done = function () { store.set('abg.welcomed', true); unlocked = false; toast('Everything on this phone was deleted.', 3000); location.hash = '#today'; route(); };
+        if (NATIVE) { NATIVE.clearAll().then(done, done); return; }
+        try {
+          var keys = [];
+          for (var i = 0; i < localStorage.length; i++) { var k = localStorage.key(i); if (k && k.indexOf('abg.') === 0) keys.push(k); }
+          keys.forEach(function (k) { localStorage.removeItem(k); });
+        } catch (e) {}
+        done();
+      });
+    });
+  }
+
+  // ---------- Anxious Black Girls Plus (paid tier). Settings live in paid.json. ----------
+  function plusIds() { return ((PAID && PAID.products) || []).map(function (p) { return p.id; }); }
+  function hasPlus() { return store.get('abg.plus', false); }
+  function isLocked(item) { return !!(PAID && PAID.enabled && item && item.premium && !hasPlus()); }
+  function checkPlus() {
+    if (!NATIVE || !PAID || !plusIds().length) return;
+    NATIVE.purchases.owned(plusIds()).then(function (on) { store.set('abg.plus', on); });
+  }
+  function plusLockCard(what) {
+    return '<section class="plus-lock"><span class="eyebrow">' + esc(PAID.name) + '</span>' +
+      '<h2 class="section-title">This ' + esc(what) + ' is part of ' + esc(PAID.name) + '</h2>' +
+      '<p>' + esc(PAID.tagline) + '</p>' +
+      '<a class="btn dark" href="#plus">See what\'s included</a></section>';
+  }
+  function viewPlus() {
+    var p = PAID || {};
+    view.innerHTML =
+      navBar('#today', 'Home') +
+      '<section class="plus-hero"><span class="eyebrow">' + esc(p.name || '') + '</span>' +
+        '<h1 class="page-title">' + esc(p.tagline || '') + '</h1>' +
+        '<ul class="plus-benefits">' + (p.benefits || []).map(function (b) { return '<li>' + esc(b) + '</li>'; }).join('') + '</ul></section>' +
+      (hasPlus()
+        ? '<p class="soon-note">You have ' + esc(p.name) + '. Thank you for supporting this work.</p><button id="plus-manage" class="btn">Manage subscription</button>'
+        : '<div class="stack" id="plus-options">' + (p.products || []).map(function (pr) {
+            return '<button class="plan-btn" data-buy="' + esc(pr.id) + '"><span class="text"><span class="title">' + esc(pr.label) + '</span>' +
+              (pr.note ? '<span class="plan-note">' + esc(pr.note) + '</span>' : '') + '</span><span class="plan-price" data-price="' + esc(pr.id) + '">…</span></button>';
+          }).join('') + '</div>' +
+          '<button id="plus-restore" class="text-link" style="border:0;background:none;padding:0;cursor:pointer">Restore purchases</button>') +
+      '<p class="plus-legal">Payment is charged to your Apple Account. Subscriptions renew automatically unless canceled at least 24 hours before the end of the current period. Manage or cancel anytime in your Apple Account settings. ' +
+        '<a href="https://www.anxiousblackgirls.com/terms-of-use" target="_blank" rel="noopener">Terms of Use</a> · <a href="https://www.anxiousblackgirls.com/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a></p>';
+    if (hasPlus()) {
+      document.getElementById('plus-manage').addEventListener('click', function () { if (NATIVE) NATIVE.purchases.manage(); });
+      return;
+    }
+    if (!NATIVE) { Array.prototype.forEach.call(view.querySelectorAll('[data-price]'), function (s) { s.textContent = 'In the app'; }); return; }
+    NATIVE.purchases.products(plusIds()).then(function (products) {
+      Array.prototype.forEach.call(view.querySelectorAll('[data-price]'), function (s) {
+        var pr = products.filter(function (x) { return x.identifier === s.getAttribute('data-price') || x.productIdentifier === s.getAttribute('data-price'); })[0];
+        s.textContent = pr ? pr.priceString : 'Not available yet';
+      });
+    });
+    Array.prototype.forEach.call(view.querySelectorAll('[data-buy]'), function (b) {
+      b.addEventListener('click', function () {
+        NATIVE.purchases.buy(b.getAttribute('data-buy')).then(function () {
+          store.set('abg.plus', true); toast('Welcome to ' + p.name + '!', 3000); viewPlus();
+        }, function () { toast('The purchase didn\'t go through. You weren\'t charged.', 3500); });
+      });
+    });
+    document.getElementById('plus-restore').addEventListener('click', function () {
+      NATIVE.purchases.restore().then(function () { return NATIVE.purchases.owned(plusIds()); }).then(function (on) {
+        store.set('abg.plus', on); toast(on ? 'Your subscription is back.' : 'No subscription found for this Apple Account.', 3500); viewPlus();
+      }, function () { toast('Couldn\'t reach the App Store. Try again in a moment.', 3500); });
+    });
+  }
+
   // ---------- router ----------
   function route() {
     var h = (location.hash || '#today').slice(1);
@@ -1033,8 +1240,9 @@
     else if (h.indexOf('article-') === 0) { tab = 'learn'; viewArticle(h.slice(8)); }
     else if (h === 'toolkit' || h === 'pocketbook') { tab = 'learn'; viewToolkit(); }
     else if (h.indexOf('skill-') === 0) { tab = 'learn'; viewSkill(h.slice(6)); }
-    else if (h === 'journal') { tab = 'journal'; pauseShownThisVisit = false; viewJournal(); }
-    else if (h === 'saved') { tab = 'saved'; viewSaved(); }
+    else if (h === 'journal') { tab = 'journal'; if (lockOn() && !unlocked) viewLocked('journal'); else { pauseShownThisVisit = false; viewJournal(); } }
+    else if (h === 'saved') { tab = 'saved'; if (lockOn() && !unlocked) viewLocked('saved items'); else viewSaved(); }
+    else if (h === 'plus' && PAID) { viewPlus(); }
     else if (h === 'help') { tab = 'help'; viewHelp(); }
     else if (h === 'about') { tab = 'about'; viewAbout(); }
     else if (h === 'faq') { tab = 'help'; viewFaq(); }
@@ -1043,6 +1251,7 @@
       if (a.getAttribute('data-tab') === tab) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
     });
     window.scrollTo(0, 0);
+    recordDay();
   }
 
   // ---------- cover screen ----------
@@ -1079,9 +1288,11 @@
     fetch('journal-prompts.json').then(function (r) { return r.json(); }).catch(function () { return []; }),
     fetch('about.json').then(function (r) { return r.json(); }).catch(function () { return null; }),
     fetch('faq.json').then(function (r) { return r.json(); }).catch(function () { return []; }),
-    fetch('skills.json').then(function (r) { return r.json(); }).catch(function () { return { groups: [], skills: [] }; })
+    fetch('skills.json').then(function (r) { return r.json(); }).catch(function () { return { groups: [], skills: [] }; }),
+    fetch('paid.json').then(function (r) { return r.json(); }).catch(function () { return null; })
   ]).then(function (res) {
-    AFFIRMATIONS = res[0]; DATA = res[1]; PROMPTS = res[2]; ABOUT = res[3]; FAQ = res[4]; SKILLS = res[5];
+    AFFIRMATIONS = res[0]; DATA = res[1]; PROMPTS = res[2]; ABOUT = res[3]; FAQ = res[4]; SKILLS = res[5]; PAID = res[6];
+    checkPlus();
     window.addEventListener('hashchange', route);
     route();
     if (NATIVE) NATIVE.reminder.schedule(AFFIRMATIONS);
