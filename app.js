@@ -419,7 +419,7 @@
     var t = topicById(a.topic) || { name: '', color: '#F0DFB8' };
     return '<a class="row-link" href="#article-' + esc(a.id) + '">' +
       '<span class="badge" style="background:' + esc(t.color) + '">' + esc(t.name.slice(0, 2).toUpperCase()) + '</span>' +
-      '<span class="text"><span class="meta">Article · ' + esc(t.name) + ' · ' + a.minutes + ' min</span>' +
+      '<span class="text"><span class="meta">Article · ' + esc(t.name) + ' · ' + a.minutes + ' min' + (isLocked(a) ? ' <span class="plus-tag">Plus</span>' : '') + '</span>' +
       '<span class="title">' + esc(a.title) + '</span></span>' + ICON.chev + '</a>';
   }
 
@@ -466,7 +466,7 @@
           DATA.topics.map(function (t) { return '<option value="' + esc(t.id) + '">' + esc(t.name) + '</option>'; }).join('') +
         '</select>' + ICON.chev + '</div>' +
       '</section>' +
-      (SKILLS.skills.length ? (function () { var k = SKILLS.skills[(n * 7) % SKILLS.skills.length];
+      (SKILLS.skills.length ? (function () { var pool = SKILLS.skills.filter(function (x) { return !isLocked(x); }); if (!pool.length) pool = SKILLS.skills; var k = pool[(n * 7) % pool.length];
         return '<a class="toolkit-card" href="#skill-' + esc(k.id) + '"><span class="toolkit-icon" aria-hidden="true">' + ICON.bag + '</span><span class="text"><span class="meta">From the Pocketbook · Skill of the day</span><span class="title">' + esc(k.name) + '</span><span class="lede" style="margin:0">' + esc(k.when) + '</span></span>' + ICON.chev + '</a>'; })() : '') +
       '<a class="row-link" href="#learn"><span class="text"><span class="title">Browse all topics</span><span class="lede" style="margin:0">' + DATA.topics.length + ' topics, from anxiety and perimenopause to boundaries and grief</span></span>' + ICON.chev + '</a>' +
       '<a class="row-link about-card" href="#about"><span class="text"><span class="title">About Anxious Black Girls®</span><span class="lede" style="margin:0">Therapy, our social club, the podcast and more</span></span>' + ICON.chev + '</a>';
@@ -569,7 +569,7 @@
     if (!a) { location.hash = '#learn'; return; }
     var t = topicById(a.topic) || { name: '', color: '#F0DFB8', id: '' };
     var isSaved = savedArts().indexOf(id) !== -1;
-    var locked = isLocked(a), audioLocked = !!(a.audio && PAID && PAID.enabled && PAID.lockAudio && !hasPlus());
+    var locked = isLocked(a), audioLocked = !!(a.audio && (locked || (PAID && PAID.enabled && PAID.lockAudio && !hasPlus())));
     view.innerHTML =
       navBar('#topic-' + esc(t.id), 'Back to ' + t.name, '<div class="nav-actions"><button id="share-art-top" class="btn icon-only" aria-label="Share this article">' + ICON.share + '</button>' + saveArticleBtn('save-art-top', isSaved) + '</div>') +
       '<article class="prose"><div class="tags"><span class="tag" style="background:' + esc(t.color) + '">' + esc(t.name) + '</span><span class="tag" style="background:var(--bg)">' + a.minutes + ' min read</span></div>' +
@@ -608,8 +608,12 @@
     });
     if (a.audio && !audioLocked) setupListen();
     var bodyEl = document.getElementById('article-body');
-    if (locked) { bodyEl.innerHTML = plusLockCard('article'); return; }
-    function fill(md) { bodyEl.innerHTML = renderMarkdown(md); }
+    function fill(md) {
+      if (!locked) { bodyEl.innerHTML = renderMarkdown(md); return; }
+      var tmp = document.createElement('div'); tmp.innerHTML = renderMarkdown(md);
+      var ps = Array.prototype.filter.call(tmp.children, function (el) { return el.tagName === 'P'; }).slice(0, 2);
+      bodyEl.innerHTML = '<div class="plus-preview">' + ps.map(function (p) { return p.outerHTML; }).join('') + '</div>' + plusLockCard('article');
+    }
     if (articleCache[id]) { fill(articleCache[id]); return; }
     fetch(encodeURIComponent(id) + '.md')
       .then(function (r) { if (!r.ok) throw new Error(); return r.text(); })
@@ -939,7 +943,7 @@
   function skillRow(k) {
     return '<a class="row-link" href="#skill-' + esc(k.id) + '">' +
       '<span class="badge skill-badge">' + ICON.bag + '</span>' +
-      '<span class="text"><span class="meta skill-meta">Skill · ' + esc(groupName(k.group)) + '</span>' +
+      '<span class="text"><span class="meta skill-meta">Skill · ' + esc(groupName(k.group)) + (isLocked(k) ? ' <span class="plus-tag">Plus</span>' : '') + '</span>' +
       '<span class="title">' + esc(k.name) + '</span></span>' + ICON.chev + '</a>';
   }
   function skillsForTopic(topicId, n, seed) {
@@ -1243,9 +1247,11 @@
     { key: 'eat', title: 'Did you eat today?', note: 'Coffee is not a meal. Feed yourself something real.', time: '13:00', repeat: 'daily' },
     { key: 'task', title: 'Start the thing you\'ve been avoiding', note: 'Five minutes. Set a timer and go. You got this.', time: '14:00', repeat: 'weekdays' },
     { key: 'move', title: 'Get up and move a little', note: 'Walk, stretch, dance in the kitchen. It all counts.', time: '16:00', repeat: 'daily' },
+    { key: 'text', title: 'Respond to the text!', note: 'You read it three days ago. They\'re waiting.', time: '12:00', repeat: 'daily' },
+    { key: 'callback', title: 'Remember to call them back', note: 'A quick call now saves the guilt later.', time: '17:00', repeat: 'once' },
     { key: 'call', title: 'Call your mama back', note: 'You know she\'s been waiting.', time: '18:00', repeat: 'once' },
     { key: 'calendar', title: 'Check tomorrow\'s calendar', note: 'No surprises in the morning. Lay it out tonight.', time: '20:00', repeat: 'weekdays' },
-    { key: 'wind', title: 'Bonnet on, phone down', note: 'Rest is part of the work. Wind it down.', time: '22:00', repeat: 'daily' }
+    { key: 'wind', title: 'Put your phone down!', note: 'Rest is part of the work. Wind it down.', time: '22:00', repeat: 'daily' }
   ];
   var DAY_NAMES = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   function plusFeatureLocked() { return !!(PAID && PAID.enabled && !hasPlus()); }

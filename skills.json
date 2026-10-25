@@ -76,7 +76,8 @@
         "racial-trauma"
       ],
       "source": "Beck, J. S. (2020). Cognitive behavior therapy: Basics and beyond (3rd ed.). Guilford Press.",
-      "lens": "Some thoughts are reactions to real unfairness. A balanced thought doesn't pretend racism or bias didn't happen. It helps you decide what's yours to carry."
+      "lens": "Some thoughts are reactions to real unfairness. A balanced thought doesn't pretend racism or bias didn't happen. It helps you decide what's yours to carry.",
+      "premium": true
     },
     {
       "id": "core-beliefs",
@@ -97,7 +98,8 @@
         "bpd"
       ],
       "source": "Beck, J. S. (2020). Cognitive behavior therapy: Basics and beyond (3rd ed.). Guilford Press.",
-      "lens": "Beliefs like \"I have to be strong\" or \"I have to be twice as good\" often started as protection. You can honor where they came from and still decide they don't run your life now."
+      "lens": "Beliefs like \"I have to be strong\" or \"I have to be twice as good\" often started as protection. You can honor where they came from and still decide they don't run your life now.",
+      "premium": true
     },
     {
       "id": "check-the-evidence",
@@ -153,7 +155,8 @@
         "burnout",
         "grief"
       ],
-      "source": "Martell, C. R., Dimidjian, S., & Herman-Dunn, R. (2010). Behavioral activation for depression: A clinician's guide. Guilford Press."
+      "source": "Martell, C. R., Dimidjian, S., & Herman-Dunn, R. (2010). Behavioral activation for depression: A clinician's guide. Guilford Press.",
+      "premium": true
     },
     {
       "id": "worry-time",
@@ -171,7 +174,8 @@
         "anxiety",
         "perimenopause"
       ],
-      "source": "Borkovec, T. D., Wilkinson, L., Folensbee, R., & Lerman, C. (1983). Stimulus control applications to the treatment of worry. Behaviour Research and Therapy, 21(3), 247–251."
+      "source": "Borkovec, T. D., Wilkinson, L., Folensbee, R., & Lerman, C. (1983). Stimulus control applications to the treatment of worry. Behaviour Research and Therapy, 21(3), 247–251.",
+      "premium": true
     },
     {
       "id": "test-the-prediction",
@@ -191,7 +195,8 @@
         "boundaries",
         "relationships"
       ],
-      "source": "Beck, J. S. (2020). Cognitive behavior therapy: Basics and beyond (3rd ed.). Guilford Press."
+      "source": "Beck, J. S. (2020). Cognitive behavior therapy: Basics and beyond (3rd ed.). Guilford Press.",
+      "premium": true
     },
     {
       "id": "all-or-nothing",
@@ -259,7 +264,8 @@
         "infertility",
         "childfree"
       ],
-      "source": "Burns, D. D. (1980). Feeling good: The new mood therapy. William Morrow."
+      "source": "Burns, D. D. (1980). Feeling good: The new mood therapy. William Morrow.",
+      "premium": true
     },
     {
       "id": "should-statements",
@@ -276,7 +282,8 @@
         "motherhood",
         "achieving"
       ],
-      "source": "Burns, D. D. (1980). Feeling good: The new mood therapy. William Morrow."
+      "source": "Burns, D. D. (1980). Feeling good: The new mood therapy. William Morrow.",
+      "premium": true
     },
     {
       "id": "personalizing",
@@ -292,7 +299,8 @@
       "topics": [
         "relationships"
       ],
-      "source": "Burns, D. D. (1980). Feeling good: The new mood therapy. William Morrow."
+      "source": "Burns, D. D. (1980). Feeling good: The new mood therapy. William Morrow.",
+      "premium": true
     },
     {
       "id": "overgeneralizing",
@@ -309,7 +317,8 @@
         "depression",
         "relationships"
       ],
-      "source": "Burns, D. D. (1980). Feeling good: The new mood therapy. William Morrow."
+      "source": "Burns, D. D. (1980). Feeling good: The new mood therapy. William Morrow.",
+      "premium": true
     },
     {
       "id": "discounting-positive",
@@ -326,7 +335,8 @@
         "achieving",
         "pcos"
       ],
-      "source": "Burns, D. D. (1980). Feeling good: The new mood therapy. William Morrow."
+      "source": "Burns, D. D. (1980). Feeling good: The new mood therapy. William Morrow.",
+      "premium": true
     },
     {
       "id": "emotional-reasoning",
@@ -343,7 +353,8 @@
         "depression",
         "bpd"
       ],
-      "source": "Burns, D. D. (1980). Feeling good: The new mood therapy. William Morrow."
+      "source": "Burns, D. D. (1980). Feeling good: The new mood therapy. William Morrow.",
+      "premium": true
     },
     {
       "id": "labeling",
@@ -360,7 +371,8 @@
         "adhd",
         "burnout"
       ],
-      "source": "Burns, D. D. (1980). Feeling good: The new mood therapy. William Morrow."
+      "source": "Burns, D. D. (1980). Feeling good: The new mood therapy. William Morrow.",
+      "premium": true
     },
     {
       "id": "wise-mind",
@@ -398,7 +410,8 @@
         "autism",
         "grief"
       ],
-      "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press."
+      "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press.",
+      "premium": true
     },
     {
       "id": "stop-skill",
@@ -455,7 +468,8 @@
         "grief",
         "depression"
       ],
-      "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press."
+      "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press.",
+      "premium": true
     },
     {
       "id": "self-soothe",
@@ -476,7 +490,8 @@
         "motherhood"
       ],
       "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press.",
-      "lens": "Self-soothing isn't something you have to earn. Many of us were taught that taking care of ourselves is selfish. It's maintenance."
+      "lens": "Self-soothing isn't something you have to earn. Many of us were taught that taking care of ourselves is selfish. It's maintenance.",
+      "premium": true
     },
     {
       "id": "radical-acceptance",
@@ -497,7 +512,8 @@
         "racial-trauma"
       ],
       "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press.",
-      "lens": "Accepting that racism happened is not the same as accepting racism. Radical acceptance can free up energy for rest, healing or action."
+      "lens": "Accepting that racism happened is not the same as accepting racism. Radical acceptance can free up energy for rest, healing or action.",
+      "premium": true
     },
     {
       "id": "check-the-facts",
@@ -515,7 +531,8 @@
         "anxiety",
         "bpd"
       ],
-      "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press."
+      "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press.",
+      "premium": true
     },
     {
       "id": "opposite-action",
@@ -533,7 +550,8 @@
         "depression",
         "anxiety"
       ],
-      "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press."
+      "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press.",
+      "premium": true
     },
     {
       "id": "please",
@@ -553,7 +571,8 @@
         "perimenopause",
         "pcos"
       ],
-      "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press."
+      "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press.",
+      "premium": true
     },
     {
       "id": "cope-ahead",
@@ -572,7 +591,8 @@
         "relationships",
         "pcos"
       ],
-      "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press."
+      "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press.",
+      "premium": true
     },
     {
       "id": "dear-man",
@@ -592,7 +612,8 @@
         "achieving"
       ],
       "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press.",
-      "lens": "Many Black women worry that being direct will get them labeled angry or difficult. DEAR MAN gives you a calm structure, so your words carry the message."
+      "lens": "Many Black women worry that being direct will get them labeled angry or difficult. DEAR MAN gives you a calm structure, so your words carry the message.",
+      "premium": true
     },
     {
       "id": "give",
@@ -610,7 +631,8 @@
         "relationships",
         "motherhood"
       ],
-      "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press."
+      "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press.",
+      "premium": true
     },
     {
       "id": "fast",
@@ -628,7 +650,8 @@
         "boundaries",
         "relationships"
       ],
-      "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press."
+      "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press.",
+      "premium": true
     },
     {
       "id": "box-breathing",
@@ -704,7 +727,8 @@
         "perimenopause",
         "burnout"
       ],
-      "source": "Jacobson, E. (1938). Progressive relaxation. University of Chicago Press."
+      "source": "Jacobson, E. (1938). Progressive relaxation. University of Chicago Press.",
+      "premium": true
     },
     {
       "id": "urge-surfing",
@@ -724,7 +748,8 @@
         "pcos",
         "adhd"
       ],
-      "source": "Bowen, S., & Marlatt, A. (2009). Surfing the urge: Brief mindfulness-based intervention for college student smokers. Psychology of Addictive Behaviors, 23(4), 666–671."
+      "source": "Bowen, S., & Marlatt, A. (2009). Surfing the urge: Brief mindfulness-based intervention for college student smokers. Psychology of Addictive Behaviors, 23(4), 666–671.",
+      "premium": true
     },
     {
       "id": "name-it-to-tame-it",
@@ -760,7 +785,8 @@
         "anxiety",
         "depression"
       ],
-      "source": "Hayes, S. C., Strosahl, K. D., & Wilson, K. G. (2012). Acceptance and commitment therapy (2nd ed.). Guilford Press."
+      "source": "Hayes, S. C., Strosahl, K. D., & Wilson, K. G. (2012). Acceptance and commitment therapy (2nd ed.). Guilford Press.",
+      "premium": true
     },
     {
       "id": "body-scan",
@@ -780,7 +806,8 @@
         "perimenopause"
       ],
       "source": "Kabat-Zinn, J. (1990). Full catastrophe living. Delacorte.",
-      "lens": "Many Black women carry stress in their bodies for years. A body scan is one way to notice what you've been holding."
+      "lens": "Many Black women carry stress in their bodies for years. A body scan is one way to notice what you've been holding.",
+      "premium": true
     },
     {
       "id": "body-doubling",
@@ -837,7 +864,8 @@
         "adhd",
         "audhd"
       ],
-      "source": "Barkley, R. A. (1997). Behavioral inhibition, sustained attention, and executive functions: Constructing a unifying theory of ADHD. Psychological Bulletin, 121(1), 65–94."
+      "source": "Barkley, R. A. (1997). Behavioral inhibition, sustained attention, and executive functions: Constructing a unifying theory of ADHD. Psychological Bulletin, 121(1), 65–94.",
+      "premium": true
     },
     {
       "id": "brain-dump",
@@ -875,7 +903,8 @@
         "audhd",
         "perimenopause"
       ],
-      "source": "Raymaker, D. M., et al. (2020). \"Having all of your internal resources exhausted beyond measure and being left with no clean-up crew\": Defining autistic burnout. Autism in Adulthood, 2(2), 132–143."
+      "source": "Raymaker, D. M., et al. (2020). \"Having all of your internal resources exhausted beyond measure and being left with no clean-up crew\": Defining autistic burnout. Autism in Adulthood, 2(2), 132–143.",
+      "premium": true
     },
     {
       "id": "energy-budgeting",
@@ -894,7 +923,8 @@
         "burnout",
         "audhd"
       ],
-      "source": "Raymaker, D. M., et al. (2020). \"Having all of your internal resources exhausted beyond measure and being left with no clean-up crew\": Defining autistic burnout. Autism in Adulthood, 2(2), 132–143."
+      "source": "Raymaker, D. M., et al. (2020). \"Having all of your internal resources exhausted beyond measure and being left with no clean-up crew\": Defining autistic burnout. Autism in Adulthood, 2(2), 132–143.",
+      "premium": true
     },
     {
       "id": "meltdown-plan",
@@ -912,7 +942,8 @@
         "autism",
         "audhd"
       ],
-      "source": "Raymaker, D. M., et al. (2020). \"Having all of your internal resources exhausted beyond measure and being left with no clean-up crew\": Defining autistic burnout. Autism in Adulthood, 2(2), 132–143."
+      "source": "Raymaker, D. M., et al. (2020). \"Having all of your internal resources exhausted beyond measure and being left with no clean-up crew\": Defining autistic burnout. Autism in Adulthood, 2(2), 132–143.",
+      "premium": true
     },
     {
       "id": "unmasking-moments",
@@ -932,7 +963,8 @@
         "racial-trauma"
       ],
       "source": "Hull, L., et al. (2017). \"Putting on my best normal\": Social camouflaging in adults with autism spectrum conditions. Journal of Autism and Developmental Disorders, 47(8), 2519–2534.",
-      "lens": "Black autistic women often mask twice: to fit in as neurotypical and to stay safe in white spaces. You deserve places where you don't have to do either."
+      "lens": "Black autistic women often mask twice: to fit in as neurotypical and to stay safe in white spaces. You deserve places where you don't have to do either.",
+      "premium": true
     },
     {
       "id": "boundary-script",
@@ -968,7 +1000,8 @@
         "boundaries",
         "anxiety"
       ],
-      "source": "Speed, B. C., Goldstein, B. L., & Goldfried, M. R. (2018). Assertiveness training: A forgotten evidence-based treatment. Clinical Psychology: Science and Practice, 25(1), e12216."
+      "source": "Speed, B. C., Goldstein, B. L., & Goldfried, M. R. (2018). Assertiveness training: A forgotten evidence-based treatment. Clinical Psychology: Science and Practice, 25(1), e12216.",
+      "premium": true
     },
     {
       "id": "repair",
@@ -987,7 +1020,8 @@
         "relationships",
         "motherhood"
       ],
-      "source": "Gottman, J. M., & Silver, N. (1999). The seven principles for making marriage work. Crown."
+      "source": "Gottman, J. M., & Silver, N. (1999). The seven principles for making marriage work. Crown.",
+      "premium": true
     },
     {
       "id": "self-compassion-break",
@@ -1026,7 +1060,8 @@
         "childfree",
         "achieving"
       ],
-      "source": "Hayes, S. C., Strosahl, K. D., & Wilson, K. G. (2012). Acceptance and commitment therapy (2nd ed.). Guilford Press."
+      "source": "Hayes, S. C., Strosahl, K. D., & Wilson, K. G. (2012). Acceptance and commitment therapy (2nd ed.). Guilford Press.",
+      "premium": true
     },
     {
       "id": "evidence-file",
@@ -1043,7 +1078,8 @@
       "topics": [
         "achieving"
       ],
-      "source": "Clance, P. R., & Imes, S. A. (1978). The impostor phenomenon in high achieving women. Psychotherapy: Theory, Research & Practice, 15(3), 241–247."
+      "source": "Clance, P. R., & Imes, S. A. (1978). The impostor phenomenon in high achieving women. Psychotherapy: Theory, Research & Practice, 15(3), 241–247.",
+      "premium": true
     },
     {
       "id": "rest-menu",
@@ -1082,7 +1118,8 @@
         "infertility",
         "childfree"
       ],
-      "source": "Pennebaker, J. W., & Beall, S. K. (1986). Confronting a traumatic event: Toward an understanding of inhibition and disease. Journal of Abnormal Psychology, 95(3), 274–281."
+      "source": "Pennebaker, J. W., & Beall, S. K. (1986). Confronting a traumatic event: Toward an understanding of inhibition and disease. Journal of Abnormal Psychology, 95(3), 274–281.",
+      "premium": true
     },
     {
       "id": "energy-audit",

@@ -505,3 +505,9 @@ main { display: flex; flex-direction: column; gap: 20px; padding-top: 8px; outli
 .reminder-form .btn { justify-content: center; margin-top: 8px; }
 .day-picks { display: flex; flex-wrap: wrap; gap: 6px; }
 .field-error { margin: 0; font-size: 13px; color: #8E2A1E; font-weight: 700; }
+.plus-tag { display: inline-block; margin-left: 4px; padding: 1px 7px; border-radius: 999px; background: var(--gold-soft); color: var(--gold-deep); font-size: 10px; font-weight: 800; letter-spacing: 0.06em; vertical-align: 1px; }
+.plus-preview { position: relative; max-height: 220px; overflow: hidden; }
+.plus-preview::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 90px; background: linear-gradient(rgba(255,255,255,0), var(--surface)); }
+a.listen { text-decoration: none; color: var(--ink); }
+a.listen .listen-btn svg { width: 24px; height: 24px; }
+a.listen .listen-title { font-weight: 700; }

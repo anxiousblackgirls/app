@@ -1,18 +1,24 @@
 {
-  "enabled": false,
-  "preview": true,
+  "enabled": true,
+  "preview": false,
   "lockAudio": false,
   "name": "Anxious Black Girls Plus",
   "tagline": "More support, whenever you need it.",
   "benefits": [
-    "Every article, with audio you can listen to",
-    "The full Pocketbook of coping skills",
-    "Reminders for meds, meals, tasks, and anything else",
-    "New articles and affirmations every month",
+    "Every article in all 20 topics, with audio as it's added",
+    "All 57 coping skills in the Pocketbook",
+    "Your own reminders for meds, meals, tasks, and texts you keep forgetting",
     "Support a Black woman-owned mental health company"
   ],
   "products": [
-    { "id": "com.anxiousblackgirls.app.plus.yearly", "label": "Yearly", "note": "Best value" },
-    { "id": "com.anxiousblackgirls.app.plus.monthly", "label": "Monthly" }
+    {
+      "id": "com.anxiousblackgirls.app.plus.yearly",
+      "label": "Yearly",
+      "note": "Best value"
+    },
+    {
+      "id": "com.anxiousblackgirls.app.plus.monthly",
+      "label": "Monthly"
+    }
   ]
 }
