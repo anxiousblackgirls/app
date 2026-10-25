@@ -95,6 +95,7 @@ jobs:
           apps = get("/v1/apps?filter[bundleId]=com.anxiousblackgirls.app")["data"]
           certs = get("/v1/certificates?limit=50")["data"]
           print("::notice::Apple accepted the key. Bundle ID registered: %s. App record: %s. Certificates on the team: %d." % (bool(ids), bool(apps), len(certs)))
+          if apps: print("::notice::App Store link: https://apps.apple.com/app/id%s" % apps[0]["id"])
           PY
 
       - name: Set up App Store signing
