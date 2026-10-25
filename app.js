@@ -10,6 +10,8 @@
   var ABOUT = null;
   var FAQ = [];
   var DATA = { topics: [], articles: [] };
+  var SKILLS = { groups: [], skills: [] };
+  var GROUP_COLORS = { thinking: '#EBD3A6', traps: '#DEDDC2', dbt: '#D3B094', body: '#F0DFB8', neuro: '#E9D7C8', relationships: '#EAD9C0', rest: '#D9CFA8' };
   var articleCache = {};
   // Set only inside the iPhone and Android apps (see native.js). The website leaves it null.
   var NATIVE = (window.ABGNative && window.ABGNative.native) ? window.ABGNative : null;
@@ -55,6 +57,8 @@
   }
 
   var ICON = {
+    bag: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 9V7.5a3.5 3.5 0 0 1 7 0V9"/><path class="bag-body" d="M4.6 9h14.8l-1.1 10.1a2 2 0 0 1-2 1.9H7.7a2 2 0 0 1-2-1.9z"/><path d="M10.5 13h3"/></svg>',
+    spark: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6.3 6.3l2.5 2.5M15.2 15.2l2.5 2.5M6.3 17.7l2.5-2.5M15.2 8.8l2.5-2.5"/></svg>',
     play: '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg>',
     pause: '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" fill="currentColor"/></svg>',
     heart: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>',
@@ -125,7 +129,8 @@
     if (line) lines.push(line);
     return lines;
   }
-  function makeShareImage(text, format) {
+  function makeShareImage(text, format, opts) {
+    opts = opts || {};
     var size = SHARE_SIZES[format] || SHARE_SIZES.post, W = size[0], H = size[1];
     var fontsReady = (document.fonts && document.fonts.load)
       ? Promise.all([document.fonts.load('800 80px Montserrat'), document.fonts.load('700 36px "DM Sans"')]).catch(function () {})
@@ -149,7 +154,7 @@
       var labelY = logoY + lh + (format === 'story' ? 150 : 100);
       if ('letterSpacing' in ctx) ctx.letterSpacing = '4px';
       ctx.fillStyle = '#8A5F12';
-      ctx.fillText('TO MY ANXIOUS BLACK GIRL,', W / 2, labelY);
+      ctx.fillText(opts.label || 'TO MY ANXIOUS BLACK GIRL,', W / 2, labelY);
       ctx.fillStyle = ink;
       if ('letterSpacing' in ctx) ctx.letterSpacing = '0px';
       // affirmation, shrink to fit
@@ -167,7 +172,7 @@
       lines.forEach(function (l, i) { ctx.fillText(l, W / 2, startY + i * lineH); });
       // footer
       ctx.font = '700 34px "DM Sans", Arial, sans-serif';
-      ctx.fillText('Your daily affirmation, free at', W / 2, footerTop + 30);
+      ctx.fillText(opts.footer || 'Your daily affirmation, free at', W / 2, footerTop + 30);
       ctx.font = '800 40px Montserrat, Arial, sans-serif';
       ctx.fillText('app.anxiousblackgirls.com', W / 2, footerTop + 86);
       ctx.strokeStyle = '#BB831D'; ctx.lineWidth = 3;
@@ -180,41 +185,160 @@
     });
   }
 
+  // article share image: looks like a page from the app, with a preview of the article
+  var headerLogo = null;
+  function loadHeaderLogo() {
+    if (headerLogo) return Promise.resolve(headerLogo);
+    return new Promise(function (resolve, reject) {
+      var im = new Image();
+      im.onload = function () { headerLogo = im; resolve(im); };
+      im.onerror = reject;
+      im.src = 'logo-header.png';
+    });
+  }
+  function articleExcerpt(md) {
+    var lines = (md || '').split('### Sources')[0].split('\n').map(function (l) { return l.trim(); })
+      .filter(function (l) { return l && !/^(#|>)/.test(l); })
+      .map(function (l) { return l.replace(/^- /, ''); });
+    return lines.join(' ').replace(/\*\*/g, '').replace(/\[([^\]]+)\]\([^)]*\)/g, '$1').split(/\s+/).slice(0, 160).join(' ');
+  }
+  function roundRect(ctx, x, y, w, h, r) {
+    ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath();
+  }
+  function makeArticleImage(a, format) {
+    var t = topicById(a.topic) || { name: '', color: '#F0DFB8' };
+    var mdP = articleCache[a.id] ? Promise.resolve(articleCache[a.id])
+      : fetch(encodeURIComponent(a.id) + '.md').then(function (r) { return r.text(); }).catch(function () { return ''; });
+    return mdP.then(function (md) {
+      return makeCardImage({ tag: t.name, color: t.color, meta: a.minutes + ' min read', title: a.title, excerpt: articleExcerpt(md), cta: 'Read the full article free in the app' }, format);
+    });
+  }
+  function makeCardImage(card, format) {
+    var size = SHARE_SIZES[format] || SHARE_SIZES.post, W = size[0], H = size[1], story = format === 'story';
+    var a = { title: card.title, minutes: 0 }, t = { name: card.tag, color: card.color };
+    var mdP = Promise.resolve('');
+    var fontsReady = (document.fonts && document.fonts.load)
+      ? Promise.all([document.fonts.load('800 80px Montserrat'), document.fonts.load('700 36px "DM Sans"'), document.fonts.load('400 36px "DM Sans"')]).catch(function () {})
+      : Promise.resolve();
+    return Promise.all([loadHeaderLogo(), mdP, fontsReady]).then(function (res) {
+      var logo = res[0], excerpt = card.excerpt;
+      var c = document.createElement('canvas'); c.width = W; c.height = H;
+      var ctx = c.getContext('2d'), ink = '#2B2118';
+      ctx.fillStyle = '#F7F1EB'; ctx.fillRect(0, 0, W, H);
+      // logo
+      var lw = story ? 520 : 440, lh = lw * logo.height / logo.width, ly = story ? 120 : 64;
+      ctx.drawImage(logo, (W - lw) / 2, ly, lw, lh);
+      // card
+      var cx = 64, cy = ly + lh + (story ? 70 : 44), cw = W - 128, ch = H - cy - (story ? 230 : 150), pad = 64;
+      ctx.save(); ctx.shadowColor = 'rgba(43,33,24,0.10)'; ctx.shadowBlur = 40; ctx.shadowOffsetY = 12;
+      roundRect(ctx, cx, cy, cw, ch, 48); ctx.fillStyle = '#FFFFFF'; ctx.fill(); ctx.restore();
+      // tags
+      var x = cx + pad, y = cy + pad;
+      ctx.textBaseline = 'middle'; ctx.textAlign = 'left';
+      function pill(txt, bg) {
+        ctx.font = '700 32px "DM Sans", Arial, sans-serif';
+        var w = ctx.measureText(txt).width + 52;
+        roundRect(ctx, x, y, w, 64, 32); ctx.fillStyle = bg; ctx.fill();
+        ctx.fillStyle = ink; ctx.fillText(txt, x + 26, y + 33); x += w + 16;
+      }
+      pill(t.name, t.color); pill(card.meta, '#F7F1EB');
+      // title
+      var maxW = cw - pad * 2, fs = story ? 84 : 76, lines;
+      ctx.textBaseline = 'alphabetic';
+      do { ctx.font = '800 ' + fs + 'px Montserrat, Arial, sans-serif'; lines = wrapLines(ctx, a.title, maxW); if (lines.length <= 3) break; fs -= 4; } while (fs > 44);
+      var ty = y + 64 + 40 + fs; ctx.fillStyle = ink;
+      lines.forEach(function (l, i) { ctx.fillText(l, cx + pad, ty + i * fs * 1.12); });
+      // excerpt with fade
+      var btnH = 104, btnY = cy + ch - pad - btnH;
+      var ey = ty + (lines.length - 1) * fs * 1.12 + (story ? 110 : 92);
+      var efs = story ? 42 : 38, elh = efs * 1.5;
+      ctx.font = '400 ' + efs + 'px "DM Sans", Arial, sans-serif'; ctx.fillStyle = '#4D4A45';
+      var elines = wrapLines(ctx, excerpt, maxW), room = Math.floor((btnY - 50 - ey) / elh) + 1;
+      elines = elines.slice(0, Math.max(0, room));
+      elines.forEach(function (l, i) { ctx.fillText(l, cx + pad, ey + i * elh); });
+      var fadeTop = Math.max(ey - efs, btnY - 50 - elh * 2.2);
+      var g = ctx.createLinearGradient(0, fadeTop, 0, btnY - 30);
+      g.addColorStop(0, 'rgba(255,255,255,0)'); g.addColorStop(1, 'rgba(255,255,255,1)');
+      ctx.fillStyle = g; ctx.fillRect(cx + 4, fadeTop, cw - 8, btnY - 30 - fadeTop + 2);
+      ctx.fillStyle = '#FFFFFF'; ctx.fillRect(cx + 4, btnY - 30, cw - 8, 30);
+      // button
+      roundRect(ctx, cx + pad, btnY, maxW, btnH, btnH / 2); ctx.fillStyle = card.accent || '#8A5F12'; ctx.fill();
+      ctx.fillStyle = card.accentText || '#FFFFFF'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.font = '700 38px "DM Sans", Arial, sans-serif';
+      ctx.fillText(card.cta, W / 2, btnY + btnH / 2 + 2);
+      // footer
+      ctx.textBaseline = 'alphabetic'; ctx.fillStyle = ink;
+      var fy = cy + ch + (story ? 100 : 72);
+      ctx.font = '800 38px Montserrat, Arial, sans-serif';
+      ctx.fillText('app.anxiousblackgirls.com', W / 2, fy);
+      ctx.fillStyle = '#8A5F12'; ctx.font = '700 30px "DM Sans", Arial, sans-serif';
+      ctx.fillText('@anxiousblackgirls', W / 2, fy + 48);
+      return new Promise(function (resolve) { c.toBlob(resolve, 'image/png'); });
+    });
+  }
+
   var APP_URL = 'https://app.anxiousblackgirls.com';
   function openShareSheet(aff) {
-    var format = 'post', blob = null, url = null;
     var caption = '"' + aff.text + '" Today\'s affirmation from Anxious Black Girls®. Get yours free at app.anxiousblackgirls.com';
+    openSharePanel({
+      heading: 'Share today\'s affirmation', imageText: aff.text, imageOpts: {},
+      alt: 'Branded image of today\'s affirmation', file: 'anxious-black-girls-affirmation.png',
+      caption: caption, link: APP_URL, linkHeading: 'Or post a link to the app',
+      sendText: function () { shareAffirmation(aff.text); }
+    });
+  }
+  function shareArticle(a) {
+    var t = topicById(a.topic) || { name: '' };
+    var link = APP_URL + '/#article-' + a.id;
+    var caption = 'This one hit home: ' + a.title + '. Read it free in the Anxious Black Girls® app.';
+    openSharePanel({
+      heading: 'Share this article', imageText: a.title,
+      makeImage: function (format) { return makeArticleImage(a, format); },
+      alt: 'Branded image with the article title', file: 'anxious-black-girls-article.png',
+      caption: caption + ' ' + link, link: link, linkHeading: 'Or post a link to this article',
+      sendText: function () {
+        if (navigator.share) navigator.share({ title: a.title, text: caption, url: link }).catch(function () { copy(caption + ' ' + link); });
+        else copy(caption + ' ' + link);
+      }
+    });
+  }
+  function openSharePanel(o) {
+    var aff = { text: o.imageText };
+    var format = 'post', blob = null, url = null;
+    var caption = o.caption, APP_LINK = o.link;
     var el = document.createElement('div');
     el.className = 'share-sheet';
     el.setAttribute('role', 'dialog'); el.setAttribute('aria-modal', 'true'); el.setAttribute('aria-labelledby', 'share-title');
     el.innerHTML =
       '<div class="share-card">' +
-        '<div class="share-head"><h2 id="share-title">Share today\'s affirmation</h2>' +
+        '<div class="share-head"><h2 id="share-title">' + esc(o.heading) + '</h2>' +
         '<button class="icon-btn" id="share-close" aria-label="Close">' + ICON.close + '</button></div>' +
         '<div class="share-toggle" role="group" aria-label="Image size">' +
           '<button class="btn small" data-format="post" aria-pressed="true">Feed post</button>' +
           '<button class="btn small" data-format="story" aria-pressed="false">Story &amp; TikTok</button>' +
         '</div>' +
-        '<div class="share-preview"><img id="share-img" alt="Branded image of today\'s affirmation"></div>' +
+        '<div class="share-preview"><img id="share-img" alt="' + esc(o.alt) + '"></div>' +
         '<button id="share-go" class="btn dark">' + ICON.share + 'Share image</button>' +
-        '<a id="share-save" class="btn" download="anxious-black-girls-affirmation.png" hidden>Save image</a>' +
+        '<a id="share-save" class="btn" download="' + esc(o.file) + '" hidden>Save image</a>' +
         '<p class="mind-note">Tap the button above, then choose Instagram, TikTok, Messages, or Save Image.</p>' +
-        '<h3 class="share-sub">Or post a link to the app</h3>' +
+        '<h3 class="share-sub">' + esc(o.linkHeading) + '</h3>' +
         '<div class="social-share">' +
-          '<a class="btn small" target="_blank" rel="noopener" href="https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(APP_URL) + '">Facebook</a>' +
+          '<a class="btn small" target="_blank" rel="noopener" href="https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(APP_LINK) + '">Facebook</a>' +
           '<a class="btn small" target="_blank" rel="noopener" href="https://x.com/intent/post?text=' + encodeURIComponent(caption) + '">X</a>' +
           '<a class="btn small" target="_blank" rel="noopener" href="https://www.threads.net/intent/post?text=' + encodeURIComponent(caption) + '">Threads</a>' +
           '<a class="btn small" target="_blank" rel="noopener" href="https://wa.me/?text=' + encodeURIComponent(caption) + '">WhatsApp</a>' +
-          '<a class="btn small" target="_blank" rel="noopener" href="https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(APP_URL) + '">LinkedIn</a>' +
+          '<a class="btn small" target="_blank" rel="noopener" href="https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(APP_LINK) + '">LinkedIn</a>' +
         '</div>' +
         '<button id="share-text" class="btn">Copy or send as text</button>' +
       '</div>';
     document.body.appendChild(el);
     var img = el.querySelector('#share-img');
-    function close() { if (url) URL.revokeObjectURL(url); el.parentNode && el.parentNode.removeChild(el); }
+    function close() { window.removeEventListener('hashchange', close); if (url) URL.revokeObjectURL(url); el.parentNode && el.parentNode.removeChild(el); }
+    window.addEventListener('hashchange', close);
     function render() {
       img.removeAttribute('src');
-      makeShareImage(aff.text, format).then(function (b) {
+      (o.makeImage ? o.makeImage(format) : makeShareImage(aff.text, format, o.imageOpts)).then(function (b) {
         blob = b;
         if (url) URL.revokeObjectURL(url);
         url = URL.createObjectURL(b);
@@ -239,14 +363,14 @@
       if (!blob) return;
       if (NATIVE) { NATIVE.shareImage(blob, caption); return; }
       if (canShareFile()) {
-        var file = new File([blob], 'anxious-black-girls-affirmation.png', { type: 'image/png' });
+        var file = new File([blob], o.file, { type: 'image/png' });
         navigator.share({ files: [file], text: caption }).catch(function () {});
       } else {
         el.querySelector('#share-save').hidden = false;
         toast('Tap "Save image," then post it from your photos.');
       }
     });
-    el.querySelector('#share-text').addEventListener('click', function () { shareAffirmation(aff.text); });
+    el.querySelector('#share-text').addEventListener('click', o.sendText);
     render();
     el.querySelector('#share-close').focus();
   }
@@ -270,7 +394,7 @@
     var t = topicById(a.topic) || { name: '', color: '#F0DFB8' };
     return '<a class="row-link" href="#article-' + esc(a.id) + '">' +
       '<span class="badge" style="background:' + esc(t.color) + '">' + esc(t.name.slice(0, 2).toUpperCase()) + '</span>' +
-      '<span class="text"><span class="meta">' + esc(t.name) + ' · ' + a.minutes + ' min</span>' +
+      '<span class="text"><span class="meta">Article · ' + esc(t.name) + ' · ' + a.minutes + ' min</span>' +
       '<span class="title">' + esc(a.title) + '</span></span>' + ICON.chev + '</a>';
   }
 
@@ -304,7 +428,8 @@
       '<section class="mind-card" aria-labelledby="mind-title">' +
         '<h2 id="mind-title" class="section-title">What\'s on your mind today?</h2>' +
         (PROMPTS.length ? '<p class="mind-prompt">' + esc(PROMPTS[n % PROMPTS.length]) + '</p>' : '') +
-        '<a class="btn dark" href="#journal">' + ICON.pen + 'Write about it in your journal</a>' +
+        '<a class="btn dark" href="#journal" id="mind-prompt">' + ICON.pen + 'Write about it in your journal</a>' +
+        '<a class="text-link" href="#journal" id="mind-free">Or free write about anything</a>' +
         '<p class="mind-note">Only you can read what you write. No one else can see it, not even us.</p>' +
       '</section>' +
       '<section class="learn-card" aria-labelledby="learn-pick-title">' +
@@ -315,6 +440,8 @@
           DATA.topics.map(function (t) { return '<option value="' + esc(t.id) + '">' + esc(t.name) + '</option>'; }).join('') +
         '</select>' + ICON.chev + '</div>' +
       '</section>' +
+      (SKILLS.skills.length ? (function () { var k = SKILLS.skills[(n * 7) % SKILLS.skills.length];
+        return '<a class="toolkit-card" href="#skill-' + esc(k.id) + '"><span class="toolkit-icon" aria-hidden="true">' + ICON.bag + '</span><span class="text"><span class="meta">From the Pocketbook · Skill of the day</span><span class="title">' + esc(k.name) + '</span><span class="lede" style="margin:0">' + esc(k.when) + '</span></span>' + ICON.chev + '</a>'; })() : '') +
       '<a class="row-link" href="#learn"><span class="text"><span class="title">Browse all topics</span><span class="lede" style="margin:0">' + DATA.topics.length + ' topics, from anxiety and perimenopause to boundaries and grief</span></span>' + ICON.chev + '</a>' +
       '<a class="row-link about-card" href="#about"><span class="text"><span class="title">About Anxious Black Girls®</span><span class="lede" style="margin:0">Therapy, our social club, the podcast and more</span></span>' + ICON.chev + '</a>';
 
@@ -326,6 +453,8 @@
     });
     document.getElementById('share-aff').addEventListener('click', function () { openShareSheet(aff); });
     if (NATIVE) wireReminder();
+    document.getElementById('mind-prompt').addEventListener('click', function () { store.set('abg.journalMode', 'prompt'); });
+    document.getElementById('mind-free').addEventListener('click', function () { store.set('abg.journalMode', 'free'); });
     document.getElementById('topic-pick').addEventListener('change', function () {
       if (this.value) location.hash = '#topic-' + this.value;
     });
@@ -334,7 +463,12 @@
   function viewLearn() {
     view.innerHTML =
       navBar('#today', 'Home') +
-      '<div><h1 class="page-title">Learn</h1><p class="lede">What it is, how it shows up in us, and why it so often gets missed.</p></div>' +
+      '<div><h1 class="page-title">Learn</h1><p class="lede">Two ways to care for your mind here: read articles to understand what you\'re going through, and use the Pocketbook to practice skills that help in the moment.</p></div>' +
+      (SKILLS.skills.length ? '<section class="learn-section"><span class="section-kicker">Practice</span><h2 class="section-title">The Pocketbook</h2>' +
+        '<p class="section-desc">Our grandmothers\' pocketbooks always seemed to hold exactly what you needed: a peppermint, a tissue, a little something to get you through. The Pocketbook does the same for your mind. It\'s full of short, step-by-step coping skills from CBT, DBT and other proven approaches, each one about a minute long. Save the ones you love to your own pocketbook so they\'re there when you need them.</p>' +
+        '<a class="toolkit-card" href="#pocketbook"><span class="toolkit-icon" aria-hidden="true">' + ICON.bag + '</span><span class="text"><span class="title">Open the Pocketbook</span><span class="lede" style="margin:0">' + SKILLS.skills.length + ' skills for anxiety, big emotions, ADHD, autism, boundaries and rest</span></span>' + ICON.chev + '</a></section>' : '') +
+      '<section class="learn-section"><span class="section-kicker">Read</span><h2 class="section-title">Articles</h2>' +
+        '<p class="section-desc">Research-backed reads on mental health through the lens of Black women. Each article explains what a condition or experience is, how it shows up in our lives, why it often gets missed, and what you can do about it. Pick a topic or search below.</p></section>' +
       '<label class="search" for="search-input">' +
         '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>' +
         '<span class="sr">Search articles</span><input id="search-input" type="search" placeholder="Search articles" autocomplete="off"></label>' +
@@ -393,13 +527,23 @@
     window.addEventListener('hashchange', function stop() { au.pause(); window.removeEventListener('hashchange', stop); });
   }
 
+  function reportIssue(kind, title, hash) {
+    var subject = 'App issue: ' + title;
+    var body = 'Page: ' + APP_URL + '/' + hash + '\n\nWhat happened:\n';
+    return '<section class="report-issue"><span class="report-icon" aria-hidden="true">!</span><div>' +
+      '<strong>Need to report an issue with the app?</strong>' +
+      '<p>If something on this ' + kind + ' isn\'t working or looks wrong, email us at ' +
+      '<a href="mailto:support@anxiousblackgirls.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body) + '">support@anxiousblackgirls.com</a>. ' +
+      'This inbox isn\'t for emergencies. If you\'re in crisis, call 911 or call/text 988.</p></div></section>';
+  }
+
   function viewArticle(id) {
     var a = articleById(id);
     if (!a) { location.hash = '#learn'; return; }
     var t = topicById(a.topic) || { name: '', color: '#F0DFB8', id: '' };
     var isSaved = savedArts().indexOf(id) !== -1;
     view.innerHTML =
-      navBar('#topic-' + esc(t.id), 'Back to ' + t.name, saveArticleBtn('save-art-top', isSaved)) +
+      navBar('#topic-' + esc(t.id), 'Back to ' + t.name, '<div class="nav-actions"><button id="share-art-top" class="btn icon-only" aria-label="Share this article">' + ICON.share + '</button>' + saveArticleBtn('save-art-top', isSaved) + '</div>') +
       '<article class="prose"><div class="tags"><span class="tag" style="background:' + esc(t.color) + '">' + esc(t.name) + '</span><span class="tag" style="background:var(--bg)">' + a.minutes + ' min read</span></div>' +
       '<h1>' + esc(a.title) + '</h1>' +
       (a.audio ? '<div class="listen" id="listen"><button class="listen-btn" id="listen-btn" type="button" aria-label="Play this article">' + ICON.play + '</button>' +
@@ -408,12 +552,19 @@
         '<span class="listen-time" id="listen-time">0:00</span></div>' +
         '<audio id="listen-audio" preload="metadata" src="' + esc(a.audio) + '"></audio></div>' : '') +
       '<div id="article-body" class="stack" style="gap:14px"><p>Loading…</p></div></article>' +
+      (function () { var ks = skillsForTopic(a.topic, 3, DATA.articles.indexOf(a));
+        return ks.length ? '<section class="practice-panel"><span class="skill-hero-label">' + ICON.bag + 'From the Pocketbook</span><h2 class="section-title">Now practice it</h2><p class="section-note" style="margin:0">Short skills to try today, and to keep in your pocketbook for next time.</p><div class="stack">' + ks.map(skillRow).join('') + '</div><a class="text-link" href="#pocketbook">Open the Pocketbook</a></section>' : ''; })() +
       '<div class="article-end">' + saveArticleBtn('save-art-bottom', isSaved) +
+        '<button id="share-art-bottom" class="btn save-btn">' + ICON.share + 'Share</button>' +
         '<a class="btn" href="#topic-' + esc(t.id) + '">More on ' + esc(t.name) + '</a>' +
         '<a class="btn" href="#today">Home</a></div>' +
       '<a class="crisis primary" href="#help"><span class="text"><span class="big" style="display:block">Find support</span><span class="small">Crisis lines and Black therapist directories</span></span></a>' +
-      '<p class="disclaimer">This is education, not a diagnosis or medical advice. Talk with a licensed professional about your own health.</p>' +
+      '<p class="disclaimer"><strong>Disclaimer:</strong> This is education, not a diagnosis or medical advice. Talk with a licensed professional about your own health.</p>' +
+      reportIssue('article', a.title, '#article-' + a.id) +
       '<p class="copyright">© 2026 Anxious Black Girls, LLC. All rights reserved.</p>';
+    ['share-art-top', 'share-art-bottom'].forEach(function (sid) {
+      document.getElementById(sid).addEventListener('click', function () { shareArticle(a); });
+    });
     var saveBtns = [document.getElementById('save-art-top'), document.getElementById('save-art-bottom')];
     saveBtns.forEach(function (btn) {
       btn.addEventListener('click', function () {
@@ -461,7 +612,7 @@
           '<a class="crisis secondary" href="sms:741741"><span class="circle">' + ICON.chat + '</span><span><span class="big" style="display:block">Text HOME to 741741</span><span class="small">Crisis Text Line, 24/7</span></span></a>' +
         '</div>' +
         '<div class="pause-notice">' +
-          '<strong>This app is not monitored.</strong> No one at Anxious Black Girls® can see what you write, respond to it, or send help. If you are in danger or thinking about ending your life, contact one of the resources above now.' +
+          '<strong>Disclaimer: This app is not monitored.</strong> No one at Anxious Black Girls® can see what you write, respond to it, or send help. If you are in danger or thinking about ending your life, contact one of the resources above now.' +
         '</div>' +
         '<p class="pause-legal">Anxious Black Girls® provides education and self-reflection tools only. This app is not a crisis service and does not provide medical advice, diagnosis, or treatment. It does not replace care from a licensed professional. Use of this app is subject to our Terms of Use, Privacy Policy, and Medical Disclaimer.</p>' +
         '<button id="pause-continue" class="btn">I\'m safe right now. Keep writing.</button>' +
@@ -489,15 +640,20 @@
       navBar('#today', 'Home') +
       '<div><h1 class="page-title">Journal</h1><p class="lede">Your entries stay on this phone. No one else can read them, including Anxious Black Girls®.</p></div>' +
       '<section class="journal-card">' +
-        '<span class="eyebrow">Today\'s prompt</span>' +
-        '<p class="prompt">' + esc(prompt) + '</p>' +
+        '<div class="share-toggle mode-toggle" role="group" aria-label="How do you want to write?">' +
+          '<button class="btn small" data-mode="prompt" aria-pressed="true">Today\'s prompt</button>' +
+          '<button class="btn small" data-mode="free" aria-pressed="false">Free write</button>' +
+        '</div>' +
+        '<div id="mode-prompt"><span class="eyebrow">Today\'s prompt</span>' +
+        '<p class="prompt">' + esc(prompt) + '</p></div>' +
+        '<div id="mode-free" hidden><span class="eyebrow">Free write</span>' +
+        '<p class="prompt">No prompt needed. Write whatever is on your mind.</p></div>' +
         '<label class="sr" for="journal-text">Write your entry</label>' +
         '<textarea id="journal-text" rows="7" placeholder="Write as much or as little as you want…">' + esc(draft) + '</textarea>' +
-        '<div class="actions"><button id="journal-save" class="btn dark">Save entry</button>' +
-        '<button id="journal-free" class="btn">Write without the prompt</button></div>' +
+        '<div class="actions"><button id="journal-save" class="btn dark">Save entry</button></div>' +
       '</section>' +
       '<div id="journal-alert"></div>' +
-      '<p class="disclaimer">This journal is private and not monitored. If you\'re in crisis, call 911 or call/text 988. Deleting the app or clearing your browser data erases your entries, so use "Copy all entries" to keep a backup.</p>' +
+      '<p class="disclaimer"><strong>Disclaimer:</strong> This journal is private and not monitored. If you\'re in crisis, call 911 or call/text 988. Deleting the app or clearing your browser data erases your entries, so use "Copy all entries" to keep a backup.</p>' +
       '<div class="row-between"><h2 class="section-title">Past entries</h2>' +
         (entries.length ? '<button id="journal-copy" class="btn small">Copy all entries</button>' : '') + '</div>' +
       (entries.length ? '<div class="stack">' + entries.map(function (e) {
@@ -526,12 +682,21 @@
     }
     ta.addEventListener('input', function () { store.set('abg.journalDraft', ta.value); check(true); });
     check();
-    document.getElementById('journal-free').addEventListener('click', function () {
-      usePrompt = !usePrompt;
-      view.querySelector('.journal-card .prompt').hidden = !usePrompt;
-      this.textContent = usePrompt ? 'Write without the prompt' : 'Use today\'s prompt';
-      ta.focus();
+    function setMode(mode, focus) {
+      usePrompt = mode !== 'free';
+      store.set('abg.journalMode', usePrompt ? 'prompt' : 'free');
+      document.getElementById('mode-prompt').hidden = !usePrompt;
+      document.getElementById('mode-free').hidden = usePrompt;
+      ta.placeholder = usePrompt ? 'Write as much or as little as you want…' : 'Start anywhere. This space is yours.';
+      Array.prototype.forEach.call(view.querySelectorAll('[data-mode]'), function (b) {
+        b.setAttribute('aria-pressed', b.getAttribute('data-mode') === (usePrompt ? 'prompt' : 'free'));
+      });
+      if (focus) ta.focus();
+    }
+    Array.prototype.forEach.call(view.querySelectorAll('[data-mode]'), function (b) {
+      b.addEventListener('click', function () { setMode(b.getAttribute('data-mode'), true); });
     });
+    setMode(store.get('abg.journalMode', 'prompt'));
     document.getElementById('journal-save').addEventListener('click', function () {
       var text = ta.value.trim();
       if (!text) { toast('Write something first, then tap Save.'); ta.focus(); return; }
@@ -608,15 +773,18 @@
         '<p class="about-tagline">' + esc(a.tagline) + '</p></div>' +
       (a.founder && a.founder.hero ? '<img class="about-hero-photo" src="' + esc(a.founder.hero) + '" alt="' + esc(a.founder.name) + ', founder of Anxious Black Girls®">' : '') +
       '<p class="about-intro">' + esc(a.intro) + '</p>' +
-      (a.founder ? '<a class="row-link founder" href="' + esc(a.founder.url) + '" target="_blank" rel="noopener">' + (a.founder.photo ? '<img class="founder-photo" src="' + esc(a.founder.photo) + '" alt="' + esc(a.founder.name) + '" width="88" height="88">' : '<span class="badge" style="background:var(--gold-soft)">DW</span>') + '<span class="text"><span class="meta">Meet the founder</span><span class="title">' + esc(a.founder.name) + '</span><span class="lede" style="margin:0">' + esc(a.founder.blurb) + '</span></span>' + ICON.out + '</a>' : '') +
+      (a.founder ? '<section class="founder-card">' +
+        '<div class="founder-head">' + (a.founder.photo ? '<img class="founder-photo" src="' + esc(a.founder.photo) + '" alt="' + esc(a.founder.name) + '" width="88" height="88">' : '') +
+          '<div><span class="meta">Meet the founder</span><h2 class="founder-name">' + esc(a.founder.name) + '</h2></div></div>' +
+        '<p class="founder-bio">' + esc(a.founder.bio || a.founder.blurb) + '</p>' +
+        '<a class="text-link" href="' + esc(a.founder.url) + '" target="_blank" rel="noopener">More about Deseray</a>' +
+        (a.playlist ? '<a class="playlist-inline" href="' + esc(a.playlist.url) + '" target="_blank" rel="noopener">' +
+          '<span class="playlist-icon" aria-hidden="true">' + ICON.music + '</span>' +
+          '<span class="text"><span class="title">' + esc(a.playlist.heading || 'Listen to the playlist') + '</span>' +
+          '<span class="lede" style="margin:0">' + esc(a.playlist.note || a.playlist.blurb) + '</span></span>' + ICON.out + '</a>' : '') +
+      '</section>' : '') +
       '<h2 class="section-title">What we offer</h2>' +
       '<div class="stack">' + (a.offerings || []).map(outRow).join('') + '</div>' +
-      (a.playlist ? '<h2 class="section-title">' + esc(a.playlist.heading || 'Listen with us') + '</h2>' +
-        (a.playlist.note ? '<p class="section-note">' + esc(a.playlist.note) + '</p>' : '') +
-        '<a class="row-link playlist-card" href="' + esc(a.playlist.url) + '" target="_blank" rel="noopener">' +
-          '<span class="playlist-icon" aria-hidden="true">' + ICON.music + '</span>' +
-          '<span class="text"><span class="meta">Playlist on Spotify</span><span class="title">' + esc(a.playlist.name) + '</span>' +
-          '<span class="lede" style="margin:0">' + esc(a.playlist.blurb) + '</span></span>' + ICON.out + '</a>' : '') +
       '<h2 class="section-title">Follow us</h2>' +
       '<div class="social-row">' + (a.social || []).map(function (s) {
         return '<a class="btn" href="' + esc(s.url) + '" target="_blank" rel="noopener">' + esc(s.name) + '</a>';
@@ -646,7 +814,10 @@
         return '<div class="saved-aff"><p>' + esc(text) + '</p><button class="icon-btn" data-unsave="' + i + '" aria-label="Remove this affirmation" aria-pressed="true">' + ICON.heart.replace('class="icon"', '') + '</button></div>';
       }).join('') + '</div>' : '<p class="empty">Tap Save on today\'s affirmation to keep it here.</p>') +
       '<h2 class="section-title">Articles</h2>' +
-      (arts.length ? '<div class="stack">' + arts.map(articleRow).join('') + '</div>' : '<p class="empty">Tap "Save article" on any article to keep it here.</p>');
+      (arts.length ? '<div class="stack">' + arts.map(articleRow).join('') + '</div>' : '<p class="empty">Tap "Save article" on any article to keep it here.</p>') +
+      '<h2 class="section-title">My pocketbook</h2>' +
+      (function () { var ks = savedSkills().map(skillById).filter(Boolean);
+        return ks.length ? '<div class="stack">' + ks.map(skillRow).join('') + '</div>' : '<p class="empty">Tap "Save to my pocketbook" on any skill to keep it here, ready for when you need it.</p>'; })();
     Array.prototype.forEach.call(view.querySelectorAll('[data-unsave]'), function (b) {
       b.addEventListener('click', function () {
         toggle('abg.savedAffirmations', affs[+b.getAttribute('data-unsave')]);
@@ -718,6 +889,120 @@
     });
   }
 
+  // ---------- the Toolkit (content lives in skills.json) ----------
+  function skillById(id) { return SKILLS.skills.filter(function (k) { return k.id === id; })[0]; }
+  function groupName(id) { var g = SKILLS.groups.filter(function (x) { return x.id === id; })[0]; return g ? g.name : ''; }
+  function savedSkills() { return store.get('abg.savedSkills', []); }
+  function skillRow(k) {
+    return '<a class="row-link" href="#skill-' + esc(k.id) + '">' +
+      '<span class="badge skill-badge">' + ICON.bag + '</span>' +
+      '<span class="text"><span class="meta skill-meta">Skill · ' + esc(groupName(k.group)) + '</span>' +
+      '<span class="title">' + esc(k.name) + '</span></span>' + ICON.chev + '</a>';
+  }
+  function skillsForTopic(topicId, n, seed) {
+    var list = SKILLS.skills.filter(function (k) { return k.topics.indexOf(topicId) !== -1; });
+    var start = list.length ? (seed % list.length) : 0;
+    return list.slice(start).concat(list.slice(0, start)).slice(0, n);
+  }
+  function viewToolkit() {
+    var filter = store.get('abg.toolkitFilter', 'all');
+    view.innerHTML =
+      navBar('#learn', 'Learn') +
+      '<div><h1 class="page-title">The Pocketbook</h1><p class="lede">Our grandmothers and aunties carried pocketbooks with exactly what you needed inside. This one holds coping skills you can pull out in the moment. Each card tells you what the skill is, when to use it and how to do it, step by step. Add your favorites to your pocketbook to find them fast.</p></div>' +
+      '<section class="filter-card">' +
+        '<label class="filter-label" for="skill-type">Type of skill</label>' +
+        '<div class="select-wrap"><select id="skill-type">' +
+          '<option value="all">All skills (' + SKILLS.skills.length + ')</option>' +
+          SKILLS.groups.map(function (g) {
+            var n = SKILLS.skills.filter(function (k) { return k.group === g.id; }).length;
+            return '<option value="' + esc(g.id) + '">' + esc(g.name) + ' (' + n + ')</option>';
+          }).join('') +
+        '</select>' + ICON.chev + '</div>' +
+        '<label class="filter-label" for="skill-topic">Helps with</label>' +
+        '<div class="select-wrap"><select id="skill-topic">' +
+          '<option value="all">Any topic</option>' +
+          DATA.topics.filter(function (t) { return SKILLS.skills.some(function (k) { return k.topics.indexOf(t.id) !== -1; }); })
+            .map(function (t) { return '<option value="' + esc(t.id) + '">' + esc(t.name) + '</option>'; }).join('') +
+        '</select>' + ICON.chev + '</div>' +
+      '</section>' +
+      '<p id="skill-summary" class="section-desc" aria-live="polite"></p>' +
+      '<div id="skill-list" class="stack"></div>' +
+      '<p class="disclaimer"><strong>Disclaimer:</strong> These skills are for learning and practice. They don\'t replace care from a licensed professional. If you\'re in crisis, call 911 or call/text 988.</p>';
+    var topic = store.get('abg.toolkitTopic', 'all');
+    var typeSel = document.getElementById('skill-type'), topicSel = document.getElementById('skill-topic');
+    typeSel.value = SKILLS.groups.some(function (g) { return g.id === filter; }) ? filter : 'all';
+    topicSel.value = topicSel.querySelector('option[value="' + topic + '"]') ? topic : 'all';
+    function show() {
+      filter = typeSel.value; topic = topicSel.value;
+      store.set('abg.toolkitFilter', filter); store.set('abg.toolkitTopic', topic);
+      var list = SKILLS.skills.filter(function (k) {
+        return (filter === 'all' || k.group === filter) && (topic === 'all' || k.topics.indexOf(topic) !== -1);
+      });
+      var g = SKILLS.groups.filter(function (x) { return x.id === filter; })[0], t = topicById(topic);
+      document.getElementById('skill-summary').textContent =
+        'Showing ' + list.length + (list.length === 1 ? ' skill' : ' skills') + (t ? ' for ' + t.name : '') + '. ' + (g ? g.desc : '');
+      document.getElementById('skill-list').innerHTML = list.length ? list.map(skillRow).join('')
+        : '<p class="empty">No skills match both choices yet. Try "Any topic" or "All skills."</p>';
+    }
+    typeSel.addEventListener('change', show);
+    topicSel.addEventListener('change', show);
+    show();
+  }
+  function shareSkill(k) {
+    var link = APP_URL + '/#skill-' + k.id;
+    var caption = 'A coping skill worth trying: ' + k.name + '. Get more skills like this free in the Anxious Black Girls® app.';
+    openSharePanel({
+      heading: 'Share this skill', imageText: k.name,
+      makeImage: function (format) {
+        return makeCardImage({ tag: 'Coping skill', color: '#E4E3CC', accent: '#D3B094', accentText: '#2B2118', meta: '1-minute practice', title: k.name,
+          excerpt: k.what + ' ' + k.steps.map(function (st, i) { return (i + 1) + '. ' + st; }).join(' '), cta: 'Get more skills like this in the app' }, format);
+      },
+      alt: 'Branded image with the skill name', file: 'anxious-black-girls-skill.png',
+      caption: caption + ' ' + link, link: link, linkHeading: 'Or post a link to this skill',
+      sendText: function () {
+        if (navigator.share) navigator.share({ title: k.name, text: caption, url: link }).catch(function () { copy(caption + ' ' + link); });
+        else copy(caption + ' ' + link);
+      }
+    });
+  }
+  function viewSkill(id) {
+    var k = skillById(id);
+    if (!k) { location.hash = '#pocketbook'; return; }
+    var isSaved = savedSkills().indexOf(id) !== -1;
+    function saveLabel(on) { return on ? 'In my pocketbook' : 'Save to my pocketbook'; }
+    function saveBtn(idAttr) { return '<button id="' + idAttr + '" class="btn save-btn pocket-btn" aria-pressed="' + isSaved + '">' + ICON.bag + '<span>' + saveLabel(isSaved) + '</span></button>'; }
+    var related = k.topics.map(topicById).filter(Boolean);
+    view.innerHTML =
+      navBar('#pocketbook', 'Back to the Pocketbook', '<div class="nav-actions"><button id="share-skill-top" class="btn icon-only" aria-label="Share this skill">' + ICON.share + '</button>' + saveBtn('save-skill-top') + '</div>') +
+      '<section class="skill-hero"><span class="skill-hero-label">' + ICON.bag + 'The Pocketbook · 1-minute skill</span>' +
+        '<h1>' + esc(k.name) + '</h1><p>' + esc(k.what) + '</p><span class="skill-hero-group">' + esc(groupName(k.group)) + '</span></section>' +
+      '<article class="prose skill-page">' +
+      '<div class="stack" style="gap:14px">' +
+      '<h2>When to use it</h2><p>' + esc(k.when) + '</p>' +
+      '<section class="skill"><span class="eyebrow">Try this</span><ol class="steps">' + k.steps.map(function (st) { return '<li>' + esc(st) + '</li>'; }).join('') + '</ol></section>' +
+      '<section class="keep-it"><span class="keep-icon" aria-hidden="true">' + ICON.bag + '</span><div><strong>Keep this one close.</strong>' +
+        '<p>Put it in your pocketbook so it\'s ready next time, or pass it to a friend who could use it.</p>' +
+        '</div><div class="keep-actions">' + saveBtn('save-skill-keep') + '<button id="share-skill-keep" class="btn save-btn">' + ICON.share + 'Share with a friend</button></div></section>' +
+      (k.lens ? '<aside class="lens"><span class="eyebrow">Through our lens</span><p>' + esc(k.lens) + '</p></aside>' : '') +
+      (related.length ? '<h2>Read more</h2><div class="stack">' + related.map(function (t) {
+        return '<a class="row-link" href="#topic-' + esc(t.id) + '"><span class="badge" style="background:' + esc(t.color) + '">' + esc(t.name.slice(0, 2).toUpperCase()) + '</span><span class="text"><span class="title">' + esc(t.name) + '</span></span>' + ICON.chev + '</a>';
+      }).join('') + '</div>' : '') +
+      '<h3>Source</h3><ul class="sources"><li>' + esc(k.source) + '</li></ul></div></article>' +
+      '<div class="article-end"><a class="btn" href="#pocketbook">More from the Pocketbook</a></div>' +
+      '<p class="disclaimer"><strong>Disclaimer:</strong> This is education, not therapy or medical advice. If you\'re in crisis, call 911 or call/text 988.</p>' +
+      reportIssue('skill', k.name, '#skill-' + k.id) +
+      '<p class="copyright">© 2026 Anxious Black Girls, LLC. All rights reserved.</p>';
+    ['share-skill-top', 'share-skill-keep'].forEach(function (sid) { document.getElementById(sid).addEventListener('click', function () { shareSkill(k); }); });
+    var btns = [document.getElementById('save-skill-top'), document.getElementById('save-skill-keep')];
+    btns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var on = toggle('abg.savedSkills', id);
+        btns.forEach(function (b) { b.setAttribute('aria-pressed', on); b.querySelector('span').textContent = saveLabel(on); });
+        toast(on ? 'Added to your pocketbook. Find it anytime in Saved.' : 'Taken out of your pocketbook');
+      });
+    });
+  }
+
   // ---------- router ----------
   function route() {
     var h = (location.hash || '#today').slice(1);
@@ -725,6 +1010,8 @@
     if (h === 'learn') { tab = 'learn'; viewLearn(); }
     else if (h.indexOf('topic-') === 0) { tab = 'learn'; viewTopic(h.slice(6)); }
     else if (h.indexOf('article-') === 0) { tab = 'learn'; viewArticle(h.slice(8)); }
+    else if (h === 'toolkit' || h === 'pocketbook') { tab = 'learn'; viewToolkit(); }
+    else if (h.indexOf('skill-') === 0) { tab = 'learn'; viewSkill(h.slice(6)); }
     else if (h === 'journal') { tab = 'journal'; pauseShownThisVisit = false; viewJournal(); }
     else if (h === 'saved') { tab = 'saved'; viewSaved(); }
     else if (h === 'help') { tab = 'help'; viewHelp(); }
@@ -770,9 +1057,10 @@
     fetch('articles.json').then(function (r) { return r.json(); }),
     fetch('journal-prompts.json').then(function (r) { return r.json(); }).catch(function () { return []; }),
     fetch('about.json').then(function (r) { return r.json(); }).catch(function () { return null; }),
-    fetch('faq.json').then(function (r) { return r.json(); }).catch(function () { return []; })
+    fetch('faq.json').then(function (r) { return r.json(); }).catch(function () { return []; }),
+    fetch('skills.json').then(function (r) { return r.json(); }).catch(function () { return { groups: [], skills: [] }; })
   ]).then(function (res) {
-    AFFIRMATIONS = res[0]; DATA = res[1]; PROMPTS = res[2]; ABOUT = res[3]; FAQ = res[4];
+    AFFIRMATIONS = res[0]; DATA = res[1]; PROMPTS = res[2]; ABOUT = res[3]; FAQ = res[4]; SKILLS = res[5];
     window.addEventListener('hashchange', route);
     route();
     if (NATIVE) NATIVE.reminder.schedule(AFFIRMATIONS);

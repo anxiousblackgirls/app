@@ -133,31 +133,36 @@
       "id": "anxiety-pray-about-it",
       "topic": "anxiety",
       "title": "\"Just pray about it\": faith, family and getting help",
-      "minutes": 3
+      "minutes": 3,
+      "audio": "audio-anxiety-pray-about-it.mp3"
     },
     {
       "id": "anxiety-only-one-in-the-room",
       "topic": "anxiety",
       "title": "Being the only one in the room",
-      "minutes": 3
+      "minutes": 3,
+      "audio": "audio-anxiety-only-one-in-the-room.mp3"
     },
     {
       "id": "anxiety-panic-attacks",
       "topic": "anxiety",
       "title": "Panic attacks: what's happening in your body",
-      "minutes": 3
+      "minutes": 3,
+      "audio": "audio-anxiety-panic-attacks.mp3"
     },
     {
       "id": "anxiety-news-and-racial-trauma",
       "topic": "anxiety",
       "title": "The news, viral videos and racial trauma",
-      "minutes": 3
+      "minutes": 3,
+      "audio": "audio-anxiety-news-and-racial-trauma.mp3"
     },
     {
       "id": "anxiety-no-without-a-speech",
       "topic": "anxiety",
       "title": "Saying no without a speech",
-      "minutes": 3
+      "minutes": 3,
+      "audio": "audio-anxiety-no-without-a-speech.mp3"
     },
     {
       "id": "depression-not-sad",
@@ -490,6 +495,12 @@
       "minutes": 3
     },
     {
+      "id": "achieving-where-it-starts",
+      "topic": "achieving",
+      "title": "Where the drive to achieve comes from",
+      "minutes": 3
+    },
+    {
       "id": "lgbtq-black-queer-whole",
       "topic": "lgbtq",
       "title": "Black, queer and whole",
@@ -583,6 +594,18 @@
       "id": "relationships-talking-to-family",
       "topic": "relationships",
       "title": "Talking to family about your mental health",
+      "minutes": 3
+    },
+    {
+      "id": "relationships-friendships-change",
+      "topic": "relationships",
+      "title": "Adult friendships: levels, seasons and being chosen",
+      "minutes": 3
+    },
+    {
+      "id": "relationships-fake-friends",
+      "topic": "relationships",
+      "title": "Fake friends, real anxiety: choosing your people",
       "minutes": 3
     },
     {
