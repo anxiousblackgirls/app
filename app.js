@@ -1029,6 +1029,7 @@
       navBar('#pocketbook', 'Back to the Pocketbook', '<div class="nav-actions"><button id="share-skill-top" class="btn icon-only" aria-label="Share this skill">' + ICON.share + '</button>' + saveBtn('save-skill-top') + '</div>') +
       '<section class="skill-hero"><span class="skill-hero-label">' + ICON.bag + 'The Pocketbook · 1-minute skill</span>' +
         '<h1>' + esc(k.name) + '</h1><p>' + esc(k.what) + '</p><span class="skill-hero-group">' + esc(groupName(k.group)) + '</span></section>' +
+      (k.video ? '<section class="skill-video"><span class="eyebrow">See it in action</span><video src="' + esc(k.video) + '" poster="' + esc(k.video.replace(/\.mp4$/, '.jpg')) + '" controls playsinline preload="none"></video></section>' : '') +
       '<article class="prose skill-page">' +
       '<div class="stack" style="gap:14px">' +
       '<h2>When to use it</h2><p>' + esc(k.when) + '</p>' +
