@@ -168,13 +168,15 @@
       "id": "depression-not-sad",
       "topic": "depression",
       "title": "Depression doesn't always look sad",
-      "minutes": 3
+      "minutes": 3,
+      "audio": "audio-depression-not-sad.mp3"
     },
     {
       "id": "depression-strong-black-woman",
       "topic": "depression",
       "title": "The cost of always being the strong one",
-      "minutes": 3
+      "minutes": 3,
+      "audio": "audio-depression-strong-black-woman.mp3"
     },
     {
       "id": "depression-postpartum",
