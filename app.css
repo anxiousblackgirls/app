@@ -511,6 +511,6 @@ main { display: flex; flex-direction: column; gap: 20px; padding-top: 8px; outli
 a.listen { text-decoration: none; color: var(--ink); }
 a.listen .listen-btn svg { width: 24px; height: 24px; }
 a.listen .listen-title { font-weight: 700; }
-.skill-video { margin: 4px 0 20px; background: var(--sage); border-radius: 24px; padding: 14px 14px 16px; }
+.skill-video { margin: 4px 0; background: var(--sage); border-radius: 24px; padding: 14px 14px 16px; }
 .skill-video .eyebrow { display: block; color: var(--sage-ink); margin: 2px 4px 10px; }
 .skill-video video { display: block; width: 100%; max-width: 230px; margin: 0 auto; aspect-ratio: 9 / 16; border-radius: 18px; background: var(--bg); box-shadow: 0 8px 24px rgba(80,55,20,.12); }
