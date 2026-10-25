@@ -1187,7 +1187,25 @@
   // ---------- Anxious Black Girls Plus (paid tier). Settings live in paid.json. ----------
   function plusIds() { return ((PAID && PAID.products) || []).map(function (p) { return p.id; }); }
   function hasPlus() { return store.get('abg.plus', false); }
-  function isLocked(item) { return !!(PAID && PAID.enabled && item && item.premium && !hasPlus()); }
+  // Free articles: 2 per topic. If a topic has narrated articles, its first narrated one is always one of the 2;
+  // the rest are the earliest articles in the topic. Skills use "premium": true in skills.json.
+  var freeArticleIds = null;
+  function freeArticles() {
+    if (freeArticleIds) return freeArticleIds;
+    freeArticleIds = {};
+    DATA.topics.forEach(function (t) {
+      var list = DATA.articles.filter(function (a) { return a.topic === t.id; });
+      var pick = list.filter(function (a) { return a.audio; }).slice(0, 1);
+      list.forEach(function (a) { if (pick.length < 2 && pick.indexOf(a) === -1) pick.push(a); });
+      pick.forEach(function (a) { freeArticleIds[a.id] = true; });
+    });
+    return freeArticleIds;
+  }
+  function isLocked(item) {
+    if (!(PAID && PAID.enabled && item) || hasPlus()) return false;
+    if (item.topic && item.minutes) return !freeArticles()[item.id];
+    return !!item.premium;
+  }
   function checkPlus() {
     if (!NATIVE || !PAID || !plusIds().length) return;
     NATIVE.purchases.owned(plusIds()).then(function (on) { store.set('abg.plus', on); });
@@ -1453,6 +1471,7 @@
     fetch('skills.json').then(function (r) { return r.json(); }).catch(function () { return { groups: [], skills: [] }; }),
     fetch('paid.json').then(function (r) { return r.json(); }).catch(function () { return null; })
   ]).then(function (res) {
+    freeArticleIds = null;
     AFFIRMATIONS = res[0]; DATA = res[1]; PROMPTS = res[2]; ABOUT = res[3]; FAQ = res[4]; SKILLS = res[5]; PAID = res[6];
     checkPlus();
     window.addEventListener('hashchange', route);

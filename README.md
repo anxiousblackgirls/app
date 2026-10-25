@@ -34,7 +34,7 @@ Settings live in `paid.json`:
 
 Custom reminders (Today → Your reminders) are a Plus feature: free while `enabled` is `false`, locked for non-subscribers once it is `true`.
 
-To make an article or skill part of Plus, add `"premium": true` to it in `articles.json` or `skills.json`. Nothing is locked unless `enabled` is `true`.
+Articles: 2 per topic are free. If a topic has narrated articles, its first narrated article is always one of the 2; the other is the earliest article in the topic. To make a skill part of Plus, add `"premium": true` to it in `skills.json`. Nothing is locked unless `enabled` is `true`.
 
 ## Add an article
 

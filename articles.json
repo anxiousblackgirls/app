@@ -141,32 +141,28 @@
       "topic": "anxiety",
       "title": "Being the only one in the room",
       "minutes": 3,
-      "audio": "audio-anxiety-only-one-in-the-room.mp3",
-      "premium": true
+      "audio": "audio-anxiety-only-one-in-the-room.mp3"
     },
     {
       "id": "anxiety-panic-attacks",
       "topic": "anxiety",
       "title": "Panic attacks: what's happening in your body",
       "minutes": 3,
-      "audio": "audio-anxiety-panic-attacks.mp3",
-      "premium": true
+      "audio": "audio-anxiety-panic-attacks.mp3"
     },
     {
       "id": "anxiety-news-and-racial-trauma",
       "topic": "anxiety",
       "title": "The news, viral videos and racial trauma",
       "minutes": 3,
-      "audio": "audio-anxiety-news-and-racial-trauma.mp3",
-      "premium": true
+      "audio": "audio-anxiety-news-and-racial-trauma.mp3"
     },
     {
       "id": "anxiety-no-without-a-speech",
       "topic": "anxiety",
       "title": "Saying no without a speech",
       "minutes": 3,
-      "audio": "audio-anxiety-no-without-a-speech.mp3",
-      "premium": true
+      "audio": "audio-anxiety-no-without-a-speech.mp3"
     },
     {
       "id": "depression-not-sad",
@@ -184,22 +180,19 @@
       "id": "depression-postpartum",
       "topic": "depression",
       "title": "Postpartum depression in Black mothers",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "depression-in-your-body",
       "topic": "depression",
       "title": "Depression in your body, and getting doctors to listen",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "depression-rest-as-resistance",
       "topic": "depression",
       "title": "Rest as resistance",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "burnout-not-a-personal-failure",
@@ -217,22 +210,19 @@
       "id": "burnout-stress-and-your-heart",
       "topic": "burnout",
       "title": "Chronic stress and your heart",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "burnout-caregiving",
       "topic": "burnout",
       "title": "Caregiver burnout and the sandwich generation",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "burnout-recovery",
       "topic": "burnout",
       "title": "How to actually recover from burnout",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "grief-we-lose-more",
@@ -250,22 +240,19 @@
       "id": "grief-unspoken-losses",
       "topic": "grief",
       "title": "The losses no one names",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "grief-collective-loss",
       "topic": "grief",
       "title": "Collective grief: when our community hurts",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "grief-when-it-doesnt-ease",
       "topic": "grief",
       "title": "When grief doesn't ease",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "racial-trauma-what-it-is",
@@ -283,22 +270,19 @@
       "id": "racial-trauma-health-care",
       "topic": "racial-trauma",
       "title": "Being believed in health care",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "racial-trauma-misogynoir-online",
       "topic": "racial-trauma",
       "title": "Misogynoir and the comments section",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "racial-trauma-healing",
       "topic": "racial-trauma",
       "title": "Healing from racial trauma",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "peri-what-it-is",
@@ -316,22 +300,19 @@
       "id": "peri-fibroids-and-fatigue",
       "topic": "perimenopause",
       "title": "Fibroids, heavy periods and exhaustion",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "peri-sleep",
       "topic": "perimenopause",
       "title": "Night sweats and the 3 a.m. mind",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "peri-being-heard",
       "topic": "perimenopause",
       "title": "Getting your doctor to take menopause seriously",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "bipolar-more-than-mood-swings",
@@ -349,22 +330,19 @@
       "id": "bipolar-early-warning-signs",
       "topic": "bipolar",
       "title": "Spotting the early signs of an episode",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "bipolar-family-and-faith",
       "topic": "bipolar",
       "title": "Bipolar disorder, family and faith",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "bipolar-living-well",
       "topic": "bipolar",
       "title": "Living well with bipolar disorder",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "bpd-when-emotions-hit-hard",
@@ -382,22 +360,19 @@
       "id": "bpd-love-and-fear-of-leaving",
       "topic": "bpd",
       "title": "Loving someone and fearing they'll leave",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "bpd-diagnosis-and-bias",
       "topic": "bpd",
       "title": "BPD, bias and getting the right diagnosis",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "bpd-skills-to-start",
       "topic": "bpd",
       "title": "DBT skills you can start today",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "adhd-too-much",
@@ -415,22 +390,19 @@
       "id": "adhd-big-emotions",
       "topic": "adhd",
       "title": "ADHD and big emotions",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "adhd-hormones",
       "topic": "adhd",
       "title": "ADHD, your cycle and menopause",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "adhd-medication-choices",
       "topic": "adhd",
       "title": "ADHD medication: myths, facts and your choice",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "autism-late-diagnosis",
@@ -448,22 +420,19 @@
       "id": "autism-burnout",
       "topic": "autism",
       "title": "Autistic burnout",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "autism-sensory-life",
       "topic": "autism",
       "title": "Hair, church and cookouts: sensory life",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "autism-anxiety-and-depression",
       "topic": "autism",
       "title": "When autism hides behind anxiety or depression",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "audhd-what-it-means",
@@ -481,22 +450,19 @@
       "id": "audhd-executive-function",
       "topic": "audhd",
       "title": "Executive function: why starting is so hard",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "audhd-masking-and-code-switching",
       "topic": "audhd",
       "title": "Masking, code-switching and the triple performance",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "audhd-late-diagnosis-grief",
       "topic": "audhd",
       "title": "Relief and grief after a late diagnosis",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "achieving-john-henryism",
@@ -514,29 +480,25 @@
       "id": "achieving-who-am-i",
       "topic": "achieving",
       "title": "Who am I when I'm not achieving?",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "achieving-superwoman-health",
       "topic": "achieving",
       "title": "What the Superwoman role costs your body",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "achieving-shifting-identities",
       "topic": "achieving",
       "title": "Shifting identities at work",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "achieving-where-it-starts",
       "topic": "achieving",
       "title": "Where the drive to achieve comes from",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "lgbtq-black-queer-whole",
@@ -554,22 +516,19 @@
       "id": "lgbtq-faith-and-sexuality",
       "topic": "lgbtq",
       "title": "Faith and sexuality",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "lgbtq-black-trans-women",
       "topic": "lgbtq",
       "title": "Black trans women's mental health",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "lgbtq-affirming-care-and-community",
       "topic": "lgbtq",
       "title": "Finding affirming care and community",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "transitions-becoming-a-mother",
@@ -587,22 +546,19 @@
       "id": "transitions-divorce",
       "topic": "transitions",
       "title": "Divorce and the end of a relationship",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "transitions-aging",
       "topic": "transitions",
       "title": "Aging and the truth behind 'Black don't crack'",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "transitions-higher-ed-pressure",
       "topic": "transitions",
       "title": "Higher ed pressure and being first",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "relationships-mothers-and-daughters",
@@ -620,43 +576,37 @@
       "id": "relationships-generational-trauma",
       "topic": "relationships",
       "title": "Generational trauma and breaking the cycle",
-      "minutes": 4,
-      "premium": true
+      "minutes": 4
     },
     {
       "id": "relationships-anxiety-in-black-families",
       "topic": "relationships",
       "title": "How anxiety shows up in Black families",
-      "minutes": 4,
-      "premium": true
+      "minutes": 4
     },
     {
       "id": "relationships-anxiety-in-love",
       "topic": "relationships",
       "title": "How anxiety shows up in love",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "relationships-talking-to-family",
       "topic": "relationships",
       "title": "Talking to family about your mental health",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "relationships-friendships-change",
       "topic": "relationships",
       "title": "Adult friendships: levels, seasons and being chosen",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "relationships-fake-friends",
       "topic": "relationships",
       "title": "Fake friends, real anxiety: choosing your people",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "boundaries-why-so-hard",
@@ -674,22 +624,19 @@
       "id": "boundaries-work",
       "topic": "boundaries",
       "title": "Boundaries at work",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "boundaries-love-and-friendship",
       "topic": "boundaries",
       "title": "Boundaries in love and friendship",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "boundaries-digital",
       "topic": "boundaries",
       "title": "Digital boundaries: phones, group chats and news",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "pcos-what-it-is",
@@ -707,22 +654,19 @@
       "id": "pcos-being-believed",
       "topic": "pcos",
       "title": "When your doctor doesn't listen",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "pcos-hair-skin-and-self",
       "topic": "pcos",
       "title": "PCOS, hair, skin and how you see yourself",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "pcos-food-and-body",
       "topic": "pcos",
       "title": "PCOS, food and weight talk",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "infertility-in-silence",
@@ -740,22 +684,19 @@
       "id": "infertility-finding-care",
       "topic": "infertility",
       "title": "Finding fertility care that sees you",
-      "minutes": 4,
-      "premium": true
+      "minutes": 4
     },
     {
       "id": "infertility-pregnancy-loss",
       "topic": "infertility",
       "title": "Miscarriage and the grief no one talks about",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "infertility-partner-and-family",
       "topic": "infertility",
       "title": "Infertility, your partner and everyone else",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "mother-redefining",
@@ -773,29 +714,25 @@
       "id": "mother-postpartum",
       "topic": "motherhood",
       "title": "After the baby: postpartum and being heard",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "mother-single",
       "topic": "motherhood",
       "title": "Single motherhood without the stereotypes",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "mother-no-village",
       "topic": "motherhood",
       "title": "Mothering without a village",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "mother-layoffs",
       "topic": "motherhood",
       "title": "Losing your job while raising kids",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "childfree-choosing",
@@ -813,22 +750,19 @@
       "id": "childfree-legacy-and-aging",
       "topic": "childfree",
       "title": "Legacy, aging and \"who will take care of you?\"",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "childfree-fear-and-reasons",
       "topic": "childfree",
       "title": "When fear is part of the decision",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     },
     {
       "id": "childfree-unsure",
       "topic": "childfree",
       "title": "Not sure if you want kids",
-      "minutes": 3,
-      "premium": true
+      "minutes": 3
     }
   ]
 }
