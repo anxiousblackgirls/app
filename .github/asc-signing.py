@@ -98,6 +98,7 @@ if status not in (200, 201):
 attrs = res["data"]["attributes"]
 uuid = attrs["uuid"]
 open(os.path.join(TMP, "profile.mobileprovision"), "wb").write(base64.b64decode(attrs["profileContent"]))
+open(os.path.join(TMP, "profile_uuid.txt"), "w").write(uuid)
 
 with open(os.environ["GITHUB_OUTPUT"], "a") as out:
     out.write("profile_uuid=%s\nprofile_name=%s\n" % (uuid, PROFILE_NAME))

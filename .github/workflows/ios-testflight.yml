@@ -112,7 +112,9 @@ jobs:
           security import "$RUNNER_TEMP/signing.p12" -k "$KC" -P abg-ci -A -t cert -f pkcs12
           security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k abg-ci "$KC" > /dev/null
           security list-keychains -d user -s "$KC" $(security list-keychains -d user | tr -d '"')
-          UUID=$(grep -a -A1 "<key>UUID</key>" "$RUNNER_TEMP/profile.mobileprovision" | grep -o "[0-9A-Fa-f-]\{36\}" | head -1)
+          UUID=$(cat "$RUNNER_TEMP/profile_uuid.txt")
+          security cms -D -i "$RUNNER_TEMP/profile.mobileprovision" > "$RUNNER_TEMP/profile.plist"
+          echo "::notice::Profile installed: $(/usr/libexec/PlistBuddy -c 'Print :Name' "$RUNNER_TEMP/profile.plist") / $(/usr/libexec/PlistBuddy -c 'Print :UUID' "$RUNNER_TEMP/profile.plist") / team $(/usr/libexec/PlistBuddy -c 'Print :TeamIdentifier:0' "$RUNNER_TEMP/profile.plist")"
           for d in "$HOME/Library/MobileDevice/Provisioning Profiles" "$HOME/Library/Developer/Xcode/UserData/Provisioning Profiles"; do
             mkdir -p "$d"; cp "$RUNNER_TEMP/profile.mobileprovision" "$d/$UUID.mobileprovision"
           done
@@ -125,7 +127,7 @@ jobs:
             <key>teamID</key><string>$APPLE_TEAM_ID</string>
             <key>signingStyle</key><string>manual</string>
             <key>signingCertificate</key><string>Apple Distribution</string>
-            <key>provisioningProfiles</key><dict><key>com.anxiousblackgirls.app</key><string>${{ steps.sign.outputs.profile_name }}</string></dict>
+            <key>provisioningProfiles</key><dict><key>com.anxiousblackgirls.app</key><string>$UUID</string></dict>
             <key>uploadSymbols</key><true/>
           </dict></plist>
           PLIST
@@ -144,7 +146,7 @@ jobs:
             exit 65
           }
           PBX=ios/App/App.xcodeproj/project.pbxproj
-          sed -i '' -e 's/CODE_SIGN_STYLE = Automatic;/CODE_SIGN_STYLE = Manual; DEVELOPMENT_TEAM = '"$APPLE_TEAM_ID"'; PROVISIONING_PROFILE_SPECIFIER = "${{ steps.sign.outputs.profile_name }}";/' \
+          sed -i '' -e 's/CODE_SIGN_STYLE = Automatic;/CODE_SIGN_STYLE = Manual; DEVELOPMENT_TEAM = '"$APPLE_TEAM_ID"'; PROVISIONING_PROFILE_SPECIFIER = "${{ steps.sign.outputs.profile_uuid }}";/' \
             -e 's/CODE_SIGN_IDENTITY = "iPhone Developer";/CODE_SIGN_IDENTITY = "Apple Distribution";/' "$PBX"
           xcodebuild -project ios/App/App.xcodeproj -scheme App -configuration Release \
             -destination 'generic/platform=iOS' -archivePath "$RUNNER_TEMP/App.xcarchive" \
