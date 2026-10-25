@@ -331,6 +331,7 @@
           '<a class="btn small" target="_blank" rel="noopener" href="https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(APP_LINK) + '">LinkedIn</a>' +
         '</div>' +
         '<button id="share-text" class="btn">Copy or send as text</button>' +
+        '<button id="share-done" class="btn share-done">Close</button>' +
       '</div>';
     document.body.appendChild(el);
     var img = el.querySelector('#share-img');
@@ -351,6 +352,7 @@
       try { return navigator.canShare({ files: [new File([blob], 'affirmation.png', { type: 'image/png' })] }); } catch (e) { return false; }
     }
     el.querySelector('#share-close').addEventListener('click', close);
+    el.querySelector('#share-done').addEventListener('click', close);
     el.addEventListener('click', function (e) { if (e.target === el) close(); });
     Array.prototype.forEach.call(el.querySelectorAll('[data-format]'), function (b) {
       b.addEventListener('click', function () {
