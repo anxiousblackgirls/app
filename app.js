@@ -1237,13 +1237,15 @@
 
   // ---------- reminders she sets herself (Plus; phone app only) ----------
   var STARTERS = [
-    { key: 'meds', title: 'Take my meds', note: 'Future you says thank you.', time: '09:00', repeat: 'daily' },
-    { key: 'water', title: 'Drink some water', note: 'Your brain runs better hydrated.', time: '11:00', repeat: 'daily' },
-    { key: 'eat', title: 'Eat something', note: 'Hunger can feel like anxiety. Feed yourself first.', time: '13:00', repeat: 'daily' },
-    { key: 'task', title: 'Start the thing I\'ve been avoiding', note: 'Just five minutes. Set a timer and begin.', time: '10:00', repeat: 'weekdays' },
-    { key: 'move', title: 'Move my body', note: 'A short walk counts.', time: '16:00', repeat: 'daily' },
-    { key: 'calendar', title: 'Check tomorrow\'s calendar', note: 'No surprises in the morning.', time: '20:00', repeat: 'weekdays' },
-    { key: 'wind', title: 'Wind down for bed', note: 'Screens down, lights low. Rest is part of the work.', time: '22:00', repeat: 'daily' }
+    { key: 'meds', title: 'Take your meds, girl', note: 'Future you is already saying thank you.', time: '09:00', repeat: 'daily' },
+    { key: 'email', title: 'Did you send that email? Do it now!', note: 'Done beats perfect. Hit send.', time: '10:00', repeat: 'weekdays' },
+    { key: 'water', title: 'Water break, girl', note: 'Your brain runs better hydrated. Drink up.', time: '11:00', repeat: 'daily' },
+    { key: 'eat', title: 'Did you eat today?', note: 'Coffee is not a meal. Feed yourself something real.', time: '13:00', repeat: 'daily' },
+    { key: 'task', title: 'Start the thing you\'ve been avoiding', note: 'Five minutes. Set a timer and go. You got this.', time: '14:00', repeat: 'weekdays' },
+    { key: 'move', title: 'Get up and move a little', note: 'Walk, stretch, dance in the kitchen. It all counts.', time: '16:00', repeat: 'daily' },
+    { key: 'call', title: 'Call your mama back', note: 'You know she\'s been waiting.', time: '18:00', repeat: 'once' },
+    { key: 'calendar', title: 'Check tomorrow\'s calendar', note: 'No surprises in the morning. Lay it out tonight.', time: '20:00', repeat: 'weekdays' },
+    { key: 'wind', title: 'Bonnet on, phone down', note: 'Rest is part of the work. Wind it down.', time: '22:00', repeat: 'daily' }
   ];
   var DAY_NAMES = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   function plusFeatureLocked() { return !!(PAID && PAID.enabled && !hasPlus()); }
@@ -1251,7 +1253,7 @@
     var t = fmtTime(r.time || '09:00');
     if (r.repeat === 'once') {
       var d = (r.date || '').split('-');
-      var when = d.length === 3 ? new Date(+d[0], +d[1] - 1, +d[2]).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }) : 'once';
+      var when = d.length === 3 ? new Date(+d[0], +d[1] - 1, +d[2]).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }) : 'Just once';
       return when + ' at ' + t;
     }
     if (r.repeat === 'daily') return 'Every day at ' + t;
