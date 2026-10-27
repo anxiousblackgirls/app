@@ -1024,7 +1024,7 @@
       '<a class="btn dark" href="#plus">See what\'s included</a></div></section>';
   }
   function practicePrompts(k) {
-    if (k.practice) return k.practice.map(function (p) { return { label: p.label, hint: p.hint, write: true }; });
+    if (k.practice) return k.practice.map(function (p) { return { label: p.label, hint: p.hint, write: !p.check }; });
     return k.steps.map(function (st) { return { label: st, write: false }; }).concat([{ label: 'How do you feel now?', hint: 'A word or two is enough.', write: true }]);
   }
   function practiceList(k) { return store.get('abg.practice.' + k.id, []); }
