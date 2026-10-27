@@ -1362,7 +1362,7 @@
       navBar('#today', 'Home') +
       '<section class="plus-hero"><span class="eyebrow">' + esc(p.name || '') + '</span>' +
         '<h1 class="page-title">' + esc(p.tagline || '') + '</h1>' +
-        '<ul class="plus-benefits">' + (p.benefits || []).map(function (b) { return '<li>' + esc(b) + '</li>'; }).join('') + '</ul></section>' +
+        '<ul class="plus-benefits">' + (p.benefits || []).map(function (b) { return typeof b === 'string' ? '<li>' + esc(b) + '</li>' : '<li><strong>' + esc(b.title) + '</strong><span>' + esc(b.text) + '</span></li>'; }).join('') + '</ul></section>' +
       (hasPlus()
         ? '<p class="soon-note">You have ' + esc(p.name) + '. Thank you for supporting this work.</p><button id="plus-manage" class="btn">Manage subscription</button>'
         : '<div class="stack" id="plus-options">' + (p.products || []).map(function (pr) {

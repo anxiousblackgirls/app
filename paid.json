@@ -5,12 +5,26 @@
   "name": "Anxious Black Girls Plus",
   "tagline": "More support, whenever you need it.",
   "benefits": [
-    "Every article in all 20 topics, with audio as it's added",
-    "All 57 coping skills in the Pocketbook",
-    "Skill videos and a practice space to work through every skill",
-    "A practice space for every skill, saved on your phone",
-    "Your own reminders for meds, meals, tasks, and texts you keep forgetting",
-    "Support a Black woman-owned mental health company"
+    {
+      "title": "Every article, unlocked",
+      "text": "All 106 articles across 20 topics, from anxiety and burnout to PCOS, motherhood and grief. Press play on the ones with audio."
+    },
+    {
+      "title": "The full Pocketbook",
+      "text": "All 57 coping skills instead of 20. Something for the work meeting, the family group chat and the 2 a.m. spiral."
+    },
+    {
+      "title": "Watch it, then practice it",
+      "text": "Short videos show each skill in a real moment. Then work through it step by step and save your practices."
+    },
+    {
+      "title": "Reminders that sound like a friend",
+      "text": "Meds, water, meals, the text you keep leaving on read. Pick your times and snooze when life happens."
+    },
+    {
+      "title": "Support that stays in the community",
+      "text": "Your subscription keeps a Black woman-owned mental health company going, and pays for new articles, audio and skills."
+    }
   ],
   "products": [
     {
