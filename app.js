@@ -74,6 +74,7 @@
   }
 
   var ICON = {
+    pencil: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>',
     bag: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 9V7.5a3.5 3.5 0 0 1 7 0V9"/><path class="bag-body" d="M4.6 9h14.8l-1.1 10.1a2 2 0 0 1-2 1.9H7.7a2 2 0 0 1-2-1.9z"/><path d="M10.5 13h3"/></svg>',
     spark: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6.3 6.3l2.5 2.5M15.2 15.2l2.5 2.5M6.3 17.7l2.5-2.5M15.2 8.8l2.5-2.5"/></svg>',
     play: '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg>',
@@ -431,15 +432,55 @@
     return '<button id="' + idAttr + '" class="btn save-btn" aria-pressed="' + on + '">' + ICON.heart + '<span>' + (on ? 'Saved' : 'Save article') + '</span></button>';
   }
 
+  // ---------- Greeting on Today (owner: let people choose; saved only on this phone) ----------
+  function greetingPrefs() { var g = store.get('abg.greeting', null); return g && typeof g === 'object' ? g : { style: 'classic', name: '' }; }
+  function timeOfDay(d) { var h = (d || new Date()).getHours(); return h >= 5 && h < 12 ? 'Good morning' : h >= 12 && h < 17 ? 'Good afternoon' : h >= 17 && h < 21 ? 'Good evening' : 'Good night'; }
+  function greetingText(g, d) {
+    g = g || greetingPrefs();
+    var name = String(g.name || '').trim();
+    if (g.style === 'time') return timeOfDay(d) + (name ? ', ' + name : '') + ',';
+    return 'To My Anxious Black Girl,';
+  }
+  function viewGreeting() {
+    var g = greetingPrefs();
+    view.innerHTML = navBar('#today', 'Back to Today') +
+      '<div><h1 class="page-title">Your greeting</h1><p class="lede">Choose how the app says hello on the Today page. Your name stays on this phone.</p></div>' +
+      '<div class="greet-options" role="radiogroup" aria-label="Greeting style">' +
+        '<button class="greet-opt" role="radio" data-style="classic"><span class="greet-preview">To My Anxious Black Girl,</span><span class="greet-desc">The classic</span></button>' +
+        '<button class="greet-opt" role="radio" data-style="time"><span class="greet-preview" id="greet-time-preview"></span><span class="greet-desc">Changes with the time of day: morning, afternoon, evening and night</span></button>' +
+      '</div>' +
+      '<div class="greet-name" id="greet-name-box"><label for="greet-name">What should we call you?</label>' +
+        '<input id="greet-name" type="text" maxlength="30" autocomplete="given-name" autocapitalize="words" placeholder="Your first name or nickname" value="' + esc(g.name || '') + '">' +
+        '<p class="greet-hint">Optional. Leave it blank and we\'ll just say "Good morning."</p></div>' +
+      '<button id="greet-save" class="btn dark" style="width:100%">Save my greeting</button>';
+    var style = g.style === 'time' ? 'time' : 'classic';
+    var nameEl = document.getElementById('greet-name');
+    function paint() {
+      document.getElementById('greet-time-preview').textContent = greetingText({ style: 'time', name: nameEl.value });
+      Array.prototype.forEach.call(view.querySelectorAll('.greet-opt'), function (b) { b.setAttribute('aria-checked', b.getAttribute('data-style') === style); });
+      document.getElementById('greet-name-box').hidden = style !== 'time';
+    }
+    Array.prototype.forEach.call(view.querySelectorAll('.greet-opt'), function (b) {
+      b.addEventListener('click', function () { style = b.getAttribute('data-style'); paint(); if (style === 'time') nameEl.focus(); });
+    });
+    nameEl.addEventListener('input', paint);
+    paint();
+    document.getElementById('greet-save').addEventListener('click', function () {
+      store.set('abg.greeting', { style: style, name: nameEl.value.trim().slice(0, 30) });
+      location.hash = '#today';
+      toast('Greeting saved');
+    });
+  }
+
   function viewToday() {
     var n = dayNumber();
     var aff = affirmationFor(new Date(), AFFIRMATIONS);
     var art = DATA.articles[n % DATA.articles.length];
-    var hello = 'To My Anxious Black Girl,';
+    var hello = esc(greetingText());
     var date = new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
     var isSaved = savedAffs().indexOf(aff.text) !== -1;
     view.innerHTML =
-      '<div><div class="date">' + esc(date) + '</div><h1 class="greeting">' + hello + '</h1>' +
+      '<div><div class="date">' + esc(date) + '</div><h1 class="greeting">' + hello + ' <a class="greeting-edit" href="#greeting" aria-label="Change your greeting">' + ICON.pencil + '</a></h1>' +
         (daysWithUs() >= 2 ? '<p class="days-with-us">' + ICON.spark + 'You\'ve shown up for yourself ' + daysWithUs() + ' days</p>' : '') + '</div>' +
       '<section class="affirmation" aria-label="Today\'s affirmation">' +
         '<span class="eyebrow">Today\'s affirmation</span>' +
@@ -883,7 +924,7 @@
       '<a class="row-link faq-tile" href="#faq"><span class="badge" style="background:var(--gold-soft)">?</span><span class="text"><span class="title">Frequently asked questions</span><span class="lede" style="margin:0">Plus, privacy, your journal and more</span></span>' + ICON.chev + '</a>' +
       '<h2 class="section-title">Privacy and settings</h2>' +
       '<p class="lede" style="margin-top:-4px">No account, no tracking. Everything you write and save stays on this phone.</p>' +
-      '<div class="settings">' + (NATIVE ? lockSetting() : '') +
+      '<div class="settings">' + '<a class="setting-row" href="#greeting"><div class="text"><span class="title">Your greeting</span><span class="lede" style="margin:0">' + esc(greetingText()) + '</span></div>' + ICON.chev + '</a>' + (NATIVE ? lockSetting() : '') +
         (PAID && (PAID.enabled || PAID.preview) ? '<a class="setting-row" href="#plus"><div class="text"><span class="title">' + esc(PAID.name) + '</span><span class="lede" style="margin:0">' + (PAID.enabled ? 'See what\'s included' : 'Preview of the paid screen (test builds only)') + '</span></div>' + ICON.chev + '</a>' : '') +
         deleteSetting() + '</div>' +
       '<p class="disclaimer">This app offers education and encouragement. It is not therapy and does not replace care from a licensed professional.</p>' +
@@ -1525,6 +1566,7 @@
     else if (h === 'help') { tab = 'help'; viewHelp(); }
     else if (h === 'about') { tab = 'about'; viewAbout(); }
     else if (h === 'faq') { tab = 'help'; viewFaq(); }
+    else if (h === 'greeting') { tab = 'today'; viewGreeting(); }
     else { viewToday(); }
     Array.prototype.forEach.call(document.querySelectorAll('.tab'), function (a) {
       if (a.getAttribute('data-tab') === tab) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');

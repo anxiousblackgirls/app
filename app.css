@@ -553,3 +553,18 @@ a.listen .listen-title { font-weight: 700; }
 .prose .extras-text h2 { margin: 4px 0 6px; font-size: 18px; line-height: 1.25; }
 .prose .extras-text p { margin: 0 0 12px; font-size: 14px; line-height: 1.45; }
 .extras-text .btn { min-height: 42px; font-size: 14px; }
+/* Custom greeting */
+.greeting-edit { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 50%; color: var(--gold-deep); vertical-align: middle; margin-left: 2px; }
+.greeting-edit svg { width: 18px; height: 18px; }
+.greeting-edit:hover, .greeting-edit:focus-visible { background: var(--gold-soft); }
+.greet-options { display: flex; flex-direction: column; gap: 12px; }
+.greet-opt { text-align: left; background: var(--surface); border: 2px solid var(--line); border-radius: 20px; padding: 16px 18px; display: flex; flex-direction: column; gap: 4px; cursor: pointer; font: inherit; color: var(--ink); }
+.greet-opt[aria-checked="true"] { border-color: var(--gold-deep); background: #FFFBF3; box-shadow: 0 0 0 3px var(--gold-soft); }
+.greet-preview { font-family: var(--font-display); font-weight: 800; font-size: 22px; line-height: 1.2; }
+.greet-desc { font-size: 14px; color: var(--muted); }
+.greet-name { margin-top: 18px; display: flex; flex-direction: column; gap: 8px; }
+.greet-name label { font-weight: 700; }
+.greet-name input { font: 17px var(--font-body); padding: 14px; border: 1.5px solid var(--line); border-radius: 14px; background: var(--surface); color: var(--ink); }
+.greet-name input:focus { outline: 3px solid var(--gold-deep); outline-offset: 1px; }
+.greet-hint { margin: 0; font-size: 13px; color: var(--muted); }
+#greet-save { margin-top: 20px; }
