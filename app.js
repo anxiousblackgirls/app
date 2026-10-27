@@ -491,7 +491,6 @@
           '<button id="share-aff" class="btn">' + ICON.share + 'Share</button>' +
         '</div>' +
       '</section>' +
-      (NATIVE ? reminderCard() + remindersCard() : '') +
       '<section class="mind-card" aria-labelledby="mind-title">' +
         '<h2 id="mind-title" class="section-title">What\'s on your mind today?</h2>' +
         (PROMPTS.length ? '<p class="mind-prompt">' + esc(PROMPTS[n % PROMPTS.length]) + '</p>' : '') +
@@ -520,7 +519,6 @@
       if (on) setTimeout(maybeAskForRating, 2500);
     });
     document.getElementById('share-aff').addEventListener('click', function () { openShareSheet(aff); });
-    if (NATIVE) wireReminder();
     document.getElementById('mind-prompt').addEventListener('click', function () { store.set('abg.journalMode', 'prompt'); });
     document.getElementById('mind-free').addEventListener('click', function () { store.set('abg.journalMode', 'free'); });
     document.getElementById('topic-pick').addEventListener('change', function () {
@@ -924,7 +922,7 @@
       '<a class="row-link faq-tile" href="#faq"><span class="badge" style="background:var(--gold-soft)">?</span><span class="text"><span class="title">Frequently asked questions</span><span class="lede" style="margin:0">Plus, privacy, your journal and more</span></span>' + ICON.chev + '</a>' +
       '<h2 class="section-title">Privacy and settings</h2>' +
       '<p class="lede" style="margin-top:-4px">No account, no tracking. Everything you write and save stays on this phone.</p>' +
-      '<div class="settings">' + '<a class="setting-row" href="#greeting"><div class="text"><span class="title">Your greeting</span><span class="lede" style="margin:0">' + esc(greetingText()) + '</span></div>' + ICON.chev + '</a>' + (NATIVE ? lockSetting() : '') +
+      '<div class="settings">' + '<a class="setting-row" href="#greeting"><div class="text"><span class="title">Your greeting</span><span class="lede" style="margin:0">' + esc(greetingText()) + '</span></div>' + ICON.chev + '</a>' + (NATIVE ? reminderCard() + remindersCard() + lockSetting() : '') +
         (PAID && (PAID.enabled || PAID.preview) ? '<a class="setting-row" href="#plus"><div class="text"><span class="title">' + esc(PAID.name) + '</span><span class="lede" style="margin:0">' + (PAID.enabled ? 'See what\'s included' : 'Preview of the paid screen (test builds only)') + '</span></div>' + ICON.chev + '</a>' : '') +
         deleteSetting() + '</div>' +
       '<p class="disclaimer">This app offers education and encouragement. It is not therapy and does not replace care from a licensed professional.</p>' +
@@ -934,7 +932,7 @@
         '<a href="https://www.anxiousblackgirls.com/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a>' +
       '</div>' +
       '<p class="copyright">© 2026 Anxious Black Girls, LLC. All rights reserved.</p>';
-    if (NATIVE) wireLockSetting();
+    if (NATIVE) { wireReminder(); wireLockSetting(); }
     wireDeleteSetting();
   }
 
@@ -945,14 +943,14 @@
   }
   function reminderCard() {
     var r = NATIVE.reminder.get();
-    return '<section class="reminder-card" aria-labelledby="rem-title">' +
-      '<div class="reminder-text"><h2 id="rem-title" class="reminder-title">Daily affirmation reminder</h2>' +
-      '<p id="rem-status" class="reminder-status">' + (r.on ? 'On at ' + esc(fmtTime(r.time)) : 'Off') + '</p></div>' +
+    return '<div class="setting-row reminder-row">' +
+      '<div class="text"><span class="title" id="rem-title">Daily affirmation reminder</span>' +
+      '<span id="rem-status" class="lede" style="margin:0">' + (r.on ? 'On at ' + esc(fmtTime(r.time)) : 'Off') + '</span></div>' +
       '<div class="reminder-controls">' +
         '<label class="sr" for="rem-time">Reminder time</label>' +
         '<input id="rem-time" class="reminder-time" type="time" value="' + esc(r.time) + '"' + (r.on ? '' : ' hidden') + '>' +
         '<button id="rem-toggle" class="btn small' + (r.on ? '' : ' dark') + '" data-on="' + r.on + '">' + (r.on ? 'Turn off' : 'Turn on') + '</button>' +
-      '</div></section>';
+      '</div></div>';
   }
   function wireReminder() {
     var btn = document.getElementById('rem-toggle'), time = document.getElementById('rem-time'), status = document.getElementById('rem-status');
@@ -1426,13 +1424,12 @@
   }
   function remindersCard() {
     var list = NATIVE.custom.get(), on = list.filter(function (r) { return r.on; }).length;
-    return '<a class="row-link reminders-link" href="#reminders"><span class="badge" style="background:var(--gold-soft)">' + ICON.bell + '</span>' +
-      '<span class="text"><span class="title">Your reminders</span><span class="lede" style="margin:0">' +
+    return '<a class="setting-row" href="#reminders"><div class="text"><span class="title">Your reminders</span><span class="lede" style="margin:0">' +
       (on ? on + ' on · tap to add or change' : 'Meds, water, that task you\'ve been avoiding. Set reminders for anything.') +
-      '</span></span>' + ICON.chev + '</a>';
+      '</span></div>' + ICON.chev + '</a>';
   }
   function viewReminders() {
-    view.innerHTML = navBar('#today', 'Home') +
+    view.innerHTML = navBar('#help', 'Back to Help') +
       '<div><h1 class="page-title">Your reminders</h1><p class="lede">They pop up on your screen like any notification. Only this phone knows about them.</p></div>';
     if (!NATIVE) { view.innerHTML += '<p class="empty">Reminders work in the iPhone app.</p>'; return; }
     if (plusFeatureLocked()) { view.innerHTML += plusLockCard('reminder tool'); return; }
@@ -1561,7 +1558,7 @@
     else if (h === 'journal') { tab = 'journal'; if (lockOn() && !unlocked) viewLocked('journal'); else { pauseShownThisVisit = false; viewJournal(); } }
     else if (h === 'saved') { tab = 'saved'; if (lockOn() && !unlocked) viewLocked('saved items'); else viewSaved(); }
     else if (h === 'plus' && PAID) { viewPlus(); }
-    else if (h === 'reminders') { viewReminders(); }
+    else if (h === 'reminders') { tab = 'help'; viewReminders(); }
     else if (h.indexOf('reminders-') === 0) { viewReminderEdit(h.slice(10)); }
     else if (h === 'help') { tab = 'help'; viewHelp(); }
     else if (h === 'about') { tab = 'about'; viewAbout(); }
