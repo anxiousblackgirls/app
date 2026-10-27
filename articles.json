@@ -182,19 +182,22 @@
       "id": "depression-postpartum",
       "topic": "depression",
       "title": "Postpartum depression in Black mothers",
-      "minutes": 3
+      "minutes": 3,
+      "audio": "audio-depression-postpartum.mp3"
     },
     {
       "id": "depression-in-your-body",
       "topic": "depression",
       "title": "Depression in your body, and getting doctors to listen",
-      "minutes": 3
+      "minutes": 3,
+      "audio": "audio-depression-in-your-body.mp3"
     },
     {
       "id": "depression-rest-as-resistance",
       "topic": "depression",
       "title": "Rest as resistance",
-      "minutes": 3
+      "minutes": 3,
+      "audio": "audio-depression-rest-as-resistance.mp3"
     },
     {
       "id": "burnout-not-a-personal-failure",
