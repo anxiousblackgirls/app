@@ -55,7 +55,25 @@
         "achieving"
       ],
       "source": "Beck, J. S. (2020). Cognitive behavior therapy: Basics and beyond (3rd ed.). Guilford Press.",
-      "lens": "Many of us learned to hear criticism before anyone said it. Some automatic thoughts are old messages from school, work or family that you never chose."
+      "lens": "Many of us learned to hear criticism before anyone said it. Some automatic thoughts are old messages from school, work or family that you never chose.",
+      "practice": [
+        {
+          "label": "What did you feel, and where in your body?",
+          "hint": "Tight chest, sinking stomach, sudden irritation..."
+        },
+        {
+          "label": "What just went through your mind?",
+          "hint": "Write it word for word, even if it sounds harsh."
+        },
+        {
+          "label": "Now say it as a thought",
+          "hint": "\"I'm having the thought that...\""
+        },
+        {
+          "label": "How do you feel now?",
+          "hint": "A word or two is enough."
+        }
+      ]
     },
     {
       "id": "thought-record",
@@ -77,7 +95,29 @@
       ],
       "source": "Beck, J. S. (2020). Cognitive behavior therapy: Basics and beyond (3rd ed.). Guilford Press.",
       "lens": "Some thoughts are reactions to real unfairness. A balanced thought doesn't pretend racism or bias didn't happen. It helps you decide what's yours to carry.",
-      "premium": true
+      "premium": true,
+      "practice": [
+        {
+          "label": "The situation",
+          "hint": "Who, what, when, where. Example: Sunday dinner, Auntie asked when I'm getting married."
+        },
+        {
+          "label": "The thought, and how much you believe it (0 to 100)",
+          "hint": "\"Everyone thinks I'm behind.\" 85"
+        },
+        {
+          "label": "Your feelings, rated 0 to 100",
+          "hint": "Embarrassed 70, angry 40..."
+        },
+        {
+          "label": "A more balanced thought",
+          "hint": "What's the fuller picture?"
+        },
+        {
+          "label": "Rerate your feelings",
+          "hint": "Even a small drop counts."
+        }
+      ]
     },
     {
       "id": "core-beliefs",
@@ -99,7 +139,29 @@
       ],
       "source": "Beck, J. S. (2020). Cognitive behavior therapy: Basics and beyond (3rd ed.). Guilford Press.",
       "lens": "Beliefs like \"I have to be strong\" or \"I have to be twice as good\" often started as protection. You can honor where they came from and still decide they don't run your life now.",
-      "premium": true
+      "premium": true,
+      "practice": [
+        {
+          "label": "Start with an automatic thought",
+          "hint": "Example: \"I can't say no to her.\""
+        },
+        {
+          "label": "If that were true, what would it mean about you?",
+          "hint": "Keep asking until you hit something short and absolute."
+        },
+        {
+          "label": "The core belief",
+          "hint": "Example: \"I'm only worth something when I'm useful.\""
+        },
+        {
+          "label": "Where did you first learn it?",
+          "hint": "A home, a church, a school, a job..."
+        },
+        {
+          "label": "One piece of evidence this week that it isn't the whole truth",
+          "hint": "Small counts."
+        }
+      ]
     },
     {
       "id": "check-the-evidence",
@@ -117,7 +179,26 @@
         "anxiety",
         "achieving"
       ],
-      "source": "Beck, J. S. (2020). Cognitive behavior therapy: Basics and beyond (3rd ed.). Guilford Press."
+      "source": "Beck, J. S. (2020). Cognitive behavior therapy: Basics and beyond (3rd ed.). Guilford Press.",
+      "video": "video-check-the-evidence.mp4",
+      "practice": [
+        {
+          "label": "The thought",
+          "hint": "What is your anxious brain telling you? Example: They don't really want me around."
+        },
+        {
+          "label": "Facts that support it",
+          "hint": "Facts only, no feelings. What would hold up in court?"
+        },
+        {
+          "label": "Facts that don't support it",
+          "hint": "What's true that the thought leaves out?"
+        },
+        {
+          "label": "What a fair judge would say",
+          "hint": "Write a conclusion that fits all the facts."
+        }
+      ]
     },
     {
       "id": "friend-test",
@@ -136,7 +217,25 @@
         "achieving",
         "infertility"
       ],
-      "source": "Beck, J. S. (2020). Cognitive behavior therapy: Basics and beyond (3rd ed.). Guilford Press."
+      "source": "Beck, J. S. (2020). Cognitive behavior therapy: Basics and beyond (3rd ed.). Guilford Press.",
+      "practice": [
+        {
+          "label": "The thought you're having about yourself",
+          "hint": "Example: \"I'm doing too much and still falling behind.\""
+        },
+        {
+          "label": "What would you say to your best friend if she said this?",
+          "hint": "Write it the way you'd actually say it to her."
+        },
+        {
+          "label": "Read it out loud to yourself",
+          "check": true
+        },
+        {
+          "label": "What changed in your body when you heard it?",
+          "hint": "Shoulders dropped, jaw unclenched, nothing yet..."
+        }
+      ]
     },
     {
       "id": "small-steps",
@@ -156,7 +255,27 @@
         "grief"
       ],
       "source": "Martell, C. R., Dimidjian, S., & Herman-Dunn, R. (2010). Behavioral activation for depression: A clinician's guide. Guilford Press.",
-      "premium": true
+      "premium": true,
+      "practice": [
+        {
+          "label": "Things that used to bring you joy or a sense of accomplishment",
+          "hint": "Braiding your hair, a walk, calling your cousin, cooking..."
+        },
+        {
+          "label": "The one that takes 10 minutes or less"
+        },
+        {
+          "label": "When will you do it today?",
+          "hint": "Example: 6:30 p.m., after I eat."
+        },
+        {
+          "label": "Mood before, 0 to 10"
+        },
+        {
+          "label": "Mood after, 0 to 10",
+          "hint": "Any change counts."
+        }
+      ]
     },
     {
       "id": "worry-time",
@@ -175,7 +294,25 @@
         "perimenopause"
       ],
       "source": "Borkovec, T. D., Wilkinson, L., Folensbee, R., & Lerman, C. (1983). Stimulus control applications to the treatment of worry. Behaviour Research and Therapy, 21(3), 247–251.",
-      "premium": true
+      "premium": true,
+      "practice": [
+        {
+          "label": "Your worry time today",
+          "hint": "15 minutes, not close to bedtime. Example: 5:00 p.m."
+        },
+        {
+          "label": "Worries to save for later",
+          "hint": "Jot them down as they come. \"Not now. Later.\""
+        },
+        {
+          "label": "At worry time: what can you actually do something about?",
+          "hint": "One small next step for each."
+        },
+        {
+          "label": "Time's up. Close it and do something else",
+          "check": true
+        }
+      ]
     },
     {
       "id": "test-the-prediction",
@@ -196,7 +333,27 @@
         "relationships"
       ],
       "source": "Beck, J. S. (2020). Cognitive behavior therapy: Basics and beyond (3rd ed.). Guilford Press.",
-      "premium": true
+      "premium": true,
+      "practice": [
+        {
+          "label": "Your prediction",
+          "hint": "\"If I say no, she'll be furious.\""
+        },
+        {
+          "label": "How sure are you? (0 to 100)"
+        },
+        {
+          "label": "Your small, safe test",
+          "hint": "What will you try, and when?"
+        },
+        {
+          "label": "What actually happened?",
+          "hint": "Come back and fill this in after."
+        },
+        {
+          "label": "What does this tell you for next time?"
+        }
+      ]
     },
     {
       "id": "all-or-nothing",
@@ -213,7 +370,20 @@
         "achieving",
         "burnout"
       ],
-      "source": "Burns, D. D. (1980). Feeling good: The new mood therapy. William Morrow."
+      "source": "Burns, D. D. (1980). Feeling good: The new mood therapy. William Morrow.",
+      "practice": [
+        {
+          "label": "The all-or-nothing thought",
+          "hint": "\"If it's not perfect, it's a failure.\""
+        },
+        {
+          "label": "What's the middle ground you're skipping?"
+        },
+        {
+          "label": "Your new thought",
+          "hint": "\"It wasn't perfect, and it still got done. That counts.\""
+        }
+      ]
     },
     {
       "id": "catastrophizing",
@@ -229,7 +399,24 @@
       "topics": [
         "anxiety"
       ],
-      "source": "Burns, D. D. (1980). Feeling good: The new mood therapy. William Morrow."
+      "source": "Burns, D. D. (1980). Feeling good: The new mood therapy. William Morrow.",
+      "practice": [
+        {
+          "label": "The worst case your brain is playing"
+        },
+        {
+          "label": "What's the most likely outcome?",
+          "hint": "Not the worst one. The likely one."
+        },
+        {
+          "label": "A time you handled something hard",
+          "hint": "You've done it before."
+        },
+        {
+          "label": "Your new thought",
+          "hint": "\"This could be hard. I've handled hard before.\""
+        }
+      ]
     },
     {
       "id": "mind-reading",
@@ -246,7 +433,21 @@
         "relationships",
         "anxiety"
       ],
-      "source": "Burns, D. D. (1980). Feeling good: The new mood therapy. William Morrow."
+      "source": "Burns, D. D. (1980). Feeling good: The new mood therapy. William Morrow.",
+      "practice": [
+        {
+          "label": "What do you think they're thinking?",
+          "hint": "\"She saw my text and left me on read because she's mad.\""
+        },
+        {
+          "label": "What else could explain it?",
+          "hint": "List at least two other reasons."
+        },
+        {
+          "label": "Your new thought",
+          "hint": "\"I don't know what she's thinking. I can ask, or wait.\""
+        }
+      ]
     },
     {
       "id": "fortune-telling",
@@ -265,7 +466,20 @@
         "childfree"
       ],
       "source": "Burns, D. D. (1980). Feeling good: The new mood therapy. William Morrow.",
-      "premium": true
+      "premium": true,
+      "practice": [
+        {
+          "label": "Your prediction",
+          "hint": "\"The interview is going to go terribly.\""
+        },
+        {
+          "label": "A time you were wrong about a prediction like this"
+        },
+        {
+          "label": "Your new thought",
+          "hint": "\"I don't know how it will go. I'll deal with what actually happens.\""
+        }
+      ]
     },
     {
       "id": "should-statements",
@@ -283,7 +497,21 @@
         "achieving"
       ],
       "source": "Burns, D. D. (1980). Feeling good: The new mood therapy. William Morrow.",
-      "premium": true
+      "premium": true,
+      "practice": [
+        {
+          "label": "The should",
+          "hint": "\"I should be able to handle all of this by myself.\""
+        },
+        {
+          "label": "Whose rule is this, and is it fair?",
+          "hint": "Mama's? Church's? Work's? Yours?"
+        },
+        {
+          "label": "Your new thought",
+          "hint": "\"I'd like to handle more. I'm also allowed to need help.\""
+        }
+      ]
     },
     {
       "id": "personalizing",
@@ -300,7 +528,21 @@
         "relationships"
       ],
       "source": "Burns, D. D. (1980). Feeling good: The new mood therapy. William Morrow.",
-      "premium": true
+      "premium": true,
+      "practice": [
+        {
+          "label": "What are you blaming yourself for?",
+          "hint": "\"My sister's in a mood. I must have done something.\""
+        },
+        {
+          "label": "What part of this is actually yours?",
+          "hint": "Be honest and fair."
+        },
+        {
+          "label": "Your new thought",
+          "hint": "\"Other people have their own days. I can check in without taking the blame.\""
+        }
+      ]
     },
     {
       "id": "overgeneralizing",
@@ -318,7 +560,20 @@
         "relationships"
       ],
       "source": "Burns, D. D. (1980). Feeling good: The new mood therapy. William Morrow.",
-      "premium": true
+      "premium": true,
+      "practice": [
+        {
+          "label": "The always or never thought",
+          "hint": "\"I always mess things up.\""
+        },
+        {
+          "label": "One time it didn't happen that way"
+        },
+        {
+          "label": "Your new thought",
+          "hint": "\"This happened this time. It doesn't define every time.\""
+        }
+      ]
     },
     {
       "id": "discounting-positive",
@@ -336,7 +591,21 @@
         "pcos"
       ],
       "source": "Burns, D. D. (1980). Feeling good: The new mood therapy. William Morrow.",
-      "premium": true
+      "premium": true,
+      "practice": [
+        {
+          "label": "The good thing you brushed off",
+          "hint": "A compliment, a win, a thank-you..."
+        },
+        {
+          "label": "What if it was true?",
+          "hint": "Write what it would mean."
+        },
+        {
+          "label": "Let it land",
+          "hint": "Write \"Thank you\" and nothing else."
+        }
+      ]
     },
     {
       "id": "emotional-reasoning",
@@ -354,7 +623,21 @@
         "bpd"
       ],
       "source": "Burns, D. D. (1980). Feeling good: The new mood therapy. William Morrow.",
-      "premium": true
+      "premium": true,
+      "practice": [
+        {
+          "label": "The feeling that's posing as a fact",
+          "hint": "\"I feel like a burden, so I must be one.\""
+        },
+        {
+          "label": "What are the facts?",
+          "hint": "Only what a camera would see."
+        },
+        {
+          "label": "Your new thought",
+          "hint": "\"I feel like a burden right now. Feelings aren't facts.\""
+        }
+      ]
     },
     {
       "id": "labeling",
@@ -372,7 +655,21 @@
         "burnout"
       ],
       "source": "Burns, D. D. (1980). Feeling good: The new mood therapy. William Morrow.",
-      "premium": true
+      "premium": true,
+      "practice": [
+        {
+          "label": "The label you put on yourself",
+          "hint": "\"I'm lazy.\" \"I'm a mess.\""
+        },
+        {
+          "label": "Would you say this about someone you love?",
+          "hint": "What would you say instead?"
+        },
+        {
+          "label": "Your new words",
+          "hint": "\"I'm worn out.\" \"My brain works differently.\""
+        }
+      ]
     },
     {
       "id": "wise-mind",
@@ -391,7 +688,23 @@
         "bipolar",
         "relationships"
       ],
-      "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press."
+      "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press.",
+      "practice": [
+        {
+          "label": "Take a slow breath and drop your attention to your belly",
+          "check": true
+        },
+        {
+          "label": "What does your emotion mind want?"
+        },
+        {
+          "label": "What does your reasonable mind say?"
+        },
+        {
+          "label": "Breathe in, breathe out. What does wise mind know?",
+          "hint": "Wait for the answer that feels calm, not urgent."
+        }
+      ]
     },
     {
       "id": "observe-describe",
@@ -411,7 +724,25 @@
         "grief"
       ],
       "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press.",
-      "premium": true
+      "premium": true,
+      "practice": [
+        {
+          "label": "Observe: one thing you notice right now",
+          "hint": "Your breath, a sound, a sensation."
+        },
+        {
+          "label": "Describe it with no judgment",
+          "hint": "\"My shoulders are tight.\""
+        },
+        {
+          "label": "Participate: what did you throw yourself into?",
+          "hint": "Washing dishes, dancing in the kitchen, folding clothes..."
+        },
+        {
+          "label": "Judgments that showed up",
+          "hint": "Notice them, then go back to the facts."
+        }
+      ]
     },
     {
       "id": "stop-skill",
@@ -429,7 +760,24 @@
         "bpd",
         "relationships"
       ],
-      "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press."
+      "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press.",
+      "practice": [
+        {
+          "label": "S: Stop. Freeze for a moment",
+          "check": true
+        },
+        {
+          "label": "T: Take a step back and breathe",
+          "check": true
+        },
+        {
+          "label": "O: What's happening inside you and around you?"
+        },
+        {
+          "label": "P: What will actually help right now?",
+          "hint": "Not what feels good in the moment."
+        }
+      ]
     },
     {
       "id": "tipp",
@@ -448,7 +796,29 @@
         "anxiety",
         "autism"
       ],
-      "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press. Check with your doctor before using cold water if you have a heart condition."
+      "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press. Check with your doctor before using cold water if you have a heart condition.",
+      "practice": [
+        {
+          "label": "T: Cold water on your face or something cold on your cheeks for 30 seconds",
+          "check": true
+        },
+        {
+          "label": "I: Move hard for a few minutes",
+          "check": true
+        },
+        {
+          "label": "P: Breathe out longer than you breathe in",
+          "check": true
+        },
+        {
+          "label": "P: Tense a muscle while breathing in, release as you breathe out",
+          "check": true
+        },
+        {
+          "label": "Distress before and after, 0 to 10",
+          "hint": "Example: 8 before, 5 after."
+        }
+      ]
     },
     {
       "id": "accepts",
@@ -469,7 +839,20 @@
         "depression"
       ],
       "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press.",
-      "premium": true
+      "premium": true,
+      "practice": [
+        {
+          "label": "Which ones did you use?",
+          "hint": "Activities, Contributing, Comparisons, Emotions, Pushing away, Thoughts, Sensations"
+        },
+        {
+          "label": "What exactly did you do?"
+        },
+        {
+          "label": "How do you feel now?",
+          "hint": "A word or two is enough."
+        }
+      ]
     },
     {
       "id": "self-soothe",
@@ -491,7 +874,33 @@
       ],
       "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press.",
       "lens": "Self-soothing isn't something you have to earn. Many of us were taught that taking care of ourselves is selfish. It's maintenance.",
-      "premium": true
+      "premium": true,
+      "practice": [
+        {
+          "label": "See",
+          "hint": "Photos, plants, the sky..."
+        },
+        {
+          "label": "Hear",
+          "hint": "A song that steadies you."
+        },
+        {
+          "label": "Smell",
+          "hint": "A candle, lotion, shea butter..."
+        },
+        {
+          "label": "Taste",
+          "hint": "Tea, something you eat slowly."
+        },
+        {
+          "label": "Touch",
+          "hint": "A soft blanket, a warm shower, your bonnet..."
+        },
+        {
+          "label": "How do you feel now?",
+          "hint": "A word or two is enough."
+        }
+      ]
     },
     {
       "id": "radical-acceptance",
@@ -513,7 +922,28 @@
       ],
       "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press.",
       "lens": "Accepting that racism happened is not the same as accepting racism. Radical acceptance can free up energy for rest, healing or action.",
-      "premium": true
+      "premium": true,
+      "practice": [
+        {
+          "label": "What you're fighting",
+          "hint": "\"I can't accept that...\""
+        },
+        {
+          "label": "This is what happened, and it has causes",
+          "hint": "What were some of them?"
+        },
+        {
+          "label": "Where do you hold the fight in your body?",
+          "hint": "Soften it as you breathe."
+        },
+        {
+          "label": "\"It is what it is.\" What can you do next?"
+        },
+        {
+          "label": "I know I may need to do this again. That's okay",
+          "check": true
+        }
+      ]
     },
     {
       "id": "check-the-facts",
@@ -532,7 +962,22 @@
         "bpd"
       ],
       "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press.",
-      "premium": true
+      "premium": true,
+      "practice": [
+        {
+          "label": "The emotion and how strong it is (0 to 100)"
+        },
+        {
+          "label": "What happened, facts only"
+        },
+        {
+          "label": "What are you assuming or adding?"
+        },
+        {
+          "label": "Does the emotion, and its size, fit the facts?",
+          "hint": "If yes, problem-solve. If not, try opposite action."
+        }
+      ]
     },
     {
       "id": "opposite-action",
@@ -551,7 +996,24 @@
         "anxiety"
       ],
       "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press.",
-      "premium": true
+      "premium": true,
+      "practice": [
+        {
+          "label": "The emotion and its urge",
+          "hint": "Shame, and the urge to hide."
+        },
+        {
+          "label": "Does the emotion fit the facts?"
+        },
+        {
+          "label": "The opposite action you'll take, all the way",
+          "hint": "Reach out, show up, speak up."
+        },
+        {
+          "label": "How did the emotion shift?",
+          "hint": "Come back and fill this in after."
+        }
+      ]
     },
     {
       "id": "please",
@@ -572,7 +1034,32 @@
         "pcos"
       ],
       "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press.",
-      "premium": true
+      "premium": true,
+      "practice": [
+        {
+          "label": "Took my meds or got care for anything physical",
+          "check": true
+        },
+        {
+          "label": "Ate regular meals",
+          "check": true
+        },
+        {
+          "label": "Skipped mood-altering substances",
+          "check": true
+        },
+        {
+          "label": "Slept on a steady schedule",
+          "check": true
+        },
+        {
+          "label": "Moved my body",
+          "check": true
+        },
+        {
+          "label": "Which one needs the most love this week?"
+        }
+      ]
     },
     {
       "id": "cope-ahead",
@@ -592,7 +1079,23 @@
         "pcos"
       ],
       "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press.",
-      "premium": true
+      "premium": true,
+      "practice": [
+        {
+          "label": "The situation coming up and the emotions you expect",
+          "hint": "Thanksgiving at your aunt's, a performance review..."
+        },
+        {
+          "label": "The skills you'll use"
+        },
+        {
+          "label": "Picture it in detail. What do you see yourself doing well?"
+        },
+        {
+          "label": "Practice relaxing afterward",
+          "check": true
+        }
+      ]
     },
     {
       "id": "dear-man",
@@ -613,7 +1116,29 @@
       ],
       "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press.",
       "lens": "Many Black women worry that being direct will get them labeled angry or difficult. DEAR MAN gives you a calm structure, so your words carry the message.",
-      "premium": true
+      "premium": true,
+      "practice": [
+        {
+          "label": "Describe: the facts"
+        },
+        {
+          "label": "Express: how you feel",
+          "hint": "\"I feel...\""
+        },
+        {
+          "label": "Assert: what you want",
+          "hint": "Say it clearly."
+        },
+        {
+          "label": "Reinforce: why it helps them too"
+        },
+        {
+          "label": "Mindful and Appear confident: your one-line point to come back to"
+        },
+        {
+          "label": "Negotiate: what would you be willing to give?"
+        }
+      ]
     },
     {
       "id": "give",
@@ -632,7 +1157,25 @@
         "motherhood"
       ],
       "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press.",
-      "premium": true
+      "premium": true,
+      "practice": [
+        {
+          "label": "Who's the conversation with?"
+        },
+        {
+          "label": "Gentle: how will you keep it gentle?",
+          "hint": "No attacks, threats or judging."
+        },
+        {
+          "label": "Interested: questions you can ask"
+        },
+        {
+          "label": "Validate: what makes sense about their side?"
+        },
+        {
+          "label": "Easy manner: a little warmth or humor you can bring"
+        }
+      ]
     },
     {
       "id": "fast",
@@ -651,7 +1194,25 @@
         "relationships"
       ],
       "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press.",
-      "premium": true
+      "premium": true,
+      "practice": [
+        {
+          "label": "What's the request or the stand you're taking?"
+        },
+        {
+          "label": "Fair: what's fair to you and to them?"
+        },
+        {
+          "label": "No extra apologies for having a need",
+          "check": true
+        },
+        {
+          "label": "Stick to values: which value is this about?"
+        },
+        {
+          "label": "Truthful: your honest version, no excuses"
+        }
+      ]
     },
     {
       "id": "box-breathing",
@@ -670,7 +1231,33 @@
         "anxiety",
         "perimenopause"
       ],
-      "source": "Zaccaro, A., et al. (2018). How breath-control can change your life: A systematic review on psycho-physiological correlates of slow breathing. Frontiers in Human Neuroscience, 12, 353."
+      "source": "Zaccaro, A., et al. (2018). How breath-control can change your life: A systematic review on psycho-physiological correlates of slow breathing. Frontiers in Human Neuroscience, 12, 353.",
+      "practice": [
+        {
+          "label": "Breathe in for 4 counts",
+          "check": true
+        },
+        {
+          "label": "Hold for 4 counts",
+          "check": true
+        },
+        {
+          "label": "Breathe out for 4 counts",
+          "check": true
+        },
+        {
+          "label": "Rest for 4 counts",
+          "check": true
+        },
+        {
+          "label": "Repeat for 1 to 3 minutes",
+          "check": true
+        },
+        {
+          "label": "How do you feel now?",
+          "hint": "A word or two is enough."
+        }
+      ]
     },
     {
       "id": "physiological-sigh",
@@ -688,7 +1275,29 @@
         "anxiety",
         "burnout"
       ],
-      "source": "Balban, M. Y., et al. (2023). Brief structured respiration practices enhance mood and reduce physiological arousal. Cell Reports Medicine, 4(1), 100895."
+      "source": "Balban, M. Y., et al. (2023). Brief structured respiration practices enhance mood and reduce physiological arousal. Cell Reports Medicine, 4(1), 100895.",
+      "practice": [
+        {
+          "label": "Breathe in through your nose",
+          "check": true
+        },
+        {
+          "label": "Take a second short breath in to fill your lungs",
+          "check": true
+        },
+        {
+          "label": "Breathe out slowly through your mouth",
+          "check": true
+        },
+        {
+          "label": "Repeat 2 or 3 times",
+          "check": true
+        },
+        {
+          "label": "How do you feel now?",
+          "hint": "A word or two is enough."
+        }
+      ]
     },
     {
       "id": "grounding-54321",
@@ -708,7 +1317,28 @@
         "racial-trauma",
         "grief"
       ],
-      "source": "Najavits, L. M. (2002). Seeking safety: A treatment manual for PTSD and substance abuse. Guilford Press."
+      "source": "Najavits, L. M. (2002). Seeking safety: A treatment manual for PTSD and substance abuse. Guilford Press.",
+      "practice": [
+        {
+          "label": "5 things you can see"
+        },
+        {
+          "label": "4 things you can feel"
+        },
+        {
+          "label": "3 things you can hear"
+        },
+        {
+          "label": "2 things you can smell"
+        },
+        {
+          "label": "1 thing you can taste"
+        },
+        {
+          "label": "How do you feel now?",
+          "hint": "A word or two is enough."
+        }
+      ]
     },
     {
       "id": "pmr",
@@ -728,7 +1358,32 @@
         "burnout"
       ],
       "source": "Jacobson, E. (1938). Progressive relaxation. University of Chicago Press.",
-      "premium": true
+      "premium": true,
+      "practice": [
+        {
+          "label": "Sit or lie down comfortably",
+          "check": true
+        },
+        {
+          "label": "Feet: tense for 5, release for 10",
+          "check": true
+        },
+        {
+          "label": "Legs and stomach",
+          "check": true
+        },
+        {
+          "label": "Hands and arms",
+          "check": true
+        },
+        {
+          "label": "Shoulders and face",
+          "check": true
+        },
+        {
+          "label": "Where did you notice the biggest difference?"
+        }
+      ]
     },
     {
       "id": "urge-surfing",
@@ -749,7 +1404,27 @@
         "adhd"
       ],
       "source": "Bowen, S., & Marlatt, A. (2009). Surfing the urge: Brief mindfulness-based intervention for college student smokers. Psychology of Addictive Behaviors, 23(4), 666–671.",
-      "premium": true
+      "premium": true,
+      "practice": [
+        {
+          "label": "The urge",
+          "hint": "To text him, to scroll, to snap, to eat when you're not hungry..."
+        },
+        {
+          "label": "Where do you feel it in your body?"
+        },
+        {
+          "label": "Set a 10-minute timer and watch the wave rise, peak and fall",
+          "check": true
+        },
+        {
+          "label": "How strong was it at the start and at the end? (0 to 10)"
+        },
+        {
+          "label": "What did you notice?",
+          "hint": "You can feel an urge without obeying it."
+        }
+      ]
     },
     {
       "id": "name-it-to-tame-it",
@@ -767,7 +1442,20 @@
         "anxiety",
         "adhd"
       ],
-      "source": "Lieberman, M. D., et al. (2007). Putting feelings into words: Affect labeling disrupts amygdala activity in response to affective stimuli. Psychological Science, 18(5), 421–428."
+      "source": "Lieberman, M. D., et al. (2007). Putting feelings into words: Affect labeling disrupts amygdala activity in response to affective stimuli. Psychological Science, 18(5), 421–428.",
+      "practice": [
+        {
+          "label": "What are you feeling?",
+          "hint": "One or two words: anxious, embarrassed, left out."
+        },
+        {
+          "label": "Say it out loud",
+          "check": true
+        },
+        {
+          "label": "Did the intensity shift, even a little?"
+        }
+      ]
     },
     {
       "id": "leaves-on-a-stream",
@@ -786,7 +1474,25 @@
         "depression"
       ],
       "source": "Hayes, S. C., Strosahl, K. D., & Wilson, K. G. (2012). Acceptance and commitment therapy (2nd ed.). Guilford Press.",
-      "premium": true
+      "premium": true,
+      "practice": [
+        {
+          "label": "Close your eyes and picture a gentle stream",
+          "check": true
+        },
+        {
+          "label": "Thoughts you placed on leaves",
+          "hint": "Write a few if you'd like."
+        },
+        {
+          "label": "Did you get pulled in? What pulled you?",
+          "hint": "Noticing it is the practice."
+        },
+        {
+          "label": "How do you feel now?",
+          "hint": "A word or two is enough."
+        }
+      ]
     },
     {
       "id": "body-scan",
@@ -807,7 +1513,33 @@
       ],
       "source": "Kabat-Zinn, J. (1990). Full catastrophe living. Delacorte.",
       "lens": "Many Black women carry stress in their bodies for years. A body scan is one way to notice what you've been holding.",
-      "premium": true
+      "premium": true,
+      "practice": [
+        {
+          "label": "Head and face",
+          "check": true
+        },
+        {
+          "label": "Neck and shoulders",
+          "check": true
+        },
+        {
+          "label": "Arms and hands",
+          "check": true
+        },
+        {
+          "label": "Chest and belly",
+          "check": true
+        },
+        {
+          "label": "Legs and feet",
+          "check": true
+        },
+        {
+          "label": "Where were the tight spots?",
+          "hint": "Just notice. No fixing needed."
+        }
+      ]
     },
     {
       "id": "body-doubling",
@@ -826,7 +1558,23 @@
         "adhd",
         "audhd"
       ],
-      "source": "A common ADHD coaching strategy. Research on it is still early."
+      "source": "A common ADHD coaching strategy. Research on it is still early.",
+      "practice": [
+        {
+          "label": "The task and how long you'll work"
+        },
+        {
+          "label": "Who's your body double?",
+          "hint": "A friend on FaceTime, a co-working session, your sister on the couch..."
+        },
+        {
+          "label": "What you said you'd work on"
+        },
+        {
+          "label": "What you got done",
+          "hint": "Share it with them at the end."
+        }
+      ]
     },
     {
       "id": "tiny-first-step",
@@ -846,7 +1594,27 @@
         "depression",
         "burnout"
       ],
-      "source": "Gollwitzer, P. M. (1999). Implementation intentions: Strong effects of simple plans. American Psychologist, 54(7), 493–503."
+      "source": "Gollwitzer, P. M. (1999). Implementation intentions: Strong effects of simple plans. American Psychologist, 54(7), 493–503.",
+      "practice": [
+        {
+          "label": "The task"
+        },
+        {
+          "label": "The very first physical action",
+          "hint": "\"Open the laptop.\""
+        },
+        {
+          "label": "Smaller, if it still feels hard"
+        },
+        {
+          "label": "When and where",
+          "hint": "\"At 7 p.m., at the kitchen table.\""
+        },
+        {
+          "label": "Did the tiny step",
+          "check": true
+        }
+      ]
     },
     {
       "id": "make-time-visible",
@@ -865,7 +1633,23 @@
         "audhd"
       ],
       "source": "Barkley, R. A. (1997). Behavioral inhibition, sustained attention, and executive functions: Constructing a unifying theory of ADHD. Psychological Bulletin, 121(1), 65–94.",
-      "premium": true
+      "premium": true,
+      "practice": [
+        {
+          "label": "The task"
+        },
+        {
+          "label": "Your guess: how long will it take?"
+        },
+        {
+          "label": "How long did it actually take?",
+          "hint": "Compare. No judgment."
+        },
+        {
+          "label": "Your leave-by time and alarm",
+          "hint": "Set it for when to leave, not when to arrive."
+        }
+      ]
     },
     {
       "id": "brain-dump",
@@ -884,7 +1668,26 @@
         "anxiety",
         "motherhood"
       ],
-      "source": "Masicampo, E. J., & Baumeister, R. F. (2011). Consider it done! Plan making can eliminate the cognitive effects of unfulfilled goals. Journal of Personality and Social Psychology, 101(4), 667–683."
+      "source": "Masicampo, E. J., & Baumeister, R. F. (2011). Consider it done! Plan making can eliminate the cognitive effects of unfulfilled goals. Journal of Personality and Social Psychology, 101(4), 667–683.",
+      "practice": [
+        {
+          "label": "Everything in your head (10 minutes)",
+          "hint": "Any order. Don't edit."
+        },
+        {
+          "label": "Now"
+        },
+        {
+          "label": "Later"
+        },
+        {
+          "label": "Not mine",
+          "hint": "Things that belong to someone else."
+        },
+        {
+          "label": "The one \"now\" item and when you'll do it"
+        }
+      ]
     },
     {
       "id": "sensory-toolkit",
@@ -904,7 +1707,25 @@
         "perimenopause"
       ],
       "source": "Raymaker, D. M., et al. (2020). \"Having all of your internal resources exhausted beyond measure and being left with no clean-up crew\": Defining autistic burnout. Autism in Adulthood, 2(2), 132–143.",
-      "premium": true
+      "premium": true,
+      "practice": [
+        {
+          "label": "What overloads you?",
+          "hint": "Noise, light, crowds, textures, smells..."
+        },
+        {
+          "label": "Your toolkit",
+          "hint": "Earbuds, sunglasses, a soft texture, a calming scent, a snack..."
+        },
+        {
+          "label": "Your exit spot",
+          "hint": "Your car, a bathroom, a quiet room."
+        },
+        {
+          "label": "Where will you use it early this week?",
+          "hint": "Before overload builds."
+        }
+      ]
     },
     {
       "id": "energy-budgeting",
@@ -924,7 +1745,19 @@
         "audhd"
       ],
       "source": "Raymaker, D. M., et al. (2020). \"Having all of your internal resources exhausted beyond measure and being left with no clean-up crew\": Defining autistic burnout. Autism in Adulthood, 2(2), 132–143.",
-      "premium": true
+      "premium": true,
+      "practice": [
+        {
+          "label": "This week's activities with an energy cost (low, medium, high)",
+          "hint": "Count masking, code-switching and travel too."
+        },
+        {
+          "label": "Recharge activities you'll add"
+        },
+        {
+          "label": "What will you move or drop if you're over budget?"
+        }
+      ]
     },
     {
       "id": "meltdown-plan",
@@ -943,7 +1776,24 @@
         "audhd"
       ],
       "source": "Raymaker, D. M., et al. (2020). \"Having all of your internal resources exhausted beyond measure and being left with no clean-up crew\": Defining autistic burnout. Autism in Adulthood, 2(2), 132–143.",
-      "premium": true
+      "premium": true,
+      "practice": [
+        {
+          "label": "Your early signs",
+          "hint": "Irritability, going quiet, noise feeling painful..."
+        },
+        {
+          "label": "What helps",
+          "hint": "A dark room, pressure, quiet, being alone."
+        },
+        {
+          "label": "What doesn't help",
+          "hint": "Questions, touch..."
+        },
+        {
+          "label": "Who will you share this plan with?"
+        }
+      ]
     },
     {
       "id": "unmasking-moments",
@@ -964,7 +1814,22 @@
       ],
       "source": "Hull, L., et al. (2017). \"Putting on my best normal\": Social camouflaging in adults with autism spectrum conditions. Journal of Autism and Developmental Disorders, 47(8), 2519–2534.",
       "lens": "Black autistic women often mask twice: to fit in as neurotypical and to stay safe in white spaces. You deserve places where you don't have to do either.",
-      "premium": true
+      "premium": true,
+      "practice": [
+        {
+          "label": "When do you mask or code-switch the most?"
+        },
+        {
+          "label": "People or places where you can be fully yourself"
+        },
+        {
+          "label": "When will you spend time there this week?"
+        },
+        {
+          "label": "How did your body feel after?",
+          "hint": "Come back and fill this in."
+        }
+      ]
     },
     {
       "id": "boundary-script",
@@ -982,7 +1847,25 @@
         "boundaries",
         "relationships"
       ],
-      "source": "Speed, B. C., Goldstein, B. L., & Goldfried, M. R. (2018). Assertiveness training: A forgotten evidence-based treatment. Clinical Psychology: Science and Practice, 25(1), e12216."
+      "source": "Speed, B. C., Goldstein, B. L., & Goldfried, M. R. (2018). Assertiveness training: A forgotten evidence-based treatment. Clinical Psychology: Science and Practice, 25(1), e12216.",
+      "practice": [
+        {
+          "label": "When you...",
+          "hint": "\"When you comment on my weight at family dinner...\""
+        },
+        {
+          "label": "I feel...",
+          "hint": "\"...I feel hurt...\""
+        },
+        {
+          "label": "So I'm going to...",
+          "hint": "\"...so I'm going to change the subject or leave.\""
+        },
+        {
+          "label": "How did following through go?",
+          "hint": "Come back and fill this in after."
+        }
+      ]
     },
     {
       "id": "broken-record",
@@ -1001,7 +1884,23 @@
         "anxiety"
       ],
       "source": "Speed, B. C., Goldstein, B. L., & Goldfried, M. R. (2018). Assertiveness training: A forgotten evidence-based treatment. Clinical Psychology: Science and Practice, 25(1), e12216.",
-      "premium": true
+      "premium": true,
+      "practice": [
+        {
+          "label": "Your one short sentence",
+          "hint": "\"I'm not able to do that.\""
+        },
+        {
+          "label": "What pushback do you expect?"
+        },
+        {
+          "label": "I repeated it word for word, no new explanations",
+          "check": true
+        },
+        {
+          "label": "How did it go?"
+        }
+      ]
     },
     {
       "id": "repair",
@@ -1021,7 +1920,27 @@
         "motherhood"
       ],
       "source": "Gottman, J. M., & Silver, N. (1999). The seven principles for making marriage work. Crown.",
-      "premium": true
+      "premium": true,
+      "practice": [
+        {
+          "label": "Who are you repairing with?"
+        },
+        {
+          "label": "Your part",
+          "hint": "\"I raised my voice, and that wasn't okay.\""
+        },
+        {
+          "label": "The impact",
+          "hint": "\"I know that hurt.\""
+        },
+        {
+          "label": "What you'll do differently"
+        },
+        {
+          "label": "What you heard from their side",
+          "hint": "Listen without defending."
+        }
+      ]
     },
     {
       "id": "self-compassion-break",
@@ -1041,7 +1960,24 @@
         "achieving"
       ],
       "source": "Neff, K. D., & Germer, C. K. (2013). A pilot study and randomized controlled trial of the mindful self-compassion program. Journal of Clinical Psychology, 69(1), 28–44.",
-      "lens": "If kindness toward yourself feels unfamiliar or even uncomfortable, that makes sense. Many of us were raised to push through. You can practice this anyway."
+      "lens": "If kindness toward yourself feels unfamiliar or even uncomfortable, that makes sense. Many of us were raised to push through. You can practice this anyway.",
+      "practice": [
+        {
+          "label": "This is a moment of pain. What's hurting?"
+        },
+        {
+          "label": "Other women feel this too. I'm not alone",
+          "check": true
+        },
+        {
+          "label": "Hand on my heart",
+          "check": true
+        },
+        {
+          "label": "Your kind words to yourself",
+          "hint": "\"May I be kind to myself right now.\""
+        }
+      ]
     },
     {
       "id": "values-check",
@@ -1061,7 +1997,22 @@
         "achieving"
       ],
       "source": "Hayes, S. C., Strosahl, K. D., & Wilson, K. G. (2012). Acceptance and commitment therapy (2nd ed.). Guilford Press.",
-      "premium": true
+      "premium": true,
+      "practice": [
+        {
+          "label": "Your top 5 values",
+          "hint": "Family, faith, freedom, rest, creativity..."
+        },
+        {
+          "label": "The 3 that matter most right now"
+        },
+        {
+          "label": "The decision in front of you, and which option moves you toward them"
+        },
+        {
+          "label": "One small step this week"
+        }
+      ]
     },
     {
       "id": "evidence-file",
@@ -1079,7 +2030,19 @@
         "achieving"
       ],
       "source": "Clance, P. R., & Imes, S. A. (1978). The impostor phenomenon in high achieving women. Psychotherapy: Theory, Research & Practice, 15(3), 241–247.",
-      "premium": true
+      "premium": true,
+      "practice": [
+        {
+          "label": "This week's entry",
+          "hint": "Praise, a result, a thank-you note, a goal you met."
+        },
+        {
+          "label": "Something from your past you're proud of"
+        },
+        {
+          "label": "Read it back. What do you notice?"
+        }
+      ]
     },
     {
       "id": "rest-menu",
@@ -1099,7 +2062,24 @@
         "motherhood"
       ],
       "source": "Hersey, T. (2022). Rest is resistance: A manifesto. Little, Brown Spark.",
-      "lens": "Writer and activist Tricia Hersey calls rest a form of resistance for Black people, who were long denied it. Rest isn't a reward for finishing. It's a need."
+      "lens": "Writer and activist Tricia Hersey calls rest a form of resistance for Black people, who were long denied it. Rest isn't a reward for finishing. It's a need.",
+      "practice": [
+        {
+          "label": "3 rest options that take 5 minutes",
+          "hint": "Stretching, stepping outside, a song with your eyes closed..."
+        },
+        {
+          "label": "3 that take 30 minutes",
+          "hint": "A nap, a bath, a walk..."
+        },
+        {
+          "label": "3 for a whole day",
+          "hint": "A day with no plans."
+        },
+        {
+          "label": "The one you'll pick next"
+        }
+      ]
     },
     {
       "id": "grief-letter",
@@ -1119,7 +2099,21 @@
         "childfree"
       ],
       "source": "Pennebaker, J. W., & Beall, S. K. (1986). Confronting a traumatic event: Toward an understanding of inhibition and disease. Journal of Abnormal Psychology, 95(3), 274–281.",
-      "premium": true
+      "premium": true,
+      "practice": [
+        {
+          "label": "Who or what you're writing to",
+          "hint": "A person, a pregnancy, a version of life you lost."
+        },
+        {
+          "label": "Your letter",
+          "hint": "What you miss, what you wish, what you never got to say. Take 15 to 20 minutes."
+        },
+        {
+          "label": "What you'll do with it",
+          "hint": "Keep it, burn it, or read it to someone you trust."
+        }
+      ]
     },
     {
       "id": "energy-audit",
@@ -1138,7 +2132,22 @@
         "achieving",
         "motherhood"
       ],
-      "source": "Maslach, C., & Leiter, M. P. (2016). Understanding the burnout experience: Recent research and its implications for psychiatry. World Psychiatry, 15(2), 103–111."
+      "source": "Maslach, C., & Leiter, M. P. (2016). Understanding the burnout experience: Recent research and its implications for psychiatry. World Psychiatry, 15(2), 103–111.",
+      "practice": [
+        {
+          "label": "Drains this week"
+        },
+        {
+          "label": "Refills this week"
+        },
+        {
+          "label": "The biggest drain you have some control over"
+        },
+        {
+          "label": "The refill you'll trade it for",
+          "hint": "Even partly counts."
+        }
+      ]
     }
   ]
 }
