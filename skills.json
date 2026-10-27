@@ -73,7 +73,8 @@
           "label": "How do you feel now?",
           "hint": "A word or two is enough."
         }
-      ]
+      ],
+      "video": "video-automatic-thoughts.mp4"
     },
     {
       "id": "thought-record",
@@ -117,7 +118,8 @@
           "label": "Rerate your feelings",
           "hint": "Even a small drop counts."
         }
-      ]
+      ],
+      "video": "video-thought-record.mp4"
     },
     {
       "id": "core-beliefs",
@@ -161,7 +163,8 @@
           "label": "One piece of evidence this week that it isn't the whole truth",
           "hint": "Small counts."
         }
-      ]
+      ],
+      "video": "video-core-beliefs.mp4"
     },
     {
       "id": "check-the-evidence",
@@ -237,7 +240,8 @@
           "label": "What changed in your body when you heard it?",
           "hint": "Shoulders dropped, jaw unclenched, nothing yet..."
         }
-      ]
+      ],
+      "video": "video-friend-test.mp4"
     },
     {
       "id": "small-steps",
@@ -277,7 +281,8 @@
           "label": "Mood after, 0 to 10",
           "hint": "Any change counts."
         }
-      ]
+      ],
+      "video": "video-small-steps.mp4"
     },
     {
       "id": "worry-time",
@@ -314,7 +319,8 @@
           "label": "Time's up. Close it and do something else",
           "check": true
         }
-      ]
+      ],
+      "video": "video-worry-time.mp4"
     },
     {
       "id": "test-the-prediction",
@@ -355,7 +361,8 @@
         {
           "label": "What does this tell you for next time?"
         }
-      ]
+      ],
+      "video": "video-test-the-prediction.mp4"
     },
     {
       "id": "all-or-nothing",
