@@ -1012,6 +1012,82 @@
       }
     });
   }
+  // ---------- Practice space on each skill (saved only on this phone) ----------
+  function practicePrompts(k) {
+    if (k.practice) return k.practice.map(function (p) { return { label: p.label, hint: p.hint, write: true }; });
+    return k.steps.map(function (st) { return { label: st, write: false }; }).concat([{ label: 'How do you feel now?', hint: 'A word or two is enough.', write: true }]);
+  }
+  function practiceList(k) { return store.get('abg.practice.' + k.id, []); }
+  function practiceBlock(k) {
+    var ps = practicePrompts(k), draft = store.get('abg.practiceDraft.' + k.id, {});
+    var past = practiceList(k);
+    function fmt(d) { return new Date(d).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) + ' · ' + new Date(d).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }); }
+    return '<section class="practice" id="practice">' +
+      '<span class="eyebrow">Practice</span>' +
+      '<h2 class="practice-title">Your turn. Work through it here.</h2>' +
+      '<p class="practice-note">Saving is up to you. What you save stays on this phone, and you can come back and practice as many times as you want.</p>' +
+      '<div id="practice-alert"></div>' +
+      '<ol class="practice-steps">' + ps.map(function (p, i) {
+        var val = draft['s' + i];
+        return p.write
+          ? '<li><label class="practice-label" for="pr-' + i + '">' + esc(p.label) + '</label><textarea id="pr-' + i + '" data-pr="' + i + '" rows="3" placeholder="' + esc(p.hint || '') + '">' + esc(val || '') + '</textarea></li>'
+          : '<li class="practice-check"><label><input type="checkbox" data-pr="' + i + '"' + (val ? ' checked' : '') + '><span><em>' + esc(p.label) + '</em></span></label></li>';
+      }).join('') + '</ol>' +
+      '<div class="practice-actions"><button id="practice-save" class="btn dark">Save this practice</button><button id="practice-clear" class="btn">Start over</button></div>' +
+      (past.length ? '<details class="practice-past"><summary>Your past practices (' + past.length + ')' + ICON.chev + '</summary>' + past.map(function (e) {
+        return '<div class="practice-entry"><div class="practice-date">' + esc(fmt(e.date)) + '</div>' +
+          e.items.map(function (it) { return '<p><strong>' + esc(it.label) + '</strong><br>' + esc(it.value) + '</p>'; }).join('') +
+          '<div class="actions"><button class="btn small" data-pdel="' + esc(e.id) + '">Delete</button>' +
+          '<span class="confirm" data-pconfirm="' + esc(e.id) + '" hidden>Delete this practice for good? <button class="btn small dark" data-pdel-yes="' + esc(e.id) + '">Yes, delete</button> <button class="btn small" data-pdel-no="' + esc(e.id) + '">Keep it</button></span></div></div>';
+      }).join('') + '</details>' : '') +
+      '</section>';
+  }
+  function wirePractice(k) {
+    var box = document.getElementById('practice'); if (!box) return;
+    var ps = practicePrompts(k), key = 'abg.practiceDraft.' + k.id;
+    var fields = box.querySelectorAll('[data-pr]');
+    function read() {
+      var d = {};
+      Array.prototype.forEach.call(fields, function (f) { var i = f.getAttribute('data-pr'); d['s' + i] = f.type === 'checkbox' ? f.checked : f.value; });
+      return d;
+    }
+    function check(fromTyping) {
+      var text = Array.prototype.map.call(box.querySelectorAll('textarea'), function (t) { return t.value; }).join(' ');
+      var hit = CRISIS_WORDS.test(text);
+      document.getElementById('practice-alert').innerHTML = hit ? crisisBanner() : '';
+      if (hit && fromTyping && !pauseShownThisVisit) { document.activeElement && document.activeElement.blur(); showPause(); }
+    }
+    Array.prototype.forEach.call(fields, function (f) {
+      f.addEventListener(f.type === 'checkbox' ? 'change' : 'input', function () { store.set(key, read()); if (f.type !== 'checkbox') check(true); });
+    });
+    check();
+    function rerender(msg) { viewSkill(k.id); var p = document.getElementById('practice'); if (p) p.scrollIntoView({ block: 'start' }); if (msg) toast(msg); }
+    document.getElementById('practice-save').addEventListener('click', function () {
+      var d = read(), items = [];
+      ps.forEach(function (p, i) {
+        var v = d['s' + i];
+        if (p.write && String(v || '').trim()) items.push({ label: p.label, value: String(v).trim() });
+        if (!p.write && v) items.push({ label: p.label, value: 'Done' });
+      });
+      if (!items.length) { toast('Work through at least one step, then tap Save.'); return; }
+      var list = practiceList(k);
+      list.unshift({ id: String(Date.now()), date: new Date().toISOString(), items: items });
+      store.set('abg.practice.' + k.id, list);
+      store.set(key, {});
+      rerender('Practice saved on this phone');
+    });
+    document.getElementById('practice-clear').addEventListener('click', function () { store.set(key, {}); rerender('Cleared. Start fresh whenever you\'re ready.'); });
+    Array.prototype.forEach.call(box.querySelectorAll('[data-pdel]'), function (b) {
+      b.addEventListener('click', function () { box.querySelector('[data-pconfirm="' + b.getAttribute('data-pdel') + '"]').hidden = false; b.hidden = true; });
+    });
+    Array.prototype.forEach.call(box.querySelectorAll('[data-pdel-no]'), function (b) {
+      b.addEventListener('click', function () { var id = b.getAttribute('data-pdel-no'); box.querySelector('[data-pconfirm="' + id + '"]').hidden = true; box.querySelector('[data-pdel="' + id + '"]').hidden = false; });
+    });
+    Array.prototype.forEach.call(box.querySelectorAll('[data-pdel-yes]'), function (b) {
+      b.addEventListener('click', function () { var id = b.getAttribute('data-pdel-yes'); store.set('abg.practice.' + k.id, practiceList(k).filter(function (e) { return e.id !== id; })); rerender('Practice deleted'); });
+    });
+  }
+
   function viewSkill(id) {
     var k = skillById(id);
     if (!k) { location.hash = '#pocketbook'; return; }
@@ -1034,6 +1110,7 @@
       '<h2>When to use it</h2><p>' + esc(k.when) + '</p>' +
       '<section class="skill"><span class="eyebrow">Try this</span><ol class="steps">' + k.steps.map(function (st) { return '<li>' + esc(st) + '</li>'; }).join('') + '</ol></section>' +
       (k.video ? '<section class="skill-video"><span class="eyebrow">See it in action</span><video src="' + esc(k.video) + '" poster="' + esc(k.video.replace(/\.mp4$/, '.jpg')) + '" controls playsinline preload="none"></video></section>' : '') +
+      practiceBlock(k) +
       '<section class="keep-it"><span class="keep-icon" aria-hidden="true">' + ICON.bag + '</span><div><strong>Keep this one close.</strong>' +
         '<p>Put it in your pocketbook so it\'s ready next time, or pass it to a friend who could use it.</p>' +
         '</div><div class="keep-actions">' + saveBtn('save-skill-keep') + '<button id="share-skill-keep" class="btn save-btn">' + ICON.share + 'Share with a friend</button></div></section>' +
@@ -1047,6 +1124,7 @@
       (NATIVE && k.group === 'neuro' ? '<a class="row-link reminders-link" href="#reminders-skill-' + esc(k.id) + '"><span class="badge" style="background:var(--gold-soft)">' + ICON.bell + '</span><span class="text"><span class="title">Set a reminder to practice this</span><span class="lede" style="margin:0">Your phone will nudge you at the time you pick</span></span>' + ICON.chev + '</a>' : '') +
       reportIssue('skill', k.name, '#skill-' + k.id) +
       '<p class="copyright">© 2026 Anxious Black Girls, LLC. All rights reserved.</p>';
+    wirePractice(k);
     ['share-skill-top', 'share-skill-keep'].forEach(function (sid) { document.getElementById(sid).addEventListener('click', function () { shareSkill(k); }); });
     var btns = [document.getElementById('save-skill-top'), document.getElementById('save-skill-keep')];
     btns.forEach(function (btn) {
