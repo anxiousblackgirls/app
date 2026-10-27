@@ -63,10 +63,20 @@ if status == 409:
     certs = sorted(lst.get("data", []), key=lambda c: c["attributes"].get("expirationDate") or "")
     if not certs:
         fail("Apple refused a new certificate: " + json.dumps(res)[:400])
-    old = certs[0]
-    print("::notice::Certificate limit reached; revoking the oldest distribution certificate (%s, expires %s)." % (old["id"], old["attributes"].get("expirationDate")))
-    api("DELETE", "/v1/certificates/" + old["id"])
-    status, res = api("POST", "/v1/certificates", create)
+    for old in certs:
+        print("::notice::Certificate limit reached; revoking the oldest distribution certificate (%s, expires %s)." % (old["id"], old["attributes"].get("expirationDate")))
+        dst, dres = api("DELETE", "/v1/certificates/" + old["id"])
+        if dst not in (200, 204):
+            print("::warning::Could not revoke %s (HTTP %s): %s" % (old["id"], dst, json.dumps(dres)[:200]))
+            continue
+        # Apple can take a moment to free the slot after a revoke.
+        for wait in (0, 10, 20, 30, 45):
+            time.sleep(wait)
+            status, res = api("POST", "/v1/certificates", create)
+            if status != 409:
+                break
+        if status != 409:
+            break
 if status not in (200, 201):
     fail("Apple refused a new certificate (HTTP %s): %s" % (status, json.dumps(res)[:400]))
 cert_id = res["data"]["id"]
