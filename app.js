@@ -1013,12 +1013,31 @@
     });
   }
   // ---------- Practice space on each skill (saved only on this phone) ----------
+  // Videos and the practice space are Plus features, on free and paid skills alike.
+  function extrasLocked() { return !!(PAID && PAID.enabled) && !hasPlus(); }
+  function extrasLockCard(k) {
+    return '<section class="extras-lock">' +
+      (k.video ? '<div class="extras-thumb"><img src="' + esc(k.video.replace(/\.mp4$/, '.jpg')) + '" alt=""><span class="extras-badge">' + ICON.lock + '</span></div>' : '') +
+      '<div class="extras-text"><span class="eyebrow">' + esc(PAID.name) + '</span>' +
+      '<h2 class="section-title">' + (k.video ? 'Watch it in action and practice it here' : 'Practice it right here') + '</h2>' +
+      '<p>' + (k.video ? 'See this skill play out in a real-life moment, then work through the steps in your own practice space. ' : 'Work through the steps in your own practice space. ') + 'Save your practices on this phone and come back as often as you want.</p>' +
+      '<a class="btn dark" href="#plus">See what\'s included</a></div></section>';
+  }
   function practicePrompts(k) {
     if (k.practice) return k.practice.map(function (p) { return { label: p.label, hint: p.hint, write: true }; });
     return k.steps.map(function (st) { return { label: st, write: false }; }).concat([{ label: 'How do you feel now?', hint: 'A word or two is enough.', write: true }]);
   }
   function practiceList(k) { return store.get('abg.practice.' + k.id, []); }
+  function practiceLocked() { return !!(PAID && PAID.enabled) && !hasPlus(); }
   function practiceBlock(k) {
+    if (practiceLocked()) {
+      var first = practicePrompts(k).slice(0, 2);
+      return '<section class="practice practice-locked"><span class="eyebrow">Practice ' + '<span class="plus-tag">PLUS</span></span>' +
+        '<h2 class="practice-title">Your turn. Work through it here.</h2>' +
+        '<div class="practice-peek" aria-hidden="true">' + first.map(function (p, i) { return '<div class="practice-label">' + esc(p.label) + '</div><div class="peek-box"></div>'; }).join('') + '</div>' +
+        '<p class="practice-note">With ' + esc(PAID.name) + ', you can work through every skill step by step, save your practices on this phone, and come back to them anytime.</p>' +
+        '<a class="btn dark" href="#plus">See what\'s included</a></section>';
+    }
     var ps = practicePrompts(k), draft = store.get('abg.practiceDraft.' + k.id, {});
     var past = practiceList(k);
     function fmt(d) { return new Date(d).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) + ' · ' + new Date(d).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }); }
@@ -1109,8 +1128,9 @@
       '<div class="stack" style="gap:14px">' +
       '<h2>When to use it</h2><p>' + esc(k.when) + '</p>' +
       '<section class="skill"><span class="eyebrow">Try this</span><ol class="steps">' + k.steps.map(function (st) { return '<li>' + esc(st) + '</li>'; }).join('') + '</ol></section>' +
-      (k.video ? '<section class="skill-video"><span class="eyebrow">See it in action</span><video src="' + esc(k.video) + '" poster="' + esc(k.video.replace(/\.mp4$/, '.jpg')) + '" controls playsinline preload="none"></video></section>' : '') +
-      practiceBlock(k) +
+      (extrasLocked() ? extrasLockCard(k) :
+        (k.video ? '<section class="skill-video"><span class="eyebrow">See it in action</span><video src="' + esc(k.video) + '" poster="' + esc(k.video.replace(/\.mp4$/, '.jpg')) + '" controls playsinline preload="none"></video></section>' : '') +
+        practiceBlock(k)) +
       '<section class="keep-it"><span class="keep-icon" aria-hidden="true">' + ICON.bag + '</span><div><strong>Keep this one close.</strong>' +
         '<p>Put it in your pocketbook so it\'s ready next time, or pass it to a friend who could use it.</p>' +
         '</div><div class="keep-actions">' + saveBtn('save-skill-keep') + '<button id="share-skill-keep" class="btn save-btn">' + ICON.share + 'Share with a friend</button></div></section>' +
