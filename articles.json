@@ -103,6 +103,18 @@
       "color": "#F0DFB8"
     },
     {
+      "id": "sexual-health",
+      "name": "Sexual Health",
+      "blurb": "Testing, pleasure and finally talking about it",
+      "color": "#E9D7C8"
+    },
+    {
+      "id": "body-image",
+      "name": "Body Image",
+      "blurb": "Curves, colorism and living in your body",
+      "color": "#D9CFA8"
+    },
+    {
       "id": "motherhood",
       "name": "Motherhood",
       "blurb": "Mothering on our own terms",
@@ -768,6 +780,78 @@
       "topic": "childfree",
       "title": "Not sure if you want kids",
       "minutes": 3
+    },
+    {
+      "id": "sexual-health-silence",
+      "topic": "sexual-health",
+      "title": "Nobody talked to us about sex",
+      "minutes": 3
+    },
+    {
+      "id": "sexual-health-testing",
+      "topic": "sexual-health",
+      "title": "Getting tested without the shame",
+      "minutes": 3
+    },
+    {
+      "id": "sexual-health-pleasure",
+      "topic": "sexual-health",
+      "title": "Pleasure, the Jezebel myth and your body",
+      "minutes": 2
+    },
+    {
+      "id": "sexual-health-identity",
+      "topic": "sexual-health",
+      "title": "Sexual identity and exploring who you are",
+      "minutes": 2
+    },
+    {
+      "id": "sexual-health-pain",
+      "topic": "sexual-health",
+      "title": "When sex hurts",
+      "minutes": 2
+    },
+    {
+      "id": "sexual-health-after-trauma",
+      "topic": "sexual-health",
+      "title": "Sex and intimacy after sexual trauma",
+      "minutes": 2
+    },
+    {
+      "id": "body-image-slim-thick",
+      "topic": "body-image",
+      "title": "Slim thick, BBLs and the body you're \"supposed\" to have",
+      "minutes": 3
+    },
+    {
+      "id": "body-image-colorism-hair",
+      "topic": "body-image",
+      "title": "Colorism, hair and \"pretty for a dark-skinned girl\"",
+      "minutes": 2
+    },
+    {
+      "id": "body-image-family-comments",
+      "topic": "body-image",
+      "title": "\"You picked up weight\": family comments and your body",
+      "minutes": 2
+    },
+    {
+      "id": "body-image-weight-doctor",
+      "topic": "body-image",
+      "title": "Weight stigma at the doctor's office",
+      "minutes": 2
+    },
+    {
+      "id": "body-image-eating-disorders",
+      "topic": "body-image",
+      "title": "Eating disorders don't only happen to white girls",
+      "minutes": 3
+    },
+    {
+      "id": "body-image-changing-body",
+      "topic": "body-image",
+      "title": "Making peace with a body that keeps changing",
+      "minutes": 2
     }
   ]
 }

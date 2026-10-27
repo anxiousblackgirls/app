@@ -177,7 +177,8 @@
       ],
       "topics": [
         "anxiety",
-        "achieving"
+        "achieving",
+        "body-image"
       ],
       "source": "Beck, J. S. (2020). Cognitive behavior therapy: Basics and beyond (3rd ed.). Guilford Press.",
       "video": "video-check-the-evidence.mp4",
@@ -215,7 +216,8 @@
       "topics": [
         "depression",
         "achieving",
-        "infertility"
+        "infertility",
+        "body-image"
       ],
       "source": "Beck, J. S. (2020). Cognitive behavior therapy: Basics and beyond (3rd ed.). Guilford Press.",
       "practice": [
@@ -431,7 +433,8 @@
       ],
       "topics": [
         "relationships",
-        "anxiety"
+        "anxiety",
+        "sexual-health"
       ],
       "source": "Burns, D. D. (1980). Feeling good: The new mood therapy. William Morrow.",
       "practice": [
@@ -494,7 +497,9 @@
       ],
       "topics": [
         "motherhood",
-        "achieving"
+        "achieving",
+        "sexual-health",
+        "body-image"
       ],
       "source": "Burns, D. D. (1980). Feeling good: The new mood therapy. William Morrow.",
       "premium": true,
@@ -588,7 +593,8 @@
       ],
       "topics": [
         "achieving",
-        "pcos"
+        "pcos",
+        "body-image"
       ],
       "source": "Burns, D. D. (1980). Feeling good: The new mood therapy. William Morrow.",
       "premium": true,
@@ -620,7 +626,8 @@
       ],
       "topics": [
         "depression",
-        "bpd"
+        "bpd",
+        "body-image"
       ],
       "source": "Burns, D. D. (1980). Feeling good: The new mood therapy. William Morrow.",
       "premium": true,
@@ -652,7 +659,8 @@
       ],
       "topics": [
         "adhd",
-        "burnout"
+        "burnout",
+        "body-image"
       ],
       "source": "Burns, D. D. (1980). Feeling good: The new mood therapy. William Morrow.",
       "premium": true,
@@ -686,7 +694,8 @@
       "topics": [
         "bpd",
         "bipolar",
-        "relationships"
+        "relationships",
+        "sexual-health"
       ],
       "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press.",
       "practice": [
@@ -721,7 +730,8 @@
       "topics": [
         "anxiety",
         "autism",
-        "grief"
+        "grief",
+        "sexual-health"
       ],
       "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press.",
       "premium": true,
@@ -918,7 +928,8 @@
       "topics": [
         "grief",
         "infertility",
-        "racial-trauma"
+        "racial-trauma",
+        "body-image"
       ],
       "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press.",
       "lens": "Accepting that racism happened is not the same as accepting racism. Radical acceptance can free up energy for rest, healing or action.",
@@ -1112,7 +1123,8 @@
       "topics": [
         "boundaries",
         "relationships",
-        "achieving"
+        "achieving",
+        "sexual-health"
       ],
       "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press.",
       "lens": "Many Black women worry that being direct will get them labeled angry or difficult. DEAR MAN gives you a calm structure, so your words carry the message.",
@@ -1315,7 +1327,8 @@
       "topics": [
         "anxiety",
         "racial-trauma",
-        "grief"
+        "grief",
+        "sexual-health"
       ],
       "source": "Najavits, L. M. (2002). Seeking safety: A treatment manual for PTSD and substance abuse. Guilford Press.",
       "practice": [
@@ -1401,7 +1414,8 @@
       "topics": [
         "bpd",
         "pcos",
-        "adhd"
+        "adhd",
+        "body-image"
       ],
       "source": "Bowen, S., & Marlatt, A. (2009). Surfing the urge: Brief mindfulness-based intervention for college student smokers. Psychology of Addictive Behaviors, 23(4), 666–671.",
       "premium": true,
@@ -1440,7 +1454,8 @@
       ],
       "topics": [
         "anxiety",
-        "adhd"
+        "adhd",
+        "sexual-health"
       ],
       "source": "Lieberman, M. D., et al. (2007). Putting feelings into words: Affect labeling disrupts amygdala activity in response to affective stimuli. Psychological Science, 18(5), 421–428.",
       "practice": [
@@ -1509,7 +1524,9 @@
       "topics": [
         "burnout",
         "racial-trauma",
-        "perimenopause"
+        "perimenopause",
+        "sexual-health",
+        "body-image"
       ],
       "source": "Kabat-Zinn, J. (1990). Full catastrophe living. Delacorte.",
       "lens": "Many Black women carry stress in their bodies for years. A body scan is one way to notice what you've been holding.",
@@ -1845,7 +1862,9 @@
       ],
       "topics": [
         "boundaries",
-        "relationships"
+        "relationships",
+        "sexual-health",
+        "body-image"
       ],
       "source": "Speed, B. C., Goldstein, B. L., & Goldfried, M. R. (2018). Assertiveness training: A forgotten evidence-based treatment. Clinical Psychology: Science and Practice, 25(1), e12216.",
       "practice": [
@@ -1881,7 +1900,8 @@
       ],
       "topics": [
         "boundaries",
-        "anxiety"
+        "anxiety",
+        "sexual-health"
       ],
       "source": "Speed, B. C., Goldstein, B. L., & Goldfried, M. R. (2018). Assertiveness training: A forgotten evidence-based treatment. Clinical Psychology: Science and Practice, 25(1), e12216.",
       "premium": true,
@@ -1957,7 +1977,9 @@
       "topics": [
         "depression",
         "infertility",
-        "achieving"
+        "achieving",
+        "sexual-health",
+        "body-image"
       ],
       "source": "Neff, K. D., & Germer, C. K. (2013). A pilot study and randomized controlled trial of the mindful self-compassion program. Journal of Clinical Psychology, 69(1), 28–44.",
       "lens": "If kindness toward yourself feels unfamiliar or even uncomfortable, that makes sense. Many of us were raised to push through. You can practice this anyway.",
@@ -1994,7 +2016,8 @@
       "topics": [
         "transitions",
         "childfree",
-        "achieving"
+        "achieving",
+        "sexual-health"
       ],
       "source": "Hayes, S. C., Strosahl, K. D., & Wilson, K. G. (2012). Acceptance and commitment therapy (2nd ed.). Guilford Press.",
       "premium": true,
@@ -2027,7 +2050,8 @@
         "Read it when you start doubting yourself."
       ],
       "topics": [
-        "achieving"
+        "achieving",
+        "body-image"
       ],
       "source": "Clance, P. R., & Imes, S. A. (1978). The impostor phenomenon in high achieving women. Psychotherapy: Theory, Research & Practice, 15(3), 241–247.",
       "premium": true,
