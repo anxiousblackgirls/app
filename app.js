@@ -822,7 +822,7 @@
       navBar('#help', 'Back to Help') +
       '<div><h1 class="page-title">Frequently asked questions</h1><p class="lede">Tap a question to see the answer.</p></div>' +
       '<div class="stack">' + FAQ.map(function (f) {
-        var a = esc(f.a).replace('support@anxiousblackgirls.com', '<a href="mailto:support@anxiousblackgirls.com">support@anxiousblackgirls.com</a>');
+        var a = esc(f.a).replace('support@anxiousblackgirls.com', '<a href="mailto:support@anxiousblackgirls.com">support@anxiousblackgirls.com</a>').replace(/\[([^\]]+)\]\((#[a-z0-9-]+)\)/g, '<a class="inline-link" href="$2">$1</a>');
         return '<details class="faq"><summary>' + esc(f.q) + ICON.chev + '</summary><p>' + a + '</p></details>';
       }).join('') + '</div>' +
       '<section class="mind-card"><h2 class="section-title">Still have a question?</h2>' +
