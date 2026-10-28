@@ -879,6 +879,43 @@
     wireFriend('friend-about');
   }
 
+  // Every saved practice from every skill, newest first (Saved tab)
+  function allPractices() {
+    var out = [];
+    SKILLS.skills.forEach(function (k) { practiceList(k).forEach(function (e) { out.push({ k: k, e: e }); }); });
+    return out.sort(function (a, b) { return a.e.date < b.e.date ? 1 : -1; });
+  }
+  function savedPracticesSection() {
+    var list = allPractices();
+    function fmt(d) { return new Date(d).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); }
+    return '<h2 class="section-title">My practices</h2>' +
+      (list.length ? '<div class="stack">' + list.map(function (p) {
+        var written = p.e.items.filter(function (it) { return it.value !== 'Done'; }), done = p.e.items.length - written.length;
+        var first = written.length ? written[0].value : 'Finished ' + done + (done === 1 ? ' step' : ' steps');
+        return '<details class="entry saved-practice"><summary><span class="entry-date">' + esc(fmt(p.e.date)) + ' · ' + esc(p.k.name) + '</span>' +
+          '<span class="entry-preview">' + esc(first.length > 90 ? first.slice(0, 90) + '…' : first) + '</span></summary>' +
+          p.e.items.map(function (it) { return '<p class="entry-prompt">' + esc(it.label) + '</p><p class="entry-text">' + esc(it.value) + '</p>'; }).join('') +
+          '<div class="actions"><a class="btn small" href="#skill-' + esc(p.k.id) + '">Practice again</a> <button class="btn small" data-spdel="' + esc(p.k.id + '|' + p.e.id) + '">Delete</button>' +
+          '<span class="confirm" data-spconfirm="' + esc(p.k.id + '|' + p.e.id) + '" hidden>Delete this practice for good? <button class="btn small dark" data-spdel-yes="' + esc(p.k.id + '|' + p.e.id) + '">Yes, delete</button> <button class="btn small" data-spdel-no="' + esc(p.k.id + '|' + p.e.id) + '">Keep it</button></span></div></details>';
+      }).join('') + '</div>' : '<p class="empty">When you work through a skill and tap "Save this practice," it shows up here so you can look back on it.</p>');
+  }
+  function wireSavedPractices() {
+    function sel(attr, key) { return view.querySelector('[' + attr + '="' + key + '"]'); }
+    Array.prototype.forEach.call(view.querySelectorAll('[data-spdel]'), function (b) {
+      b.addEventListener('click', function () { sel('data-spconfirm', b.getAttribute('data-spdel')).hidden = false; b.hidden = true; });
+    });
+    Array.prototype.forEach.call(view.querySelectorAll('[data-spdel-no]'), function (b) {
+      b.addEventListener('click', function () { var key = b.getAttribute('data-spdel-no'); sel('data-spconfirm', key).hidden = true; sel('data-spdel', key).hidden = false; });
+    });
+    Array.prototype.forEach.call(view.querySelectorAll('[data-spdel-yes]'), function (b) {
+      b.addEventListener('click', function () {
+        var parts = b.getAttribute('data-spdel-yes').split('|'), k = skillById(parts[0]);
+        if (k) store.set('abg.practice.' + k.id, practiceList(k).filter(function (e) { return e.id !== parts[1]; }));
+        viewSaved(); toast('Practice deleted');
+      });
+    });
+  }
+
   function viewSaved() {
     var affs = savedAffs();
     var arts = savedArts().map(articleById).filter(Boolean);
@@ -894,8 +931,10 @@
       '<h2 class="section-title">My pocketbook</h2>' +
       (function () { var ks = savedSkills().map(skillById).filter(Boolean);
         return ks.length ? '<div class="stack">' + ks.map(skillRow).join('') + '</div>' : '<p class="empty">Tap "Save to my pocketbook" on any skill to keep it here, ready for when you need it.</p>'; })() +
+      savedPracticesSection() +
       friendCard('friend-saved');
     wireFriend('friend-saved');
+    wireSavedPractices();
     Array.prototype.forEach.call(view.querySelectorAll('[data-unsave]'), function (b) {
       b.addEventListener('click', function () {
         toggle('abg.savedAffirmations', affs[+b.getAttribute('data-unsave')]);
