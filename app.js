@@ -890,13 +890,8 @@
     function fmt(d) { return new Date(d).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); }
     return '<h2 class="section-title">My practices</h2>' +
       (list.length ? '<div class="stack">' + list.map(function (p) {
-        var written = p.e.items.filter(function (it) { return it.value !== 'Done'; }), done = p.e.items.length - written.length;
-        var first = written.length ? written[0].value : 'Finished ' + done + (done === 1 ? ' step' : ' steps');
-        return '<details class="entry saved-practice"><summary><span class="entry-date">' + esc(fmt(p.e.date)) + ' · ' + esc(p.k.name) + '</span>' +
-          '<span class="entry-preview">' + esc(first.length > 90 ? first.slice(0, 90) + '…' : first) + '</span></summary>' +
-          p.e.items.map(function (it) { return '<p class="entry-prompt">' + esc(it.label) + '</p><p class="entry-text">' + esc(it.value) + '</p>'; }).join('') +
-          '<div class="actions"><a class="btn small" href="#skill-' + esc(p.k.id) + '">Practice again</a> <button class="btn small" data-spdel="' + esc(p.k.id + '|' + p.e.id) + '">Delete</button>' +
-          '<span class="confirm" data-spconfirm="' + esc(p.k.id + '|' + p.e.id) + '" hidden>Delete this practice for good? <button class="btn small dark" data-spdel-yes="' + esc(p.k.id + '|' + p.e.id) + '">Yes, delete</button> <button class="btn small" data-spdel-no="' + esc(p.k.id + '|' + p.e.id) + '">Keep it</button></span></div></details>';
+        return '<a class="row-link" href="#practice-' + esc(p.k.id) + '--' + esc(p.e.id) + '"><span class="badge skill-badge">' + ICON.pencil.replace('<svg ', '<svg class="icon" ') + '</span>' +
+          '<span class="text"><span class="meta skill-meta">Practice · ' + esc(fmt(p.e.date)) + '</span><span class="title">' + esc(p.k.name) + '</span></span>' + ICON.chev + '</a>';
       }).join('') + '</div>' : '<p class="empty">When you work through a skill and tap "Save this practice," it shows up here so you can look back on it.</p>');
   }
   function wireSavedPractices() {
@@ -1169,7 +1164,7 @@
       }).join('') + '</ol>' +
       '<div class="practice-actions"><button id="practice-save" class="btn dark">Save this practice</button><button id="practice-clear" class="btn">Start over</button></div>' +
       (past.length ? '<details class="practice-past"><summary>Your past practices (' + past.length + ')' + ICON.chev + '</summary>' + past.map(function (e) {
-        return '<div class="practice-entry"><div class="practice-date">' + esc(fmt(e.date)) + '</div>' +
+        return '<div class="practice-entry" id="pe-' + esc(e.id) + '"><div class="practice-date">' + esc(fmt(e.date)) + '</div>' +
           e.items.map(function (it) { return '<p><strong>' + esc(it.label) + '</strong><br>' + esc(it.value) + '</p>'; }).join('') +
           '<div class="actions"><button class="btn small" data-pdel="' + esc(e.id) + '">Delete</button>' +
           '<span class="confirm" data-pconfirm="' + esc(e.id) + '" hidden>Delete this practice for good? <button class="btn small dark" data-pdel-yes="' + esc(e.id) + '">Yes, delete</button> <button class="btn small" data-pdel-no="' + esc(e.id) + '">Keep it</button></span></div></div>';
@@ -1222,11 +1217,12 @@
     });
   }
 
-  function viewSkill(id) {
+  function viewSkill(id, fromSaved) {
+    var backHref = fromSaved ? '#saved' : '#pocketbook', backLabel = fromSaved ? 'Back to Saved' : 'Back to the Pocketbook';
     var k = skillById(id);
     if (!k) { location.hash = '#pocketbook'; return; }
     if (isLocked(k)) {
-      view.innerHTML = navBar('#pocketbook', 'Back to the Pocketbook') +
+      view.innerHTML = navBar(backHref, backLabel) +
         '<section class="skill-hero"><span class="skill-hero-label">' + ICON.bag + 'The Pocketbook · 1-minute skill</span><h1>' + esc(k.name) + '</h1><p>' + esc(k.what) + '</p></section>' +
         plusLockCard('skill');
       return;
@@ -1236,7 +1232,7 @@
     function saveBtn(idAttr) { return '<button id="' + idAttr + '" class="btn save-btn pocket-btn" aria-pressed="' + isSaved + '">' + ICON.bag + '<span>' + saveLabel(isSaved) + '</span></button>'; }
     var related = k.topics.map(topicById).filter(Boolean);
     view.innerHTML =
-      navBar('#pocketbook', 'Back to the Pocketbook', '<div class="nav-actions"><button id="share-skill-top" class="btn icon-only" aria-label="Share this skill">' + ICON.share + '</button>' + saveBtn('save-skill-top') + '</div>') +
+      navBar(backHref, backLabel, '<div class="nav-actions"><button id="share-skill-top" class="btn icon-only" aria-label="Share this skill">' + ICON.share + '</button>' + saveBtn('save-skill-top') + '</div>') +
       '<section class="skill-hero"><span class="skill-hero-label">' + ICON.bag + 'The Pocketbook · 1-minute skill</span>' +
         '<h1>' + esc(k.name) + '</h1><p>' + esc(k.what) + '</p><span class="skill-hero-group">' + esc(groupName(k.group)) + '</span></section>' +
       '<article class="prose skill-page">' +
@@ -1639,6 +1635,18 @@
     else if (h === 'help') { tab = 'help'; viewHelp(); }
     else if (h === 'about') { tab = 'about'; viewAbout(); }
     else if (h === 'faq') { tab = 'help'; viewFaq(); }
+    else if (h.indexOf('practice-') === 0) {
+      var pp = h.slice(9).split('--'); tab = 'saved';
+      if (!skillById(pp[0])) { location.hash = '#saved'; return; }
+      viewSkill(pp[0], true);
+      setTimeout(function () {
+        var past = view.querySelector('.practice-past'), el = document.getElementById('pe-' + pp[1]);
+        if (past) past.open = true;
+        var target = el || document.getElementById('practice');
+        if (target) { target.scrollIntoView({ block: 'start' }); window.scrollBy(0, -130); }
+        if (el) { el.classList.add('flash'); setTimeout(function () { el.classList.remove('flash'); }, 1800); }
+      }, 60);
+    }
     else if (h === 'greeting') { tab = 'today'; viewGreeting(); }
     else if (h.indexOf('idea') === 0) { var ictx = h.slice(5) || 'help'; tab = ictx === 'help' ? 'help' : 'learn'; viewIdea(ictx); }
     else { viewToday(); }

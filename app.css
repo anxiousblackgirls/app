@@ -582,3 +582,5 @@ a.listen .listen-title { font-weight: 700; }
 .idea-note { margin: 0; font-size: 13px; color: var(--muted); line-height: 1.45; }
 .saved-practice .actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 4px; }
 .saved-practice .actions a.btn { text-decoration: none; }
+.practice-entry { transition: box-shadow .4s ease; }
+.practice-entry.flash { box-shadow: 0 0 0 3px var(--sage-ink); }
