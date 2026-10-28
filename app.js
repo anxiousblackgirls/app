@@ -538,7 +538,7 @@
       '<label class="search" for="search-input">' +
         '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>' +
         '<span class="sr">Search articles</span><input id="search-input" type="search" placeholder="Search articles" autocomplete="off"></label>' +
-      '<div id="learn-body"></div>';
+      '<div id="learn-body"></div>' + ideaLink('learn', 'Don\'t see a topic you need?');
     var body = document.getElementById('learn-body');
     function showTopics() {
       body.innerHTML = '<div class="topics">' + DATA.topics.map(function (t) {
@@ -919,6 +919,7 @@
         '<a class="row-link" href="https://beam.community" target="_blank" rel="noopener"><span class="text"><span class="title">BEAM</span><span class="lede" style="margin:0">Black Emotional and Mental Health Collective</span></span>' + ICON.out + '</a>' +
       '</div>' +
       '<h2 class="section-title">Questions about the app</h2>' +
+      ideaLink('help', 'Share an idea for the app') +
       '<a class="row-link faq-tile" href="#faq"><span class="badge" style="background:var(--gold-soft)">?</span><span class="text"><span class="title">Frequently asked questions</span><span class="lede" style="margin:0">Plus, privacy, your journal and more</span></span>' + ICON.chev + '</a>' +
       '<h2 class="section-title">Privacy and settings</h2>' +
       '<p class="lede" style="margin-top:-4px">No account, no tracking. Everything you write and save stays on this phone.</p>' +
@@ -990,6 +991,42 @@
     var start = list.length ? (seed % list.length) : 0;
     return list.slice(start).concat(list.slice(0, start)).slice(0, n);
   }
+  // ---------- Share an idea (sent as an email from the person's phone; the app collects nothing) ----------
+  function ideaLink(ctx, title) {
+    return '<a class="row-link idea-link" href="#idea-' + ctx + '"><span class="badge" style="background:var(--sage)">+</span><span class="text"><span class="title">' + esc(title || 'Don\'t see what you need?') + '</span><span class="lede" style="margin:0">Tell us what you\'d like to see in the app.</span></span>' + ICON.chev + '</a>';
+  }
+  var IDEA_KINDS = ['A new topic', 'A coping skill', 'A video', 'An affirmation', 'A feature', 'Something else'];
+  function viewIdea(ctx) {
+    var back = ctx === 'learn' ? '#learn' : ctx === 'pocketbook' ? '#pocketbook' : '#help';
+    view.innerHTML = navBar(back, 'Back') +
+      '<div><h1 class="page-title">Share an idea</h1><p class="lede">This app grows with you. Tell us the topics, skills and features you\'d love to see, and Deseray and the team will read every one.</p></div>' +
+      '<section class="idea-card"><span class="filter-label">What is it about?</span><div class="idea-chips">' +
+        IDEA_KINDS.map(function (k) { return '<button class="idea-chip" aria-pressed="false">' + esc(k) + '</button>'; }).join('') + '</div>' +
+        '<label class="filter-label" for="idea-text">What would you like to see?</label>' +
+        '<textarea id="idea-text" rows="5" placeholder="Example: Articles about caring for aging parents, or a skill for when I can\'t sleep."></textarea>' +
+        '<button id="idea-send" class="btn dark" style="width:100%">Send my idea</button>' +
+        '<p class="idea-note">This opens your email app with your idea filled in. Nothing is sent until you tap Send, and the app doesn\'t keep a copy. This inbox isn\'t for emergencies. If you\'re in crisis, call 911 or call/text 988.</p>' +
+      '</section>';
+    var draft = store.get('abg.ideaDraft', '');
+    var ta = document.getElementById('idea-text'); ta.value = draft;
+    ta.addEventListener('input', function () { store.set('abg.ideaDraft', ta.value); });
+    Array.prototype.forEach.call(view.querySelectorAll('.idea-chip'), function (b) {
+      b.addEventListener('click', function () { b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') !== 'true'); });
+    });
+    document.getElementById('idea-send').addEventListener('click', function () {
+      var text = ta.value.trim();
+      if (!text) { toast('Write your idea first, then tap Send.'); ta.focus(); return; }
+      var kinds = Array.prototype.filter.call(view.querySelectorAll('.idea-chip'), function (b) { return b.getAttribute('aria-pressed') === 'true'; }).map(function (b) { return b.textContent; });
+      var subject = 'App idea' + (kinds.length ? ': ' + kinds.join(', ') : '');
+      var body = text + '\n\n(Sent from the Anxious Black Girls app' + (kinds.length ? ' · ' + kinds.join(', ') : '') + ')';
+      var a = document.createElement('a');
+      a.href = 'mailto:support@anxiousblackgirls.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+      document.body.appendChild(a); a.click(); a.remove();
+      store.set('abg.ideaDraft', '');
+      toast('Thank you! Your email app should open now.', 3500);
+    });
+  }
+
   function viewToolkit() {
     var filter = store.get('abg.toolkitFilter', 'all');
     view.innerHTML =
@@ -1012,7 +1049,7 @@
         '</select>' + ICON.chev + '</div>' +
       '</section>' +
       '<p id="skill-summary" class="section-desc" aria-live="polite"></p>' +
-      '<div id="skill-list" class="stack"></div>' +
+      '<div id="skill-list" class="stack"></div>' + ideaLink('pocketbook', 'Want a skill we don\'t have yet?') +
       '<p class="disclaimer"><strong>Disclaimer:</strong> These skills are for learning and practice. They don\'t replace care from a licensed professional. If you\'re in crisis, call 911 or call/text 988.</p>';
     var topic = store.get('abg.toolkitTopic', 'all');
     var typeSel = document.getElementById('skill-type'), topicSel = document.getElementById('skill-topic');
@@ -1564,6 +1601,7 @@
     else if (h === 'about') { tab = 'about'; viewAbout(); }
     else if (h === 'faq') { tab = 'help'; viewFaq(); }
     else if (h === 'greeting') { tab = 'today'; viewGreeting(); }
+    else if (h.indexOf('idea') === 0) { var ictx = h.slice(5) || 'help'; tab = ictx === 'help' ? 'help' : 'learn'; viewIdea(ictx); }
     else { viewToday(); }
     Array.prototype.forEach.call(document.querySelectorAll('.tab'), function (a) {
       if (a.getAttribute('data-tab') === tab) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
