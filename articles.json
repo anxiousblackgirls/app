@@ -852,6 +852,42 @@
       "topic": "body-image",
       "title": "Making peace with a body that keeps changing",
       "minutes": 2
+    },
+    {
+      "id": "racial-trauma-work-gaslighting",
+      "topic": "racial-trauma",
+      "title": "When work makes you doubt yourself",
+      "minutes": 2
+    },
+    {
+      "id": "racial-trauma-angry-label",
+      "topic": "racial-trauma",
+      "title": "Tone policing and the \"angry Black woman\" label",
+      "minutes": 2
+    },
+    {
+      "id": "achieving-no-grace",
+      "topic": "achieving",
+      "title": "No room for mistakes at work",
+      "minutes": 2
+    },
+    {
+      "id": "achieving-who-to-trust",
+      "topic": "achieving",
+      "title": "Who can you trust at work?",
+      "minutes": 2
+    },
+    {
+      "id": "achieving-pay-promotion",
+      "topic": "achieving",
+      "title": "Paid less, promoted less: knowing your worth",
+      "minutes": 2
+    },
+    {
+      "id": "transitions-stay-or-go",
+      "topic": "transitions",
+      "title": "Stay, leave or build your own?",
+      "minutes": 2
     }
   ]
 }
