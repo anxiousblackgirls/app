@@ -12,6 +12,7 @@
   var DATA = { topics: [], articles: [] };
   var SKILLS = { groups: [], skills: [] };
   var PAID = null;
+  var PATHS = { needs: [], plans: [], challenges: [] };
   var GROUP_COLORS = { thinking: '#EBD3A6', traps: '#DEDDC2', dbt: '#D3B094', body: '#F0DFB8', neuro: '#E9D7C8', relationships: '#EAD9C0', rest: '#D9CFA8' };
   var articleCache = {};
   // Set only inside the iPhone and Android apps (see native.js). The website leaves it null.
@@ -491,6 +492,10 @@
           '<button id="share-aff" class="btn">' + ICON.share + 'Share</button>' +
         '</div>' +
       '</section>' +
+      (function () { var act = activePlans(); if (!act.length) return '';
+        return '<section class="stack continue-wrap"><h2 class="section-title">Pick up where you left off</h2>' + act.slice(0, 3).map(continueCard).join('') +
+          (act.length > 3 ? '<a class="text-link" href="#plans">See all ' + act.length + ' of your plans</a>' : '') + '</section>'; })() +
+      needsCard() +
       '<section class="mind-card" aria-labelledby="mind-title">' +
         '<h2 id="mind-title" class="section-title">What\'s on your mind today?</h2>' +
         (PROMPTS.length ? '<p class="mind-prompt">' + esc(PROMPTS[n % PROMPTS.length]) + '</p>' : '') +
@@ -498,17 +503,8 @@
         '<a class="text-link" href="#journal" id="mind-free">Or free write about anything</a>' +
         '<p class="mind-note">Only you can read what you write. No one else can see it, not even us.</p>' +
       '</section>' +
-      '<section class="learn-card" aria-labelledby="learn-pick-title">' +
-        '<h2 id="learn-pick-title" class="section-title">What would you like to learn about today?</h2>' +
-        '<label class="sr" for="topic-pick">Choose a topic</label>' +
-        '<div class="select-wrap"><select id="topic-pick">' +
-          '<option value="" selected>Choose a topic</option>' +
-          DATA.topics.map(function (t) { return '<option value="' + esc(t.id) + '">' + esc(t.name) + '</option>'; }).join('') +
-        '</select>' + ICON.chev + '</div>' +
-      '</section>' +
       (SKILLS.skills.length ? (function () { var pool = SKILLS.skills.filter(function (x) { return !isLocked(x); }); if (!pool.length) pool = SKILLS.skills; var k = pool[(n * 7) % pool.length];
         return '<a class="toolkit-card" href="#skill-' + esc(k.id) + '"><span class="toolkit-icon" aria-hidden="true">' + ICON.bag + '</span><span class="text"><span class="meta">From the Pocketbook · Skill of the day</span><span class="title">' + esc(k.name) + '</span><span class="lede" style="margin:0">' + esc(k.when) + '</span></span>' + ICON.chev + '</a>'; })() : '') +
-      '<a class="row-link" href="#learn"><span class="text"><span class="title">Browse all topics</span><span class="lede" style="margin:0">' + DATA.topics.length + ' topics, from anxiety and perimenopause to boundaries and grief</span></span>' + ICON.chev + '</a>' +
       '<a class="row-link about-card" href="#about"><span class="text"><span class="title">About Anxious Black Girls®</span><span class="lede" style="margin:0">Therapy, our social club, the podcast and more</span></span>' + ICON.chev + '</a>';
 
     document.getElementById('save-aff').addEventListener('click', function () {
@@ -521,44 +517,39 @@
     document.getElementById('share-aff').addEventListener('click', function () { openShareSheet(aff); });
     document.getElementById('mind-prompt').addEventListener('click', function () { store.set('abg.journalMode', 'prompt'); });
     document.getElementById('mind-free').addEventListener('click', function () { store.set('abg.journalMode', 'free'); });
-    document.getElementById('topic-pick').addEventListener('change', function () {
-      if (this.value) location.hash = '#topic-' + this.value;
-    });
+    wireNeeds();
   }
 
-  function viewLearn() {
+  function viewLearn(mode) {
+    mode = ['plans', 'skills', 'articles'].indexOf(mode) !== -1 ? mode : 'subject';
+    var opts = [['subject', 'Subject'], ['plans', 'Plans and challenges'], ['skills', 'Skills'], ['articles', 'Articles']];
     view.innerHTML =
       navBar('#today', 'Home') +
-      '<div><h1 class="page-title">Learn</h1><p class="lede">Two ways to care for your mind here: read articles to understand what you\'re going through, and use the Pocketbook to practice skills that help in the moment.</p></div>' +
-      (SKILLS.skills.length ? '<section class="learn-section"><span class="section-kicker">Practice</span><h2 class="section-title">The Pocketbook</h2>' +
-        '<p class="section-desc">Our grandmothers\' pocketbooks always seemed to hold exactly what you needed: a peppermint, a tissue, a little something to get you through. The Pocketbook does the same for your mind. It\'s full of short, step-by-step coping skills from CBT, DBT and other proven approaches, each one about a minute long. Save the ones you love to your own pocketbook so they\'re there when you need them.</p>' +
-        '<a class="toolkit-card" href="#pocketbook"><span class="toolkit-icon" aria-hidden="true">' + ICON.bag + '</span><span class="text"><span class="title">Open the Pocketbook</span><span class="lede" style="margin:0">' + SKILLS.skills.length + ' skills for anxiety, big emotions, ADHD, autism, boundaries and rest</span></span>' + ICON.chev + '</a></section>' : '') +
-      '<section class="learn-section"><span class="section-kicker">Read</span><h2 class="section-title">Articles</h2>' +
-        '<p class="section-desc">Research-backed reads on mental health through the lens of Black women. Each article explains what a condition or experience is, how it shows up in our lives, why it often gets missed, and what you can do about it. Pick a topic or search below.</p></section>' +
+      '<div><h1 class="page-title">Learn</h1><p class="lede">What would you like to learn about today? Pick a subject to see the plans, skills and articles that go with it, or browse one kind at a time.</p></div>' +
+      '<section class="learn-card"><label class="filter-label" for="browse-by">Browse by</label>' +
+        '<div class="select-wrap"><select id="browse-by">' + opts.map(function (o) {
+          return '<option value="' + o[0] + '"' + (o[0] === mode ? ' selected' : '') + '>' + o[1] + '</option>'; }).join('') + '</select>' + ICON.chev + '</div>' +
+      '</section>' +
       '<label class="search" for="search-input">' +
         '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>' +
-        '<span class="sr">Search articles</span><input id="search-input" type="search" placeholder="Search articles" autocomplete="off"></label>' +
-      '<div id="learn-body"></div>' + ideaLink('learn', 'Don\'t see a topic you need?');
+        '<span class="sr">Search</span><input id="search-input" type="search" placeholder="Search plans, skills and articles" autocomplete="off"></label>' +
+      '<div id="learn-body" class="learn-body"></div>' + ideaLink('learn', 'Don\'t see a topic you need?');
     var body = document.getElementById('learn-body');
-    function showTopics() {
-      body.innerHTML = '<div class="topics">' + DATA.topics.map(function (t) {
-        var count = DATA.articles.filter(function (a) { return a.topic === t.id; }).length;
-        return '<a class="topic" href="#topic-' + esc(t.id) + '" style="background:' + esc(t.color) + '">' +
-          '<span class="count">' + count + (count === 1 ? ' read' : ' reads') + '</span>' +
-          '<span><span class="name">' + esc(t.name) + '</span><span class="blurb" style="display:block">' + esc(t.blurb) + '</span></span></a>';
-      }).join('') + '</div>';
-    }
-    showTopics();
+    body.innerHTML = learnBody(mode);
+    document.getElementById('browse-by').addEventListener('change', function () {
+      location.hash = this.value === 'subject' ? '#learn' : '#learn-' + this.value;
+    });
     document.getElementById('search-input').addEventListener('input', function () {
       var q = this.value.trim().toLowerCase();
-      if (!q) { showTopics(); return; }
-      var hits = DATA.articles.filter(function (a) {
-        var t = topicById(a.topic);
-        return (a.title + ' ' + (t ? t.name : '')).toLowerCase().indexOf(q) !== -1;
-      });
-      body.innerHTML = hits.length
-        ? '<div class="stack">' + hits.map(articleRow).join('') + '</div>'
-        : '<p class="empty">No articles match "' + esc(q) + '" yet.</p>';
+      if (!q) { body.innerHTML = learnBody(mode); return; }
+      var ps = allPaths().filter(function (p) { return (p.title + ' ' + p.tagline).toLowerCase().indexOf(q) !== -1; });
+      var ks = SKILLS.skills.filter(function (k) { return (k.name + ' ' + k.when).toLowerCase().indexOf(q) !== -1; });
+      var as = DATA.articles.filter(function (a) { var t = topicById(a.topic); return (a.title + ' ' + (t ? t.name : '')).toLowerCase().indexOf(q) !== -1; });
+      body.innerHTML = (ps.length + ks.length + as.length)
+        ? (ps.length ? '<section class="stack"><h2 class="section-title">Plans and challenges</h2>' + ps.map(planCard).join('') + '</section>' : '') +
+          (ks.length ? '<section class="stack"><h2 class="section-title">Skills</h2>' + ks.map(skillRow).join('') + '</section>' : '') +
+          (as.length ? '<section class="stack"><h2 class="section-title">Articles</h2>' + as.map(articleRow).join('') + '</section>' : '')
+        : '<p class="empty">Nothing matches "' + esc(q) + '" yet.</p>';
     });
   }
 
@@ -566,10 +557,15 @@
     var t = topicById(id);
     if (!t) { location.hash = '#learn'; return; }
     var list = DATA.articles.filter(function (a) { return a.topic === id; });
+    var ps = allPaths().filter(function (p) { return p.topics.indexOf(id) !== -1; });
+    var ks = SKILLS.skills.filter(function (k) { return k.topics.indexOf(id) !== -1; });
     view.innerHTML =
       navBar('#learn', 'Back to Learn') +
-      '<div><h1 class="page-title">' + esc(t.name) + '</h1><p class="lede">' + esc(t.blurb) + '</p></div>' +
-      '<div class="stack">' + list.map(articleRow).join('') + '</div>';
+      '<div class="topic-head" style="background:' + esc(t.color) + '"><h1 class="page-title">' + esc(t.name) + '</h1><p class="lede">' + esc(t.blurb) + '</p></div>' +
+      (ps.length ? '<section class="stack"><h2 class="section-title">Plans and challenges</h2>' + ps.map(planCard).join('') + '</section>' : '') +
+      '<section class="stack"><h2 class="section-title">Articles</h2>' + list.map(articleRow).join('') + '</section>' +
+      (ks.length ? '<section class="stack"><h2 class="section-title">Skills that help</h2>' + ks.slice(0, 6).map(skillRow).join('') +
+        (ks.length > 6 ? '<details class="more-skills"><summary class="btn">See all ' + ks.length + ' skills</summary><div class="stack">' + ks.slice(6).map(skillRow).join('') + '</div></details>' : '') + '</section>' : '');
   }
 
   function setupListen() {
@@ -610,7 +606,7 @@
     var isSaved = savedArts().indexOf(id) !== -1;
     var locked = isLocked(a), audioLocked = !!(a.audio && (locked || (PAID && PAID.enabled && PAID.lockAudio && !hasPlus())));
     view.innerHTML =
-      navBar('#topic-' + esc(t.id), 'Back to ' + t.name, '<div class="nav-actions"><button id="share-art-top" class="btn icon-only" aria-label="Share this article">' + ICON.share + '</button>' + saveArticleBtn('save-art-top', isSaved) + '</div>') +
+      navBar(esc(planBack('#topic-' + t.id, 'Back to ' + t.name).href), planBack('#topic-' + t.id, 'Back to ' + t.name).label, '<div class="nav-actions"><button id="share-art-top" class="btn icon-only" aria-label="Share this article">' + ICON.share + '</button>' + saveArticleBtn('save-art-top', isSaved) + '</div>') +
       '<article class="prose"><div class="tags"><span class="tag" style="background:' + esc(t.color) + '">' + esc(t.name) + '</span><span class="tag" style="background:var(--bg)">' + a.minutes + ' min read</span></div>' +
       '<h1>' + esc(a.title) + '</h1>' +
       (audioLocked ? '<a class="listen" href="#plus"><span class="listen-btn" aria-hidden="true">' + ICON.lock + '</span><span class="listen-info"><span class="listen-title">Listen with ' + esc(PAID.name) + '</span></span></a>' :
@@ -1219,6 +1215,7 @@
 
   function viewSkill(id, fromSaved) {
     var backHref = fromSaved ? '#saved' : '#pocketbook', backLabel = fromSaved ? 'Back to Saved' : 'Back to the Pocketbook';
+    if (!fromSaved) { var pb = planBack(backHref, backLabel); backHref = pb.href; backLabel = pb.label; }
     var k = skillById(id);
     if (!k) { location.hash = '#pocketbook'; return; }
     if (isLocked(k)) {
@@ -1618,11 +1615,213 @@
     });
   }
 
+  // ---------- Plans and challenges (progress stays on this phone) ----------
+  function allPaths() { return (PATHS.plans || []).concat(PATHS.challenges || []); }
+  function pathById(id) { return allPaths().filter(function (p) { return p.id === id; })[0]; }
+  function needById(id) { return (PATHS.needs || []).filter(function (n) { return n.id === id; })[0]; }
+  function planState() { var s = store.get('abg.plans', {}); return s && typeof s === 'object' ? s : {}; }
+  function planProgress(id) { return planState()[id] || null; }
+  function savePlanProgress(id, p) { var s = planState(); if (p) s[id] = p; else delete s[id]; store.set('abg.plans', s); }
+  function planLocked(p) { return !!(PAID && PAID.enabled) && !p.free && !hasPlus(); }
+  function planNextDay(p, prog) {
+    prog = prog || planProgress(p.id); if (!prog) return 0;
+    for (var i = 0; i < p.days.length; i++) if ((prog.done || []).indexOf(i) === -1) return i;
+    return -1;
+  }
+  function activePlans() {
+    var s = planState();
+    return allPaths().filter(function (p) { return s[p.id] && planNextDay(p, s[p.id]) !== -1; })
+      .sort(function (a, b) { return (s[b.id].last || '') < (s[a.id].last || '') ? -1 : 1; });
+  }
+  function kindLabel(p) { return p.kind === 'challenge' ? 'Challenge' : 'Plan'; }
+  function pathItem(ref) {
+    if (!ref) return null;
+    var parts = ref.split(':');
+    return parts[0] === 'article' ? { kind: 'article', a: articleById(parts[1]) } : { kind: 'skill', k: skillById(parts[1]) };
+  }
+  function progressBar(done, total) {
+    return '<span class="plan-bar" role="img" aria-label="' + done + ' of ' + total + ' days done"><span style="width:' + Math.round(done / total * 100) + '%"></span></span>';
+  }
+  function planCard(p) {
+    var prog = planProgress(p.id), done = prog ? (prog.done || []).length : 0, next = planNextDay(p, prog);
+    var status = !prog ? p.days.length + ' days' : next === -1 ? 'Finished' : 'Day ' + (next + 1) + ' of ' + p.days.length;
+    return '<a class="plan-card' + (p.kind === 'challenge' ? ' is-challenge' : '') + '" href="#plan-' + esc(p.id) + '">' +
+      '<span class="plan-meta">' + kindLabel(p) + ' · ' + esc(status) + (planLocked(p) ? ' <span class="plus-tag">Plus</span>' : '') + '</span>' +
+      '<span class="plan-title">' + esc(p.title) + '</span>' +
+      '<span class="plan-tagline">' + esc(p.tagline) + '</span>' +
+      (prog ? progressBar(done, p.days.length) : '') + '</a>';
+  }
+  function continueCard(p) {
+    var prog = planProgress(p.id), next = planNextDay(p, prog), d = p.days[next];
+    return '<a class="continue-card" href="#plan-' + esc(p.id) + '--' + (next + 1) + '">' +
+      '<span class="text"><span class="plan-meta">' + esc(p.title) + '</span>' +
+      '<span class="title">Day ' + (next + 1) + ': ' + esc(d.title) + '</span>' +
+      progressBar((prog.done || []).length, p.days.length) + '</span>' + ICON.chev + '</a>';
+  }
+  function needSuggestions(needId) {
+    var n = needById(needId); if (!n) return '';
+    var plans = (PATHS.plans || []).filter(function (p) { return p.needs.indexOf(needId) !== -1; }).slice(0, 2);
+    var ch = (PATHS.challenges || []).filter(function (p) { return p.needs.indexOf(needId) !== -1; })[0];
+    return '<p class="need-reply">' + esc(n.reply) + '</p>' +
+      '<div class="stack">' + plans.map(planCard).join('') + (ch ? planCard(ch) : '') + '</div>' +
+      '<a class="text-link" href="#plans-need-' + esc(needId) + '">See everything for this</a>';
+  }
+  function needsCard() {
+    if (!(PATHS.needs || []).length) return '';
+    return '<section class="needs-card" aria-labelledby="needs-title">' +
+      '<span class="eyebrow">Just for today</span>' +
+      '<h2 id="needs-title" class="needs-title">What do you need today?</h2>' +
+      '<p class="needs-lede">Whatever you\'re carrying, you don\'t have to figure it out by yourself. Pick what feels closest, and we\'ll meet you there.</p>' +
+      '<div class="idea-chips" role="group" aria-label="What you need">' + PATHS.needs.map(function (n) {
+        return '<button class="idea-chip" data-need="' + esc(n.id) + '" aria-pressed="false">' + esc(n.label) + '</button>'; }).join('') + '</div>' +
+      '<div id="need-results" class="need-results" hidden></div>' +
+      '<div class="needs-actions"><a class="btn dark" href="#plans">Choose a plan</a><a class="btn" href="#plans-challenges">Take a challenge</a></div>' +
+      '<a class="text-link" href="#learn">Or browse everything in Learn</a>' +
+    '</section>';
+  }
+  function wireNeeds() {
+    var box = document.getElementById('need-results'); if (!box) return;
+    Array.prototype.forEach.call(view.querySelectorAll('[data-need]'), function (b) {
+      b.addEventListener('click', function () {
+        var on = b.getAttribute('aria-pressed') !== 'true';
+        Array.prototype.forEach.call(view.querySelectorAll('[data-need]'), function (x) { x.setAttribute('aria-pressed', 'false'); });
+        b.setAttribute('aria-pressed', on);
+        box.hidden = !on; box.innerHTML = on ? needSuggestions(b.getAttribute('data-need')) : '';
+      });
+    });
+  }
+
+  function viewPlans(filter) {
+    var showCh = filter === 'challenges', need = filter && filter.indexOf('need-') === 0 ? filter.slice(5) : '';
+    var list = (showCh ? PATHS.challenges : PATHS.plans) || [];
+    if (need) list = allPaths().filter(function (p) { return p.needs.indexOf(need) !== -1; });
+    var act = activePlans();
+    view.innerHTML = navBar('#today', 'Home') +
+      '<div><h1 class="page-title">Plans and challenges</h1><p class="lede">Plans walk you through a few articles and skills, one day at a time. Challenges give you one small thing to do each day. Start as many as you like and go at your own pace.</p></div>' +
+      (act.length && !need ? '<section class="stack"><h2 class="section-title">Pick up where you left off</h2>' + act.map(continueCard).join('') + '</section>' : '') +
+      '<div class="seg" role="tablist">' +
+        '<a class="seg-btn" role="tab" href="#plans" aria-selected="' + (!showCh && !need) + '">Plans</a>' +
+        '<a class="seg-btn" role="tab" href="#plans-challenges" aria-selected="' + showCh + '">Challenges</a></div>' +
+      '<div class="chip-row" role="group" aria-label="Filter by what you need">' + (PATHS.needs || []).map(function (n) {
+        return '<a class="btn small" href="' + (need === n.id ? '#plans' : '#plans-need-' + esc(n.id)) + '" aria-pressed="' + (need === n.id) + '">' + esc(n.label) + '</a>'; }).join('') + '</div>' +
+      (need ? '<p class="need-reply">' + esc(needById(need).reply) + '</p>' : '') +
+      '<div class="stack">' + list.map(planCard).join('') + '</div>' +
+      ideaLink('learn', 'Want a plan we don\'t have yet?');
+  }
+
+  function viewPlan(id) {
+    var p = pathById(id); if (!p) { location.hash = '#plans'; return; }
+    var prog = planProgress(id), next = planNextDay(p, prog), locked = planLocked(p);
+    var done = prog ? prog.done || [] : [];
+    view.innerHTML = navBar('#plans' + (p.kind === 'challenge' ? '-challenges' : ''), p.kind === 'challenge' ? 'All challenges' : 'All plans') +
+      '<section class="plan-hero' + (p.kind === 'challenge' ? ' is-challenge' : '') + '">' +
+        '<span class="plan-meta">' + kindLabel(p) + ' · ' + p.days.length + ' days' + (locked ? ' <span class="plus-tag">Plus</span>' : '') + '</span>' +
+        '<h1>' + esc(p.title) + '</h1><p>' + esc(p.tagline) + '</p>' +
+        '<p class="plan-for"><strong>This is for you if:</strong> ' + esc(p.forYou) + '</p>' +
+        (prog ? progressBar(done.length, p.days.length) : '') +
+        (locked ? '' : !prog ? '<button class="btn dark" id="plan-start">Start ' + (p.kind === 'challenge' ? 'the challenge' : 'this plan') + '</button>'
+          : next === -1 ? '<p class="plan-done-note">' + ICON.spark + 'You finished this. Look at you.</p>'
+          : '<a class="btn dark" href="#plan-' + esc(id) + '--' + (next + 1) + '">Continue with Day ' + (next + 1) + '</a>') +
+      '</section>' +
+      (locked ? plusLockCard(p.kind === 'challenge' ? 'challenge' : 'plan') : '') +
+      '<section class="stack"><h2 class="section-title">The days</h2><ol class="day-list">' + p.days.map(function (d, i) {
+        var it = pathItem(d.item), isDone = done.indexOf(i) !== -1;
+        var sub = p.kind === 'challenge' ? d.task : it ? (it.kind === 'article' ? 'Read · ' + (it.a ? it.a.minutes + ' min' : '') : 'Skill · 1 min') : '';
+        var inner = '<span class="day-dot' + (isDone ? ' is-done' : '') + '" aria-hidden="true">' + (isDone ? '✓' : (i + 1)) + '</span>' +
+          '<span class="text"><span class="title">' + esc(d.title) + '</span><span class="day-sub">' + esc(sub) + '</span></span>';
+        return '<li>' + (locked ? '<div class="day-row">' + inner + '</div>' : '<a class="day-row" href="#plan-' + esc(id) + '--' + (i + 1) + '">' + inner + ICON.chev + '</a>') + '</li>';
+      }).join('') + '</ol></section>' +
+      (prog ? '<button class="text-link plan-leave" id="plan-leave">Start over or leave this ' + kindLabel(p).toLowerCase() + '</button>' +
+        '<div class="plan-leave-confirm" id="plan-leave-confirm" hidden><p>This clears your progress and notes for this ' + kindLabel(p).toLowerCase() + '.</p>' +
+        '<div class="actions"><button class="btn dark" id="plan-leave-yes">Clear it</button><button class="btn" id="plan-leave-no">Keep it</button></div></div>' : '');
+    var st = document.getElementById('plan-start');
+    if (st) st.addEventListener('click', function () {
+      savePlanProgress(id, { started: new Date().toISOString(), last: new Date().toISOString(), done: [], notes: {} });
+      location.hash = '#plan-' + id + '--1';
+    });
+    var lv = document.getElementById('plan-leave');
+    if (lv) {
+      lv.addEventListener('click', function () { lv.hidden = true; document.getElementById('plan-leave-confirm').hidden = false; });
+      document.getElementById('plan-leave-no').addEventListener('click', function () { lv.hidden = false; document.getElementById('plan-leave-confirm').hidden = true; });
+      document.getElementById('plan-leave-yes').addEventListener('click', function () { savePlanProgress(id, null); toast('Cleared'); viewPlan(id); });
+    }
+  }
+
+  function viewPlanDay(id, n) {
+    var p = pathById(id); if (!p) { location.hash = '#plans'; return; }
+    var i = n - 1, d = p.days[i];
+    if (!d || planLocked(p)) { location.hash = '#plan-' + id; return; }
+    var prog = planProgress(id);
+    if (!prog) { prog = { started: new Date().toISOString(), done: [], notes: {} }; }
+    prog.last = new Date().toISOString(); savePlanProgress(id, prog);
+    var isDone = (prog.done || []).indexOf(i) !== -1, it = pathItem(d.item);
+    try { sessionStorage.setItem('abg.planReturn', JSON.stringify({ hash: '#plan-' + id + '--' + n, label: 'Back to Day ' + n })); } catch (e) {}
+    view.innerHTML = navBar('#plan-' + esc(id), 'Back to ' + p.title) +
+      '<section class="plan-hero' + (p.kind === 'challenge' ? ' is-challenge' : '') + '">' +
+        '<span class="plan-meta">Day ' + n + ' of ' + p.days.length + ' · ' + esc(p.title) + '</span>' +
+        '<h1>' + esc(d.title) + '</h1><p>' + esc(d.intro) + '</p>' +
+        progressBar((prog.done || []).length, p.days.length) +
+      '</section>' +
+      (d.task ? '<section class="task-card"><span class="eyebrow">Today\'s challenge</span><p class="task-text">' + esc(d.task) + '</p></section>' : '') +
+      (it && (it.a || it.k) ? '<section class="stack"><h2 class="section-title">' + (d.task ? 'This can help' : it.kind === 'article' ? 'Today\'s read' : 'Today\'s skill') + '</h2>' +
+        (it.kind === 'article' ? articleRow(it.a) : skillRow(it.k)) + '</section>' : '') +
+      '<section class="practice reflect-card"><span class="eyebrow">Think about it</span>' +
+        '<label class="reflect-q" for="reflect">' + esc(d.reflect) + '</label>' +
+        '<textarea id="reflect" placeholder="Write as much or as little as you want">' + esc((prog.notes || {})[i] || '') + '</textarea>' +
+        '<p class="mind-note">Only you can see this. It stays on your phone.</p></section>' +
+      (isDone ? '<p class="plan-done-note">' + ICON.spark + 'Day ' + n + ' is done.</p>'
+        : '<button class="btn dark day-done" id="day-done">' + (d.task ? 'I did it' : 'Mark Day ' + n + ' done') + '</button>') +
+      '<div class="day-nav">' + (n > 1 ? '<a class="btn small" href="#plan-' + esc(id) + '--' + (n - 1) + '">Day ' + (n - 1) + '</a>' : '<span></span>') +
+        (n < p.days.length ? '<a class="btn small" href="#plan-' + esc(id) + '--' + (n + 1) + '">Day ' + (n + 1) + '</a>' : '') + '</div>';
+    var ta = document.getElementById('reflect');
+    ta.addEventListener('input', function () { var pr = planProgress(id) || prog; pr.notes = pr.notes || {}; pr.notes[i] = ta.value; savePlanProgress(id, pr); });
+    var btn = document.getElementById('day-done');
+    if (btn) btn.addEventListener('click', function () {
+      var pr = planProgress(id) || prog; pr.done = pr.done || [];
+      if (pr.done.indexOf(i) === -1) pr.done.push(i);
+      savePlanProgress(id, pr);
+      var next = planNextDay(p, pr);
+      if (next === -1) { toast('You finished ' + p.title + '. Proud of you.', 3200); location.hash = '#plan-' + id; }
+      else { toast('Day ' + n + ' done. See you tomorrow, or keep going.', 2600); location.hash = '#today'; }
+    });
+  }
+  // When she opens an article or skill from a plan day, its back button returns to that day.
+  function planBack(href, label) {
+    try {
+      var r = JSON.parse(sessionStorage.getItem('abg.planReturn') || 'null');
+      if (r && r.hash) return { href: r.hash, label: r.label };
+    } catch (e) {}
+    return { href: href, label: label };
+  }
+
+  // ---------- Learn: browse by subject, plans, skills or articles ----------
+  function learnBody(mode) {
+    if (mode === 'plans') return '<div class="stack">' + allPaths().map(planCard).join('') + '</div>';
+    if (mode === 'skills') return '<a class="toolkit-card" href="#pocketbook"><span class="toolkit-icon" aria-hidden="true">' + ICON.bag + '</span><span class="text"><span class="title">Open the Pocketbook</span><span class="lede" style="margin:0">Save your favorite skills to your own pocketbook</span></span>' + ICON.chev + '</a>' +
+      SKILLS.groups.map(function (g) {
+        var ks = SKILLS.skills.filter(function (k) { return k.group === g.id; });
+        return '<section class="stack"><h2 class="section-title">' + esc(g.name) + '</h2>' + ks.map(skillRow).join('') + '</section>'; }).join('');
+    if (mode === 'articles') return DATA.topics.map(function (t) {
+        return '<section class="stack"><h2 class="section-title">' + esc(t.name) + '</h2>' + DATA.articles.filter(function (a) { return a.topic === t.id; }).map(articleRow).join('') + '</section>'; }).join('');
+    return '<div class="topics">' + DATA.topics.map(function (t) {
+      var count = DATA.articles.filter(function (a) { return a.topic === t.id; }).length;
+      var sk = SKILLS.skills.filter(function (k) { return k.topics.indexOf(t.id) !== -1; }).length;
+      var pl = allPaths().filter(function (p) { return p.topics.indexOf(t.id) !== -1; }).length;
+      return '<a class="topic" href="#topic-' + esc(t.id) + '" style="background:' + esc(t.color) + '">' +
+        '<span class="count">' + [count + ' reads', sk ? sk + (sk === 1 ? ' skill' : ' skills') : '', pl ? pl + (pl === 1 ? ' plan' : ' plans') : ''].filter(Boolean).join(' · ') + '</span>' +
+        '<span><span class="name">' + esc(t.name) + '</span><span class="blurb" style="display:block">' + esc(t.blurb) + '</span></span></a>';
+    }).join('') + '</div>';
+  }
+
   // ---------- router ----------
   function route() {
     var h = (location.hash || '#today').slice(1);
     var tab = 'today';
-    if (h === 'learn') { tab = 'learn'; viewLearn(); }
+    if (!/^(article-|skill-|plan-)/.test(h)) { try { sessionStorage.removeItem('abg.planReturn'); } catch (e) {} }
+    else if (h.indexOf('plan-') === 0 && h.indexOf('--') === -1) { try { sessionStorage.removeItem('abg.planReturn'); } catch (e) {} }
+    if (h === 'learn' || h.indexOf('learn-') === 0) { tab = 'learn'; viewLearn(h.slice(6)); }
+    else if (h === 'plans' || h.indexOf('plans-') === 0) { tab = 'today'; viewPlans(h.slice(6)); }
+    else if (h.indexOf('plan-') === 0) { tab = 'today'; var pd = h.slice(5).split('--'); if (pd[1]) viewPlanDay(pd[0], +pd[1]); else viewPlan(pd[0]); }
     else if (h.indexOf('topic-') === 0) { tab = 'learn'; viewTopic(h.slice(6)); }
     else if (h.indexOf('article-') === 0) { tab = 'learn'; viewArticle(h.slice(8)); }
     else if (h === 'toolkit' || h === 'pocketbook') { tab = 'learn'; viewToolkit(); }
@@ -1692,10 +1891,11 @@
     fetch('about.json').then(function (r) { return r.json(); }).catch(function () { return null; }),
     fetch('faq.json').then(function (r) { return r.json(); }).catch(function () { return []; }),
     fetch('skills.json').then(function (r) { return r.json(); }).catch(function () { return { groups: [], skills: [] }; }),
-    fetch('paid.json').then(function (r) { return r.json(); }).catch(function () { return null; })
+    fetch('paid.json').then(function (r) { return r.json(); }).catch(function () { return null; }),
+    fetch('paths.json').then(function (r) { return r.json(); }).catch(function () { return { needs: [], plans: [], challenges: [] }; })
   ]).then(function (res) {
     freeArticleIds = null;
-    AFFIRMATIONS = res[0]; DATA = res[1]; PROMPTS = res[2]; ABOUT = res[3]; FAQ = res[4]; SKILLS = res[5]; PAID = res[6];
+    AFFIRMATIONS = res[0]; DATA = res[1]; PROMPTS = res[2]; ABOUT = res[3]; FAQ = res[4]; SKILLS = res[5]; PAID = res[6]; PATHS = res[7];
     checkPlus();
     window.addEventListener('hashchange', route);
     route();
