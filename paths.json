@@ -1,219 +1,1312 @@
 {
   "needs": [
-    { "id": "anxious", "label": "My mind won't slow down", "reply": "When your thoughts keep racing, you don't need to fix everything tonight. Start by helping your body feel safe, then take on one thought at a time." },
-    { "id": "work", "label": "Work is wearing me down", "reply": "You've been carrying a lot at work, and some of it was never yours to carry. Let's sort out what's yours, what isn't, and what you want next." },
-    { "id": "tired", "label": "I'm running on empty", "reply": "Being tired all the time doesn't mean you're weak. It usually means you've been strong for too long without a break. Let's find some rest that actually works for you." },
-    { "id": "people", "label": "Family and love stuff", "reply": "The people we love can also be the people who stress us out the most. You can love them and still protect your peace." },
-    { "id": "heavy", "label": "My heart feels heavy", "reply": "Some days are just heavy. You don't have to smile through it here. Go slow, and take what helps." },
-    { "id": "brain", "label": "I want to understand my brain", "reply": "Getting a name for what you're going through can bring relief and a lot of questions. Learn at your own pace, and take what fits." },
-    { "id": "body", "label": "I want to feel at home in my body", "reply": "Your body has been through a lot and has been talked about a lot. Let's give it some kindness and some real information." }
+    {
+      "id": "anxious",
+      "label": "My mind won't slow down",
+      "reply": "When your thoughts keep racing, you don't need to fix everything tonight. Start by helping your body feel safe, then take on one thought at a time."
+    },
+    {
+      "id": "work",
+      "label": "Work is wearing me down",
+      "reply": "You've been carrying a lot at work, and some of it was never yours to carry. Let's sort out what's yours, what isn't, and what you want next."
+    },
+    {
+      "id": "tired",
+      "label": "I'm running on empty",
+      "reply": "Being tired all the time doesn't mean you're weak. It usually means you've been strong for too long without a break. Let's find some rest that actually works for you."
+    },
+    {
+      "id": "people",
+      "label": "Family and love stuff",
+      "reply": "The people we love can also be the people who stress us out the most. You can love them and still protect your peace."
+    },
+    {
+      "id": "heavy",
+      "label": "My heart feels heavy",
+      "reply": "Some days are just heavy. You don't have to smile through it here. Go slow, and take what helps."
+    },
+    {
+      "id": "brain",
+      "label": "I want to understand my brain",
+      "reply": "Getting a name for what you're going through can bring relief and a lot of questions. Learn at your own pace, and take what fits."
+    },
+    {
+      "id": "body",
+      "label": "I want to feel at home in my body",
+      "reply": "Your body has been through a lot and has been talked about a lot. Let's give it some kindness and some real information."
+    },
+    {
+      "id": "who",
+      "label": "I'm figuring out who I am",
+      "reply": "Figuring out who you are can feel exciting and scary at the same time. You don't need all the answers today. Take your time, and know you're not the only one asking these questions."
+    }
   ],
   "plans": [
     {
-      "id": "quiet-worry", "kind": "plan", "free": true, "needs": ["anxious"], "topics": ["anxiety"],
+      "id": "quiet-worry",
+      "kind": "plan",
+      "free": true,
+      "needs": [
+        "anxious"
+      ],
+      "topics": [
+        "anxiety"
+      ],
       "title": "Quiet your worry brain",
       "tagline": "Five days to stop spiraling and start sorting out your thoughts.",
       "forYou": "Your mind replays conversations, plans for the worst and won't let you rest.",
       "days": [
-        { "title": "Why your body stays on guard", "item": "article:anxiety-on-guard", "intro": "Before you change your thoughts, it helps to understand where the worry comes from. For a lot of us, staying on guard was how we stayed safe.", "reflect": "When does your body feel the most on guard: at work, at home, out in public or somewhere else?" },
-        { "title": "Catch the thought", "item": "skill:automatic-thoughts", "intro": "Worry usually starts with a quick thought you barely notice. Today you're just going to catch one. You don't have to change it yet.", "reflect": "What thought showed up right before your mood dropped today?" },
-        { "title": "When your mind jumps to the worst", "item": "skill:catastrophizing", "intro": "One unanswered text turns into \"something's wrong.\" That jump has a name, and once you can name it, it loses some of its power.", "reflect": "What worst-case story has your mind been telling you this week?" },
-        { "title": "Check the evidence", "item": "skill:check-the-evidence", "intro": "Today you'll put a worried thought on trial. What's the proof for it? What's the proof against it?", "reflect": "After looking at the evidence, what's a more balanced way to say that thought?" },
-        { "title": "Calm your body, then decide", "item": "skill:box-breathing", "intro": "A calmer body thinks more clearly. Keep this one in your pocket for the next time your mind starts racing.", "reflect": "Which skill from this week do you want to keep using?" }
+        {
+          "title": "Why your body stays on guard",
+          "video": "automatic-thoughts",
+          "article": "anxiety-on-guard",
+          "intro": "Before you change your thoughts, it helps to understand where the worry comes from. Watch how one quick thought can change a whole mood, then read why so many of us stay on guard.",
+          "reflect": "When does your body feel the most on guard: at work, at home, out in public or somewhere else?"
+        },
+        {
+          "title": "Put the thought on trial",
+          "video": "check-the-evidence",
+          "article": "anxiety-only-one-in-the-room",
+          "intro": "Being the only Black woman in the room can make every look and comment feel like a threat. Today you'll take one worried thought and look at the proof for it and against it.",
+          "reflect": "After looking at the evidence, what's a more balanced way to say that thought?"
+        },
+        {
+          "title": "When your mind jumps to the worst",
+          "video": "test-the-prediction",
+          "article": "anxiety-panic-attacks",
+          "intro": "One unanswered text turns into \"something's wrong.\" Today you'll treat that worst-case thought like a prediction you can test.",
+          "reflect": "What worst-case story has your mind been telling you this week?"
+        },
+        {
+          "title": "Give your worry an appointment",
+          "video": "worry-time",
+          "article": "anxiety-news-and-racial-trauma",
+          "intro": "Between the news, the group chat and everything on your plate, worry can follow you all day. Worry time gives it one place to go.",
+          "reflect": "What worries kept popping up today?"
+        },
+        {
+          "title": "Put it all on one page",
+          "video": "thought-record",
+          "article": "anxiety-pray-about-it",
+          "intro": "Faith can be a real comfort, and so can tools that help you sort out your thoughts. A thought record puts everything you practiced this week on one page.",
+          "reflect": "Which skill from this week do you want to keep using?"
+        }
       ]
     },
     {
-      "id": "calm-body", "kind": "plan", "free": true, "needs": ["anxious", "body"], "topics": ["anxiety", "burnout"],
+      "id": "calm-body",
+      "kind": "plan",
+      "free": true,
+      "needs": [
+        "anxious",
+        "body"
+      ],
+      "topics": [
+        "anxiety",
+        "burnout"
+      ],
       "title": "Calm your body fast",
       "tagline": "Five one-minute skills for when your heart is racing.",
       "forYou": "Your chest gets tight, your heart pounds or you feel like you can't catch your breath.",
       "days": [
-        { "title": "The fastest way to calm down", "item": "skill:physiological-sigh", "intro": "Two breaths in through your nose, one long breath out. It's the quickest way researchers have found to slow your body down.", "reflect": "How did your body feel before and after you tried it?" },
-        { "title": "Breathe in a square", "item": "skill:box-breathing", "intro": "Box breathing gives your mind something steady to follow when everything else feels shaky.", "reflect": "Where could you use this during your day: in the car, before a meeting, at bedtime?" },
-        { "title": "Come back to the room", "item": "skill:grounding-54321", "intro": "When your mind is far away and worried, your five senses can bring you back to right now.", "reflect": "What did you notice around you that you hadn't noticed before?" },
-        { "title": "Name the feeling", "item": "skill:name-it-to-tame-it", "intro": "Saying \"I'm anxious\" or \"I'm overwhelmed\" out loud can lower the intensity of the feeling. It sounds simple, and it works.", "reflect": "What feelings did you name today?" },
-        { "title": "When it's a 10 out of 10", "item": "skill:tipp", "intro": "Some moments are too big for breathing alone. TIPP uses cold water, movement and breath to change your body's chemistry fast.", "reflect": "What will you do the next time a feeling hits a 10?" }
+        {
+          "title": "The fastest way to calm down",
+          "item": "skill:physiological-sigh",
+          "intro": "Two breaths in through your nose, one long breath out. It's the quickest way researchers have found to slow your body down.",
+          "reflect": "How did your body feel before and after you tried it?"
+        },
+        {
+          "title": "Breathe in a square",
+          "item": "skill:box-breathing",
+          "intro": "Box breathing gives your mind something steady to follow when everything else feels shaky.",
+          "reflect": "Where could you use this during your day: in the car, before a meeting, at bedtime?"
+        },
+        {
+          "title": "Come back to the room",
+          "item": "skill:grounding-54321",
+          "intro": "When your mind is far away and worried, your five senses can bring you back to right now.",
+          "reflect": "What did you notice around you that you hadn't noticed before?"
+        },
+        {
+          "title": "Name the feeling",
+          "item": "skill:name-it-to-tame-it",
+          "intro": "Saying \"I'm anxious\" or \"I'm overwhelmed\" out loud can lower the intensity of the feeling. It sounds simple, and it works.",
+          "reflect": "What feelings did you name today?"
+        },
+        {
+          "title": "When it's a 10 out of 10",
+          "item": "skill:tipp",
+          "intro": "Some moments are too big for breathing alone. TIPP uses cold water, movement and breath to change your body's chemistry fast.",
+          "reflect": "What will you do the next time a feeling hits a 10?"
+        }
       ]
     },
     {
-      "id": "work-wearing", "kind": "plan", "needs": ["work"], "topics": ["racial-trauma", "achieving", "transitions"],
+      "id": "work-wearing",
+      "kind": "plan",
+      "needs": [
+        "work"
+      ],
+      "topics": [
+        "racial-trauma",
+        "achieving",
+        "transitions"
+      ],
       "title": "When work is wearing you down",
       "tagline": "Seven days to make sense of what's happening at work and decide what you want.",
       "forYou": "You've been second-guessing yourself at work, getting no grace, or wondering if it's time to go.",
       "days": [
-        { "title": "You're not imagining it", "item": "article:racial-trauma-work-gaslighting", "intro": "When people tell you that what you saw didn't happen, you can start to doubt yourself. Today is about trusting what you know.", "reflect": "What's one thing at work you've been told you're \"overthinking\"?" },
-        { "title": "Separate facts from feelings", "item": "skill:check-the-facts", "intro": "Your feelings make sense. Writing down the facts helps you decide what to do with them.", "reflect": "What are the facts of the situation that's bothering you most?" },
-        { "title": "Who's actually in your corner", "item": "article:achieving-who-to-trust", "intro": "Not everyone who's friendly at work is safe to confide in. Let's figure out who is.", "reflect": "Who at work has shown you, through their actions, that they're safe?" },
-        { "title": "Ask for what you need", "item": "skill:dear-man", "intro": "DEAR MAN helps you ask clearly and calmly, without over-explaining or apologizing.", "reflect": "What's one thing you need to ask for at work?" },
-        { "title": "Get paid what you're worth", "item": "article:achieving-pay-promotion", "intro": "Many of us were raised to be grateful and keep our heads down. Asking about money is part of the job.", "reflect": "What would you ask for if you knew the answer would be yes?" },
-        { "title": "Where your energy goes", "item": "skill:energy-audit", "intro": "Some tasks drain you and some fill you back up. Seeing it on paper makes it easier to protect your energy.", "reflect": "What drained you most this week, and what gave you energy?" },
-        { "title": "Stay, leave or build", "item": "article:transitions-stay-or-go", "intro": "You don't have to decide today. You just need a plan you chose yourself.", "reflect": "What would need to change for you to want to stay?" }
+        {
+          "title": "You're not imagining it",
+          "item": "article:racial-trauma-work-gaslighting",
+          "intro": "When people tell you that what you saw didn't happen, you can start to doubt yourself. Today is about trusting what you know.",
+          "reflect": "What's one thing at work you've been told you're \"overthinking\"?"
+        },
+        {
+          "title": "Separate facts from feelings",
+          "item": "skill:check-the-facts",
+          "intro": "Your feelings make sense. Writing down the facts helps you decide what to do with them.",
+          "reflect": "What are the facts of the situation that's bothering you most?"
+        },
+        {
+          "title": "Who's actually in your corner",
+          "item": "article:achieving-who-to-trust",
+          "intro": "Not everyone who's friendly at work is safe to confide in. Let's figure out who is.",
+          "reflect": "Who at work has shown you, through their actions, that they're safe?"
+        },
+        {
+          "title": "Ask for what you need",
+          "item": "skill:dear-man",
+          "intro": "DEAR MAN helps you ask clearly and calmly, without over-explaining or apologizing.",
+          "reflect": "What's one thing you need to ask for at work?"
+        },
+        {
+          "title": "Get paid what you're worth",
+          "item": "article:achieving-pay-promotion",
+          "intro": "Many of us were raised to be grateful and keep our heads down. Asking about money is part of the job.",
+          "reflect": "What would you ask for if you knew the answer would be yes?"
+        },
+        {
+          "title": "Where your energy goes",
+          "item": "skill:energy-audit",
+          "intro": "Some tasks drain you and some fill you back up. Seeing it on paper makes it easier to protect your energy.",
+          "reflect": "What drained you most this week, and what gave you energy?"
+        },
+        {
+          "title": "Stay, leave or build",
+          "item": "article:transitions-stay-or-go",
+          "intro": "You don't have to decide today. You just need a plan you chose yourself.",
+          "reflect": "What would need to change for you to want to stay?"
+        }
       ]
     },
     {
-      "id": "running-empty", "kind": "plan", "needs": ["tired", "heavy"], "topics": ["burnout", "depression"],
+      "id": "running-empty",
+      "kind": "plan",
+      "needs": [
+        "tired",
+        "heavy"
+      ],
+      "topics": [
+        "burnout",
+        "depression"
+      ],
       "title": "Running on empty",
       "tagline": "Five days to understand burnout and find rest that helps.",
       "forYou": "You're exhausted, short-tempered and sleep doesn't fix it anymore.",
       "days": [
-        { "title": "This isn't a personal failure", "item": "article:burnout-not-a-personal-failure", "intro": "Burnout comes from carrying too much for too long. It doesn't mean you didn't try hard enough.", "reflect": "What have you been carrying that nobody sees?" },
-        { "title": "See where it's going", "item": "skill:energy-audit", "intro": "Let's find the leaks. Seeing where your energy goes is the first step to keeping some for yourself.", "reflect": "What's one thing you could stop doing, hand off or do less of?" },
-        { "title": "Putting down the cape", "item": "article:depression-strong-black-woman", "intro": "Being the strong one can look like resilience on the outside and feel like depression on the inside.", "reflect": "Where did you learn that you always have to be the strong one?" },
-        { "title": "Make your rest menu", "item": "skill:rest-menu", "intro": "Rest isn't only sleep. Today you'll make a list of rest that fits a five-minute break, an hour and a whole day.", "reflect": "What's on your rest menu?" },
-        { "title": "Coming back to yourself", "item": "article:burnout-recovery", "intro": "Recovery takes time and it isn't a straight line. Here's what helps.", "reflect": "What's one small change you'll keep after this week?" }
+        {
+          "title": "This isn't a personal failure",
+          "item": "article:burnout-not-a-personal-failure",
+          "intro": "Burnout comes from carrying too much for too long. It doesn't mean you didn't try hard enough.",
+          "reflect": "What have you been carrying that nobody sees?"
+        },
+        {
+          "title": "See where it's going",
+          "item": "skill:energy-audit",
+          "intro": "Let's find the leaks. Seeing where your energy goes is the first step to keeping some for yourself.",
+          "reflect": "What's one thing you could stop doing, hand off or do less of?"
+        },
+        {
+          "title": "Putting down the cape",
+          "item": "article:depression-strong-black-woman",
+          "intro": "Being the strong one can look like resilience on the outside and feel like depression on the inside.",
+          "reflect": "Where did you learn that you always have to be the strong one?"
+        },
+        {
+          "title": "Make your rest menu",
+          "item": "skill:rest-menu",
+          "intro": "Rest isn't only sleep. Today you'll make a list of rest that fits a five-minute break, an hour and a whole day.",
+          "reflect": "What's on your rest menu?"
+        },
+        {
+          "title": "Coming back to yourself",
+          "item": "article:burnout-recovery",
+          "intro": "Recovery takes time and it isn't a straight line. Here's what helps.",
+          "reflect": "What's one small change you'll keep after this week?"
+        }
       ]
     },
     {
-      "id": "home-holidays", "kind": "plan", "needs": ["people"], "topics": ["relationships", "boundaries", "body-image"],
+      "id": "home-holidays",
+      "kind": "plan",
+      "needs": [
+        "people"
+      ],
+      "topics": [
+        "relationships",
+        "boundaries",
+        "body-image"
+      ],
       "title": "Going home for the holidays",
       "tagline": "Five days to get ready for family time and protect your peace.",
       "forYou": "Holidays mean comments about your body, questions about your love life and old roles you thought you'd outgrown.",
       "days": [
-        { "title": "Why family feels so loud", "item": "article:relationships-anxiety-in-black-families", "intro": "Whether it's Thanksgiving, Christmas back home or a big Sunday dinner, family time can bring up a lot. Let's look at why.", "reflect": "Which family moment are you dreading the most?" },
-        { "title": "Plan for the hard moment", "item": "skill:cope-ahead", "intro": "Cope ahead means rehearsing a tough moment before it happens, so you're not caught off guard.", "reflect": "What will you say or do when that moment comes?" },
-        { "title": "\"You've gained weight\"", "item": "article:body-image-family-comments", "intro": "Aunties, uncles and grandmas often comment on our bodies out of love, worry or habit. It can still hurt.", "reflect": "What comment do you expect, and how do you want to respond?" },
-        { "title": "Say it once, kindly", "item": "skill:boundary-script", "intro": "A boundary can be short and loving. Today you'll write one you can say out loud.", "reflect": "Write the boundary you want to use this holiday." },
-        { "title": "Talking to family about how you feel", "item": "article:relationships-talking-to-family", "intro": "Some family members will understand and some won't. Either way, you get to decide what you share.", "reflect": "Who in your family feels safest to talk to?" }
+        {
+          "title": "Why family feels so loud",
+          "item": "article:relationships-anxiety-in-black-families",
+          "intro": "Whether it's Thanksgiving, Christmas back home or a big Sunday dinner, family time can bring up a lot. Let's look at why.",
+          "reflect": "Which family moment are you dreading the most?"
+        },
+        {
+          "title": "Plan for the hard moment",
+          "item": "skill:cope-ahead",
+          "intro": "Cope ahead means rehearsing a tough moment before it happens, so you're not caught off guard.",
+          "reflect": "What will you say or do when that moment comes?"
+        },
+        {
+          "title": "\"You've gained weight\"",
+          "item": "article:body-image-family-comments",
+          "intro": "Aunties, uncles and grandmas often comment on our bodies out of love, worry or habit. It can still hurt.",
+          "reflect": "What comment do you expect, and how do you want to respond?"
+        },
+        {
+          "title": "Say it once, kindly",
+          "item": "skill:boundary-script",
+          "intro": "A boundary can be short and loving. Today you'll write one you can say out loud.",
+          "reflect": "Write the boundary you want to use this holiday."
+        },
+        {
+          "title": "Talking to family about how you feel",
+          "item": "article:relationships-talking-to-family",
+          "intro": "Some family members will understand and some won't. Either way, you get to decide what you share.",
+          "reflect": "Who in your family feels safest to talk to?"
+        }
       ]
     },
     {
-      "id": "no-guilt", "kind": "plan", "needs": ["people", "work"], "topics": ["boundaries", "relationships"],
+      "id": "no-guilt",
+      "kind": "plan",
+      "needs": [
+        "people",
+        "work"
+      ],
+      "topics": [
+        "boundaries",
+        "relationships"
+      ],
       "title": "Saying no without the guilt",
       "tagline": "Five days to set boundaries and stick to them.",
       "forYou": "You say yes before you think, then feel resentful, drained or taken for granted.",
       "days": [
-        { "title": "Why boundaries feel so hard", "item": "article:boundaries-why-so-hard", "intro": "Many of us were taught that saying no is disrespectful or selfish. Let's look at where that comes from.", "reflect": "Who is the hardest person for you to say no to?" },
-        { "title": "Test the fear", "item": "skill:test-the-prediction", "intro": "Your brain predicts the worst when you set a boundary. Today you'll test whether that prediction is true.", "reflect": "What do you think will happen if you say no?" },
-        { "title": "Write your script", "item": "skill:boundary-script", "intro": "Having the words ready makes it easier to say them when the moment comes.", "reflect": "Write one boundary you want to set this week." },
-        { "title": "When they push back", "item": "skill:broken-record", "intro": "Some people will test your boundary. You don't have to argue or explain. Just say it again.", "reflect": "What will you say if someone keeps pushing?" },
-        { "title": "Boundaries with family", "item": "article:boundaries-family", "intro": "Family boundaries can be the hardest and the most important. Here's how to start.", "reflect": "What's one boundary that would make the biggest difference in your life?" }
+        {
+          "title": "Why boundaries feel so hard",
+          "item": "article:boundaries-why-so-hard",
+          "intro": "Many of us were taught that saying no is disrespectful or selfish. Let's look at where that comes from.",
+          "reflect": "Who is the hardest person for you to say no to?"
+        },
+        {
+          "title": "Test the fear",
+          "item": "skill:test-the-prediction",
+          "intro": "Your brain predicts the worst when you set a boundary. Today you'll test whether that prediction is true.",
+          "reflect": "What do you think will happen if you say no?"
+        },
+        {
+          "title": "Write your script",
+          "item": "skill:boundary-script",
+          "intro": "Having the words ready makes it easier to say them when the moment comes.",
+          "reflect": "Write one boundary you want to set this week."
+        },
+        {
+          "title": "When they push back",
+          "item": "skill:broken-record",
+          "intro": "Some people will test your boundary. You don't have to argue or explain. Just say it again.",
+          "reflect": "What will you say if someone keeps pushing?"
+        },
+        {
+          "title": "Boundaries with family",
+          "item": "article:boundaries-family",
+          "intro": "Family boundaries can be the hardest and the most important. Here's how to start.",
+          "reflect": "What's one boundary that would make the biggest difference in your life?"
+        }
       ]
     },
     {
-      "id": "cape-down", "kind": "plan", "needs": ["work", "tired"], "topics": ["achieving"],
+      "id": "cape-down",
+      "kind": "plan",
+      "needs": [
+        "work",
+        "tired"
+      ],
+      "topics": [
+        "achieving"
+      ],
       "title": "Putting down the cape",
       "tagline": "Six days for the high achiever who's tired of proving herself.",
       "forYou": "You work twice as hard, never feel like it's enough and can't remember the last time you rested.",
       "days": [
-        { "title": "Working twice as hard", "item": "article:achieving-john-henryism", "intro": "We were told we had to work twice as hard to get half as far. That message helped many of us succeed, and it can also wear us down.", "reflect": "Where did you first hear that you had to work twice as hard?" },
-        { "title": "All or nothing", "item": "skill:all-or-nothing", "intro": "If it's not perfect, it's a failure. That thinking trap is common for high achievers.", "reflect": "Where are you holding yourself to a perfect-or-nothing standard?" },
-        { "title": "Feeling like a fraud", "item": "article:achieving-impostor-feelings", "intro": "Feeling like you don't belong often has more to do with the room than with you.", "reflect": "When do you feel most like you don't belong?" },
-        { "title": "Keep the receipts", "item": "skill:evidence-file", "intro": "Your brain forgets your wins and remembers every mistake. An evidence file helps balance that out.", "reflect": "Write three things you've done well this year." },
-        { "title": "What the cape costs your body", "item": "article:achieving-superwoman-health", "intro": "Research shows that always being strong takes a toll on our health. Your body has been keeping score.", "reflect": "What is your body telling you right now?" },
-        { "title": "Rest without earning it", "item": "skill:rest-menu", "intro": "You don't have to finish everything to deserve rest. Pick one thing from your rest menu today.", "reflect": "How did it feel to rest without earning it first?" }
+        {
+          "title": "Working twice as hard",
+          "item": "article:achieving-john-henryism",
+          "intro": "We were told we had to work twice as hard to get half as far. That message helped many of us succeed, and it can also wear us down.",
+          "reflect": "Where did you first hear that you had to work twice as hard?"
+        },
+        {
+          "title": "All or nothing",
+          "item": "skill:all-or-nothing",
+          "intro": "If it's not perfect, it's a failure. That thinking trap is common for high achievers.",
+          "reflect": "Where are you holding yourself to a perfect-or-nothing standard?"
+        },
+        {
+          "title": "Feeling like a fraud",
+          "item": "article:achieving-impostor-feelings",
+          "intro": "Feeling like you don't belong often has more to do with the room than with you.",
+          "reflect": "When do you feel most like you don't belong?"
+        },
+        {
+          "title": "Keep the receipts",
+          "item": "skill:evidence-file",
+          "intro": "Your brain forgets your wins and remembers every mistake. An evidence file helps balance that out.",
+          "reflect": "Write three things you've done well this year."
+        },
+        {
+          "title": "What the cape costs your body",
+          "item": "article:achieving-superwoman-health",
+          "intro": "Research shows that always being strong takes a toll on our health. Your body has been keeping score.",
+          "reflect": "What is your body telling you right now?"
+        },
+        {
+          "title": "Rest without earning it",
+          "item": "skill:rest-menu",
+          "intro": "You don't have to finish everything to deserve rest. Pick one thing from your rest menu today.",
+          "reflect": "How did it feel to rest without earning it first?"
+        }
       ]
     },
     {
-      "id": "carrying-grief", "kind": "plan", "needs": ["heavy"], "topics": ["grief"],
+      "id": "carrying-grief",
+      "kind": "plan",
+      "needs": [
+        "heavy"
+      ],
+      "topics": [
+        "grief"
+      ],
       "title": "Carrying grief",
       "tagline": "Five gentle days for when you're missing someone or something.",
       "forYou": "You've lost someone, a relationship, a pregnancy, a dream or a version of your life.",
       "days": [
-        { "title": "We lose more, and sooner", "item": "article:grief-we-lose-more", "intro": "Black women often lose people earlier and more often. Your grief makes sense.", "reflect": "Who or what are you grieving right now?" },
-        { "title": "After the homegoing", "item": "article:grief-homegoing", "intro": "The repast ends, the casseroles stop coming and everyone goes back to normal. You might not be ready to.", "reflect": "What has been hardest since everyone went home?" },
-        { "title": "What you can't change", "item": "skill:radical-acceptance", "intro": "Accepting a loss doesn't mean you're okay with it. It means you stop fighting what already happened, so you can heal.", "reflect": "What's one thing you're trying to accept?" },
-        { "title": "Write to them", "item": "skill:grief-letter", "intro": "A letter can hold what you never got to say. Nobody has to read it but you.", "reflect": "What do you wish you could tell them?" },
-        { "title": "When it doesn't ease up", "item": "article:grief-when-it-doesnt-ease", "intro": "Sometimes grief gets stuck. Here's how to tell, and where to find support.", "reflect": "What kind of support would help you most right now?" }
+        {
+          "title": "We lose more, and sooner",
+          "item": "article:grief-we-lose-more",
+          "intro": "Black women often lose people earlier and more often. Your grief makes sense.",
+          "reflect": "Who or what are you grieving right now?"
+        },
+        {
+          "title": "After the homegoing",
+          "item": "article:grief-homegoing",
+          "intro": "The repast ends, the casseroles stop coming and everyone goes back to normal. You might not be ready to.",
+          "reflect": "What has been hardest since everyone went home?"
+        },
+        {
+          "title": "What you can't change",
+          "item": "skill:radical-acceptance",
+          "intro": "Accepting a loss doesn't mean you're okay with it. It means you stop fighting what already happened, so you can heal.",
+          "reflect": "What's one thing you're trying to accept?"
+        },
+        {
+          "title": "Write to them",
+          "item": "skill:grief-letter",
+          "intro": "A letter can hold what you never got to say. Nobody has to read it but you.",
+          "reflect": "What do you wish you could tell them?"
+        },
+        {
+          "title": "When it doesn't ease up",
+          "item": "article:grief-when-it-doesnt-ease",
+          "intro": "Sometimes grief gets stuck. Here's how to tell, and where to find support.",
+          "reflect": "What kind of support would help you most right now?"
+        }
       ]
     },
     {
-      "id": "new-adhd", "kind": "plan", "needs": ["brain"], "topics": ["adhd"],
+      "id": "new-adhd",
+      "kind": "plan",
+      "needs": [
+        "brain"
+      ],
+      "topics": [
+        "adhd"
+      ],
       "title": "Just learned I have ADHD",
       "tagline": "Seven days to understand your brain and try tools that work with it.",
       "forYou": "You were recently diagnosed, or you're starting to wonder if ADHD explains a lot.",
       "days": [
-        { "title": "Too much, or not enough", "item": "article:adhd-too-much", "intro": "Many Black women with ADHD were called lazy, dramatic or \"too much\" for years before anyone noticed what was really going on.", "reflect": "What were you called growing up that might have been ADHD?" },
-        { "title": "Get it out of your head", "item": "skill:brain-dump", "intro": "When your brain feels crowded, writing everything down makes room to think.", "reflect": "How did it feel to see everything on paper?" },
-        { "title": "Big feelings", "item": "article:adhd-big-emotions", "intro": "ADHD isn't only about focus. It can make feelings hit harder and faster.", "reflect": "When do your feelings hit the hardest?" },
-        { "title": "Start smaller than small", "item": "skill:tiny-first-step", "intro": "When starting feels impossible, make the first step so small it's almost silly.", "reflect": "What tiny step did you take today?" },
-        { "title": "See your time", "item": "skill:make-time-visible", "intro": "If time slips away from you, making it visible can help.", "reflect": "What part of your day gets away from you most?" },
-        { "title": "Hormones and ADHD", "item": "article:adhd-hormones", "intro": "Your period, pregnancy and perimenopause can all change how ADHD shows up.", "reflect": "Have you noticed your focus or mood change with your cycle?" },
-        { "title": "Do it together", "item": "skill:body-doubling", "intro": "Some tasks are easier with someone else nearby, even on FaceTime. That's called body doubling.", "reflect": "Who could be your body double this week?" }
+        {
+          "title": "Too much, or not enough",
+          "item": "article:adhd-too-much",
+          "intro": "Many Black women with ADHD were called lazy, dramatic or \"too much\" for years before anyone noticed what was really going on.",
+          "reflect": "What were you called growing up that might have been ADHD?"
+        },
+        {
+          "title": "Get it out of your head",
+          "item": "skill:brain-dump",
+          "intro": "When your brain feels crowded, writing everything down makes room to think.",
+          "reflect": "How did it feel to see everything on paper?"
+        },
+        {
+          "title": "Big feelings",
+          "item": "article:adhd-big-emotions",
+          "intro": "ADHD isn't only about focus. It can make feelings hit harder and faster.",
+          "reflect": "When do your feelings hit the hardest?"
+        },
+        {
+          "title": "Start smaller than small",
+          "item": "skill:tiny-first-step",
+          "intro": "When starting feels impossible, make the first step so small it's almost silly.",
+          "reflect": "What tiny step did you take today?"
+        },
+        {
+          "title": "See your time",
+          "item": "skill:make-time-visible",
+          "intro": "If time slips away from you, making it visible can help.",
+          "reflect": "What part of your day gets away from you most?"
+        },
+        {
+          "title": "Hormones and ADHD",
+          "item": "article:adhd-hormones",
+          "intro": "Your period, pregnancy and perimenopause can all change how ADHD shows up.",
+          "reflect": "Have you noticed your focus or mood change with your cycle?"
+        },
+        {
+          "title": "Do it together",
+          "item": "skill:body-doubling",
+          "intro": "Some tasks are easier with someone else nearby, even on FaceTime. That's called body doubling.",
+          "reflect": "Who could be your body double this week?"
+        }
       ]
     },
     {
-      "id": "is-it-peri", "kind": "plan", "needs": ["brain", "body"], "topics": ["perimenopause"],
+      "id": "is-it-peri",
+      "kind": "plan",
+      "needs": [
+        "brain",
+        "body"
+      ],
+      "topics": [
+        "perimenopause"
+      ],
       "title": "Is this perimenopause?",
       "tagline": "Five days to understand the changes and get heard by your doctor.",
       "forYou": "You're in your late 30s or 40s and your sleep, mood or periods aren't what they used to be.",
       "days": [
-        { "title": "What perimenopause is", "item": "article:peri-what-it-is", "intro": "Many of us start perimenopause earlier and have stronger symptoms, yet few of us were taught what to expect.", "reflect": "Which changes have you noticed in your body lately?" },
-        { "title": "Mood, anxiety and hormones", "item": "article:peri-mood-and-anxiety", "intro": "New anxiety or low moods in your 40s may be connected to your hormones.", "reflect": "Has your mood changed in ways that feel new?" },
-        { "title": "Take care of the basics", "item": "skill:please", "intro": "Sleep, food, movement and treating illness all affect how strongly you feel things. PLEASE helps you check the basics.", "reflect": "Which part of PLEASE needs the most attention right now?" },
-        { "title": "When sleep won't come", "item": "article:peri-sleep", "intro": "Night sweats and 3 a.m. wakeups are common. Here's what can help.", "reflect": "What does a hard night look like for you?" },
-        { "title": "Getting heard", "item": "article:peri-being-heard", "intro": "You know your body. Here's how to walk into the doctor's office ready.", "reflect": "What do you want to tell your doctor at your next visit?" }
+        {
+          "title": "What perimenopause is",
+          "item": "article:peri-what-it-is",
+          "intro": "Many of us start perimenopause earlier and have stronger symptoms, yet few of us were taught what to expect.",
+          "reflect": "Which changes have you noticed in your body lately?"
+        },
+        {
+          "title": "Mood, anxiety and hormones",
+          "item": "article:peri-mood-and-anxiety",
+          "intro": "New anxiety or low moods in your 40s may be connected to your hormones.",
+          "reflect": "Has your mood changed in ways that feel new?"
+        },
+        {
+          "title": "Take care of the basics",
+          "item": "skill:please",
+          "intro": "Sleep, food, movement and treating illness all affect how strongly you feel things. PLEASE helps you check the basics.",
+          "reflect": "Which part of PLEASE needs the most attention right now?"
+        },
+        {
+          "title": "When sleep won't come",
+          "item": "article:peri-sleep",
+          "intro": "Night sweats and 3 a.m. wakeups are common. Here's what can help.",
+          "reflect": "What does a hard night look like for you?"
+        },
+        {
+          "title": "Getting heard",
+          "item": "article:peri-being-heard",
+          "intro": "You know your body. Here's how to walk into the doctor's office ready.",
+          "reflect": "What do you want to tell your doctor at your next visit?"
+        }
       ]
     },
     {
-      "id": "body-peace", "kind": "plan", "needs": ["body"], "topics": ["body-image"],
+      "id": "body-peace",
+      "kind": "plan",
+      "needs": [
+        "body"
+      ],
+      "topics": [
+        "body-image"
+      ],
       "title": "Making peace with your body",
       "tagline": "Six days to quiet the mirror talk and treat your body with respect.",
       "forYou": "You pick yourself apart in photos, compare yourself online or hear family comments in your head.",
       "days": [
-        { "title": "The slim-thick pressure", "item": "article:body-image-slim-thick", "intro": "The ideal changed, and the pressure didn't go away. Let's talk about it.", "reflect": "Where do you feel the most pressure about your body?" },
-        { "title": "Would you say it to her?", "item": "skill:friend-test", "intro": "Today, notice how you talk to yourself in the mirror, then ask if you'd say that to your best friend.", "reflect": "What would you say to a friend who felt the way you do about your body?" },
-        { "title": "Skin, hair and colorism", "item": "article:body-image-colorism-hair", "intro": "Many of our first lessons about beauty came from the kitchen chair. You get to decide what you believe now.", "reflect": "What's the first thing you remember being told about your skin or hair?" },
-        { "title": "Be kind for one minute", "item": "skill:self-compassion-break", "intro": "A one-minute break to talk to yourself with the kindness you give everyone else.", "reflect": "What kind words did you need to hear today?" },
-        { "title": "A body that changes", "item": "article:body-image-changing-body", "intro": "Pregnancy, stress, illness and age all change our bodies. Bodies are supposed to change.", "reflect": "What has your body carried you through?" },
-        { "title": "Check in with your body", "item": "skill:body-scan", "intro": "A body scan helps you notice your body without judging it.", "reflect": "What did you notice when you paid attention to your body without judging it?" }
+        {
+          "title": "The slim-thick pressure",
+          "item": "article:body-image-slim-thick",
+          "intro": "The ideal changed, and the pressure didn't go away. Let's talk about it.",
+          "reflect": "Where do you feel the most pressure about your body?"
+        },
+        {
+          "title": "Would you say it to her?",
+          "item": "skill:friend-test",
+          "intro": "Today, notice how you talk to yourself in the mirror, then ask if you'd say that to your best friend.",
+          "reflect": "What would you say to a friend who felt the way you do about your body?"
+        },
+        {
+          "title": "Skin, hair and colorism",
+          "item": "article:body-image-colorism-hair",
+          "intro": "Many of our first lessons about beauty came from the kitchen chair. You get to decide what you believe now.",
+          "reflect": "What's the first thing you remember being told about your skin or hair?"
+        },
+        {
+          "title": "Be kind for one minute",
+          "item": "skill:self-compassion-break",
+          "intro": "A one-minute break to talk to yourself with the kindness you give everyone else.",
+          "reflect": "What kind words did you need to hear today?"
+        },
+        {
+          "title": "A body that changes",
+          "item": "article:body-image-changing-body",
+          "intro": "Pregnancy, stress, illness and age all change our bodies. Bodies are supposed to change.",
+          "reflect": "What has your body carried you through?"
+        },
+        {
+          "title": "Check in with your body",
+          "item": "skill:body-scan",
+          "intro": "A body scan helps you notice your body without judging it.",
+          "reflect": "What did you notice when you paid attention to your body without judging it?"
+        }
+      ]
+    },
+    {
+      "id": "living-pcos",
+      "kind": "plan",
+      "needs": [
+        "body",
+        "brain"
+      ],
+      "topics": [
+        "pcos"
+      ],
+      "title": "Living with PCOS",
+      "tagline": "Six days to understand PCOS and how it touches your body, mood and confidence.",
+      "forYou": "You have PCOS, or your periods, skin, hair or weight have doctors saying \"maybe it's PCOS.\"",
+      "days": [
+        {
+          "title": "What PCOS really is",
+          "item": "article:pcos-what-it-is",
+          "intro": "PCOS is one of the most common hormone conditions in women, and many of us waited years for a diagnosis.",
+          "reflect": "What do you wish someone had told you about PCOS sooner?"
+        },
+        {
+          "title": "Getting taken seriously",
+          "item": "article:pcos-being-believed",
+          "intro": "Too many of us were told to \"just lose weight\" and sent home. You deserve real answers.",
+          "reflect": "What do you want your doctor to hear from you next time?"
+        },
+        {
+          "title": "Hair, skin and how you see yourself",
+          "item": "article:pcos-hair-skin-and-self",
+          "intro": "Chin hair, acne and thinning edges can hit your confidence hard. Let's talk about it.",
+          "reflect": "Which PCOS symptom affects how you feel about yourself the most?"
+        },
+        {
+          "title": "Food, cravings and your body",
+          "item": "article:pcos-food-and-body",
+          "intro": "PCOS can make cravings stronger and weight harder to change. That isn't a lack of willpower.",
+          "reflect": "What's your relationship with food like right now?"
+        },
+        {
+          "title": "PCOS and your mood",
+          "item": "article:pcos-anxiety-depression",
+          "intro": "Anxiety and depression are more common with PCOS. Your hormones and your mood are connected.",
+          "reflect": "Have you noticed your mood change with your symptoms or your cycle?"
+        },
+        {
+          "title": "Take care of the basics",
+          "item": "skill:please",
+          "intro": "Sleep, food, movement and treating illness all change how strongly you feel things. PLEASE helps you check in on each one.",
+          "reflect": "Which part of PLEASE could use more care this week?"
+        }
+      ]
+    },
+    {
+      "id": "trying-hoping",
+      "kind": "plan",
+      "needs": [
+        "heavy",
+        "body"
+      ],
+      "topics": [
+        "infertility"
+      ],
+      "title": "Trying, waiting and hoping",
+      "tagline": "Six gentle days for the stress and grief of trying to get pregnant.",
+      "forYou": "You're trying to conceive, going through treatment or grieving a pregnancy that ended.",
+      "days": [
+        {
+          "title": "You don't have to carry it in silence",
+          "item": "article:infertility-in-silence",
+          "intro": "Many Black women go through infertility quietly, even though we're more likely to face it. You're not alone.",
+          "reflect": "Who knows what you're going through, and who do you wish knew?"
+        },
+        {
+          "title": "The emotional weight",
+          "item": "article:infertility-emotional-weight",
+          "intro": "The waiting, the hoping and the two-week waits take a real toll on your mind.",
+          "reflect": "What part of trying has been the hardest on you emotionally?"
+        },
+        {
+          "title": "Be as kind to you as you'd be to her",
+          "item": "skill:friend-test",
+          "intro": "When you start blaming yourself, ask what you'd say to a friend going through the same thing.",
+          "reflect": "What would you tell a friend in your shoes?"
+        },
+        {
+          "title": "Finding care that sees you",
+          "item": "article:infertility-finding-care",
+          "intro": "Black women often wait longer to get fertility care and get less of it. Here's how to look for care that takes you seriously.",
+          "reflect": "What questions do you want to ask a fertility doctor?"
+        },
+        {
+          "title": "Your partner and your family",
+          "item": "article:infertility-partner-and-family",
+          "intro": "\"So when are y'all having a baby?\" Family questions can sting. So can feeling out of step with your partner.",
+          "reflect": "What do you need from the people closest to you right now?"
+        },
+        {
+          "title": "When a pregnancy ends",
+          "item": "article:infertility-pregnancy-loss",
+          "intro": "Pregnancy loss is real grief, even if people don't treat it that way. Read this when you're ready, and skip it if today isn't the day.",
+          "reflect": "What would help you feel supported in your grief?"
+        }
+      ]
+    },
+    {
+      "id": "highs-lows",
+      "kind": "plan",
+      "needs": [
+        "brain"
+      ],
+      "topics": [
+        "bipolar"
+      ],
+      "title": "Understanding your highs and lows",
+      "tagline": "Seven days to learn about bipolar disorder and how to stay steady.",
+      "forYou": "You have bipolar disorder, or your moods swing in ways that worry you or the people who love you.",
+      "days": [
+        {
+          "title": "More than mood swings",
+          "item": "article:bipolar-more-than-mood-swings",
+          "intro": "Bipolar disorder is a medical condition, and Black women are often misdiagnosed before getting the right answer.",
+          "reflect": "What did you think bipolar meant before today?"
+        },
+        {
+          "title": "The quiet highs",
+          "item": "article:bipolar-ii-quiet-highs",
+          "intro": "Not every high looks like mania. Bipolar II can look like productivity, little sleep and big plans.",
+          "reflect": "Have you had stretches where you needed less sleep and felt unstoppable?"
+        },
+        {
+          "title": "Your early warning signs",
+          "item": "article:bipolar-early-warning-signs",
+          "intro": "Knowing your own signs early can help you get support before things get hard.",
+          "reflect": "What are the first signs that your mood is starting to shift?"
+        },
+        {
+          "title": "Take care of the basics",
+          "item": "skill:please",
+          "intro": "Sleep, food and routine matter a lot with bipolar. PLEASE helps you check the basics.",
+          "reflect": "Which part of your routine helps you stay steady?"
+        },
+        {
+          "title": "Family, faith and bipolar",
+          "item": "article:bipolar-family-and-faith",
+          "intro": "Some families call it a spiritual problem or something to keep quiet about. You can hold your faith and get care too.",
+          "reflect": "How does your family talk about mental illness?"
+        },
+        {
+          "title": "Find your wise mind",
+          "item": "skill:wise-mind",
+          "intro": "Wise mind is the place where your feelings and your logic meet. It helps with big decisions.",
+          "reflect": "What decision could use your wise mind right now?"
+        },
+        {
+          "title": "Living well",
+          "item": "article:bipolar-living-well",
+          "intro": "Many people with bipolar live full, steady lives. Here's what helps.",
+          "reflect": "What does living well look like for you?"
+        }
+      ]
+    },
+    {
+      "id": "feelings-hard",
+      "kind": "plan",
+      "needs": [
+        "brain",
+        "heavy"
+      ],
+      "topics": [
+        "bpd"
+      ],
+      "title": "When feelings hit hard",
+      "tagline": "Seven days of understanding and skills for intense emotions.",
+      "forYou": "Your feelings hit fast and hard, you fear people leaving, or you've been told you have BPD.",
+      "days": [
+        {
+          "title": "When emotions hit hard",
+          "item": "article:bpd-when-emotions-hit-hard",
+          "intro": "Some of us feel things faster, stronger and longer. That's not a character flaw.",
+          "reflect": "When did a feeling last hit you harder than you expected?"
+        },
+        {
+          "title": "STOP before you react",
+          "item": "skill:stop-skill",
+          "intro": "STOP gives you a few seconds between the feeling and what you do next.",
+          "reflect": "Where could you use STOP this week?"
+        },
+        {
+          "title": "Where it can start",
+          "item": "article:bpd-and-childhood",
+          "intro": "For many people, intense emotions grew out of growing up in a home that didn't feel safe.",
+          "reflect": "What did you learn about feelings growing up?"
+        },
+        {
+          "title": "When it's a 10 out of 10",
+          "item": "skill:tipp",
+          "intro": "TIPP uses cold water, movement and breathing to bring a big feeling down fast.",
+          "reflect": "What will you do the next time a feeling hits a 10?"
+        },
+        {
+          "title": "Love and the fear of being left",
+          "item": "article:bpd-love-and-fear-of-leaving",
+          "intro": "Fear of being left can make love feel like a test you keep failing. Here's what's going on.",
+          "reflect": "What happens in your body when you think someone might leave?"
+        },
+        {
+          "title": "Diagnosis and bias",
+          "item": "article:bpd-diagnosis-and-bias",
+          "intro": "Black women are sometimes labeled \"difficult\" or misdiagnosed. You deserve a careful, fair look.",
+          "reflect": "How have labels from others affected how you see yourself?"
+        },
+        {
+          "title": "Skills to start with",
+          "item": "article:bpd-skills-to-start",
+          "intro": "DBT was made for intense emotions, and it works. Here's where to begin.",
+          "reflect": "Which skill from this week do you want to keep practicing?"
+        }
+      ]
+    },
+    {
+      "id": "autistic-sense",
+      "kind": "plan",
+      "needs": [
+        "brain",
+        "who"
+      ],
+      "topics": [
+        "autism",
+        "audhd"
+      ],
+      "title": "Autistic, and it finally makes sense",
+      "tagline": "Seven days for women learning they're autistic or AuDHD as adults.",
+      "forYou": "You were diagnosed later in life, or you're starting to wonder if autism explains a lot.",
+      "days": [
+        {
+          "title": "Finding out later in life",
+          "item": "article:autism-late-diagnosis",
+          "intro": "Many Black women aren't diagnosed until adulthood, if at all. Finding out can bring relief and a lot of feelings.",
+          "reflect": "What has made more sense since you started learning about autism?"
+        },
+        {
+          "title": "When it's autism and ADHD",
+          "item": "article:audhd-what-it-means",
+          "intro": "AuDHD means having both, and they can pull you in opposite directions.",
+          "reflect": "Which parts of you feel like they pull in different directions?"
+        },
+        {
+          "title": "Masking to stay safe",
+          "item": "article:autism-masking",
+          "intro": "Many of us learned to hide our autistic traits to fit in and stay safe. It costs a lot of energy.",
+          "reflect": "Where do you mask the most?"
+        },
+        {
+          "title": "Build a sensory toolkit",
+          "item": "skill:sensory-toolkit",
+          "intro": "Noise, lights and textures can drain you fast. A sensory toolkit gives you ways to get relief.",
+          "reflect": "What would go in your sensory toolkit?"
+        },
+        {
+          "title": "Autistic burnout",
+          "item": "article:autism-burnout",
+          "intro": "Autistic burnout is deep exhaustion from too much masking and too much demand. It's real.",
+          "reflect": "Have you been through a burnout like this?"
+        },
+        {
+          "title": "Budget your energy",
+          "item": "skill:energy-budgeting",
+          "intro": "Think of your energy like money. Some things cost more, and you only have so much each day.",
+          "reflect": "What costs you the most energy each week?"
+        },
+        {
+          "title": "Grieving the years before",
+          "item": "article:audhd-late-diagnosis-grief",
+          "intro": "It's normal to grieve the support you didn't get. You can grieve and still feel hopeful.",
+          "reflect": "What do you wish your younger self had known?"
+        }
+      ]
+    },
+    {
+      "id": "queer-whole",
+      "kind": "plan",
+      "needs": [
+        "who",
+        "people"
+      ],
+      "topics": [
+        "lgbtq",
+        "sexual-health"
+      ],
+      "title": "Black, queer and whole",
+      "tagline": "Six days for queer, bi and questioning Black women.",
+      "forYou": "You're LGBTQ+, questioning, or holding your identity alongside your family and faith.",
+      "days": [
+        {
+          "title": "Black, queer and whole",
+          "item": "article:lgbtq-black-queer-whole",
+          "intro": "You don't have to choose between being Black and being queer. You get to be all of you.",
+          "reflect": "What parts of yourself do you feel most free to be?"
+        },
+        {
+          "title": "Family and coming out",
+          "item": "article:lgbtq-family-and-coming-out",
+          "intro": "Coming out is your choice, on your timeline. Here's how to think it through.",
+          "reflect": "Who in your family feels safest to talk to?"
+        },
+        {
+          "title": "Say it with love",
+          "item": "skill:boundary-script",
+          "intro": "Some relatives will have opinions. A boundary script helps you protect your peace without a fight.",
+          "reflect": "What boundary would protect you at family gatherings?"
+        },
+        {
+          "title": "Faith and sexuality",
+          "item": "article:lgbtq-faith-and-sexuality",
+          "intro": "Many of us were raised in the church. You can make peace with your faith and your identity.",
+          "reflect": "What does your faith mean to you now?"
+        },
+        {
+          "title": "Identity and exploration",
+          "item": "article:sexual-health-identity",
+          "intro": "Your identity can grow and change. Exploring is allowed.",
+          "reflect": "What are you curious about when it comes to who you're drawn to?"
+        },
+        {
+          "title": "Finding your people and your care",
+          "item": "article:lgbtq-affirming-care-and-community",
+          "intro": "Affirming care and community can make a big difference. Here's where to look.",
+          "reflect": "Where could you find community this month?"
+        }
+      ]
+    },
+    {
+      "id": "talk-sex",
+      "kind": "plan",
+      "needs": [
+        "body",
+        "people"
+      ],
+      "topics": [
+        "sexual-health"
+      ],
+      "title": "Let's talk about sex",
+      "tagline": "Six days to talk openly about sexual health, pleasure and safety.",
+      "forYou": "You grew up with silence about sex, or you have questions you've never felt safe asking.",
+      "days": [
+        {
+          "title": "Breaking the silence",
+          "item": "article:sexual-health-silence",
+          "intro": "Many of us grew up hearing nothing about sex, or only warnings. Let's talk about it.",
+          "reflect": "What did you learn about sex growing up, and from whom?"
+        },
+        {
+          "title": "Getting tested",
+          "item": "article:sexual-health-testing",
+          "intro": "Testing is self-care, and it's nothing to be ashamed of. Here's what to know.",
+          "reflect": "When was your last test, and what makes testing hard?"
+        },
+        {
+          "title": "Don't guess what they're thinking",
+          "item": "skill:mind-reading",
+          "intro": "Assuming you know what a partner thinks can cause a lot of anxiety. Today, notice when you're mind reading.",
+          "reflect": "Where are you guessing instead of asking?"
+        },
+        {
+          "title": "Pleasure is yours too",
+          "item": "article:sexual-health-pleasure",
+          "intro": "Black women have been taught to be ashamed of our desire. Pleasure is a healthy part of life.",
+          "reflect": "What does pleasure mean to you?"
+        },
+        {
+          "title": "When sex hurts",
+          "item": "article:sexual-health-pain",
+          "intro": "Painful sex is common and treatable. You deserve a provider who looks into it.",
+          "reflect": "Is there something about your body you want to bring up with a provider?"
+        },
+        {
+          "title": "After sexual trauma",
+          "item": "article:sexual-health-after-trauma",
+          "intro": "This one may be heavy. Read it when you're ready, and stop anytime. If you need support now, you can call 800-656-4673.",
+          "reflect": "What helps you feel safe in your body?"
+        }
+      ]
+    },
+    {
+      "id": "mothering-you",
+      "kind": "plan",
+      "needs": [
+        "people",
+        "tired"
+      ],
+      "topics": [
+        "motherhood",
+        "transitions"
+      ],
+      "title": "Mothering without losing yourself",
+      "tagline": "Seven days for moms who are giving everything and need some back.",
+      "forYou": "You're a mom, a new mom or a mom-to-be, and you're running low on you.",
+      "days": [
+        {
+          "title": "Redefining what a good mom is",
+          "item": "article:mother-redefining",
+          "intro": "The \"strong Black mother\" image can leave no room for being tired, scared or human.",
+          "reflect": "What did you believe a good mom had to be?"
+        },
+        {
+          "title": "Becoming a mother",
+          "item": "article:transitions-becoming-a-mother",
+          "intro": "Becoming a mom changes everything, including how you see yourself.",
+          "reflect": "What has changed most about who you are since becoming a mom?"
+        },
+        {
+          "title": "After the baby",
+          "item": "article:mother-postpartum",
+          "intro": "Postpartum depression and anxiety are common and treatable. Black moms often get less support.",
+          "reflect": "How are you really doing since the baby came?"
+        },
+        {
+          "title": "Get it out of your head",
+          "item": "skill:brain-dump",
+          "intro": "The mental load of motherhood is heavy. Writing it all down makes room to breathe.",
+          "reflect": "What's taking up the most space in your head?"
+        },
+        {
+          "title": "When you don't have a village",
+          "item": "article:mother-no-village",
+          "intro": "\"It takes a village,\" but many of us are raising kids without one.",
+          "reflect": "Who could be part of your village, even in a small way?"
+        },
+        {
+          "title": "Breaking the cycle",
+          "item": "article:mother-breaking-cycles",
+          "intro": "Many of us are trying to raise our kids differently than we were raised. That's hard work.",
+          "reflect": "What do you want to do differently than your parents did?"
+        },
+        {
+          "title": "Repair after a hard moment",
+          "item": "skill:repair",
+          "intro": "You will lose your temper sometimes. Repair teaches your kids that love comes back after conflict.",
+          "reflect": "What would repair sound like with your child?"
+        }
+      ]
+    },
+    {
+      "id": "childfree-unsure",
+      "kind": "plan",
+      "needs": [
+        "who",
+        "people"
+      ],
+      "topics": [
+        "childfree"
+      ],
+      "title": "Child-free, or not sure yet",
+      "tagline": "Six days to think through having kids on your own terms.",
+      "forYou": "You don't want kids, you're not sure, or you're tired of being asked when you're having them.",
+      "days": [
+        {
+          "title": "Not sure yet",
+          "item": "article:childfree-unsure",
+          "intro": "You're allowed to not know. Let's give you room to think.",
+          "reflect": "What feelings come up when you picture having kids, and when you picture not having them?"
+        },
+        {
+          "title": "Check your values",
+          "item": "skill:values-check",
+          "intro": "Your values can help you see what matters most to you, apart from what others expect.",
+          "reflect": "Which of your values matter most in this decision?"
+        },
+        {
+          "title": "Choosing a child-free life",
+          "item": "article:childfree-choosing",
+          "intro": "More Black women are choosing not to have children. It's a valid choice.",
+          "reflect": "What does a full life look like to you?"
+        },
+        {
+          "title": "Family and faith",
+          "item": "article:childfree-family-and-faith",
+          "intro": "\"Be fruitful and multiply.\" \"Who's going to take care of you?\" Here's how to handle the pressure.",
+          "reflect": "What's the comment you hear most, and how do you want to respond?"
+        },
+        {
+          "title": "Fear and reasons",
+          "item": "article:childfree-fear-and-reasons",
+          "intro": "For some of us, the choice is tied to fear: of pregnancy, of racism or of repeating the past. All of it deserves a look.",
+          "reflect": "What fears are part of your decision?"
+        },
+        {
+          "title": "Legacy and getting older",
+          "item": "article:childfree-legacy-and-aging",
+          "intro": "Legacy is about more than children. You can leave a mark in many ways.",
+          "reflect": "What legacy do you want to leave?"
+        }
       ]
     }
   ],
   "challenges": [
     {
-      "id": "rest-7", "kind": "challenge", "free": true, "needs": ["tired"], "topics": ["burnout"],
+      "id": "rest-7",
+      "kind": "challenge",
+      "free": true,
+      "needs": [
+        "tired"
+      ],
+      "topics": [
+        "burnout"
+      ],
       "title": "7-day rest challenge",
       "tagline": "One small act of rest a day. No guilt allowed.",
       "forYou": "You can't remember the last time you rested without feeling guilty.",
       "days": [
-        { "title": "Ten minutes of nothing", "task": "Sit for 10 minutes and do nothing. No phone, no folding laundry, no planning.", "intro": "Rest can start small. Ten minutes counts.", "reflect": "What came up when you sat still?" },
-        { "title": "Make your rest menu", "task": "Write down five things that help you rest. Keep the list where you can see it.", "item": "skill:rest-menu", "intro": "When you're tired, it's hard to think of what helps. A menu makes it easy.", "reflect": "What's on your list?" },
-        { "title": "Say no to one thing", "task": "Turn down one thing today, big or small.", "item": "skill:boundary-script", "intro": "Every yes uses energy. Today, keep some for yourself.", "reflect": "What did you say no to, and how did it feel?" },
-        { "title": "Bed 30 minutes early", "task": "Get in bed 30 minutes earlier than usual tonight.", "intro": "Revenge bedtime scrolling is real. Tonight, choose sleep.", "reflect": "How did you feel the next morning?" },
-        { "title": "Eat without your phone", "task": "Eat one meal today without your phone or the TV.", "intro": "Give your mind a break while you feed your body.", "reflect": "What did you notice about your food or your thoughts?" },
-        { "title": "Move for joy", "task": "Dance to one song in your kitchen, take a slow walk or stretch. Pick what feels good.", "intro": "Movement doesn't have to be a workout. It can just feel good.", "reflect": "What song did you pick?" },
-        { "title": "Ask for help", "task": "Ask someone to help with one task you usually do alone.", "intro": "You don't have to do everything yourself. Letting people help is a kind of rest too.", "reflect": "Who did you ask, and what happened?" }
+        {
+          "title": "Ten minutes of nothing",
+          "task": "Sit for 10 minutes and do nothing. No phone, no folding laundry, no planning.",
+          "intro": "Rest can start small. Ten minutes counts.",
+          "reflect": "What came up when you sat still?"
+        },
+        {
+          "title": "Make your rest menu",
+          "task": "Write down five things that help you rest. Keep the list where you can see it.",
+          "item": "skill:rest-menu",
+          "intro": "When you're tired, it's hard to think of what helps. A menu makes it easy.",
+          "reflect": "What's on your list?"
+        },
+        {
+          "title": "Say no to one thing",
+          "task": "Turn down one thing today, big or small.",
+          "item": "skill:boundary-script",
+          "intro": "Every yes uses energy. Today, keep some for yourself.",
+          "reflect": "What did you say no to, and how did it feel?"
+        },
+        {
+          "title": "Bed 30 minutes early",
+          "task": "Get in bed 30 minutes earlier than usual tonight.",
+          "intro": "Revenge bedtime scrolling is real. Tonight, choose sleep.",
+          "reflect": "How did you feel the next morning?"
+        },
+        {
+          "title": "Eat without your phone",
+          "task": "Eat one meal today without your phone or the TV.",
+          "intro": "Give your mind a break while you feed your body.",
+          "reflect": "What did you notice about your food or your thoughts?"
+        },
+        {
+          "title": "Move for joy",
+          "task": "Dance to one song in your kitchen, take a slow walk or stretch. Pick what feels good.",
+          "intro": "Movement doesn't have to be a workout. It can just feel good.",
+          "reflect": "What song did you pick?"
+        },
+        {
+          "title": "Ask for help",
+          "task": "Ask someone to help with one task you usually do alone.",
+          "intro": "You don't have to do everything yourself. Letting people help is a kind of rest too.",
+          "reflect": "Who did you ask, and what happened?"
+        }
       ]
     },
     {
-      "id": "kind-words-7", "kind": "challenge", "needs": ["heavy", "body"], "topics": ["depression", "achieving", "body-image"],
+      "id": "kind-words-7",
+      "kind": "challenge",
+      "needs": [
+        "heavy",
+        "body"
+      ],
+      "topics": [
+        "depression",
+        "achieving",
+        "body-image"
+      ],
       "title": "7 days of talking nicer to yourself",
       "tagline": "Turn down the inner critic, one day at a time.",
       "forYou": "Your inner voice is harder on you than anyone else would ever be.",
       "days": [
-        { "title": "Catch one harsh thought", "task": "Notice one harsh thing you say to yourself today. Just write it down.", "item": "skill:automatic-thoughts", "intro": "You can't change a thought you haven't noticed.", "reflect": "What harsh thought did you catch?" },
-        { "title": "Talk to yourself like a friend", "task": "Take the harsh thought from yesterday and rewrite it the way you'd say it to your best friend.", "item": "skill:friend-test", "intro": "You already know how to be kind. Today, point it at yourself.", "reflect": "What did you rewrite it to?" },
-        { "title": "Write down one win", "task": "Write down one thing you did well today, no matter how small.", "item": "skill:evidence-file", "intro": "Your brain remembers mistakes more than wins. Let's even it out.", "reflect": "What was your win?" },
-        { "title": "Just say thank you", "task": "When someone compliments you today, just say \"thank you.\" Don't explain it away.", "intro": "\"Girl, this old thing?\" Today, let the compliment land.", "reflect": "How did it feel to just say thank you?" },
-        { "title": "One kind minute", "task": "Take one minute to put a hand on your heart and say something kind to yourself.", "item": "skill:self-compassion-break", "intro": "One minute. That's all.", "reflect": "What did you say to yourself?" },
-        { "title": "Mirror check", "task": "Look in the mirror and name one thing you appreciate about yourself. It can be your body, your mind or your heart.", "intro": "This might feel awkward. Do it anyway.", "reflect": "What did you name?" },
-        { "title": "A letter to little you", "task": "Write a short note to yourself as a little girl. Tell her what she needed to hear.", "intro": "She's still in there, and she's listening.", "reflect": "What did you want her to know?" }
+        {
+          "title": "Catch one harsh thought",
+          "task": "Notice one harsh thing you say to yourself today. Just write it down.",
+          "item": "skill:automatic-thoughts",
+          "intro": "You can't change a thought you haven't noticed.",
+          "reflect": "What harsh thought did you catch?"
+        },
+        {
+          "title": "Talk to yourself like a friend",
+          "task": "Take the harsh thought from yesterday and rewrite it the way you'd say it to your best friend.",
+          "item": "skill:friend-test",
+          "intro": "You already know how to be kind. Today, point it at yourself.",
+          "reflect": "What did you rewrite it to?"
+        },
+        {
+          "title": "Write down one win",
+          "task": "Write down one thing you did well today, no matter how small.",
+          "item": "skill:evidence-file",
+          "intro": "Your brain remembers mistakes more than wins. Let's even it out.",
+          "reflect": "What was your win?"
+        },
+        {
+          "title": "Just say thank you",
+          "task": "When someone compliments you today, just say \"thank you.\" Don't explain it away.",
+          "intro": "\"Girl, this old thing?\" Today, let the compliment land.",
+          "reflect": "How did it feel to just say thank you?"
+        },
+        {
+          "title": "One kind minute",
+          "task": "Take one minute to put a hand on your heart and say something kind to yourself.",
+          "item": "skill:self-compassion-break",
+          "intro": "One minute. That's all.",
+          "reflect": "What did you say to yourself?"
+        },
+        {
+          "title": "Mirror check",
+          "task": "Look in the mirror and name one thing you appreciate about yourself. It can be your body, your mind or your heart.",
+          "intro": "This might feel awkward. Do it anyway.",
+          "reflect": "What did you name?"
+        },
+        {
+          "title": "A letter to little you",
+          "task": "Write a short note to yourself as a little girl. Tell her what she needed to hear.",
+          "intro": "She's still in there, and she's listening.",
+          "reflect": "What did you want her to know?"
+        }
       ]
     },
     {
-      "id": "boundary-5", "kind": "challenge", "needs": ["people", "work"], "topics": ["boundaries"],
+      "id": "boundary-5",
+      "kind": "challenge",
+      "needs": [
+        "people",
+        "work"
+      ],
+      "topics": [
+        "boundaries"
+      ],
       "title": "5-day boundary challenge",
       "tagline": "Small daily practice saying what you need.",
       "forYou": "You want to start setting boundaries but don't know where to begin.",
       "days": [
-        { "title": "Notice your yes", "task": "Count how many times you say yes today when you wanted to say no.", "intro": "First, just notice. No changes yet.", "reflect": "How many times did you say yes when you didn't want to?" },
-        { "title": "Buy yourself time", "task": "When someone asks for something today, say \"Let me get back to you.\"", "intro": "You don't have to answer right away. A pause gives you room to decide.", "reflect": "How did it feel to pause before answering?" },
-        { "title": "Say no to something small", "task": "Say no to one small request today.", "item": "skill:boundary-script", "intro": "Start small. Small no's build up to bigger ones.", "reflect": "What happened when you said no?" },
-        { "title": "Log off on time", "task": "Pick a time to stop checking work email and messages tonight, and stick to it.", "item": "article:boundaries-digital", "intro": "Being reachable all the time wears you down.", "reflect": "Did you stick to it? What made it easy or hard?" },
-        { "title": "Ask for what you need", "task": "Ask someone for one thing you need this week.", "item": "skill:dear-man", "intro": "Boundaries are also about asking. Today, ask.", "reflect": "What did you ask for?" }
+        {
+          "title": "Notice your yes",
+          "task": "Count how many times you say yes today when you wanted to say no.",
+          "intro": "First, just notice. No changes yet.",
+          "reflect": "How many times did you say yes when you didn't want to?"
+        },
+        {
+          "title": "Buy yourself time",
+          "task": "When someone asks for something today, say \"Let me get back to you.\"",
+          "intro": "You don't have to answer right away. A pause gives you room to decide.",
+          "reflect": "How did it feel to pause before answering?"
+        },
+        {
+          "title": "Say no to something small",
+          "task": "Say no to one small request today.",
+          "item": "skill:boundary-script",
+          "intro": "Start small. Small no's build up to bigger ones.",
+          "reflect": "What happened when you said no?"
+        },
+        {
+          "title": "Log off on time",
+          "task": "Pick a time to stop checking work email and messages tonight, and stick to it.",
+          "item": "article:boundaries-digital",
+          "intro": "Being reachable all the time wears you down.",
+          "reflect": "Did you stick to it? What made it easy or hard?"
+        },
+        {
+          "title": "Ask for what you need",
+          "task": "Ask someone for one thing you need this week.",
+          "item": "skill:dear-man",
+          "intro": "Boundaries are also about asking. Today, ask.",
+          "reflect": "What did you ask for?"
+        }
       ]
     },
     {
-      "id": "breathe-5", "kind": "challenge", "needs": ["anxious"], "topics": ["anxiety"],
+      "id": "breathe-5",
+      "kind": "challenge",
+      "needs": [
+        "anxious"
+      ],
+      "topics": [
+        "anxiety"
+      ],
       "title": "5 days of breathing",
       "tagline": "One minute of breathing a day to train your body to calm down.",
       "forYou": "You want an easy daily habit that helps with stress.",
       "days": [
-        { "title": "Morning sigh", "task": "Before you get out of bed, do three physiological sighs.", "item": "skill:physiological-sigh", "intro": "Start the day calmer than you woke up.", "reflect": "How did your morning feel?" },
-        { "title": "Box at your desk", "task": "Do one minute of box breathing in the middle of your day.", "item": "skill:box-breathing", "intro": "A quick reset in the middle of a busy day.", "reflect": "When did you do it?" },
-        { "title": "Breathe before you answer", "task": "Take one slow breath before you answer a stressful text or email.", "intro": "One breath gives you room to answer instead of react.", "reflect": "Did that one breath change what you said?" },
-        { "title": "Relax from head to toe", "task": "Tonight, try progressive muscle relaxation in bed.", "item": "skill:pmr", "intro": "Tense and let go, one muscle group at a time.", "reflect": "How did you sleep?" },
-        { "title": "Your go-to", "task": "Pick your favorite breathing skill from this week and save it to your pocketbook.", "intro": "Now you have a skill you can use anytime.", "reflect": "Which one is your go-to, and why?" }
+        {
+          "title": "Morning sigh",
+          "task": "Before you get out of bed, do three physiological sighs.",
+          "item": "skill:physiological-sigh",
+          "intro": "Start the day calmer than you woke up.",
+          "reflect": "How did your morning feel?"
+        },
+        {
+          "title": "Box at your desk",
+          "task": "Do one minute of box breathing in the middle of your day.",
+          "item": "skill:box-breathing",
+          "intro": "A quick reset in the middle of a busy day.",
+          "reflect": "When did you do it?"
+        },
+        {
+          "title": "Breathe before you answer",
+          "task": "Take one slow breath before you answer a stressful text or email.",
+          "intro": "One breath gives you room to answer instead of react.",
+          "reflect": "Did that one breath change what you said?"
+        },
+        {
+          "title": "Relax from head to toe",
+          "task": "Tonight, try progressive muscle relaxation in bed.",
+          "item": "skill:pmr",
+          "intro": "Tense and let go, one muscle group at a time.",
+          "reflect": "How did you sleep?"
+        },
+        {
+          "title": "Your go-to",
+          "task": "Pick your favorite breathing skill from this week and save it to your pocketbook.",
+          "intro": "Now you have a skill you can use anytime.",
+          "reflect": "Which one is your go-to, and why?"
+        }
       ]
     }
   ]
