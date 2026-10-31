@@ -495,10 +495,14 @@
       needsCard() +
       (function () { var vids = SKILLS.skills.filter(function (x) { return x.video; }); if (!vids.length) return '';
         var k = vids[n % vids.length];
-        return '<section class="sotd"><span class="eyebrow">' + ICON.bag + 'From the Pocketbook · Skill of the day</span>' +
-          '<h2 class="sotd-title">' + esc(k.name) + '</h2>' +
-          '<video src="' + esc(k.video) + '" poster="' + esc(k.video.replace(/\.mp4$/, '.jpg')) + '" controls playsinline preload="none"></video>' +
-          '<a class="btn sotd-more" href="#skill-' + esc(k.id) + '">Learn more about this skill' + ICON.chev + '</a></section>'; })() +
+        return '<section class="sotd"><span class="eyebrow">Today\'s skill</span>' +
+          '<h2 class="sotd-title">' + esc(k.name) + '</h2><p class="sotd-when">' + esc(k.when) + '</p>' +
+          '<button class="sotd-video" id="sotd-play" data-src="' + esc(k.video) + '" aria-label="Play the video for ' + esc(k.name) + '">' +
+            '<img src="' + esc(k.video.replace(/\.mp4$/, '.jpg')) + '" alt="">' +
+            '<span class="sotd-play">' + ICON.play + '</span><span class="sotd-watch">Watch · about 30 seconds</span></button>' +
+          '<a class="btn dark sotd-more" href="#skill-' + esc(k.id) + '">Learn more and practice this skill</a>' +
+          '<a class="text-link sotd-all" href="#pocketbook">See all ' + SKILLS.skills.length + ' skills in the Pocketbook</a></section>'; })() +
+
       homeWorkSection();
 
     document.getElementById('save-aff').addEventListener('click', function () {
@@ -510,6 +514,11 @@
     });
     document.getElementById('share-aff').addEventListener('click', function () { openShareSheet(aff); });
     wireNeeds();
+    var sp = document.getElementById('sotd-play');
+    if (sp) sp.addEventListener('click', function () {
+      var v = document.createElement('video'); v.src = sp.getAttribute('data-src'); v.controls = true; v.playsInline = true; v.setAttribute('playsinline', ''); v.className = 'sotd-player';
+      sp.parentNode.replaceChild(v, sp); var pr = v.play(); if (pr && pr.catch) pr.catch(function () {});
+    });
     wirePlanRemove(viewToday);
   }
 
@@ -1026,7 +1035,7 @@
   }
   var IDEA_KINDS = ['A new topic', 'A coping skill', 'A video', 'An affirmation', 'A feature', 'Something else'];
   function viewIdea(ctx) {
-    var back = ctx === 'learn' ? '#learn' : ctx === 'pocketbook' ? '#pocketbook' : '#help';
+    var back = ctx === 'learn' ? '#learn' : ctx === 'pocketbook' ? '#pocketbook' : ctx === 'today' ? '#today' : '#help';
     view.innerHTML = navBar(back, 'Back') +
       '<div><h1 class="page-title">Share an idea</h1><p class="lede">This app grows with you. Tell us the topics, skills and features you\'d love to see, and Deseray and the team will read every one.</p></div>' +
       '<section class="idea-card"><span class="filter-label">What is it about?</span><div class="idea-chips">' +
@@ -1710,37 +1719,71 @@
       '<span class="title">' + esc(p.title) + '</span></span>' + ICON.chev + '</a>';
   }
   function needSuggestions(needId) {
+    if (needId === 'other') {
+      return '<p class="need-reply">We may not have the exact thing yet, and that\'s okay. Here are a few places to start, or tell us what you\'d like to see.</p>' +
+        '<div class="stack">' +
+          '<a class="row-link" href="#journal"><span class="badge" style="background:var(--gold-soft)">' + ICON.pen + '</span><span class="text"><span class="meta">Journal</span><span class="title">Write it out</span></span>' + ICON.chev + '</a>' +
+          '<a class="row-link" href="#plans"><span class="badge" style="background:var(--gold-soft)">' + ICON.spark + '</span><span class="text"><span class="meta">Plans</span><span class="title">Look through all the plans</span></span>' + ICON.chev + '</a>' +
+          '<a class="row-link" href="#learn"><span class="badge" style="background:var(--sage)">' + ICON.bag + '</span><span class="text"><span class="meta">Learn</span><span class="title">Browse by subject</span></span>' + ICON.chev + '</a>' +
+          '<a class="row-link" href="#idea-today"><span class="badge" style="background:var(--sage)">+</span><span class="text"><span class="meta">Share an idea</span><span class="title">Tell us what you need</span></span>' + ICON.chev + '</a>' +
+        '</div>';
+    }
     var n = needById(needId); if (!n) return '';
-    var plans = (PATHS.plans || []).filter(function (p) { return p.needs.indexOf(needId) !== -1 && notFinished(p); }).slice(0, 2);
-    var ch = (PATHS.challenges || []).filter(function (p) { return p.needs.indexOf(needId) !== -1 && notFinished(p); })[0];
+    var matching = function (list) { return (list || []).filter(function (p) { return p.needs.indexOf(needId) !== -1 && notFinished(p); }); };
+    var plans = matching(PATHS.plans), ch = matching(PATHS.challenges)[0], plan = plans[0];
+    var art = null, skill = null;
+    plans.concat(matching(PATHS.challenges)).forEach(function (p) {
+      p.days.forEach(function (d) {
+        var refs = [d.item, d.article ? 'article:' + d.article : '', d.video ? 'skill:' + d.video : ''];
+        refs.forEach(function (r) {
+          if (!r) return; var it = pathItem(r);
+          if (it.kind === 'article' && it.a && !art && (!plan || p !== plan || d !== plan.days[0])) art = it.a;
+          if (it.kind === 'skill' && it.k && !skill) skill = it.k;
+        });
+      });
+    });
     return '<p class="need-reply">' + esc(n.reply) + '</p>' +
-      '<div class="plan-grid">' + plans.map(planCard).join('') + (ch ? planCard(ch) : '') + '</div>' +
-      '<a class="text-link" href="#plans-need-' + esc(needId) + '">See everything for this</a>';
+      '<p class="need-howto">These may help. Choose one to start, and go from there.</p>' +
+      '<div class="plan-grid">' + (plan ? planCard(plan) : '') + (ch ? planCard(ch) : '') + '</div>' +
+      '<div class="stack">' + (art ? articleRow(art) : '') + (skill ? skillRow(skill) : '') + '</div>';
   }
   function needsCard() {
     if (!(PATHS.needs || []).length) return '';
     return '<section class="needs-card" aria-labelledby="needs-title">' +
-      '<span class="eyebrow">Just for today</span>' +
-      '<h2 id="needs-title" class="needs-title">What do you need today?</h2>' +
-      '<p class="needs-lede">Whatever you\'re carrying, you don\'t have to figure it out by yourself. Pick what feels closest, and we\'ll meet you there.</p>' +
-      '<div class="idea-chips" role="group" aria-label="What you need">' + PATHS.needs.map(function (n) {
-        return '<button class="idea-chip" data-need="' + esc(n.id) + '" aria-pressed="false">' + esc(n.label) + '</button>'; }).join('') + '</div>' +
+      '<span class="eyebrow">Check in</span>' +
+      '<h2 id="needs-title" class="needs-title">How are you feeling today?</h2>' +
+      '<p class="needs-lede">Tell us what\'s going through your mind, and we\'ll meet you where you are.</p>' +
+      '<label class="sr" for="need-pick">How are you feeling today?</label>' +
+      '<div class="select-wrap need-select"><select id="need-pick"><option value="">Choose what fits best</option>' + PATHS.needs.map(function (n) {
+        return '<option value="' + esc(n.id) + '">' + esc(n.label) + '</option>'; }).join('') + '<option value="other">Something else</option></select>' + ICON.chev + '</div>' +
       '<div id="need-results" class="need-results" hidden></div>' +
-      '<div class="needs-actions"><a class="btn dark" href="#plans">Choose a plan</a><a class="btn" href="#plans-challenges">Take a challenge</a></div>' +
+      '<div class="needs-actions"><a class="btn dark" href="#plans">Choose a plan</a><a class="btn" href="#challenges">Take a challenge</a></div>' +
       '<a class="text-link" href="#learn">Or browse everything in Learn</a>' +
     '</section>';
   }
   function wireNeeds() {
-    var box = document.getElementById('need-results'); if (!box) return;
-    Array.prototype.forEach.call(view.querySelectorAll('[data-need]'), function (b) {
-      b.addEventListener('click', function () {
-        var on = b.getAttribute('aria-pressed') !== 'true';
-        Array.prototype.forEach.call(view.querySelectorAll('[data-need]'), function (x) { x.setAttribute('aria-pressed', 'false'); });
-        b.setAttribute('aria-pressed', on);
-        box.hidden = !on; box.innerHTML = on ? needSuggestions(b.getAttribute('data-need')) : '';
+    var box = document.getElementById('need-results'), pick = document.getElementById('need-pick'); if (!box || !pick) return;
+    function show(v) {
+      box.hidden = !v; box.innerHTML = v ? needSuggestions(v) : '';
+      // Remember where she was, so Back from a suggestion returns to this exact spot.
+      Array.prototype.forEach.call(box.querySelectorAll('a'), function (a) {
+        a.addEventListener('click', function () {
+          try {
+            sessionStorage.setItem('abg.todayScroll', String(window.scrollY));
+            if (/^#(article|skill)-/.test(a.getAttribute('href'))) sessionStorage.setItem('abg.planReturn', JSON.stringify({ hash: '#today', label: 'Back to Today' }));
+          } catch (e) {}
+        });
       });
+    }
+    var saved = ''; try { saved = sessionStorage.getItem('abg.todayNeed') || ''; } catch (e) {}
+    if (saved && pick.querySelector('option[value="' + saved + '"]')) { pick.value = saved; show(saved); }
+    pick.addEventListener('change', function () {
+      try { sessionStorage.setItem('abg.todayNeed', this.value); } catch (e) {}
+      show(this.value);
     });
   }
+
+
 
   // Dropdown + 6 tiles per page. Used on the Plans page and on Learn when browsing plans.
   function planBrowserHtml(sel, kind) {
@@ -1793,23 +1836,28 @@
   }
 
   function viewPlans(filter) {
-    var sel = filter === 'challenges' ? 'all-challenges' : filter && filter.indexOf('need-') === 0 ? filter.slice(5) : filter === 'all' ? 'all-plans' : '';
-    var act = activePlans();
+    var kind = filter === 'challenges' ? 'challenge' : 'plan', mode = kind + 's';
+    function mine(p) { return p.kind === kind; }
     view.innerHTML = navBar('#today', 'Home') +
-      '<div><h1 class="page-title">Plans and challenges</h1><p class="lede">Plans walk you through a few articles and skills, one day at a time. Challenges give you one small thing to do each day. Start as many as you like and go at your own pace.</p></div>' +
-      planBrowserHtml(sel) +
-      inProgressSection(act) +
-      (function () { var fin = finishedPlans(); return fin.length ? '<details class="completed"><summary><span class="section-title">Completed</span><span class="completed-count">' + fin.length + '</span>' + ICON.chev + '</summary><div class="stack">' + fin.map(completedRow).join('') + '</div></details>' : ''; })() +
-      ideaLink('learn', 'Want a plan we don\'t have yet?');
+      (kind === 'plan'
+        ? '<div><h1 class="page-title">Plans</h1><p class="lede">Each plan walks you through a few articles and skills, one day at a time. Start as many as you like and go at your own pace.</p></div>'
+        : '<div><h1 class="page-title">Challenges</h1><p class="lede">Each challenge gives you one small thing to do a day. Pick one that fits your week.</p></div>') +
+      planBrowserHtml('all-' + mode, kind) +
+      '<div class="stack">' + inProgressSection(activePlans().filter(mine)) + completedSection(finishedPlans().filter(mine)) + '</div>' +
+      '<a class="row-link" href="' + (kind === 'plan' ? '#challenges' : '#plans') + '"><span class="text"><span class="title">' + (kind === 'plan' ? 'Looking for something smaller? Try a challenge' : 'Want to go deeper? Try a plan') + '</span></span>' + ICON.chev + '</a>' +
+      ideaLink('learn', kind === 'plan' ? 'Want a plan we don\'t have yet?' : 'Want a challenge we don\'t have yet?');
     wirePlanRemove(function () { viewPlans(filter); });
-    wirePlanBrowser(sel);
+    wirePlanBrowser('all-' + mode, kind);
   }
 
   function viewPlan(id) {
     var p = pathById(id); if (!p) { location.hash = '#plans'; return; }
     var prog = planProgress(id), next = planNextDay(p, prog), locked = planLocked(p);
     var done = prog ? prog.done || [] : [];
-    view.innerHTML = navBar('#plans' + (p.kind === 'challenge' ? '-challenges' : ''), p.kind === 'challenge' ? 'All challenges' : 'All plans') +
+    var origin = '#today'; try { origin = sessionStorage.getItem('abg.planOrigin') || '#today'; } catch (e) {}
+    var listHref = p.kind === 'challenge' ? '#challenges' : '#plans';
+    view.innerHTML = '<div class="page-nav"><a class="back-link" href="' + esc(origin) + '">' + ICON.back + '<span>Back</span></a>' +
+        (origin !== listHref ? '<a class="btn small" href="' + listHref + '">Choose a different ' + kindLabel(p).toLowerCase() + '</a>' : '') + '</div>' +
       '<section class="plan-hero' + (p.kind === 'challenge' ? ' is-challenge' : '') + '">' +
         '<span class="plan-meta">' + kindLabel(p) + ' · ' + p.days.length + ' days' + (locked ? ' <span class="plus-tag">Plus</span>' : '') + '</span>' +
         '<h1>' + esc(p.title) + '</h1><p>' + esc(p.tagline) + '</p>' +
@@ -1971,11 +2019,14 @@
   // ---------- router ----------
   function route() {
     var h = (location.hash || '#today').slice(1);
+    var prev = route.last || 'today'; route.last = h;
+    if (h.indexOf('plan-') === 0 && h.indexOf('--') === -1 && prev.indexOf('plan-') !== 0) { try { sessionStorage.setItem('abg.planOrigin', '#' + prev); } catch (e) {} }
     var tab = 'today';
     if (!/^(article-|skill-|plan-)/.test(h)) { try { sessionStorage.removeItem('abg.planReturn'); } catch (e) {} }
     else if (h.indexOf('plan-') === 0 && h.indexOf('--') === -1) { try { sessionStorage.removeItem('abg.planReturn'); } catch (e) {} }
     if (h === 'learn' || h.indexOf('learn-') === 0) { tab = 'learn'; viewLearn(h.slice(6)); }
-    else if (h === 'plans' || h.indexOf('plans-') === 0) { tab = 'today'; viewPlans(h.slice(6)); }
+    else if (h === 'challenges' || h === 'plans-challenges') { tab = 'today'; viewPlans('challenges'); }
+    else if (h === 'plans' || h.indexOf('plans-') === 0) { tab = 'today'; viewPlans(''); }
     else if (h.indexOf('plan-') === 0) { tab = 'today'; var pd = h.slice(5).split('--'); if (pd[1]) viewPlanDay(pd[0], +pd[1]); else viewPlan(pd[0]); }
     else if (h.indexOf('topic-') === 0) { tab = 'learn'; viewTopic(h.slice(6)); }
     else if (h.indexOf('article-') === 0) { tab = 'learn'; viewArticle(h.slice(8)); }
@@ -2015,6 +2066,10 @@
       if (a.getAttribute('data-tab') === tab) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
     });
     window.scrollTo(0, 0);
+    if (h === 'today' || h === '') {
+      var ys = null; try { ys = sessionStorage.getItem('abg.todayScroll'); sessionStorage.removeItem('abg.todayScroll'); } catch (e) {}
+      if (ys) setTimeout(function () { window.scrollTo(0, +ys); }, 30);
+    }
     recordDay();
   }
 
