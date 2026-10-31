@@ -591,6 +591,10 @@
     window.addEventListener('hashchange', function stop() { au.pause(); window.removeEventListener('hashchange', stop); });
   }
 
+  // Shown on every article, skill and plan day.
+  function eduNote() {
+    return '<p class="disclaimer edu-note"><strong>Disclaimer:</strong> This is for education only and is not medical or mental health advice. Talk with a doctor or licensed mental health professional about your own health and care. If you\'re in crisis, call 911 or call/text 988.</p>';
+  }
   function reportIssue(kind, title, hash) {
     var subject = 'App issue: ' + title;
     var body = 'Page: ' + APP_URL + '/' + hash + '\n\nWhat happened:\n';
@@ -626,7 +630,7 @@
         '<a class="btn" href="#topic-' + esc(t.id) + '">More on ' + esc(t.name) + '</a>' +
         '<a class="btn" href="#today">Home</a></div>' +
       '<a class="crisis primary" href="#help"><span class="text"><span class="big" style="display:block">Find support</span><span class="small">Crisis lines and Black therapist directories</span></span></a>' +
-      '<p class="disclaimer"><strong>Disclaimer:</strong> This is education, not a diagnosis or medical advice. Talk with a licensed professional about your own health.</p>' +
+      '<p class="disclaimer"><strong>Disclaimer:</strong> This is for education only and is not medical or mental health advice. Talk with a doctor or licensed mental health professional about your own health and care. If you\'re in crisis, call 911 or call/text 988.</p>' +
       reportIssue('article', a.title, '#article-' + a.id) +
       '<p class="copyright">© 2026 Anxious Black Girls, LLC. All rights reserved.</p>';
     ['share-art-top', 'share-art-bottom'].forEach(function (sid) {
@@ -1229,7 +1233,7 @@
     if (isLocked(k)) {
       view.innerHTML = navBar(backHref, backLabel) +
         '<section class="skill-hero"><span class="skill-hero-label">' + ICON.bag + 'The Pocketbook · 1-minute skill</span><h1>' + esc(k.name) + '</h1><p>' + esc(k.what) + '</p></section>' +
-        plusLockCard('skill');
+        plusLockCard('skill') + eduNote();
       return;
     }
     var isSaved = savedSkills().indexOf(id) !== -1;
@@ -1256,7 +1260,7 @@
       }).join('') + '</div>' : '') +
       '<h3>Source</h3><ul class="sources"><li>' + esc(k.source) + '</li></ul></div></article>' +
       '<div class="article-end"><a class="btn" href="#pocketbook">More from the Pocketbook</a></div>' +
-      '<p class="disclaimer"><strong>Disclaimer:</strong> This is education, not therapy or medical advice. If you\'re in crisis, call 911 or call/text 988.</p>' +
+      '<p class="disclaimer"><strong>Disclaimer:</strong> This is for education only and is not medical or mental health advice. Talk with a doctor or licensed mental health professional about your own health and care. If you\'re in crisis, call 911 or call/text 988.</p>' +
       (NATIVE && k.group === 'neuro' ? '<a class="row-link reminders-link" href="#reminders-skill-' + esc(k.id) + '"><span class="badge" style="background:var(--gold-soft)">' + ICON.bell + '</span><span class="text"><span class="title">Set a reminder to practice this</span><span class="lede" style="margin:0">Your phone will nudge you at the time you pick</span></span>' + ICON.chev + '</a>' : '') +
       reportIssue('skill', k.name, '#skill-' + k.id) +
       '<p class="copyright">© 2026 Anxious Black Girls, LLC. All rights reserved.</p>';
@@ -1723,8 +1727,9 @@
       return '<p class="need-reply">We may not have the exact thing yet, and that\'s okay. Here are a few places to start, or tell us what you\'d like to see.</p>' +
         '<div class="stack">' +
           '<a class="row-link" href="#journal"><span class="badge" style="background:var(--gold-soft)">' + ICON.pen + '</span><span class="text"><span class="meta">Journal</span><span class="title">Write it out</span></span>' + ICON.chev + '</a>' +
+          '<a class="row-link" href="#pocketbook"><span class="badge skill-badge">' + ICON.bag + '</span><span class="text"><span class="meta skill-meta">The Pocketbook</span><span class="title">Find a skill that helps right now</span></span>' + ICON.chev + '</a>' +
           '<a class="row-link" href="#plans"><span class="badge" style="background:var(--gold-soft)">' + ICON.spark + '</span><span class="text"><span class="meta">Plans</span><span class="title">Look through all the plans</span></span>' + ICON.chev + '</a>' +
-          '<a class="row-link" href="#learn"><span class="badge" style="background:var(--sage)">' + ICON.bag + '</span><span class="text"><span class="meta">Learn</span><span class="title">Browse by subject</span></span>' + ICON.chev + '</a>' +
+          '<a class="row-link" href="#learn"><span class="badge" style="background:var(--gold-soft)"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2z"/><path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/></svg></span><span class="text"><span class="meta">Learn</span><span class="title">Browse by subject</span></span>' + ICON.chev + '</a>' +
           '<a class="row-link" href="#idea-today"><span class="badge" style="background:var(--sage)">+</span><span class="text"><span class="meta">Share an idea</span><span class="title">Tell us what you need</span></span>' + ICON.chev + '</a>' +
         '</div>';
     }
@@ -1863,7 +1868,8 @@
         '<h1>' + esc(p.title) + '</h1><p>' + esc(p.tagline) + '</p>' +
         '<p class="plan-for"><strong>This is for you if:</strong> ' + esc(p.forYou) + '</p>' +
         (prog ? progressBar(done.length, p.days.length) : '') +
-        (locked ? '' : !prog ? '<button class="btn dark" id="plan-start">Start ' + (p.kind === 'challenge' ? 'the challenge' : 'this plan') + '</button>'
+        (p.picker && !locked ? '<div class="plan-picker">' + pickerSelect(p, prog && prog.choice) + '</div>' : '') +
+        (locked ? '' : !prog ? '<button class="btn dark" id="plan-start"' + (p.picker ? ' disabled' : '') + '>Start ' + (p.kind === 'challenge' ? 'the challenge' : 'this plan') + '</button>'
           : next === -1 ? '<p class="plan-done-note">' + ICON.spark + 'You finished this. Look at you.</p>'
           : '<a class="btn dark" href="#plan-' + esc(id) + '--' + (next + 1) + '">Continue with Day ' + (next + 1) + '</a>') +
       '</section>' +
@@ -1871,17 +1877,24 @@
       '<section class="stack"><h2 class="section-title">The days</h2><ol class="day-list">' + p.days.map(function (d, i) {
         var it = pathItem(d.item), isDone = done.indexOf(i) !== -1;
         var sub = p.kind === 'challenge' ? d.task : it ? (it.kind === 'article' ? 'Read · ' + (it.a ? it.a.minutes + ' min' : '') : 'Skill · 1 min') : '';
-        if (d.video || d.article) sub = [d.video ? 'Video' : '', d.article && articleById(d.article) ? 'Read · ' + articleById(d.article).minutes + ' min' : '', d.video ? 'Skill' : ''].filter(Boolean).join(' · ');
+        if (p.picker) sub = 'Read · Skill · Words you can use';
+        else if (d.video || d.article) sub = [d.video ? 'Video' : '', d.article && articleById(d.article) ? 'Read · ' + articleById(d.article).minutes + ' min' : '', d.video ? 'Skill' : ''].filter(Boolean).join(' · ');
         var inner = '<span class="day-dot' + (isDone ? ' is-done' : '') + '" aria-hidden="true">' + (isDone ? '✓' : (i + 1)) + '</span>' +
           '<span class="text"><span class="title">' + esc(d.title) + '</span><span class="day-sub">' + esc(sub) + '</span></span>';
         return '<li>' + (locked ? '<div class="day-row">' + inner + '</div>' : '<a class="day-row" href="#plan-' + esc(id) + '--' + (i + 1) + '">' + inner + ICON.chev + '</a>') + '</li>';
-      }).join('') + '</ol></section>' +
+      }).join('') + '</ol></section>' + eduNote() +
       (prog ? '<button class="text-link plan-leave" id="plan-leave">' + (next === -1 ? 'Remove from my completed list' : 'Remove this ' + kindLabel(p).toLowerCase()) + '</button>' +
         '<div class="plan-leave-confirm" id="plan-leave-confirm" hidden><p>This clears your progress and notes for this ' + kindLabel(p).toLowerCase() + '.</p>' +
         '<div class="actions"><button class="btn dark" id="plan-leave-yes">Clear it</button><button class="btn" id="plan-leave-no">Keep it</button></div></div>' : '');
-    var st = document.getElementById('plan-start');
+    var pc = document.getElementById('plan-choice'), st = document.getElementById('plan-start');
+    if (pc) pc.addEventListener('change', function () {
+      if (st) st.disabled = !this.value;
+      var pr = planProgress(id);
+      if (pr && this.value) { pr.choice = this.value; savePlanProgress(id, pr); toast('Updated to ' + optionLabel(p, this.value)); viewPlan(id); }
+    });
     if (st) st.addEventListener('click', function () {
-      savePlanProgress(id, { started: new Date().toISOString(), last: new Date().toISOString(), done: [], notes: {} });
+      if (p.picker && !(pc && pc.value)) return;
+      savePlanProgress(id, { started: new Date().toISOString(), last: new Date().toISOString(), done: [], notes: {}, choice: pc ? pc.value : undefined });
       location.hash = '#plan-' + id + '--1';
     });
     var lv = document.getElementById('plan-leave');
@@ -1930,11 +1943,28 @@
       .then(function (md) { articleCache[aid] = md; fill(md); })
       .catch(function () { body.innerHTML = '<p>This article didn\'t load. Check your connection and try again.</p>'; });
   }
+  // Plans with a picker (like Understanding a new diagnosis) fill each day from her choice.
+  function pickedDay(p, d, choice) {
+    if (!p.picker) return d;
+    var c = choice || 'other', out = {};
+    for (var k in d) out[k] = d[k];
+    out.article = (d.articles || {})[c] || (d.articles || {})['default'] || (d.articles || {}).other;
+    out.wordsText = d.words ? (d.words[c] || d.words['default']) : '';
+    return out;
+  }
+  function optionLabel(p, id) { var o = (p.options || []).filter(function (x) { return x.id === id; })[0]; return o ? o.label : ''; }
+  function pickerSelect(p, choice) {
+    return '<label class="filter-label" for="plan-choice">' + esc(p.pickerLabel || 'Choose one') + '</label>' +
+      '<div class="select-wrap plan-choice"><select id="plan-choice"><option value="">Choose one</option>' + (p.options || []).map(function (o) {
+        return '<option value="' + esc(o.id) + '"' + (choice === o.id ? ' selected' : '') + '>' + esc(o.label) + '</option>'; }).join('') + '</select>' + ICON.chev + '</div>';
+  }
   function viewPlanDay(id, n) {
     var p = pathById(id); if (!p) { location.hash = '#plans'; return; }
     var i = n - 1, d = p.days[i];
     if (!d || planLocked(p)) { location.hash = '#plan-' + id; return; }
     var prog = planProgress(id);
+    if (p.picker && !(prog && prog.choice)) { location.hash = '#plan-' + id; return; }
+    d = pickedDay(p, d, prog && prog.choice);
     if (!prog) { prog = { started: new Date().toISOString(), done: [], notes: {} }; }
     prog.last = new Date().toISOString(); savePlanProgress(id, prog);
     var isDone = (prog.done || []).indexOf(i) !== -1, it = pathItem(d.item);
@@ -1950,13 +1980,16 @@
       (it && (it.a || it.k) ? '<section class="stack"><h2 class="section-title">' + (d.task ? 'This can help' : it.kind === 'article' ? 'Today\'s read' : 'Today\'s skill') + '</h2>' +
         (it.kind === 'article' ? articleRow(it.a) : skillRow(it.k)) + '</section>' : '') +
       (d.video && skillById(d.video) ? '<section class="stack"><h2 class="section-title">Try the skill</h2>' + skillRow(skillById(d.video)) + '</section>' : '') +
+      (d.skill && skillById(d.skill) ? '<section class="stack"><h2 class="section-title">Today\'s skill</h2>' + skillRow(skillById(d.skill)) + '</section>' : '') +
+      (d.wordsText ? '<section class="words-card"><span class="eyebrow">Words you can use</span><p>' + esc(d.wordsText) + '</p></section>' : '') +
+      (p.picker && n === p.days.length && p.next && p.next[prog.choice] && pathById(p.next[prog.choice]) ? '<section class="stack"><h2 class="section-title">Keep going</h2><div class="plan-grid">' + planCard(pathById(p.next[prog.choice])) + '</div></section>' : '') +
       '<section class="practice reflect-card"><span class="eyebrow">Think about it</span>' +
         '<label class="reflect-q" for="reflect">' + esc(d.reflect) + '</label>' +
         '<textarea id="reflect" placeholder="Write as much or as little as you want">' + esc((prog.notes || {})[i] || '') + '</textarea>' +
         '<p class="mind-note">Only you can see this. It stays on your phone.</p></section>' +
       (isDone ? '<p class="plan-done-note">' + ICON.spark + 'Day ' + n + ' is done.</p>'
         : '<button class="btn dark day-done" id="day-done">' + (d.task ? 'I did it' : 'Mark Day ' + n + ' done') + '</button>') +
-      '<div class="day-nav">' + (n > 1 ? '<a class="btn small" href="#plan-' + esc(id) + '--' + (n - 1) + '">Day ' + (n - 1) + '</a>' : '<span></span>') +
+      eduNote() + '<div class="day-nav">' + (n > 1 ? '<a class="btn small" href="#plan-' + esc(id) + '--' + (n - 1) + '">Day ' + (n - 1) + '</a>' : '<span></span>') +
         (n < p.days.length ? '<a class="btn small" href="#plan-' + esc(id) + '--' + (n + 1) + '">Day ' + (n + 1) + '</a>' : '') + '</div>';
     if (d.article) loadDayArticle(d.article);
     var ta = document.getElementById('reflect');

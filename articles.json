@@ -131,6 +131,18 @@
       "name": "Boundaries",
       "blurb": "Saying no with love",
       "color": "#E9D7C8"
+    },
+    {
+      "id": "autoimmune",
+      "name": "Autoimmune",
+      "blurb": "Lupus, thyroid, MS and your mind",
+      "color": "#D9CFA8"
+    },
+    {
+      "id": "health",
+      "name": "Diabetes & Blood Pressure",
+      "blurb": "Your body, your stress and what it's telling you",
+      "color": "#E9D7C8"
     }
   ],
   "articles": [
@@ -888,6 +900,84 @@
       "topic": "transitions",
       "title": "Stay, leave or build your own?",
       "minutes": 2
+    },
+    {
+      "id": "autoimmune-what-it-is",
+      "topic": "autoimmune",
+      "title": "Autoimmune disease and Black women",
+      "minutes": 3
+    },
+    {
+      "id": "autoimmune-mind-body",
+      "topic": "autoimmune",
+      "title": "Autoimmune disease and your mental health",
+      "minutes": 3
+    },
+    {
+      "id": "autoimmune-being-believed",
+      "topic": "autoimmune",
+      "title": "\"You don't look sick\": getting believed",
+      "minutes": 3
+    },
+    {
+      "id": "autoimmune-flares-fatigue",
+      "topic": "autoimmune",
+      "title": "Flares, fatigue and the push-and-crash cycle",
+      "minutes": 3
+    },
+    {
+      "id": "autoimmune-family-faith",
+      "topic": "autoimmune",
+      "title": "Family, faith and living with a chronic illness",
+      "minutes": 3
+    },
+    {
+      "id": "autoimmune-living-well",
+      "topic": "autoimmune",
+      "title": "Living well with an autoimmune disease",
+      "minutes": 3
+    },
+    {
+      "id": "sexual-health-diagnosis",
+      "topic": "sexual-health",
+      "title": "After a positive STI or HIV test",
+      "minutes": 3
+    },
+    {
+      "id": "achieving-tell-job",
+      "topic": "achieving",
+      "title": "Should I tell my job about my diagnosis?",
+      "minutes": 3
+    },
+    {
+      "id": "achieving-use-your-leave",
+      "topic": "achieving",
+      "title": "Use the leave you've earned: FMLA, disability and your mental health",
+      "minutes": 4
+    },
+    {
+      "id": "health-blood-pressure",
+      "topic": "health",
+      "title": "High blood pressure, stress and Black women",
+      "minutes": 3
+    },
+    {
+      "id": "health-diabetes",
+      "topic": "health",
+      "title": "Diabetes, stress and your mood",
+      "minutes": 3
+    },
+    {
+      "id": "health-body-alarm",
+      "topic": "health",
+      "title": "When your body sounds the alarm",
+      "minutes": 3
+    },
+    {
+      "id": "health-care-for-you",
+      "topic": "health",
+      "title": "Taking care of you, not just your numbers",
+      "minutes": 3
     }
   ]
 }

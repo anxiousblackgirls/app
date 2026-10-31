@@ -694,3 +694,9 @@ a.listen .listen-title { font-weight: 700; }
 .sotd-player { width: 100%; border-radius: 16px; background: #000; aspect-ratio: 9 / 16; max-height: 62vh; }
 .sotd .sotd-more { align-self: stretch; justify-content: center; background: var(--ink); border-color: var(--ink); color: var(--surface); }
 .sotd-all { align-self: center; color: var(--sage-ink); }
+.plan-picker { width: 100%; display: grid; gap: 8px; margin-top: 4px; }
+.plan-choice select { background: var(--surface); }
+.btn[disabled] { opacity: 0.4; cursor: default; }
+.words-card { background: var(--surface); border-left: 6px solid var(--gold); border-radius: 18px; padding: 18px 18px; display: grid; gap: 8px; }
+.words-card p { margin: 0; font-size: 17px; line-height: 1.5; font-weight: 600; }
+.edu-note { margin: 0; font-size: 13px; line-height: 1.5; color: var(--muted); background: var(--surface); border-radius: 14px; padding: 12px 14px; border: 1px solid var(--line); }

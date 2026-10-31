@@ -43,6 +43,279 @@
   ],
   "plans": [
     {
+      "id": "new-diagnosis",
+      "kind": "plan",
+      "picker": true,
+      "needs": [
+        "brain",
+        "body",
+        "who"
+      ],
+      "topics": [
+        "adhd",
+        "autism",
+        "audhd",
+        "anxiety",
+        "depression",
+        "bipolar",
+        "bpd",
+        "pcos",
+        "perimenopause",
+        "sexual-health",
+        "autoimmune",
+        "health"
+      ],
+      "title": "Understanding a new diagnosis",
+      "tagline": "Seven days to make sense of a new diagnosis, talk about it and decide what comes next.",
+      "forYou": "You just got a diagnosis, for your mind or your body, and you're trying to figure out what it means for you.",
+      "pickerLabel": "Which diagnosis are you learning about?",
+      "options": [
+        {
+          "id": "adhd",
+          "label": "ADHD"
+        },
+        {
+          "id": "autism",
+          "label": "Autism"
+        },
+        {
+          "id": "audhd",
+          "label": "AuDHD (autism and ADHD)"
+        },
+        {
+          "id": "anxiety",
+          "label": "Anxiety"
+        },
+        {
+          "id": "depression",
+          "label": "Depression"
+        },
+        {
+          "id": "bipolar",
+          "label": "Bipolar disorder"
+        },
+        {
+          "id": "bpd",
+          "label": "Borderline personality disorder (BPD)"
+        },
+        {
+          "id": "pcos",
+          "label": "PCOS"
+        },
+        {
+          "id": "perimenopause",
+          "label": "Perimenopause"
+        },
+        {
+          "id": "sexual-health",
+          "label": "A sexual health diagnosis (an STI or HIV)"
+        },
+        {
+          "id": "autoimmune",
+          "label": "An autoimmune disease (lupus, MS, thyroid disease and others)"
+        },
+        {
+          "id": "blood-pressure",
+          "label": "High blood pressure"
+        },
+        {
+          "id": "diabetes",
+          "label": "Diabetes or prediabetes"
+        },
+        {
+          "id": "other",
+          "label": "Something else"
+        }
+      ],
+      "next": {
+        "adhd": "new-adhd",
+        "autism": "autistic-sense",
+        "audhd": "autistic-sense",
+        "anxiety": "quiet-worry",
+        "depression": "running-empty",
+        "bipolar": "highs-lows",
+        "bpd": "feelings-hard",
+        "pcos": "living-pcos",
+        "perimenopause": "is-it-peri",
+        "sexual-health": "talk-sex",
+        "autoimmune": "living-autoimmune",
+        "blood-pressure": "body-alarm",
+        "diabetes": "body-alarm"
+      },
+      "days": [
+        {
+          "title": "You have a name for it. Now what?",
+          "skill": "name-it-to-tame-it",
+          "articles": {
+            "adhd": "adhd-too-much",
+            "autism": "autism-late-diagnosis",
+            "audhd": "audhd-what-it-means",
+            "anxiety": "anxiety-on-guard",
+            "depression": "depression-not-sad",
+            "bipolar": "bipolar-more-than-mood-swings",
+            "bpd": "bpd-when-emotions-hit-hard",
+            "pcos": "pcos-what-it-is",
+            "perimenopause": "peri-what-it-is",
+            "sexual-health": "sexual-health-diagnosis",
+            "autoimmune": "autoimmune-what-it-is",
+            "other": "depression-in-your-body",
+            "blood-pressure": "health-blood-pressure",
+            "diabetes": "health-diabetes"
+          },
+          "intro": "A diagnosis can bring relief, grief, fear and a hundred questions all at once. Today, start by learning what it is and noticing how you feel.",
+          "words": {
+            "default": "I can feel relieved and sad about this at the same time. Both make sense."
+          },
+          "reflect": "What did you feel when you first heard your diagnosis?"
+        },
+        {
+          "title": "A description, not a verdict",
+          "skill": "labeling",
+          "articles": {
+            "adhd": "adhd-big-emotions",
+            "autism": "autism-anxiety-and-depression",
+            "audhd": "audhd-daily-life",
+            "anxiety": "anxiety-panic-attacks",
+            "depression": "depression-in-your-body",
+            "bipolar": "bipolar-ii-quiet-highs",
+            "bpd": "bpd-and-childhood",
+            "pcos": "pcos-anxiety-depression",
+            "perimenopause": "peri-mood-and-anxiety",
+            "sexual-health": "sexual-health-silence",
+            "autoimmune": "autoimmune-mind-body",
+            "other": "depression-strong-black-woman",
+            "blood-pressure": "health-body-alarm",
+            "diabetes": "health-body-alarm"
+          },
+          "intro": "How you talk to yourself about your diagnosis matters. A diagnosis describes what you're dealing with. It doesn't define who you are.",
+          "words": {
+            "default": "Instead of \"Something is wrong with me,\" try \"Now I have a name for what I've been dealing with, and a way to take care of it.\"",
+            "adhd": "Instead of \"I'm lazy\" or \"I'm a mess,\" try \"My brain works differently, and now I know how to work with it.\"",
+            "autism": "Instead of \"I'm too much\" or \"I'm weird,\" try \"My brain works this way, and I'm learning what I need.\"",
+            "audhd": "Instead of \"I'm too much\" or \"I can't get it together,\" try \"My brain works this way, and I'm learning what I need.\"",
+            "sexual-health": "Instead of \"I'm dirty\" or \"Nobody will want me,\" try \"This is a health condition, like any other. It says nothing about my worth.\"",
+            "autoimmune": "Instead of \"My body is failing me,\" try \"My body is working hard. I can be gentle with it.\"",
+            "blood-pressure": "Instead of \"I did this to myself,\" try \"My body has been carrying a lot. Now I can take care of it.\"",
+            "diabetes": "Instead of \"I did this to myself,\" try \"My body has been carrying a lot. Now I can take care of it.\""
+          },
+          "reflect": "What's one harsh thing you've said to yourself about your diagnosis, and how could you say it more kindly?"
+        },
+        {
+          "title": "Why it took so long",
+          "skill": "self-compassion-break",
+          "articles": {
+            "adhd": "adhd-getting-evaluated",
+            "autism": "autism-masking",
+            "audhd": "audhd-late-diagnosis-grief",
+            "anxiety": "anxiety-only-one-in-the-room",
+            "depression": "depression-strong-black-woman",
+            "bipolar": "racial-trauma-health-care",
+            "bpd": "bpd-diagnosis-and-bias",
+            "pcos": "pcos-being-believed",
+            "perimenopause": "peri-being-heard",
+            "sexual-health": "racial-trauma-health-care",
+            "autoimmune": "autoimmune-being-believed",
+            "other": "racial-trauma-health-care",
+            "blood-pressure": "achieving-superwoman-health",
+            "diabetes": "achieving-superwoman-health"
+          },
+          "intro": "Many Black women wait years for answers, are misdiagnosed or are told it's nothing. If that happened to you, it wasn't your fault.",
+          "words": {
+            "default": "I wasn't weak, lazy or dramatic. I was carrying something nobody had named yet.",
+            "sexual-health": "Getting tested and finding out was an act of taking care of myself.",
+            "blood-pressure": "High blood pressure often has no symptoms. Finding out means I can take care of it now."
+          },
+          "reflect": "What do you wish someone had noticed sooner?"
+        },
+        {
+          "title": "Talking to your doctor",
+          "skill": "dear-man",
+          "articles": {
+            "adhd": "adhd-medication-choices",
+            "autism": "autism-sensory-life",
+            "audhd": "audhd-executive-function",
+            "anxiety": "racial-trauma-health-care",
+            "depression": "racial-trauma-health-care",
+            "bipolar": "bipolar-early-warning-signs",
+            "bpd": "bpd-skills-to-start",
+            "pcos": "pcos-food-and-body",
+            "perimenopause": "peri-sleep",
+            "sexual-health": "sexual-health-testing",
+            "autoimmune": "autoimmune-flares-fatigue",
+            "other": "achieving-superwoman-health",
+            "blood-pressure": "health-care-for-you",
+            "diabetes": "health-care-for-you"
+          },
+          "intro": "You deserve to understand your options and have a say in your care. Today is about walking into appointments ready.",
+          "words": {
+            "default": "I'd like to understand all my options. What are the benefits, the side effects and what happens if I wait? Can you write that down for me?"
+          },
+          "reflect": "What questions do you want to ask at your next appointment?"
+        },
+        {
+          "title": "Telling the people in your life",
+          "skill": "boundary-script",
+          "articles": {
+            "anxiety": "anxiety-pray-about-it",
+            "bipolar": "bipolar-family-and-faith",
+            "sexual-health": "relationships-anxiety-in-love",
+            "autoimmune": "autoimmune-family-faith",
+            "default": "relationships-talking-to-family"
+          },
+          "intro": "You get to decide who to tell, when and how much. Some people will understand right away. Others may need time.",
+          "words": {
+            "default": "I'm not asking you to fix it. I just want you to understand me better.",
+            "adhd": "If someone says \"Everybody's a little ADHD\": \"Maybe, but for me it's been a real struggle, and getting a name for it is helping.\"",
+            "anxiety": "If someone says \"Just pray about it\": \"I am praying. I'm also getting support. Both can be part of my healing.\"",
+            "depression": "If someone says \"You just need to get out more\": \"I'm dealing with depression, and I'm getting help for it. Checking on me helps more than advice.\"",
+            "bipolar": "If someone says \"You're just moody\": \"This is a health condition, and I'm getting care for it, the same way I would for my blood pressure.\"",
+            "sexual-health": "Telling a partner: \"Before things go further, I want to share something about my health. I have ___. Here's what it means and how we can stay safe.\"",
+            "autoimmune": "If someone says \"You don't look sick\": \"Thank you. A lot of what I deal with is on the inside, and some days are harder than they look.\"",
+            "blood-pressure": "If someone says \"Just stop eating all that\": \"I'm working with my doctor, and stress is part of this too. What would really help me is ___.\"",
+            "diabetes": "If someone says \"Just stop eating all that\": \"I'm working with my doctor, and stress is part of this too. What would really help me is ___.\""
+          },
+          "reflect": "Who feels safest to tell first, and what do you want them to know?"
+        },
+        {
+          "title": "Work and school",
+          "skill": "values-check",
+          "articles": {
+            "default": "achieving-tell-job"
+          },
+          "intro": "Whether to tell your job or school is your choice. Knowing your rights, your leave options and what you need can make the decision easier.",
+          "words": {
+            "default": "I work best when I can ____. Can we try that for the next month and check in?"
+          },
+          "reflect": "What one change would make work or school easier for you right now?"
+        },
+        {
+          "title": "Your plan from here",
+          "skill": "rest-menu",
+          "articles": {
+            "adhd": "adhd-hormones",
+            "autism": "autism-burnout",
+            "audhd": "audhd-masking-and-code-switching",
+            "anxiety": "anxiety-news-and-racial-trauma",
+            "depression": "depression-rest-as-resistance",
+            "bipolar": "bipolar-living-well",
+            "bpd": "bpd-love-and-fear-of-leaving",
+            "pcos": "pcos-hair-skin-and-self",
+            "perimenopause": "peri-fibroids-and-fatigue",
+            "sexual-health": "sexual-health-pleasure",
+            "autoimmune": "autoimmune-living-well",
+            "other": "burnout-recovery",
+            "blood-pressure": "depression-rest-as-resistance",
+            "diabetes": "depression-rest-as-resistance"
+          },
+          "intro": "You've learned a lot this week. Today, think about the support you want going forward, and how you'll take care of yourself.",
+          "words": {
+            "default": "This diagnosis is one part of my story. I get to decide what comes next."
+          },
+          "reflect": "What kind of support do you want in the next few months?"
+        }
+      ]
+    },
+    {
       "id": "quiet-worry",
       "kind": "plan",
       "free": true,
@@ -153,7 +426,7 @@
         "transitions"
       ],
       "title": "When work is wearing you down",
-      "tagline": "Seven days to make sense of what's happening at work and decide what you want.",
+      "tagline": "Eight days to make sense of what's happening at work, protect your health and decide what you want.",
       "forYou": "You've been second-guessing yourself at work, getting no grace, or wondering if it's time to go.",
       "days": [
         {
@@ -191,6 +464,12 @@
           "item": "skill:energy-audit",
           "intro": "Some tasks drain you and some fill you back up. Seeing it on paper makes it easier to protect your energy.",
           "reflect": "What drained you most this week, and what gave you energy?"
+        },
+        {
+          "title": "Use the tools you've earned",
+          "item": "article:achieving-use-your-leave",
+          "intro": "FMLA, disability, your EAP and your paid time off exist for the moments we keep pushing through. Today, find out what you have.",
+          "reflect": "What's one benefit at your job you didn't know about or haven't used?"
         },
         {
           "title": "Stay, leave or build",
@@ -1083,6 +1362,131 @@
           "item": "article:childfree-legacy-and-aging",
           "intro": "Legacy is about more than children. You can leave a mark in many ways.",
           "reflect": "What legacy do you want to leave?"
+        }
+      ]
+    },
+    {
+      "id": "living-autoimmune",
+      "kind": "plan",
+      "needs": [
+        "body",
+        "tired",
+        "heavy"
+      ],
+      "topics": [
+        "autoimmune"
+      ],
+      "title": "Living with an autoimmune disease",
+      "tagline": "Eight days to care for your body and your mind with lupus, MS, thyroid disease and more.",
+      "forYou": "You have lupus, MS, sarcoidosis, rheumatoid arthritis, thyroid disease or another autoimmune condition, or you're waiting on answers.",
+      "days": [
+        {
+          "title": "What's happening in your body",
+          "item": "article:autoimmune-what-it-is",
+          "intro": "Autoimmune diseases hit Black women hard, and many of us wait a long time for answers. Let's start with what's going on.",
+          "reflect": "What symptoms made you first realize something was off?"
+        },
+        {
+          "title": "Your mind is part of this",
+          "item": "article:autoimmune-mind-body",
+          "intro": "Living with a chronic illness affects your mood, and stress and racism can affect your illness. Both deserve care.",
+          "reflect": "How has your mood changed since your symptoms started?"
+        },
+        {
+          "title": "\"You don't look sick\"",
+          "item": "article:autoimmune-being-believed",
+          "intro": "Invisible symptoms are real symptoms. Today is about getting believed.",
+          "reflect": "When have you felt dismissed about your health, and how did it affect you?"
+        },
+        {
+          "title": "Bring your receipts",
+          "item": "skill:bring-the-receipts",
+          "intro": "A simple symptom log makes it easier for a good doctor to help you and harder for anyone to brush you off.",
+          "reflect": "What are your top three concerns for your next appointment?"
+        },
+        {
+          "title": "Flares and fatigue",
+          "item": "article:autoimmune-flares-fatigue",
+          "intro": "Flares and exhaustion can make life feel unpredictable. Learning your patterns gives you some control back.",
+          "reflect": "What usually happens right before a flare for you?"
+        },
+        {
+          "title": "Pace, don't push",
+          "item": "skill:pacing",
+          "intro": "Good days are precious. Pacing helps them stay good without costing you the rest of the week.",
+          "reflect": "What does a good day look like when you pace yourself?"
+        },
+        {
+          "title": "Family, faith and being understood",
+          "item": "article:autoimmune-family-faith",
+          "intro": "The people who love you may not understand what you're going through. You get to decide what you share and what you need.",
+          "reflect": "Who in your life feels safest to lean on?"
+        },
+        {
+          "title": "Make a flare plan",
+          "item": "skill:flare-plan",
+          "intro": "Make your plan on a good day, so a hard day doesn't catch you without one.",
+          "reflect": "What's the first thing on your flare plan?"
+        }
+      ]
+    },
+    {
+      "id": "body-alarm",
+      "kind": "plan",
+      "needs": [
+        "body",
+        "tired",
+        "heavy"
+      ],
+      "topics": [
+        "health",
+        "burnout"
+      ],
+      "title": "When your body sounds the alarm",
+      "tagline": "Seven days for high blood pressure, diabetes or prediabetes: what's stressing you, how you're caring for yourself and what your body might be saying.",
+      "forYou": "You were told your blood pressure or blood sugar is high, and you want to look at the stress and self-care behind the numbers.",
+      "days": [
+        {
+          "title": "Your body is sending a message",
+          "item": "article:health-body-alarm",
+          "intro": "A diagnosis can be your body's way of saying something has to change. Today, start listening.",
+          "reflect": "What do you think your body has been trying to tell you?"
+        },
+        {
+          "title": "What's my body telling me?",
+          "item": "skill:body-signal-check",
+          "intro": "This quick check-in connects what you feel in your body to what's happening in your life.",
+          "reflect": "When you checked in today, what did you notice, and what was going on?"
+        },
+        {
+          "title": "What's driving the stress?",
+          "item": "skill:energy-audit",
+          "intro": "Some things drain you and some fill you back up. Seeing it on paper makes it easier to change.",
+          "reflect": "What's been weighing on you the most this year?"
+        },
+        {
+          "title": "Your pressure and your stress",
+          "item": "article:health-blood-pressure",
+          "intro": "Blood pressure is about more than salt. Stress and racism raise it too.",
+          "reflect": "Where in your life do you feel the most pressure right now?"
+        },
+        {
+          "title": "Your sugar and your mood",
+          "item": "article:health-diabetes",
+          "intro": "Stress, sleep and mood all affect blood sugar, and blood sugar affects your mood.",
+          "reflect": "How has your mood been since your diagnosis?"
+        },
+        {
+          "title": "Taking care of you",
+          "item": "article:health-care-for-you",
+          "intro": "Taking care of yourself is about how you live, rest and get support, not just your numbers.",
+          "reflect": "When was the last time you did something just for you?"
+        },
+        {
+          "title": "Make room for rest",
+          "item": "skill:rest-menu",
+          "intro": "Rest is part of your treatment. Today, make a list of rest that fits your real life.",
+          "reflect": "What's one thing you'll do this week just to rest?"
         }
       ]
     }

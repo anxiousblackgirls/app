@@ -936,7 +936,8 @@
         "grief",
         "infertility",
         "racial-trauma",
-        "body-image"
+        "body-image",
+        "autoimmune"
       ],
       "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press.",
       "lens": "Accepting that racism happened is not the same as accepting racism. Radical acceptance can free up energy for rest, healing or action.",
@@ -1049,7 +1050,9 @@
       "topics": [
         "bipolar",
         "perimenopause",
-        "pcos"
+        "pcos",
+        "autoimmune",
+        "health"
       ],
       "source": "Linehan, M. M. (2015). DBT skills training manual (2nd ed.). Guilford Press.",
       "premium": true,
@@ -1248,7 +1251,8 @@
       ],
       "topics": [
         "anxiety",
-        "perimenopause"
+        "perimenopause",
+        "health"
       ],
       "source": "Zaccaro, A., et al. (2018). How breath-control can change your life: A systematic review on psycho-physiological correlates of slow breathing. Frontiers in Human Neuroscience, 12, 353.",
       "practice": [
@@ -1292,7 +1296,8 @@
       ],
       "topics": [
         "anxiety",
-        "burnout"
+        "burnout",
+        "health"
       ],
       "source": "Balban, M. Y., et al. (2023). Brief structured respiration practices enhance mood and reduce physiological arousal. Cell Reports Medicine, 4(1), 100895.",
       "practice": [
@@ -1375,7 +1380,8 @@
       "topics": [
         "anxiety",
         "perimenopause",
-        "burnout"
+        "burnout",
+        "health"
       ],
       "source": "Jacobson, E. (1938). Progressive relaxation. University of Chicago Press.",
       "premium": true,
@@ -1533,7 +1539,8 @@
         "racial-trauma",
         "perimenopause",
         "sexual-health",
-        "body-image"
+        "body-image",
+        "autoimmune"
       ],
       "source": "Kabat-Zinn, J. (1990). Full catastrophe living. Delacorte.",
       "lens": "Many Black women carry stress in their bodies for years. A body scan is one way to notice what you've been holding.",
@@ -1986,7 +1993,8 @@
         "infertility",
         "achieving",
         "sexual-health",
-        "body-image"
+        "body-image",
+        "autoimmune"
       ],
       "source": "Neff, K. D., & Germer, C. K. (2013). A pilot study and randomized controlled trial of the mindful self-compassion program. Journal of Clinical Psychology, 69(1), 28–44.",
       "lens": "If kindness toward yourself feels unfamiliar or even uncomfortable, that makes sense. Many of us were raised to push through. You can practice this anyway.",
@@ -2090,7 +2098,9 @@
       "topics": [
         "burnout",
         "depression",
-        "motherhood"
+        "motherhood",
+        "autoimmune",
+        "health"
       ],
       "source": "Hersey, T. (2022). Rest is resistance: A manifesto. Little, Brown Spark.",
       "lens": "Writer and activist Tricia Hersey calls rest a form of resistance for Black people, who were long denied it. Rest isn't a reward for finishing. It's a need.",
@@ -2161,7 +2171,8 @@
       "topics": [
         "burnout",
         "achieving",
-        "motherhood"
+        "motherhood",
+        "health"
       ],
       "source": "Maslach, C., & Leiter, M. P. (2016). Understanding the burnout experience: Recent research and its implications for psychiatry. World Psychiatry, 15(2), 103–111.",
       "practice": [
@@ -2177,6 +2188,160 @@
         {
           "label": "The refill you'll trade it for",
           "hint": "Even partly counts."
+        }
+      ]
+    },
+    {
+      "id": "pacing",
+      "name": "Pace, don't push",
+      "group": "rest",
+      "what": "Pacing means doing a steady amount each day and resting before you're empty, so good days don't turn into crash days.",
+      "when": "When you overdo it on good days and pay for it for days after.",
+      "steps": [
+        "Notice your pattern. Do you push hard on good days, then crash?",
+        "Find your baseline: what you can do on a hard day without feeling worse after.",
+        "Break big tasks into smaller pieces with rest in between.",
+        "Stop while you still have a little energy left.",
+        "Add more slowly, about 10 percent at a time, if your body handles it."
+      ],
+      "topics": [
+        "autoimmune",
+        "burnout",
+        "perimenopause"
+      ],
+      "source": "Nielson, W. R., Jensen, M. P., Karsdorp, P. A., & Vlaeyen, J. W. S. (2013). Activity pacing in chronic pain: Concepts, evidence, and future directions. Clinical Journal of Pain, 29(5), 461–468.",
+      "lens": "Many of us were raised to finish everything before we rest. With a chronic illness, stopping before you're empty is how you keep showing up for the people and things you love.",
+      "practice": [
+        {
+          "label": "What does your push-and-crash pattern look like?",
+          "hint": "\"I clean the whole house Saturday and can't move Sunday.\""
+        },
+        {
+          "label": "Your baseline: what you can do on a hard day"
+        },
+        {
+          "label": "One task you'll break into smaller pieces this week"
+        },
+        {
+          "label": "I stopped before I was empty today",
+          "check": true
+        }
+      ]
+    },
+    {
+      "id": "flare-plan",
+      "name": "Make a flare plan",
+      "group": "rest",
+      "what": "A flare plan is a simple list you make on a good day, so when a flare hits you don't have to think. You just follow the plan.",
+      "when": "When flares catch you off guard and everything falls apart at once.",
+      "steps": [
+        "Write your early warning signs, the small changes that come before a flare.",
+        "List who to call: your specialist's number, a backup ride, someone who can help at home.",
+        "Decide what can be canceled or handed off, and who can cover.",
+        "List what comforts you: heat, cold, a playlist, a favorite show, a certain meal.",
+        "Write a short message you can copy and send: \"I'm in a flare and need to rest. I'll check in when I can.\""
+      ],
+      "topics": [
+        "autoimmune",
+        "bipolar"
+      ],
+      "source": "Lupus Foundation of America. (n.d.). Lupus flares. lupus.org.",
+      "lens": "Asking for help can feel hard when you're used to being the one everybody calls. A flare plan lets your people know exactly how to show up for you.",
+      "practice": [
+        {
+          "label": "My early warning signs"
+        },
+        {
+          "label": "Who I'll call, and their numbers"
+        },
+        {
+          "label": "What I can cancel or hand off"
+        },
+        {
+          "label": "What comforts me during a flare"
+        },
+        {
+          "label": "My copy-and-send message",
+          "hint": "\"I'm in a flare and need to rest. I'll check in when I can.\""
+        }
+      ]
+    },
+    {
+      "id": "bring-the-receipts",
+      "name": "Bring your receipts",
+      "group": "rest",
+      "what": "A short symptom log you bring to appointments, so you're not relying on memory and your concerns are harder to dismiss.",
+      "when": "Before a doctor's visit, especially when you've felt brushed off before.",
+      "steps": [
+        "Each day, rate your main symptoms from 0 to 10: pain, fatigue, mood, sleep.",
+        "Take photos of rashes, swelling or anything you can see.",
+        "Note how symptoms affect your life: missed work, canceled plans, trouble with stairs.",
+        "Pick your top three concerns for the visit.",
+        "Write your questions, and ask for anything declined to be noted in your chart."
+      ],
+      "topics": [
+        "autoimmune",
+        "pcos",
+        "perimenopause",
+        "sexual-health",
+        "health"
+      ],
+      "source": "Hoffman, K. M., Trawalter, S., Axt, J. R., & Oliver, M. N. (2016). Racial bias in pain assessment and treatment recommendations, and false beliefs about biological differences between blacks and whites. Proceedings of the National Academy of Sciences, 113(16), 4296–4301.",
+      "lens": "Black women's pain and symptoms are too often doubted. Walking in with your receipts doesn't mean you have to prove yourself. It means you're making it easier for a good doctor to help you.",
+      "practice": [
+        {
+          "label": "Your main symptoms this week, rated 0 to 10"
+        },
+        {
+          "label": "How they're affecting your life"
+        },
+        {
+          "label": "Your top three concerns for the visit"
+        },
+        {
+          "label": "Questions you'll ask",
+          "hint": "\"Could this be autoimmune? What tests would rule it in or out?\""
+        }
+      ]
+    },
+    {
+      "id": "body-signal-check",
+      "name": "What's my body telling me?",
+      "group": "body",
+      "what": "A two-minute check-in that connects what you feel in your body to what's going on in your life, so you can respond to the stress underneath.",
+      "when": "When your pressure is up, your sugar is off, your head hurts or your chest is tight, and you're not sure why.",
+      "steps": [
+        "Pause and scan your body from head to toe. Notice tight spots, pain, a racing heart or tiredness.",
+        "Rate your stress from 0 to 10.",
+        "Ask, \"What's been going on today or this week?\" Name the stressor if you can.",
+        "Ask, \"What do I need right now?\" Water, food, rest, a walk, a call, a boundary.",
+        "Do one small thing for your body, and write down what you noticed."
+      ],
+      "topics": [
+        "health",
+        "anxiety",
+        "burnout",
+        "autoimmune"
+      ],
+      "source": "McEwen, B. S. (1998). Protective and damaging effects of stress mediators. New England Journal of Medicine, 338(3), 171–179.",
+      "lens": "Many of us learned to ignore our bodies so we could keep going. Listening to your body isn't weakness. It's how you catch stress before it turns into something bigger.",
+      "practice": [
+        {
+          "label": "What I noticed in my body",
+          "hint": "\"Tight shoulders, headache, heart racing.\""
+        },
+        {
+          "label": "My stress from 0 to 10"
+        },
+        {
+          "label": "What's been going on"
+        },
+        {
+          "label": "What I need right now"
+        },
+        {
+          "label": "I did one small thing for my body",
+          "check": true
         }
       ]
     }
