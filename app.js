@@ -482,7 +482,7 @@
     var isSaved = savedAffs().indexOf(aff.text) !== -1;
     view.innerHTML =
       '<div><div class="date">' + esc(date) + '</div><h1 class="greeting">' + hello + ' <a class="greeting-edit" href="#greeting" aria-label="Change your greeting">' + ICON.pencil + '</a></h1>' +
-        (daysWithUs() >= 2 ? '<p class="days-with-us">' + ICON.spark + 'You\'ve shown up for yourself ' + daysWithUs() + ' days</p>' : '') + '</div>' +
+        (daysWithUs() >= 2 ? '<p class="days-with-us">' + ICON.spark + 'You\'ve shown up for yourself for ' + daysWithUs() + ' days</p>' : '') + '</div>' +
       '<section class="affirmation" aria-label="Today\'s affirmation">' +
         '<span class="eyebrow">Today\'s affirmation</span>' +
         '<blockquote>' + esc(aff.text) + '</blockquote>' +
