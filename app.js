@@ -874,8 +874,8 @@
       '<p class="disclaimer">This app offers education and encouragement. It is not therapy. If you\'re in crisis, call 911 or call/text 988.</p>' +
       '<div class="legal-links">' +
         '<a href="https://www.anxiousblackgirls.com/medical-disclaimer" target="_blank" rel="noopener">Medical Disclaimer</a>' +
-        '<a href="https://www.anxiousblackgirls.com/terms-of-use" target="_blank" rel="noopener">Terms of Use</a>' +
-        '<a href="https://www.anxiousblackgirls.com/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a>' +
+        '<a href="https://www.anxiousblackgirls.com/terms-of-use-app" target="_blank" rel="noopener">Terms of Use</a>' +
+        '<a href="https://www.anxiousblackgirls.com/privacy-policy-app" target="_blank" rel="noopener">Privacy Policy</a>' +
       '</div>' +
       '<p class="copyright">© 2026 Anxious Black Girls, LLC. All rights reserved.</p>';
     wireFriend('friend-about');
@@ -971,8 +971,8 @@
       '<p class="disclaimer">This app offers education and encouragement. It is not therapy and does not replace care from a licensed professional.</p>' +
       '<div class="legal-links">' +
         '<a href="https://www.anxiousblackgirls.com/medical-disclaimer" target="_blank" rel="noopener">Medical Disclaimer</a>' +
-        '<a href="https://www.anxiousblackgirls.com/terms-of-use" target="_blank" rel="noopener">Terms of Use</a>' +
-        '<a href="https://www.anxiousblackgirls.com/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a>' +
+        '<a href="https://www.anxiousblackgirls.com/terms-of-use-app" target="_blank" rel="noopener">Terms of Use</a>' +
+        '<a href="https://www.anxiousblackgirls.com/privacy-policy-app" target="_blank" rel="noopener">Privacy Policy</a>' +
       '</div>' +
       '<p class="copyright">© 2026 Anxious Black Girls, LLC. All rights reserved.</p>';
     if (NATIVE) { wireReminder(); wireLockSetting(); }
@@ -1450,7 +1450,7 @@
           }).join('') + '</div>' +
           '<button id="plus-restore" class="text-link" style="border:0;background:none;padding:0;cursor:pointer">Restore purchases</button>') +
       '<p class="plus-legal">Payment is charged to your Apple Account. Subscriptions renew automatically unless canceled at least 24 hours before the end of the current period. Manage or cancel anytime in your Apple Account settings. ' +
-        '<a href="https://www.anxiousblackgirls.com/terms-of-use" target="_blank" rel="noopener">Terms of Use</a> · <a href="https://www.anxiousblackgirls.com/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a></p>';
+        '<a href="https://www.anxiousblackgirls.com/terms-of-use-app" target="_blank" rel="noopener">Terms of Use</a> · <a href="https://www.anxiousblackgirls.com/privacy-policy-app" target="_blank" rel="noopener">Privacy Policy</a></p>';
     if (hasPlus()) {
       document.getElementById('plus-manage').addEventListener('click', function () { if (NATIVE) NATIVE.purchases.manage(); });
       return;
