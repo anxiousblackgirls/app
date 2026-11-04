@@ -54,6 +54,9 @@
   .choices input { accent-color: var(--gold-deep); }
   .optin { display: flex; align-items: flex-start; gap: 10px; font-weight: 400; font-size: 15px; color: var(--muted); line-height: 1.45; cursor: pointer; }
   .optin input { width: 20px; height: 20px; margin: 1px 0 0; flex: none; accent-color: var(--gold-deep); }
+  .jump { display: flex; align-items: center; justify-content: center; min-height: 52px; border-radius: 999px; background: var(--ink); color: #fff; font-weight: 700; text-decoration: none; }
+  .form-title { font-size: 24px; text-align: center; margin: 0; }
+  html { scroll-behavior: smooth; }
   button { font: 700 17px 'DM Sans', sans-serif; min-height: 54px; border: 0; border-radius: 999px; background: var(--ink); color: #fff; cursor: pointer; }
   button[disabled] { opacity: .6; }
   .fine { font-size: 14px; text-align: center; }
@@ -89,8 +92,38 @@
     <h1 id="title">You've been taking care of everybody. Now it's time to take care of <em>you</em>.</h1>
     <p class="welcome">We're so glad you made it here.</p>
     <p class="lede">Anxious Black Girls® is a mental health app made by a Black woman therapist for high-achieving Black women who carry a lot and rarely get to set it down. Daily affirmations, one-minute coping skills, articles about our lives and a private journal, all in your pocket.</p>
-    <p class="lede soon-line"><b>The app is almost here.</b> Sign up and you'll be the first to know when it's live on the App Store.</p>
+    <p class="lede soon-line"><b>The app is almost here.</b> Sign up below and you'll be the first to know when it's live on the App Store.</p>
+    <a class="jump" href="#signup-card">Get notified at launch</a>
 
+  </section>
+
+  <section class="inside" aria-labelledby="inside">
+    <h2 id="inside">Take a look inside the app</h2>
+    <p class="by">Made for Black women who hold it together for everyone else.</p>
+    <div class="rail" tabindex="0" aria-label="App screens, swipe to see more">
+      <figure class="shot"><img src="feature-today.jpg" alt="A daily affirmation screen in the Anxious Black Girls app" loading="lazy" width="780" height="1690"><figcaption><b>A daily affirmation</b>Words that sound like a friend, not a poster.</figcaption></figure>
+      <figure class="shot"><img src="feature-checkin.jpg" alt="Check in screen in the Anxious Black Girls app" loading="lazy" width="780" height="1690"><figcaption><b>Check in</b>Tell us how you feel and get a plan, a skill and a read for right now.</figcaption></figure>
+      <figure class="shot"><img src="feature-skillvideo.jpg" alt="One-minute coping skills screen in the Anxious Black Girls app" loading="lazy" width="780" height="1690"><figcaption><b>One-minute coping skills</b>Watch it in a real moment, then practice it step by step.</figcaption></figure>
+      <figure class="shot"><img src="feature-article.jpg" alt="137 articles about our lives screen in the Anxious Black Girls app" loading="lazy" width="780" height="1690"><figcaption><b>137 articles about our lives</b>Backed by research. Many are read aloud, so you can listen on the go.</figcaption></figure>
+      <figure class="shot"><img src="feature-plans.jpg" alt="Plans and challenges screen in the Anxious Black Girls app" loading="lazy" width="780" height="1690"><figcaption><b>Plans and challenges</b>For when you don’t know where to start.</figcaption></figure>
+      <figure class="shot"><img src="feature-journal.jpg" alt="A private journal screen in the Anxious Black Girls app" loading="lazy" width="780" height="1690"><figcaption><b>A private journal</b>Your entries stay on your phone. No one else can read them.</figcaption></figure>
+    </div>
+    <p class="hint">Swipe to see more</p>
+    <p class="private">No account, no tracking. What you write stays yours.</p>
+  </section>
+
+  <section class="card founder" aria-labelledby="meet">
+    <img src="founder-deseray-2.jpg" alt="Deseray Wilson, LMHC, smiling in a pink blazer" width="400" height="400">
+    <h2 id="meet">Meet Deseray</h2>
+    <p class="role">Deseray Wilson, LMHC · Founder</p>
+    <p>Deseray is a licensed mental health counselor and the founder of Anxious Black Girls®. Anxiety runs in her family, and watching the women before her stay stuck in places that didn't serve them shaped her life's work.</p>
+    <p>She has helped hundreds of high-achieving Black women navigate their anxiety, relationships, and life transitions. She built this app so the support she gives in session can go with you everywhere else.</p>
+    <a class="more" href="https://www.anxiousblackgirls.com/deseray-wilson-lmhc" rel="noopener">More about Deseray</a>
+  </section>
+
+  <section class="card" id="signup-card" aria-labelledby="signup-title">
+    <h2 id="signup-title" class="form-title">Be the first to know</h2>
+    <p class="lede">Leave your name and email, and we'll tell you the day the app goes live.</p>
     <form id="signup" novalidate>
       <label>First name
         <input type="text" name="first" autocomplete="given-name" required>
@@ -115,30 +148,6 @@
       <h2>You're on the list.</h2>
       <p>We'll email you the day the app goes live. In the meantime, come hang out with us on Instagram <a href="https://instagram.com/anxiousblackgirls" rel="noopener" style="color:var(--gold-deep);font-weight:700">@anxiousblackgirls</a>.</p>
     </div>
-  </section>
-
-  <section class="card founder" aria-labelledby="meet">
-    <img src="founder-deseray-2.jpg" alt="Deseray Wilson, LMHC, smiling in a pink blazer" width="400" height="400">
-    <h2 id="meet">Meet Deseray</h2>
-    <p class="role">Deseray Wilson, LMHC · Founder</p>
-    <p>Deseray is a licensed mental health counselor and the founder of Anxious Black Girls®. Anxiety runs in her family, and watching the women before her stay stuck in places that didn't serve them shaped her life's work.</p>
-    <p>She has helped hundreds of high-achieving Black women navigate their anxiety, relationships, and life transitions. She built this app so the support she gives in session can go with you everywhere else.</p>
-    <a class="more" href="https://www.anxiousblackgirls.com/deseray-wilson-lmhc" rel="noopener">More about Deseray</a>
-  </section>
-
-  <section class="inside" aria-labelledby="inside">
-    <h2 id="inside">Take a look inside the app</h2>
-    <p class="by">Made for Black women who hold it together for everyone else.</p>
-    <div class="rail" tabindex="0" aria-label="App screens, swipe to see more">
-      <figure class="shot"><img src="feature-today.jpg" alt="A daily affirmation screen in the Anxious Black Girls app" loading="lazy" width="780" height="1690"><figcaption><b>A daily affirmation</b>Words that sound like a friend, not a poster.</figcaption></figure>
-      <figure class="shot"><img src="feature-checkin.jpg" alt="Check in screen in the Anxious Black Girls app" loading="lazy" width="780" height="1690"><figcaption><b>Check in</b>Tell us how you feel and get a plan, a skill and a read for right now.</figcaption></figure>
-      <figure class="shot"><img src="feature-skillvideo.jpg" alt="One-minute coping skills screen in the Anxious Black Girls app" loading="lazy" width="780" height="1690"><figcaption><b>One-minute coping skills</b>Watch it in a real moment, then practice it step by step.</figcaption></figure>
-      <figure class="shot"><img src="feature-article.jpg" alt="137 articles about our lives screen in the Anxious Black Girls app" loading="lazy" width="780" height="1690"><figcaption><b>137 articles about our lives</b>Backed by research. Many are read aloud, so you can listen on the go.</figcaption></figure>
-      <figure class="shot"><img src="feature-plans.jpg" alt="Plans and challenges screen in the Anxious Black Girls app" loading="lazy" width="780" height="1690"><figcaption><b>Plans and challenges</b>For when you don’t know where to start.</figcaption></figure>
-      <figure class="shot"><img src="feature-journal.jpg" alt="A private journal screen in the Anxious Black Girls app" loading="lazy" width="780" height="1690"><figcaption><b>A private journal</b>Your entries stay on your phone. No one else can read them.</figcaption></figure>
-    </div>
-    <p class="hint">Swipe to see more</p>
-    <p class="private">No account, no tracking. What you write stays yours.</p>
   </section>
 
   <p class="foot"><a href="https://instagram.com/anxiousblackgirls" rel="noopener">@anxiousblackgirls</a> · <a href="https://www.anxiousblackgirls.com" rel="noopener">anxiousblackgirls.com</a> · <a href="https://www.anxiousblackgirls.com/privacy-policy" rel="noopener">Privacy</a></p>
