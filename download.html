@@ -69,7 +69,7 @@
       Get it on Google Play
     </a>
     <p id="soon" class="soon" hidden>Coming soon to the App Store and Google Play.</p>
-    <a class="btn line" href="/">Open the web version</a>
+    <a id="notify" class="btn line" href="/notify" hidden>Get notified at launch</a>
   </section>
   <p class="foot">Follow <a href="https://instagram.com/anxiousblackgirls" rel="noopener">@anxiousblackgirls</a> · <a href="https://www.anxiousblackgirls.com" rel="noopener">anxiousblackgirls.com</a></p>
 </main>
@@ -80,6 +80,7 @@
   if (!IOS_URL || !ANDROID_URL) {
     var soon = document.getElementById('soon');
     soon.hidden = false;
+    document.getElementById('notify').hidden = false;
     if (IOS_URL) soon.textContent = 'Coming soon to Google Play.';
     if (ANDROID_URL) soon.textContent = 'Coming soon to the App Store.';
   }

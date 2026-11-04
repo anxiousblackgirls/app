@@ -3,6 +3,12 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<script>
+  // Until the app is live, the website sends visitors to the launch signup page.
+  // Only on the website: the phone app runs from a different address, so it is never redirected.
+  // Add ?web to the address to open the web app anyway (for testing).
+  if (location.hostname === 'app.anxiousblackgirls.com' && !/[?&]web\b/.test(location.search)) location.replace('/notify');
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Anxious Black Girls®</title>
 <meta name="description" content="Daily affirmations and mental health education for anxious Black women and girls.">

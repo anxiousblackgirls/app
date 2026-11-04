@@ -1,0 +1,138 @@
+<!doctype html>
+<!-- Copyright (c) 2026 Anxious Black Girls, LLC. All rights reserved. See LICENSE. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Anxious Black Girls® App | Get Notified at Launch</title>
+<meta name="description" content="The Anxious Black Girls® app is almost here. Sign up to be the first to know when it's live on the App Store.">
+<meta property="og:title" content="The Anxious Black Girls® app is almost here">
+<meta property="og:description" content="Sign up to be the first to know when it's live on the App Store.">
+<meta property="og:image" content="https://app.anxiousblackgirls.com/og-image.png">
+<meta property="og:url" content="https://app.anxiousblackgirls.com/">
+<meta name="theme-color" content="#F7F1EB">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<script>
+  // Where signups go. Paste in the form details from your email list tool.
+  // FORM_ACTION: the form's "action" URL from the tool's embed code.
+  // FIELDS: the field names the tool expects (copy them from the same embed code).
+  // EXTRA: any hidden fields the embed code includes (for example a list ID).
+  var FORM_ACTION = '';
+  var FIELDS = { first: 'FNAME', email: 'EMAIL', phone: 'PHONE_TYPE' };
+  var EXTRA = {};
+</script>
+<style>
+  @font-face { font-family: 'DM Sans'; font-weight: 400; font-display: swap; src: url('dm-sans-latin-400-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'DM Sans'; font-weight: 700; font-display: swap; src: url('dm-sans-latin-700-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Montserrat'; font-weight: 800; font-display: swap; src: url('montserrat-latin-800-normal.woff2') format('woff2'); }
+  :root { --bg: #F7F1EB; --surface: #FFFFFF; --ink: #2B2118; --muted: #4D4A45; --gold: #BB831D; --gold-deep: #8A5F12; --gold-soft: #F0DFB8; --tan: #D3B094; }
+  html, body { margin: 0; background: var(--bg); color: var(--ink); font: 400 17px/1.55 'DM Sans', 'Helvetica Neue', Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+  main { max-width: 480px; margin: 0 auto; box-sizing: border-box; display: flex; flex-direction: column; gap: 22px;
+    padding: max(32px, env(safe-area-inset-top, 0px)) max(22px, env(safe-area-inset-right, 0px)) max(32px, env(safe-area-inset-bottom, 0px)) max(22px, env(safe-area-inset-left, 0px)); }
+  .logo { width: 220px; max-width: 70%; height: auto; display: block; margin: 0 auto; }
+  .card { background: var(--surface); border-radius: 28px; padding: 28px 22px; display: flex; flex-direction: column; gap: 14px; }
+  h1 { font: 800 29px/1.15 'Montserrat', 'Helvetica Neue', Arial, sans-serif; margin: 0; text-align: center; text-wrap: balance; }
+  h2 { font: 800 19px/1.25 'Montserrat', 'Helvetica Neue', Arial, sans-serif; margin: 6px 0 0; }
+  p { margin: 0; color: var(--muted); }
+  .lede { text-align: center; }
+  .by { font-size: 15px; }
+  .what { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+  .what li { background: var(--bg); border-radius: 14px; padding: 11px 14px; color: var(--muted); }
+  .what b { color: var(--ink); }
+  .private { background: var(--gold-soft); border-radius: 16px; padding: 12px 14px; color: var(--ink); font-weight: 700; text-align: center; }
+  form { display: grid; gap: 12px; }
+  label { font-weight: 700; font-size: 15px; display: grid; gap: 6px; }
+  input[type=text], input[type=email] { font: inherit; border: 1.5px solid #D9CFC4; border-radius: 14px; padding: 13px 14px; background: #fff; color: var(--ink); }
+  input:focus { outline: 2px solid var(--gold); border-color: var(--gold); }
+  fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 6px; }
+  legend { font-weight: 700; font-size: 15px; padding: 0; margin-bottom: 6px; }
+  .choices { display: flex; gap: 10px; }
+  .choices label { flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; border: 1.5px solid #D9CFC4; border-radius: 14px; padding: 12px; font-weight: 700; cursor: pointer; }
+  .choices input { accent-color: var(--gold-deep); }
+  button { font: 700 17px 'DM Sans', sans-serif; min-height: 54px; border: 0; border-radius: 999px; background: var(--ink); color: #fff; cursor: pointer; }
+  button[disabled] { opacity: .6; }
+  .fine { font-size: 14px; text-align: center; }
+  .err { color: #9B2C2C; font-weight: 700; font-size: 15px; text-align: center; }
+  .done { text-align: center; display: grid; gap: 10px; }
+  .done h2 { font-size: 24px; margin: 0; }
+  .foot { text-align: center; font-size: 14px; color: var(--muted); }
+  .foot a { color: var(--gold-deep); font-weight: 700; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main>
+  <img class="logo" src="logo-stacked.png" alt="Anxious Black Girls®">
+
+  <section class="card" aria-labelledby="title">
+    <h1 id="title">You've been taking care of everybody. This one takes care of you.</h1>
+    <p class="lede">The Anxious Black Girls® app is almost here. Sign up and you'll be the first to know when it's live on the App Store.</p>
+
+    <form id="signup" novalidate>
+      <label>First name
+        <input type="text" name="first" autocomplete="given-name" required>
+      </label>
+      <label>Email
+        <input type="email" name="email" autocomplete="email" inputmode="email" required>
+      </label>
+      <fieldset>
+        <legend>Which phone do you use?</legend>
+        <div class="choices">
+          <label><input type="radio" name="phone" value="iPhone" required> iPhone</label>
+          <label><input type="radio" name="phone" value="Android"> Android</label>
+        </div>
+      </fieldset>
+      <p id="err" class="err" hidden></p>
+      <button type="submit" id="go">Notify me</button>
+      <p class="fine">We'll only email you about the app. Unsubscribe anytime.</p>
+    </form>
+
+    <div id="done" class="done" hidden>
+      <h2>You're on the list.</h2>
+      <p>We'll email you the day the app goes live. In the meantime, come hang out with us on Instagram <a href="https://instagram.com/anxiousblackgirls" rel="noopener" style="color:var(--gold-deep);font-weight:700">@anxiousblackgirls</a>.</p>
+    </div>
+  </section>
+
+  <section class="card" aria-labelledby="inside">
+    <h2 id="inside">What's inside</h2>
+    <p class="by">Made by Deseray Wilson, LMHC, for Black women who hold it together for everyone else.</p>
+    <ul class="what">
+      <li><b>A daily affirmation</b> that sounds like a friend, not a poster</li>
+      <li><b>One-minute coping skills</b> for the 4:30 Friday "quick chat," the family group chat and the 2 a.m. spiral</li>
+      <li><b>124 articles</b> about our lives, backed by research, many read aloud</li>
+      <li><b>Plans and challenges</b> for when you don't know where to start</li>
+      <li><b>A private journal</b> that stays on your phone</li>
+    </ul>
+    <p class="private">No account, no tracking. What you write stays yours.</p>
+  </section>
+
+  <p class="foot"><a href="https://instagram.com/anxiousblackgirls" rel="noopener">@anxiousblackgirls</a> · <a href="https://www.anxiousblackgirls.com" rel="noopener">anxiousblackgirls.com</a> · <a href="https://www.anxiousblackgirls.com/privacy-policy" rel="noopener">Privacy</a></p>
+</main>
+<script>
+  (function () {
+    var form = document.getElementById('signup'), err = document.getElementById('err'), go = document.getElementById('go');
+    function show(msg) { err.textContent = msg; err.hidden = false; }
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      err.hidden = true;
+      var first = form.first.value.trim(), email = form.email.value.trim();
+      var phone = (form.querySelector('input[name=phone]:checked') || {}).value;
+      if (!first) return show('Please add your first name.');
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return show('Please check your email address.');
+      if (!phone) return show('Please choose iPhone or Android.');
+      if (!FORM_ACTION) return show('Signups open soon. Please check back.');
+      var data = new FormData();
+      data.append(FIELDS.first, first);
+      data.append(FIELDS.email, email);
+      data.append(FIELDS.phone, phone);
+      Object.keys(EXTRA).forEach(function (k) { data.append(k, EXTRA[k]); });
+      go.disabled = true; go.textContent = 'Signing you up…';
+      fetch(FORM_ACTION, { method: 'POST', mode: 'no-cors', body: data })
+        .then(function () { form.hidden = true; document.getElementById('done').hidden = false; })
+        .catch(function () { go.disabled = false; go.textContent = 'Notify me'; show('That didn\'t go through. Please check your connection and try again.'); });
+    });
+  })();
+</script>
+</body>
+</html>
