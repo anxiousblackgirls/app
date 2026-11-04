@@ -14,12 +14,10 @@
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <script>
-  // Where signups go. Paste in the form details from your email list tool.
-  // FORM_ACTION: the form's "action" URL from the tool's embed code.
-  // FIELDS: the field names the tool expects (copy them from the same embed code).
-  // EXTRA: any hidden fields the embed code includes (for example a list ID).
-  var FORM_ACTION = '';
-  var FIELDS = { first: 'FNAME', email: 'EMAIL', phone: 'PHONE_TYPE', list: 'MAILING_LIST' };
+  // Where signups go: the "ABG App Launch Signup" Google Form, which fills a Google Sheet.
+  // FIELDS are the form's question IDs (from its pre-filled link). If a question is changed in the form, update its ID here.
+  var FORM_ACTION = 'https://docs.google.com/forms/d/e/1FAIpQLSeJxw3TB_5Cj-0yn0FQ3kNWK3Q3i5eeLiVfbndxMCzKqiE3lA/formResponse';
+  var FIELDS = { first: 'entry.314439377', email: 'entry.1004349810', phone: 'entry.1153898714', list: 'entry.1430857210' };
   var EXTRA = {};
 </script>
 <style>
