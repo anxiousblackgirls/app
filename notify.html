@@ -42,7 +42,8 @@
   .what { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
   .what li { background: var(--bg); border-radius: 14px; padding: 11px 14px; color: var(--muted); }
   .what b { color: var(--ink); }
-  .private { background: var(--gold-soft); border-radius: 16px; padding: 12px 14px; color: var(--ink); font-weight: 700; text-align: center; }
+  .private { background: var(--gold-soft); border-radius: 16px; padding: 16px 18px; text-align: center; display: grid; gap: 10px; }
+  .private p { color: var(--ink); }
   form { display: grid; gap: 12px; }
   label { font-weight: 700; font-size: 15px; display: grid; gap: 6px; }
   input[type=text], input[type=email] { font: inherit; border: 1.5px solid #D9CFC4; border-radius: 14px; padding: 13px 14px; background: #fff; color: var(--ink); }
@@ -109,7 +110,10 @@
       <figure class="shot"><img src="feature-journal.jpg" alt="A private journal screen in the Anxious Black Girls app" loading="lazy" width="780" height="1690"><figcaption><b>A private journal</b>Your entries stay on your phone. No one else can read them.</figcaption></figure>
     </div>
     <p class="hint">Swipe to see more</p>
-    <p class="private">You don't need an account, and the app doesn't collect anything about you. Your journal, your saved favorites, your practices and your progress are stored only on your phone. They're never sent to us or anyone else.</p>
+    <div class="private">
+      <p>You don't need an account, and the app doesn't collect anything about you. Your journal, your saved favorites, your practices and your progress are stored only on your phone, and they're never sent to us or anyone else.</p>
+      <p>We built it this way on purpose. We want you to feel safe, free to say what's really on your mind, and able to get the support you need. Come in, take what you need, and go back to your life with a little more knowledge and a fresh mind.</p>
+    </div>
   </section>
 
   <section class="card founder" aria-labelledby="meet">
