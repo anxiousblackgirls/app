@@ -28,7 +28,7 @@
   @font-face { font-family: 'Montserrat'; font-weight: 800; font-display: swap; src: url('montserrat-latin-800-normal.woff2') format('woff2'); }
   :root { --bg: #F7F1EB; --surface: #FFFFFF; --ink: #2B2118; --muted: #4D4A45; --gold: #BB831D; --gold-deep: #8A5F12; --gold-soft: #F0DFB8; --tan: #D3B094; }
   html, body { margin: 0; background: var(--bg); color: var(--ink); font: 400 17px/1.55 'DM Sans', 'Helvetica Neue', Arial, sans-serif; -webkit-font-smoothing: antialiased; }
-  main { max-width: 480px; margin: 0 auto; box-sizing: border-box; display: flex; flex-direction: column; gap: 22px;
+  main { max-width: 520px; margin: 0 auto; box-sizing: border-box; display: flex; flex-direction: column; gap: 22px;
     padding: max(32px, env(safe-area-inset-top, 0px)) max(22px, env(safe-area-inset-right, 0px)) max(32px, env(safe-area-inset-bottom, 0px)) max(22px, env(safe-area-inset-left, 0px)); }
   .logo { width: 220px; max-width: 70%; height: auto; display: block; margin: 0 auto; }
   .card { background: var(--surface); border-radius: 28px; padding: 28px 22px; display: flex; flex-direction: column; gap: 14px; }
@@ -56,6 +56,17 @@
   .err { color: #9B2C2C; font-weight: 700; font-size: 15px; text-align: center; }
   .done { text-align: center; display: grid; gap: 10px; }
   .done h2 { font-size: 24px; margin: 0; }
+  .inside { display: grid; gap: 12px; }
+  .inside h2 { font-size: 23px; text-align: center; margin: 4px 0 0; }
+  .inside .by { text-align: center; }
+  .rail { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 6px 22px 10px; margin: 0 -22px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .rail::-webkit-scrollbar { display: none; }
+  .shot { flex: 0 0 62%; max-width: 250px; margin: 0; scroll-snap-align: center; display: grid; gap: 10px; }
+  .shot img { width: 100%; height: auto; aspect-ratio: 390 / 844; object-fit: cover; object-position: top; border-radius: 30px; border: 7px solid var(--ink); box-sizing: border-box; background: var(--bg); box-shadow: 0 10px 24px rgba(43,33,24,.14); }
+  .shot figcaption { font-size: 15px; line-height: 1.4; color: var(--muted); text-align: center; }
+  .shot figcaption b { display: block; color: var(--ink); font-size: 16px; }
+  .hint { text-align: center; font-size: 13px; letter-spacing: .04em; text-transform: uppercase; color: var(--gold-deep); font-weight: 700; }
+  @media (min-width: 700px) { .hint { display: none; } }
   .foot { text-align: center; font-size: 14px; color: var(--muted); }
   .foot a { color: var(--gold-deep); font-weight: 700; }
   [hidden] { display: none !important; }
@@ -94,16 +105,18 @@
     </div>
   </section>
 
-  <section class="card" aria-labelledby="inside">
-    <h2 id="inside">What's inside</h2>
+  <section class="inside" aria-labelledby="inside">
+    <h2 id="inside">Take a look inside</h2>
     <p class="by">Made by Deseray Wilson, LMHC, for Black women who hold it together for everyone else.</p>
-    <ul class="what">
-      <li><b>A daily affirmation</b> that sounds like a friend, not a poster</li>
-      <li><b>One-minute coping skills</b> for the 4:30 Friday "quick chat," the family group chat and the 2 a.m. spiral</li>
-      <li><b>124 articles</b> about our lives, backed by research, many read aloud</li>
-      <li><b>Plans and challenges</b> for when you don't know where to start</li>
-      <li><b>A private journal</b> that stays on your phone</li>
-    </ul>
+    <div class="rail" tabindex="0" aria-label="App screens, swipe to see more">
+      <figure class="shot"><img src="feature-today.jpg" alt="A daily affirmation screen in the Anxious Black Girls app" loading="lazy" width="780" height="1690"><figcaption><b>A daily affirmation</b>Words that sound like a friend, not a poster.</figcaption></figure>
+      <figure class="shot"><img src="feature-checkin.jpg" alt="Check in screen in the Anxious Black Girls app" loading="lazy" width="780" height="1690"><figcaption><b>Check in</b>Tell us how you feel and get a plan, a skill and a read for right now.</figcaption></figure>
+      <figure class="shot"><img src="feature-skillvideo.jpg" alt="One-minute coping skills screen in the Anxious Black Girls app" loading="lazy" width="780" height="1690"><figcaption><b>One-minute coping skills</b>Watch it in a real moment, then practice it step by step.</figcaption></figure>
+      <figure class="shot"><img src="feature-article.jpg" alt="137 articles about our lives screen in the Anxious Black Girls app" loading="lazy" width="780" height="1690"><figcaption><b>137 articles about our lives</b>Backed by research. Many are read aloud, so you can listen on the go.</figcaption></figure>
+      <figure class="shot"><img src="feature-plans.jpg" alt="Plans and challenges screen in the Anxious Black Girls app" loading="lazy" width="780" height="1690"><figcaption><b>Plans and challenges</b>For when you don’t know where to start.</figcaption></figure>
+      <figure class="shot"><img src="feature-journal.jpg" alt="A private journal screen in the Anxious Black Girls app" loading="lazy" width="780" height="1690"><figcaption><b>A private journal</b>Your entries stay on your phone. No one else can read them.</figcaption></figure>
+    </div>
+    <p class="hint">Swipe to see more</p>
     <p class="private">No account, no tracking. What you write stays yours.</p>
   </section>
 
