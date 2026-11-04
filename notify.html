@@ -19,7 +19,7 @@
   // FIELDS: the field names the tool expects (copy them from the same embed code).
   // EXTRA: any hidden fields the embed code includes (for example a list ID).
   var FORM_ACTION = '';
-  var FIELDS = { first: 'FNAME', email: 'EMAIL', phone: 'PHONE_TYPE' };
+  var FIELDS = { first: 'FNAME', email: 'EMAIL', phone: 'PHONE_TYPE', list: 'MAILING_LIST' };
   var EXTRA = {};
 </script>
 <style>
@@ -50,6 +50,8 @@
   .choices { display: flex; gap: 10px; }
   .choices label { flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; border: 1.5px solid #D9CFC4; border-radius: 14px; padding: 12px; font-weight: 700; cursor: pointer; }
   .choices input { accent-color: var(--gold-deep); }
+  .optin { display: flex; align-items: flex-start; gap: 10px; font-weight: 400; font-size: 15px; color: var(--muted); line-height: 1.45; cursor: pointer; }
+  .optin input { width: 20px; height: 20px; margin: 1px 0 0; flex: none; accent-color: var(--gold-deep); }
   button { font: 700 17px 'DM Sans', sans-serif; min-height: 54px; border: 0; border-radius: 999px; background: var(--ink); color: #fff; cursor: pointer; }
   button[disabled] { opacity: .6; }
   .fine { font-size: 14px; text-align: center; }
@@ -99,9 +101,10 @@
           <label><input type="radio" name="phone" value="Android"> Android</label>
         </div>
       </fieldset>
+      <label class="optin"><input type="checkbox" name="list" value="Yes"> <span>Also add me to the Anxious Black Girls® email list for news, events and resources.</span></label>
       <p id="err" class="err" hidden></p>
       <button type="submit" id="go">Notify me</button>
-      <p class="fine">We'll only email you about the app. Unsubscribe anytime.</p>
+      <p class="fine">Unless you check the box, we'll only email you about the app. Unsubscribe anytime.</p>
     </form>
 
     <div id="done" class="done" hidden>
@@ -153,6 +156,7 @@
       data.append(FIELDS.first, first);
       data.append(FIELDS.email, email);
       data.append(FIELDS.phone, phone);
+      data.append(FIELDS.list, form.list.checked ? 'Yes' : 'No');
       Object.keys(EXTRA).forEach(function (k) { data.append(k, EXTRA[k]); });
       go.disabled = true; go.textContent = 'Signing you up…';
       fetch(FORM_ACTION, { method: 'POST', mode: 'no-cors', body: data })
