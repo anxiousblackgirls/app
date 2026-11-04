@@ -1,6 +1,6 @@
 // Copyright (c) 2026 Anxious Black Girls, LLC. All rights reserved. Unauthorized copying or reuse is prohibited. See LICENSE.
 // Lets the app open without internet. Always tries the network first so new content shows up right away.
-var CACHE = 'abg-v28';
+var CACHE = 'abg-v29';
 var CORE = [
   './', 'index.html', 'app.css', 'app.js', 'manifest.webmanifest',
   'affirmations.json', 'articles.json', 'journal-prompts.json', 'about.json', 'faq.json', 'skills.json',
@@ -22,7 +22,7 @@ self.addEventListener('activate', function (e) {
 
 self.addEventListener('fetch', function (e) {
   if (e.request.method !== 'GET' || new URL(e.request.url).origin !== location.origin) return;
-  if (/\.mp3$/.test(new URL(e.request.url).pathname)) return; // let audio stream directly
+  if (/\.(mp3|mp4)$/.test(new URL(e.request.url).pathname)) return; // let audio and video stream directly
   e.respondWith(
     fetch(e.request).then(function (res) {
       var copy = res.clone();
