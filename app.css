@@ -700,3 +700,12 @@ a.listen .listen-title { font-weight: 700; }
 .words-card { background: var(--surface); border-left: 6px solid var(--gold); border-radius: 18px; padding: 18px 18px; display: grid; gap: 8px; }
 .words-card p { margin: 0; font-size: 17px; line-height: 1.5; font-weight: 600; }
 .edu-note { margin: 0; font-size: 13px; line-height: 1.5; color: var(--muted); background: var(--surface); border-radius: 14px; padding: 12px 14px; border: 1px solid var(--line); }
+
+.cite-note { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; font-size: 13px; color: var(--muted); margin: 4px 0 0; }
+.cite-note svg { width: 14px; height: 14px; flex: none; }
+.cite-note .text-link { font-size: 13px; }
+.src-line { font-size: 13px; color: var(--muted); margin: 10px 0 0; line-height: 1.5; }
+.src-link { display: inline-flex; align-items: center; gap: 3px; color: var(--gold-deep); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
+.src-link svg { width: 12px; height: 12px; }
+.prose ul.sources li { line-height: 1.5; }
+#sources, h3#sources { scroll-margin-top: 90px; }

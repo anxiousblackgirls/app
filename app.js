@@ -95,6 +95,18 @@
     chat: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>'
   };
 
+  // ---------- citations: every source gets a link ----------
+  function sourceUrl(txt) {
+    var plain = String(txt).replace(/[*_]/g, '').trim();
+    var m = plain.match(/(?:^|\s)((?:[a-z0-9-]+\.)+(?:gov|org|com|edu))\.?$/i);
+    if (m) return { url: 'https://' + m[1].toLowerCase(), label: 'Open source' };
+    return { url: 'https://scholar.google.com/scholar?q=' + encodeURIComponent(plain.replace(/\s+/g, ' ')), label: 'Find this source' };
+  }
+  function sourceLinkHtml(txt) {
+    var u = sourceUrl(txt);
+    return ' <a class="src-link" target="_blank" rel="noopener" href="' + esc(u.url) + '">' + u.label + ' ' + ICON.out + '</a>';
+  }
+
   // ---------- tiny markdown reader for article files ----------
   function renderMarkdown(src) {
     var lines = src.replace(/\r/g, '').split('\n');
@@ -104,7 +116,7 @@
     function flushL() {
       if (list.length) {
         html += '<ul' + (sources ? ' class="sources"' : '') + '>' +
-          list.map(function (i) { return '<li>' + inline(i) + '</li>'; }).join('') + '</ul>';
+          list.map(function (i) { return '<li>' + inline(i) + (sources ? sourceLinkHtml(i) : '') + '</li>'; }).join('') + '</ul>';
         list = [];
       }
     }
@@ -501,7 +513,9 @@
             '<img src="' + esc(k.video.replace(/\.mp4$/, '.jpg')) + '" alt="">' +
             '<span class="sotd-play">' + ICON.play + '</span><span class="sotd-watch">Watch · about 30 seconds</span></button>' +
           '<a class="btn dark sotd-more" href="#skill-' + esc(k.id) + '">Learn more and practice this skill</a>' +
-          '<a class="text-link sotd-all" href="#pocketbook">See all ' + SKILLS.skills.length + ' skills in the Pocketbook</a></section>'; })() +
+          '<a class="text-link sotd-all" href="#pocketbook">See all ' + SKILLS.skills.length + ' skills in the Pocketbook</a>' +
+          '<p class="src-line"><strong>Source:</strong> ' + esc(k.source) + sourceLinkHtml(k.source) + '</p></section>'; })() +
+      '<p class="cite-note today-cite">' + ICON.pencil + 'Articles and skills list their sources, with links. Open any one and tap "See sources".</p>' +
 
       homeWorkSection();
 
@@ -527,7 +541,7 @@
     var opts = [['subject', 'Subject'], ['plans', 'Plans'], ['challenges', 'Challenges'], ['skills', 'Skills'], ['articles', 'Articles']];
     view.innerHTML =
       navBar('#today', 'Home') +
-      '<div><h1 class="page-title">Learn</h1><p class="lede">What would you like to learn about today? Pick a subject to see the plans, skills and articles that go with it, or browse one kind at a time.</p></div>' +
+      '<div><h1 class="page-title">Learn</h1><p class="lede">What would you like to learn about today? Pick a subject to see the plans, skills and articles that go with it, or browse one kind at a time.</p><p class="cite-note">' + ICON.pencil + 'Every article and skill lists its sources, with links, at the top and bottom of the page.</p></div>' +
       '<label class="search" for="search-input">' +
         '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>' +
         '<span class="sr">Search</span><input id="search-input" type="search" placeholder="Search plans, skills and articles" autocomplete="off"></label>' +
@@ -615,6 +629,7 @@
       navBar(esc(planBack('#topic-' + t.id, 'Back to ' + t.name).href), planBack('#topic-' + t.id, 'Back to ' + t.name).label, '<div class="nav-actions"><button id="share-art-top" class="btn icon-only" aria-label="Share this article">' + ICON.share + '</button>' + saveArticleBtn('save-art-top', isSaved) + '</div>') +
       '<article class="prose"><div class="tags"><span class="tag" style="background:' + esc(t.color) + '">' + esc(t.name) + '</span><span class="tag" style="background:var(--bg)">' + a.minutes + ' min read</span></div>' +
       '<h1>' + esc(a.title) + '</h1>' +
+      '<p class="cite-note">' + ICON.pencil + 'Every claim here is cited. <a class="text-link" href="#" id="jump-sources">See sources</a></p>' +
       (audioLocked ? '<a class="listen" href="#plus"><span class="listen-btn" aria-hidden="true">' + ICON.lock + '</span><span class="listen-info"><span class="listen-title">Listen with ' + esc(PAID.name) + '</span></span></a>' :
        a.audio ? '<div class="listen" id="listen"><button class="listen-btn" id="listen-btn" type="button" aria-label="Play this article">' + ICON.play + '</button>' +
         '<div class="listen-info"><span class="listen-title">Listen to this article</span>' +
@@ -649,11 +664,18 @@
     });
     if (a.audio && !audioLocked) setupListen();
     var bodyEl = document.getElementById('article-body');
+    document.getElementById('jump-sources').addEventListener('click', function (e) {
+      e.preventDefault();
+      var h = bodyEl.querySelector('#sources') || Array.prototype.filter.call(bodyEl.querySelectorAll('h3'), function (x) { return /source/i.test(x.textContent); })[0];
+      if (h) h.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
     function fill(md) {
       if (!locked) { bodyEl.innerHTML = renderMarkdown(md); return; }
       var tmp = document.createElement('div'); tmp.innerHTML = renderMarkdown(md);
       var ps = Array.prototype.filter.call(tmp.children, function (el) { return el.tagName === 'P'; }).slice(0, 2);
-      bodyEl.innerHTML = '<div class="plus-preview">' + ps.map(function (p) { return p.outerHTML; }).join('') + '</div>' + plusLockCard('article');
+      var srcH = Array.prototype.filter.call(tmp.children, function (el) { return el.tagName === 'H3' && /source/i.test(el.textContent); })[0];
+      var srcL = srcH && srcH.nextElementSibling && srcH.nextElementSibling.tagName === 'UL' ? '<div id="sources-block"><h3 id="sources">Sources</h3>' + srcH.nextElementSibling.outerHTML + '</div>' : '';
+      bodyEl.innerHTML = '<div class="plus-preview">' + ps.map(function (p) { return p.outerHTML; }).join('') + '</div>' + plusLockCard('article') + srcL;
     }
     if (articleCache[id]) { fill(articleCache[id]); return; }
     fetch(encodeURIComponent(id) + '.md')
@@ -1258,7 +1280,7 @@
       (related.length ? '<h2>Read more</h2><div class="stack">' + related.map(function (t) {
         return '<a class="row-link" href="#topic-' + esc(t.id) + '"><span class="badge" style="background:' + esc(t.color) + '">' + esc(t.name.slice(0, 2).toUpperCase()) + '</span><span class="text"><span class="title">' + esc(t.name) + '</span></span>' + ICON.chev + '</a>';
       }).join('') + '</div>' : '') +
-      '<h3>Source</h3><ul class="sources"><li>' + esc(k.source) + '</li></ul></div></article>' +
+      '<h3 id="sources">Source</h3><ul class="sources"><li>' + esc(k.source) + sourceLinkHtml(k.source) + '</li></ul></div></article>' +
       '<div class="article-end"><a class="btn" href="#pocketbook">More from the Pocketbook</a></div>' +
       '<p class="disclaimer"><strong>Disclaimer:</strong> This is for education only and is not medical or mental health advice. Talk with a doctor or licensed mental health professional about your own health and care. If you\'re in crisis, call 911 or call/text 988.</p>' +
       (NATIVE && k.group === 'neuro' ? '<a class="row-link reminders-link" href="#reminders-skill-' + esc(k.id) + '"><span class="badge" style="background:var(--gold-soft)">' + ICON.bell + '</span><span class="text"><span class="title">Set a reminder to practice this</span><span class="lede" style="margin:0">Your phone will nudge you at the time you pick</span></span>' + ICON.chev + '</a>' : '') +
