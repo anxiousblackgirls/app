@@ -1478,15 +1478,28 @@
       return;
     }
     if (!NATIVE) { Array.prototype.forEach.call(view.querySelectorAll('[data-price]'), function (s) { s.textContent = 'In the app'; }); return; }
-    NATIVE.purchases.products(plusIds()).then(function (products) {
+    var priceList = [], pricesDone = false;
+    function paintPrices(loading) {
       Array.prototype.forEach.call(view.querySelectorAll('[data-price]'), function (s) {
-        var pr = products.filter(function (x) { return x.identifier === s.getAttribute('data-price') || x.productIdentifier === s.getAttribute('data-price'); })[0];
-        s.textContent = pr ? pr.priceString : 'Not available yet';
+        var id = s.getAttribute('data-price');
+        var pr = priceList.filter(function (x) { return x.identifier === id || x.productIdentifier === id; })[0];
+        s.textContent = pr ? pr.priceString : (loading ? '…' : 'Price at checkout');
       });
-    });
+    }
+    function loadPrices(attempt) {
+      pricesDone = false; paintPrices(true);
+      NATIVE.purchases.products(plusIds()).then(function (products) {
+        priceList = products || [];
+        if (priceList.length < plusIds().length && attempt < 4) { setTimeout(function () { loadPrices(attempt + 1); }, 1500 * (attempt + 1)); return; }
+        pricesDone = true; paintPrices(false);
+      });
+    }
+    loadPrices(0);
     Array.prototype.forEach.call(view.querySelectorAll('[data-buy]'), function (b) {
       b.addEventListener('click', function () {
-        NATIVE.purchases.buy(b.getAttribute('data-buy')).then(function () {
+        var pid = b.getAttribute('data-buy');
+        if (!pricesDone) { toast('Loading prices from the App Store. Try again in a moment.', 3000); return; }
+        NATIVE.purchases.buy(pid).then(function () {
           store.set('abg.plus', true); toast('Welcome to ' + p.name + '!', 3000); viewPlus();
         }, function () { toast('The purchase didn\'t go through. You weren\'t charged.', 3500); });
       });
